@@ -4,14 +4,16 @@ import { AppService } from './app.service';
 import { DatabaseModule } from './database/database.module';
 import { RouterModule } from '@nestjs/core';
 import { UserModule } from './user/user.module';
+import { ConfigModule } from '@nestjs/config'
 
 @Module({
   imports: [
     DatabaseModule,
     UserModule,
+    ConfigModule.forRoot({ isGlobal: true }),
     RouterModule.register([
       {
-        path: 'api',
+        path: 'api/v1/',
         children: [
           {
             path: 'users',

@@ -6,24 +6,24 @@ export enum UserRole {
     USER = 'user',
 }
 
-@Entity()
+@Entity({ name: 'users' })
 export class UserSchema {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column({nullable: false})
+    @Column({ nullable: false, unique: true })
     username: string;
 
-    @Column({nullable: false})
+    @Column({ nullable: false, unique: true })
     email: string;
 
-    @Column()
+    @Column({ nullable: true, unique: true })
     phone: string;
 
-    @Column({nullable: false})
-    password!: string;
+    @Column({ nullable: false })
+    password: string;
 
-    @Column()
+    @Column({ nullable: true, unique: true })
     googleEmail: string;
 
     @Column(
@@ -33,5 +33,5 @@ export class UserSchema {
             default: UserRole.USER,
         }
     )
-    role!: UserRole;
+    role: UserRole;
 }

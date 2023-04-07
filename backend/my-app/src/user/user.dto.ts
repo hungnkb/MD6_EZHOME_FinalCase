@@ -18,7 +18,6 @@ export class CreateUserDto {
     
     phone: string;
 
-    @IsEmail()
     googleEmail: string;
 
     role: UserRole;

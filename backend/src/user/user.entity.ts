@@ -32,6 +32,9 @@ export class UserSchema {
     @Column({ nullable: true, unique: true })
     googleEmail: string;
 
+    @Column({nullable: true})
+    image: string;
+
     @Column(
         {
             type: 'enum',

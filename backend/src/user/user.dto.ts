@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsAlphanumeric, IsStrongPassword, Length, IsEmail } from "class-validator";
+import { IsNotEmpty, IsAlphanumeric, IsStrongPassword, Length, IsEmail, IsUrl } from "class-validator";
 import { UserRole } from "./user.entity";
 
 export class CreateUserDto {
@@ -15,6 +15,9 @@ export class CreateUserDto {
     @IsStrongPassword()
     @Length(6, 20)
     password: string;
+
+    @IsUrl()
+    image: string;
 
     phone: string;
     fullName: string;

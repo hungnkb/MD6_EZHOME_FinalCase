@@ -15,10 +15,20 @@ export class CreateUserDto {
     @IsStrongPassword()
     @Length(6, 20)
     password: string;
-    
+
     phone: string;
-
+    fullName: string;
+    address: string;
     googleEmail: string;
+    role: UserRole;
+}
 
+export class UpdateUserDto {
+    username: string;
+    email: string;
+    phone: string;
+    fullName: string;
+    address: string;
+    googleEmail: string;
     role: UserRole;
 }

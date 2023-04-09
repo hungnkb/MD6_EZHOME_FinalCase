@@ -2,7 +2,7 @@ import { Inject, HttpException, HttpStatus } from "@nestjs/common";
 import { Repository } from "typeorm";
 import { UserSchema } from "./user.entity";
 import { IUser } from "./user.interface";
-import { CreateUserDto } from "./user.dto";
+import { CreateUserDto, UpdateUserDto } from "./user.dto";
 import * as bcrypt from 'bcrypt';
 
 export class UserService {
@@ -15,8 +15,20 @@ export class UserService {
         return this.userRepository.find()
     }
 
-    async findById(id: number): Promise<UserSchema | undefined> {
-        return this.userRepository.findOneBy({ id })
+    async findByObj(obj: any): Promise<UserSchema | undefined> {           
+        let user = await this.userRepository.findOne({
+            where: [
+                { id: obj },
+                { email: obj },
+                { username: obj }
+            ]
+        })
+
+        if (user) {
+            return user
+        }
+
+        throw new HttpException('Bad request', HttpStatus.BAD_REQUEST)
     }
 
     async create(body: CreateUserDto): Promise<UserSchema> {
@@ -38,4 +50,18 @@ export class UserService {
             throw new HttpException(err.code, HttpStatus.BAD_REQUEST)
         }
     }
+
+    async update(body: UpdateUserDto): Promise<any> {
+        let { username, phone, fullName, address } = body;
+        let user = await this.userRepository.findOne({ where: { username } })
+        if (!user) {
+            throw new HttpException('Bad request', HttpStatus.BAD_REQUEST)
+        }
+
+        return this.userRepository.save({
+            id: user.id,
+            phone, fullName, address
+        })
+    }
+
 }

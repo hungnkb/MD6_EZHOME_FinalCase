@@ -23,6 +23,12 @@ export class UserSchema {
     @Column({ nullable: false })
     password: string;
 
+    @Column({ nullable: true })
+    fullName: string;
+
+    @Column({ nullable: true })
+    address: string;
+
     @Column({ nullable: true, unique: true })
     googleEmail: string;
 

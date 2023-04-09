@@ -5,11 +5,13 @@ import { DatabaseModule } from './database/database.module';
 import { RouterModule } from '@nestjs/core';
 import { UserModule } from './user/user.module';
 import { ConfigModule } from '@nestjs/config'
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
     DatabaseModule,
     UserModule,
+    AuthModule,
     ConfigModule.forRoot({ isGlobal: true }),
     RouterModule.register([
       {
@@ -18,6 +20,10 @@ import { ConfigModule } from '@nestjs/config'
           {
             path: 'users',
             module: UserModule,
+          },
+          {
+            path: 'auth',
+            module: AuthModule,
           }
         ]
       }

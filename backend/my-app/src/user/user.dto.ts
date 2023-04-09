@@ -32,3 +32,20 @@ export class UpdateUserDto {
     googleEmail: string;
     role: UserRole;
 }
+
+export class changePasswordDto {
+    @IsNotEmpty()
+    @IsAlphanumeric()
+    @Length(6, 20)
+    username: string;
+
+    @IsNotEmpty()
+    @IsStrongPassword()
+    @Length(6, 20)
+    currentPassword: string;
+
+    @IsNotEmpty()
+    @IsStrongPassword()
+    @Length(6, 20)
+    newPassword: string;
+}

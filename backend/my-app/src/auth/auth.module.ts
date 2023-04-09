@@ -8,6 +8,8 @@ import { UserService } from "src/user/user.service";
 import { UserProvider } from "src/user/user.provider";
 import { JwtModule } from '@nestjs/jwt';
 import { jwtConstants } from "./constants";
+import { TypeOrmModule } from "@nestjs/typeorm";
+import { UserSchema } from "src/user/user.entity";
 
 @Module({
     imports: [
@@ -21,8 +23,8 @@ import { jwtConstants } from "./constants";
     controllers: [AuthController],
     providers: [
         AuthService,
-        ...databaseProviders,
         UserService,
+        ...databaseProviders,
         ...UserProvider,
     ]
 })

@@ -26,7 +26,7 @@ export class AuthService {
         if (!user) throw new HttpException('User not found', HttpStatus.BAD_REQUEST)
         let isMatch = await bcrypt.compare(password, user.password);
         if (isMatch) {
-            const payload = { username: user.username, email: user.email, role: user.role, sub: user.id }
+            const payload = { username: user.username, email: user.email, role: user.role, sub: user.idUser }
             return {
                 accessToken: await this.assignToken(payload),
             };

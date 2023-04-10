@@ -1,15 +1,15 @@
 import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
-import { IUser } from "./user.interface";
 
 export enum UserRole {
-    ADMIN = 'admin',
-    USER = 'user',
+    _ADMIN = 'admin',
+    _USER = 'user',
+    _HOST = 'host',
 }
 
 @Entity({ name: 'users' })
 export class UserSchema {
     @PrimaryGeneratedColumn()
-    id: number;
+    idUser: number;
 
     @Column({ nullable: false, unique: true })
     username: string;
@@ -39,7 +39,7 @@ export class UserSchema {
         {
             type: 'enum',
             enum: UserRole,
-            default: UserRole.USER,
+            default: UserRole._USER,
         }
     )
     role: UserRole;

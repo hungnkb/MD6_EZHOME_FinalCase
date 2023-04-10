@@ -1,7 +1,10 @@
-import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
+import { CategorySchema } from 'src/home/entities/category.entity';
+import { HomeSchema } from 'src/home/entities/home.entity';
+import { HomeImageSchema } from 'src/home/entities/homeImage.entity';
 import { UserSchema } from 'src/user/user.entity';
 import { DataSource } from 'typeorm';
+import "reflect-metadata";
 
 export const databaseProviders = [
     {
@@ -17,6 +20,9 @@ export const databaseProviders = [
                 database: configService.get<string>('DB_NAME'),
                 entities: [
                     UserSchema,
+                    HomeSchema,
+                    HomeImageSchema,
+                    CategorySchema,
                 ],
                 synchronize: true,
             });

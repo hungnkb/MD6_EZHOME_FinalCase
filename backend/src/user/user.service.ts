@@ -17,7 +17,7 @@ export class UserService {
     async findByObj(obj: any): Promise<UserSchema | undefined> {
         let user = await this.userRepository.findOne({
             where: [
-                { id: obj },
+                { idUser: obj },
                 { email: obj },
                 { username: obj }
             ]
@@ -61,7 +61,7 @@ export class UserService {
             .createQueryBuilder()
             .update(UserSchema)
             .set({ phone, fullName, address })
-            .where({ id: user.id })
+            .where({ idUser: user.idUser })
             .execute()
             
         return newUser

@@ -14,7 +14,7 @@ export class UserService {
         return this.userRepository.find()
     }
 
-    async findByObj(obj: any): Promise<UserSchema | undefined> {           
+    async findByObj(obj: any): Promise<UserSchema | undefined> {
         let user = await this.userRepository.findOne({
             where: [
                 { id: obj },
@@ -57,10 +57,18 @@ export class UserService {
             throw new HttpException('Bad request', HttpStatus.BAD_REQUEST)
         }
 
-        return this.userRepository.save({
-            id: user.id,
-            phone, fullName, address
-        })
+        let newUser = await this.userRepository
+            .createQueryBuilder()
+            .update(UserSchema)
+            .set({ phone, fullName, address })
+            .where({ id: user.id })
+            .execute()
+            
+        return newUser
+        // return this.userRepository.save({
+        //     id: user.id,
+        //     phone, fullName, address
+        // })
     }
 
 }

@@ -9,6 +9,7 @@ import { AuthModule } from './auth/auth.module';
 import { CloudinaryModule } from './cloudinary/cloudinary.module';
 import { CloudinaryService } from './cloudinary/cloudinary.service';
 import { HomeModule } from './home/home.module';
+import { TypeOrmModule } from '@nestjs/typeorm';
 
 @Module({
   imports: [

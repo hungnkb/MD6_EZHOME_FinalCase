@@ -5,6 +5,7 @@ import { HomeImageSchema } from 'src/home/entities/homeImage.entity';
 import { UserSchema } from 'src/user/user.entity';
 import { DataSource } from 'typeorm';
 import "reflect-metadata";
+import { ReviewSchema } from 'src/home/entities/review.entity';
 
 export const databaseProviders = [
     {
@@ -23,8 +24,9 @@ export const databaseProviders = [
                     HomeSchema,
                     HomeImageSchema,
                     CategorySchema,
+                    ReviewSchema,
                 ],
-                synchronize: true,
+                synchronize: false,
             });
 
             return dataSource.initialize();

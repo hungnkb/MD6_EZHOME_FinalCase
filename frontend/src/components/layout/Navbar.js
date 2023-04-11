@@ -16,6 +16,7 @@ import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import {Button, ButtonGroup} from "@mui/material";
+import {Link} from "react-router-dom";
 
 const Search = styled('div')(({theme}) => ({
     position: 'relative',
@@ -166,7 +167,7 @@ export default function Navbar() {
                         aria-label="open drawer"
                         sx={{mr: 2}}
                     >
-                        <MenuIcon/>
+                        {/*<MenuIcon/>*/}
                     </IconButton>
                     <Typography
                         variant="h6"
@@ -174,8 +175,10 @@ export default function Navbar() {
                         component="div"
                         sx={{display: {xs: 'none', sm: 'block',}}}
                     >
-                        <img style={{width: 100}}
-                             src="https://cebuhomebuilders.com/wp-content/uploads/2020/10/ez-home-768-x-331-px.jpg"/>
+                       <Link to={'/home'}>
+                           <img style={{width: 100}}
+                                src="https://cebuhomebuilders.com/wp-content/uploads/2020/10/ez-home-768-x-331-px.jpg"/>
+                       </Link>
                     </Typography>
                     {/*<Search style={{border: "1px solid black"}}>*/}
                     {/*    <SearchIconWrapper>*/}
@@ -186,13 +189,13 @@ export default function Navbar() {
                     {/*        inputProps={{'aria-label': 'search'}}*/}
                     {/*    />*/}
                     {/*</Search>*/}
-                    <Typography>
-                        <ButtonGroup variant="outlined" color="warning"  aria-label="outlined button group" style={{borderRadius:50}}>
-                        <Button>One</Button>
-                        <Button>Two</Button>
-                        <Button>Three</Button>
-                    </ButtonGroup>
-                    </Typography>
+                    {/*<Typography>*/}
+                    {/*    <ButtonGroup variant="outlined" color="warning"  aria-label="outlined button group" style={{borderRadius:50}}>*/}
+                    {/*    <Button>One</Button>*/}
+                    {/*    <Button>Two</Button>*/}
+                    {/*    <Button>Three</Button>*/}
+                    {/*</ButtonGroup>*/}
+                    {/*</Typography>*/}
                     <Box sx={{flexGrow: 1}}/>
                     <Box sx={{display: {xs: 'none', md: 'flex'}}}>
                         <IconButton size="large" aria-label="show 4 new mails" color="inherit">

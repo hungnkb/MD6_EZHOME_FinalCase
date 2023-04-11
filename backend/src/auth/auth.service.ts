@@ -4,9 +4,8 @@ import * as bcrypt from 'bcrypt';
 import { JwtService } from "@nestjs/jwt";
 import { jwtConstants } from "./constants";
 import { changePasswordDto } from "src/user/user.dto";
-import { DataSource, Repository } from "typeorm";
+import { Repository } from "typeorm";
 import { UserSchema } from "src/user/user.entity";
-import { InjectRepository, InjectDataSource } from "@nestjs/typeorm";
 
 export type User = any;
 
@@ -19,14 +18,34 @@ export class AuthService {
         private userRepository: Repository<UserSchema>,
     ) { }
 
-    async login(body): Promise<Object> {
-        let { username, password } = body
+    // async register(body): Promise<Object> {
+    //     let { password, email, phone } = body;
+    //     let userByPhone = await this.userService.findByObj(phone)
+    //     let userByEmail = await this.userService.findByObj(email)
 
-        let user = await this.userService.findByObj(username)
+    //     if (userByEmail) {
+    //         if (userByPhone) {
+    //             throw new HttpException('Email and Phone already exists', HttpStatus.BAD_REQUEST)
+    //         } else {
+    //             throw new HttpException('Email already exists', HttpStatus.BAD_REQUEST)
+    //         }
+    //     } else {
+    //         if (userByPhone) {
+    //             throw new HttpException('Email and Phone already exists', HttpStatus.BAD_REQUEST)
+    //         }
+    //     }
+
+    //     return this.userRepository.save({email, password, phone})
+    // }
+
+    async login(body): Promise<Object> {
+        let { email, password } = body
+
+        let user = await this.userService.findByObj(email)
         if (!user) throw new HttpException('User not found', HttpStatus.BAD_REQUEST)
         let isMatch = await bcrypt.compare(password, user.password);
         if (isMatch) {
-            const payload = { username: user.username, email: user.email, role: user.role, sub: user.idUser }
+            const payload = { email: user.email, role: user.role, sub: user.idUser }
             return {
                 accessToken: await this.assignToken(payload),
             };
@@ -36,8 +55,8 @@ export class AuthService {
     }
 
     async changePassword(body: changePasswordDto): Promise<Object> {
-        let { username, currentPassword, newPassword } = body;
-        let user = await this.userService.findByObj(username)
+        let { email, currentPassword, newPassword } = body;
+        let user = await this.userService.findByObj(email)
         const isMatch = await this.verifyPassword(currentPassword, user.password)
         if (isMatch) {
             const saltOrRounds = 10

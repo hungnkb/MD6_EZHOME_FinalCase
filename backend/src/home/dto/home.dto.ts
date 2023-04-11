@@ -17,6 +17,7 @@ export class CreateHomeDto {
     bedrooms: number;
 
     description: string;
+    status: boolean;
     idUser: string;
     idCategory: string;
 }

@@ -1,3 +1,4 @@
+// @ts-ignore
 import { Module } from "@nestjs/common/decorators";
 import { DatabaseModule } from "src/database/database.module";
 import { AuthController } from "./auh.controller";
@@ -6,9 +7,10 @@ import { databaseProviders } from "src/database/database.providers";
 import { UserModule } from "src/user/user.module";
 import { UserService } from "src/user/user.service";
 import { UserProvider } from "src/user/user.provider";
+// @ts-ignore
 import { JwtModule } from '@nestjs/jwt';
 import { jwtConstants } from "./constants";
-import { TypeOrmModule } from "@nestjs/typeorm";
+// import { TypeOrmModule } from "@nestjs/typeorm";
 import { UserSchema } from "src/user/user.entity";
 
 @Module({

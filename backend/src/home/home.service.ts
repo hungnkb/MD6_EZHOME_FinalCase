@@ -23,7 +23,7 @@ export class HomeService {
             .createQueryBuilder()
             .insert()
             .into(HomeSchema)
-            .values({ title, price, address, bathrooms, bedrooms, description, idCategory, idUser: user.idUser })
+            .values({ title, price, address, bathrooms, bedrooms, description, idCategory: parseInt(idCategory), idUser: user.idUser })
             .execute()
 
         return newHome

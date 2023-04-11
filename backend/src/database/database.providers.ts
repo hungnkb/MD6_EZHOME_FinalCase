@@ -20,7 +20,11 @@ export const databaseProviders = [
                 password: configService.get<string>('DB_PASSWORD'),
                 database: configService.get<string>('DB_NAME'),
                 entities: [
-                    HomeSchema, UserSchema, CategorySchema, HomeImageSchema, ReviewSchema
+                    UserSchema,
+                    HomeSchema,
+                    HomeImageSchema,
+                    CategorySchema,
+                    ReviewSchema,
                 ],
                 synchronize: false,
             });

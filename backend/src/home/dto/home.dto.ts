@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsNumber, IsString } from "class-validator";
+import { IsEmail, IsNotEmpty, IsNumber, IsString } from "class-validator";
 
 export class CreateHomeDto {
     @IsNotEmpty()
@@ -16,9 +16,12 @@ export class CreateHomeDto {
     @IsNumber()
     bedrooms: number;
 
+    @IsEmail()
+    email: string;
+
     description: string;
-    idUser: string;
-    idCategory: string;
+    idUser: number;
+    idCategory: number;
 }
 
 export class UpdateHomeDto {

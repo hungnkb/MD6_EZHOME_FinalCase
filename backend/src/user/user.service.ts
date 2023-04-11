@@ -19,7 +19,7 @@ export class UserService {
             where: [
                 { idUser: obj },
                 { email: obj },
-                { username: obj }
+                { phone: obj }
             ]
         })
 
@@ -32,15 +32,15 @@ export class UserService {
 
     async create(body: CreateUserDto): Promise<UserSchema> {
         try {
-            let { username, password, email } = body
+            let { password, email, phone } = body
 
             const saltOrRounds = 10
             const hashPassword = await bcrypt.hash(password, saltOrRounds)
 
             let newUser = await this.userRepository.save({
-                username,
                 password: hashPassword,
-                email
+                email,
+                phone
             });
 
             return newUser
@@ -51,8 +51,8 @@ export class UserService {
     }
 
     async update(body: UpdateUserDto): Promise<any> {
-        let { username, phone, fullName, address } = body;
-        let user = await this.userRepository.findOne({ where: { username } })
+        let { email, phone, fullName, address } = body;
+        let user = await this.userRepository.findOne({ where: { email } })
         if (!user) {
             throw new HttpException('Bad request', HttpStatus.BAD_REQUEST)
         }
@@ -63,7 +63,7 @@ export class UserService {
             .set({ phone, fullName, address })
             .where({ idUser: user.idUser })
             .execute()
-            
+
         return newUser
         // return this.userRepository.save({
         //     id: user.id,

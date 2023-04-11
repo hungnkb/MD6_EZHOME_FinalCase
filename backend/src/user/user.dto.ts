@@ -1,24 +1,16 @@
-import { IsNotEmpty, IsAlphanumeric, IsStrongPassword, Length, IsEmail, IsUrl } from "class-validator";
+import { IsNotEmpty, IsStrongPassword, Length, IsEmail } from "class-validator";
 import { UserRole } from "./user.entity";
 
 export class CreateUserDto {
-    @IsNotEmpty()
-    @IsAlphanumeric()
-    @Length(6, 20)
-    username: string;
-
     @IsNotEmpty()
     @IsEmail()
     email: string;
 
     @IsNotEmpty()
-    @IsStrongPassword()
-    @Length(6, 20)
+    @Length(6, 8)
     password: string;
 
-    @IsUrl()
     image: string;
-
     phone: string;
     fullName: string;
     address: string;
@@ -27,7 +19,6 @@ export class CreateUserDto {
 }
 
 export class UpdateUserDto {
-    username: string;
     email: string;
     phone: string;
     fullName: string;
@@ -38,13 +29,12 @@ export class UpdateUserDto {
 
 export class changePasswordDto {
     @IsNotEmpty()
-    @IsAlphanumeric()
-    @Length(6, 20)
-    username: string;
+    @IsEmail()
+    email: string;
 
     @IsNotEmpty()
     @IsStrongPassword()
-    @Length(6, 20)
+    @Length(6, 8)
     currentPassword: string;
 
     @IsNotEmpty()

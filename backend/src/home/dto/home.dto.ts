@@ -20,8 +20,9 @@ export class CreateHomeDto {
     email: string;
 
     description: string;
-    idUser: number;
-    idCategory: number;
+    status: boolean;
+    idUser: string;
+    idCategory: string;
 }
 
 export class UpdateHomeDto {

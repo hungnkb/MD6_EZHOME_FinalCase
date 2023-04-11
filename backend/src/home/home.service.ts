@@ -36,18 +36,21 @@ export class HomeService {
     async findByObj(obj): Promise<HomeSchema[] | undefined> {
         if (obj.idUser) {
             return this.homeRepository
-                .createQueryBuilder()
-                .select()
-                .where('idUser = :id', { id: obj.idUser })
+                .createQueryBuilder('homes')
+                .leftJoinAndSelect('homes.idUser', 'users')
+                .where('homes.idUser = :id', { id: obj.idUser })
                 .getMany()
         } else if (obj.idHome) {
             return this.homeRepository
-                .createQueryBuilder()
-                .select()
+                .createQueryBuilder('homes')
+                .leftJoinAndSelect('homes.idUser', 'users')
                 .where('idHome = :id', { id: obj.idHome })
                 .getMany()
         } else {
-            return this.homeRepository.find()
+            return this.homeRepository
+                .createQueryBuilder('homes')
+                .leftJoinAndSelect('homes.idUser', 'users')
+                .getMany()
         }
     }
 }

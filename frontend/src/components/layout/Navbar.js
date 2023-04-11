@@ -116,7 +116,7 @@ export default function Navbar() {
             onClose={handleMenuClose}
         >
             <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-            <div id="signInDiv">Login</div>
+            <p id="signInDiv">Login</p>
             <MenuItem onClick={handleMenuClose}>My account</MenuItem>
         </Menu>
     );

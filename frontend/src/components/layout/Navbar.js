@@ -16,6 +16,8 @@ import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import {Button, ButtonGroup} from "@mui/material";
+import {useEffect} from "react";
+
 
 const Search = styled('div')(({theme}) => ({
     position: 'relative',
@@ -60,9 +62,24 @@ const StyledInputBase = styled(InputBase)(({theme}) => ({
 export default function Navbar() {
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
-
     const isMenuOpen = Boolean(anchorEl);
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+
+    function handleCallbackResponse(response){
+        console.log(response)
+    }
+
+    useEffect(() => {
+        /* global google */
+        google.accounts.id.initialize({
+            client_id: "1079258411381-d7dle0hglsh47e6icqdetrtqh3jj6e47.apps.googleusercontent.com",
+            callback: handleCallbackResponse
+        });
+        google.accounts.id.renderButton(
+            document.getElementById("signInDiv"),
+            {theme: "outline", size: "large"}
+        )
+    }, []);
 
     const handleProfileMenuOpen = (event) => {
         setAnchorEl(event.currentTarget);
@@ -99,6 +116,7 @@ export default function Navbar() {
             onClose={handleMenuClose}
         >
             <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
+            <div id="signInDiv">Login</div>
             <MenuItem onClick={handleMenuClose}>My account</MenuItem>
         </Menu>
     );

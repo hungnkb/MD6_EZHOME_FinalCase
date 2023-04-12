@@ -16,8 +16,8 @@ export class CreateUserDto {
     @Length(6, 20)
     password: string;
 
-    @IsUrl()
-    image: string;
+    // @IsUrl()
+    // image: string;
 
     phone: string;
     fullName: string;

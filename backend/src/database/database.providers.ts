@@ -24,7 +24,7 @@ export const databaseProviders = [
                     HomeImageSchema,
                     CategorySchema,
                 ],
-                synchronize: true,
+                synchronize: false,
             });
 
             return dataSource.initialize();

@@ -8,9 +8,8 @@ import {
   TextField,
 } from "@mui/material";
 import FormHelperText from "@mui/material/FormHelperText";
-import { useFormik } from "formik";
+import { useFormik } from 'formik'
 import React, { useEffect, useState } from "react";
-import { LazyLoadImage } from "react-lazy-load-image-component";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -19,6 +18,7 @@ import * as Yup from "yup";
 import { clearErrors, loginUser } from "../../service/userAction";
 import Auth from "../auth/Auth";
 import axios from "../../api/axios";
+import GoogleButton from "../google/GoogleLogin";
 
 function Login() {
   let navigate = useNavigate();
@@ -88,7 +88,7 @@ console.log(userLogin.email);
               fullWidth
               label="Email"
               name="email"
-              value={formik.values.email}
+              valueDefault={formik.values.email}
               onChange={handleChange}
               error={!!formik.errors.email && formik.touched.email}
               helperText={
@@ -104,7 +104,7 @@ console.log(userLogin.email);
               fullWidth
               required
               size="small"
-              value={formik.values.password}
+              value ={formik.values.password}
               onChange={handleChange}
               variant="outlined"
             >
@@ -136,7 +136,8 @@ console.log(userLogin.email);
                 </FormHelperText>
               ) : null}
             </FormControl>
-            <button
+            <GoogleButton/>
+            <button style={{background:"#f7a800"}}
               type="submit"
               className="bg-primary-blue font-medium py-2 rounded text-white w-full"
             >
@@ -146,6 +147,7 @@ console.log(userLogin.email);
               <span className="my-3 text-gray-500">Or</span>
             </div>
             <Link
+              style={{color:"#e85710"}}
               to="/password/forgot"
               className="text-sm font-medium  text-blue-800"
             >
@@ -157,7 +159,7 @@ console.log(userLogin.email);
         <div className="bg-white border p-5 text-center drop-shadow-md">
           <span>
             Bạn chưa có tài khoản ư?{" "}
-            <Link to="/sign-up" className="text-primary-blue">
+            <Link to="/sign-up" className="text-primary-blue" style={{color:"#e85710"}}>
               Đăng Ký
             </Link>
           </span>

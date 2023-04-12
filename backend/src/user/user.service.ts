@@ -3,7 +3,7 @@ import { Repository } from "typeorm";
 import { UserSchema } from "./user.entity";
 import { CreateUserDto, UpdateUserDto } from "./user.dto";
 import * as bcrypt from 'bcrypt';
-
+//Thao tác cụ thể dữ liệu db
 export class UserService {
     constructor(
         @Inject('USER_REPOSITORY')
@@ -33,18 +33,16 @@ export class UserService {
     async create(body: CreateUserDto): Promise<UserSchema> {
         try {
             let { password, email, phone } = body
-
             const saltOrRounds = 10
             const hashPassword = await bcrypt.hash(password, saltOrRounds)
-
+            console.log(hashPassword)
             let newUser = await this.userRepository.save({
                 password: hashPassword,
                 email,
                 phone
             });
-
+            console.log(newUser)
             return newUser
-
         } catch (err) {
             throw new HttpException(err.code, HttpStatus.BAD_REQUEST)
         }

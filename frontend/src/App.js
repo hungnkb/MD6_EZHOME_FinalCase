@@ -17,10 +17,10 @@ function App() {
       <Routes>
           <Route path='' element={<Home />}>
               <Route path='/' element={<CardHome/>}/>
-              <Route path='/detail-home/:idHome' element={<DetailHome/>}/>
+              <Route path='/detail-home/:id' element={<DetailHome/>}/>
               <Route path='/create-home' element={<ModalHome/>}></Route>
               <Route path='/sign-up' element={<SignUp />} />
-              <Route path='/login' element={<Login/>} />
+              <Route path='/login' element={<Login />} />
               <Route path='/test' element={<GoogleButton />} />
           </Route>
       </Routes>

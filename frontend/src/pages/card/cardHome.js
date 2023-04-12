@@ -31,7 +31,7 @@ export default function CardHome() {
                                         <CardMedia style={{height: 250, borderRadius: "15px"}}
                                                    component="img"
                                                    height="250"
-                                                   image="https://a0.muscache.com/im/pictures/107ec4ae-08ec-4f02-ad50-1d476dc1ab81.jpg?im_w=720"
+                                                   image="https://a0.muscache.com/im/pictures/2ebf3b25-9b6c-402f-9b29-23aa2a5e5b21.jpg?im_w=720"
                                                    alt="green iguana"
                                         />
                                         <CardContent>

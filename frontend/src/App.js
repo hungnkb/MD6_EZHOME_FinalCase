@@ -2,7 +2,8 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from './components/home/Home';
-import GoogleAuth from "./components/google/GoogleLogin";
+import Login from './components/login/Login';
+import SignUp from './components/user/SignUp';
 import GoogleButton from "./components/google/GoogleLogin";
 
 function App() {

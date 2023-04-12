@@ -24,7 +24,7 @@ export const databaseProviders = [
                     HomeSchema,
                     HomeImageSchema,
                     CategorySchema,
-                    ReviewSchema
+                    ReviewSchema,
                 ],
                 synchronize: true,
             });

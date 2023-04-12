@@ -18,18 +18,18 @@ import CreateHome from "./createHome";
 
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
-                    <Modal.Title>Modal heading</Modal.Title>
+                    <Modal.Title>Create home</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <CreateHome/>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="secondary" onClick={handleClose}>
+                    <Button variant="danger" onClick={handleClose}>
                         Close
                     </Button>
-                    <Button variant="warning" onClick={handleClose}>
-                        Save
-                    </Button>
+                    {/*<Button variant="warning" onClick={handleClose}>*/}
+                    {/*    Save*/}
+                    {/*</Button>*/}
                 </Modal.Footer>
             </Modal>
         </>

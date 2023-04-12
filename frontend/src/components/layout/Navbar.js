@@ -72,7 +72,7 @@ export default function Navbar() {
     function handleCallbackResponse(response) {
         const client = google.accounts.oauth2.initTokenClient({
             client_id: response.clientId,
-            scope: 'https://www.googleapis.com/auth/userinfo.profile',
+            scope: ['https://www.googleapis.com/auth/userinfo.profile', 'https://developers.google.com/identity/protocols/oauth2/scopes#oauth2'],
             callback: handleTokenResponse
         })
         client.requestAccessToken()
@@ -125,7 +125,7 @@ export default function Navbar() {
             onClose={handleMenuClose}
         >
             <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-            <p id="signInDiv">Login</p>
+            <div id="signInDiv">Login</div>
             <MenuItem onClick={handleMenuClose}>My account</MenuItem>
         </Menu>
     );

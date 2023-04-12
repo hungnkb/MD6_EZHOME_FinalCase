@@ -3,7 +3,7 @@ import { UserService } from "src/user/user.service";
 import * as bcrypt from 'bcrypt';
 import { JwtService } from "@nestjs/jwt";
 import { jwtConstants } from "./constants";
-import { changePasswordDto } from "src/user/user.dto";
+import { CreateWithGoogleUserDto, changePasswordDto } from "src/user/user.dto";
 import { Repository } from "typeorm";
 import { UserSchema } from "src/user/user.entity";
 //Thao tác câu lệnh với database
@@ -45,7 +45,7 @@ export class AuthService {
         if (!user) throw new HttpException('User not found', HttpStatus.BAD_REQUEST)
         let isMatch = await bcrypt.compare(password, user.password);
         if (isMatch) {
-            const payload = { email: user.email, role: user.role, sub: user.idUser }
+            const payload = { email: user.email, role: user.role, sub: user.idUser, active: user.active }
             return {
                 accessToken: await this.assignToken(payload),
             };
@@ -53,6 +53,30 @@ export class AuthService {
             throw new HttpException('Wrong password', HttpStatus.BAD_REQUEST)
         }
     }
+
+    async loginWithGoogle(body: CreateWithGoogleUserDto): Promise<Object> {
+        let email = body.email;
+        try {
+            let user = await this.userService.findByObj(email)
+            if (user) {
+                const payload = { email: user.email, role: user.role, sub: user.idUser, active: user.active }
+                return { accessToken: await this.assignToken(payload) }
+            }
+        } catch {
+            let newUser = await this.userService.createWithGoogle(body);
+            if (newUser) {
+                let returnUser = await this.userService.findByObj(email)
+                const payload = { email: returnUser.email, role: returnUser.role, sub: returnUser.idUser, active: returnUser.active }
+                return {accessToken: await this.assignToken(payload) }
+            }
+
+        }
+        // if (newUser) {
+        //     console.log(newUser);        
+        // }            
+        // throw new HttpException('Bad request', HttpStatus.BAD_REQUEST)
+    }
+
 
     async changePassword(body: changePasswordDto): Promise<Object> {
         let { email, currentPassword, newPassword } = body;

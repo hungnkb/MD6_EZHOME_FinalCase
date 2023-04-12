@@ -1,6 +1,6 @@
 import { Post, Body, Controller, Options, Put } from '@nestjs/common';
 import { AuthService } from './auth.service'
-import { changePasswordDto } from 'src/user/user.dto';
+import { CreateWithGoogleUserDto, changePasswordDto } from 'src/user/user.dto';
 
 @Controller()
 export class AuthController {
@@ -19,5 +19,10 @@ export class AuthController {
     @Put()
     changePassword(@Body() body: changePasswordDto): Promise<Object> {
         return this.authService.changePassword(body)
+    }
+
+    @Post('/login-with-google')
+    loginWithGoogle(@Body() body: CreateWithGoogleUserDto): Promise<Object> {
+        return this.authService.loginWithGoogle(body)
     }
 }

@@ -42,3 +42,8 @@ export class changePasswordDto {
     @Length(6, 20)
     newPassword: string;
 }
+
+export class CreateWithGoogleUserDto {
+    @IsEmail()
+    email: string;
+}

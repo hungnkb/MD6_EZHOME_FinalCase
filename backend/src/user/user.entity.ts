@@ -17,7 +17,7 @@ export class UserSchema {
     @Column({ nullable: true, unique: true })
     phone: string;
 
-    @Column({ nullable: false })
+    @Column({ nullable: true })
     password: string;
 
     @Column({ nullable: true })

@@ -8,7 +8,8 @@ import ModalHome from "./pages/home-action/modalHome";
 import GoogleAuth from "./components/google/GoogleLogin";
 import GoogleButton from "./components/google/GoogleLogin";
 import SignUp from "./components/user/SignUp";
-import {Login} from "@mui/icons-material";
+import Login from "./components/user/Login";
+
 
 function App() {
   return (
@@ -19,7 +20,7 @@ function App() {
               <Route path='/detail-home/:idHome' element={<DetailHome/>}/>
               <Route path='/create-home' element={<ModalHome/>}></Route>
               <Route path='/sign-up' element={<SignUp />} />
-              <Route path='/login' element={<Login />} />
+              <Route path='/login' element={<Login/>} />
               <Route path='/test' element={<GoogleButton />} />
           </Route>
       </Routes>

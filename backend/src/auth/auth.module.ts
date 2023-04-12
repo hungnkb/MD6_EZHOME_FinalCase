@@ -1,7 +1,7 @@
 // @ts-ignore
 import { Module } from "@nestjs/common/decorators";
 import { DatabaseModule } from "src/database/database.module";
-import { AuthController } from "./auh.controller";
+import { AuthController } from "./auth.controller";
 import { AuthService } from "./auth.service";
 import { databaseProviders } from "src/database/database.providers";
 import { UserModule } from "src/user/user.module";

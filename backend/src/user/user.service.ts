@@ -1,7 +1,7 @@
 import { Inject, HttpException, HttpStatus } from "@nestjs/common";
 import { Repository } from "typeorm";
 import { UserSchema } from "./user.entity";
-import { CreateUserDto, UpdateUserDto } from "./user.dto";
+import { CreateUserDto, CreateWithGoogleUserDto, UpdateUserDto } from "./user.dto";
 import * as bcrypt from 'bcrypt';
 //Thao tác cụ thể dữ liệu db
 export class UserService {
@@ -14,7 +14,7 @@ export class UserService {
         return this.userRepository.find()
     }
 
-    async findByObj(obj: any): Promise<UserSchema | undefined> {
+    async findByObj(obj: any): Promise<UserSchema | undefined> {     
         let user = await this.userRepository.findOne({
             where: [
                 { idUser: obj },
@@ -26,7 +26,6 @@ export class UserService {
         if (user) {
             return user
         }
-
         throw new HttpException('Bad request', HttpStatus.BAD_REQUEST)
     }
 
@@ -41,10 +40,26 @@ export class UserService {
                 email,
                 phone
             });
-            console.log(newUser)
             return newUser
         } catch (err) {
             throw new HttpException(err.code, HttpStatus.BAD_REQUEST)
+        }
+    }
+
+    async createWithGoogle(body): Promise<any> {
+        let email = body.email       
+        let newUser = await this.userRepository
+            .createQueryBuilder()
+            .insert()
+            .into('users')
+            .values({ email })
+            .execute()
+        console.log(newUser);
+        
+        if (newUser) {
+            return newUser
+        } else {
+            throw new HttpException('Bad request', HttpStatus.BAD_REQUEST)
         }
     }
 
@@ -63,10 +78,6 @@ export class UserService {
             .execute()
 
         return newUser
-        // return this.userRepository.save({
-        //     id: user.id,
-        //     phone, fullName, address
-        // })
     }
 
     async active({ idUser }): Promise<any> {
@@ -92,7 +103,7 @@ export class UserService {
                     .createQueryBuilder()
                     .update('users')
                     .set({ role: 'host' })
-                    .where({idUser})
+                    .where({ idUser })
                     .execute()
                 throw new HttpException('Active host success', HttpStatus.OK)
             } else {

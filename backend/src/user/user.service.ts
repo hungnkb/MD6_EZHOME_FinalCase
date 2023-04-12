@@ -3,6 +3,8 @@ import { Repository } from "typeorm";
 import { UserSchema } from "./user.entity";
 import { CreateUserDto, CreateWithGoogleUserDto, UpdateUserDto } from "./user.dto";
 import * as bcrypt from 'bcrypt';
+import * as process from "process";
+const mailer = require('../config/mailer')
 //Thao tác cụ thể dữ liệu db
 export class UserService {
     constructor(
@@ -40,6 +42,12 @@ export class UserService {
                 email,
                 phone
             });
+            if (newUser){
+                bcrypt.hash(newUser.email, parseInt(process.env.BCRYPT_SALT_ROUND)).then((hashedEmail) => {
+                    console.log(newUser.email)
+                    mailer.sendMail(newUser.email, "Xin Chào,Hãy xác thực tài khoản EZHome 0.1", `<a href="http://localhost:3002/api/v1/users/active?email=${newUser.email}&token=${hashedEmail}"> Verify </a>`)
+                })
+            }
             return newUser
         } catch (err) {
             throw new HttpException(err.code, HttpStatus.BAD_REQUEST)
@@ -80,8 +88,9 @@ export class UserService {
         return newUser
     }
 
-    async active({ idUser }): Promise<any> {
-        let user = await this.findByObj(idUser)
+    async active(query): Promise<any> {
+        let user = await this.findByObj(query.email)
+        console.log(user);
         if (user.active) {
             throw new HttpException('Already active', HttpStatus.OK)
         }
@@ -89,7 +98,7 @@ export class UserService {
             .createQueryBuilder()
             .update('users')
             .set({ active: true })
-            .where('idUser = :id', { id: idUser })
+            .where( { email: query.email })
             .execute()
 
         throw new HttpException('Active success', HttpStatus.OK)

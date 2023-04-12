@@ -21,6 +21,7 @@ function App() {
               <Route path='/' element={<CardHome/>}/>
               <Route path='/detail-home/:id' element={<DetailHome/>}/>
               <Route path='/create-home' element={<ModalHome/>}></Route>
+              {/*<Route path='/sign-up' element={<SignUp />} />*/}
               <Route path='/login' element={<Login />} />
               <Route path='/register' element={<Register />} />
               <Route path='/test' element={<GoogleButton />} />

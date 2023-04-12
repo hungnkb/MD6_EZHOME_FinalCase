@@ -4,7 +4,7 @@ import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 import CreateHome from "./createHome";
 
- export default function ModalHome() {
+export default function ModalHome() {
     const [show, setShow] = useState(false);
 
     const handleClose = () => setShow(false);
@@ -21,7 +21,7 @@ import CreateHome from "./createHome";
                     <Modal.Title>Create home</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <CreateHome/>
+                    <CreateHome />
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="danger" onClick={handleClose}>

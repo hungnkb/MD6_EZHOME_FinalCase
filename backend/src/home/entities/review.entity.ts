@@ -18,6 +18,6 @@ export class ReviewSchema {
     idHome: HomeSchema;
 
     @ManyToOne((type) => UserSchema, (users) => users.idUser)
-    @JoinColumn({name: 'user', referencedColumnName: 'user'})
+    @JoinColumn({name: 'idUser', referencedColumnName: 'idUser'})
     idUser: UserSchema;
 }

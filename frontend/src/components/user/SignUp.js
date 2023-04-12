@@ -22,6 +22,11 @@ import Auth from "../auth/Auth";
 
 function SignUp() {
     let navigate = useNavigate();
+    const [userSignIn, setUserSignIn] = useState({
+        email: "",
+        password: "",
+        phone:""
+      }); 
     const dispatch = useDispatch();
     const formik = useFormik({
         initialValues: {

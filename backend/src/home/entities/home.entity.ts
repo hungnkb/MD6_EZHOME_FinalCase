@@ -3,7 +3,7 @@ import { Column, Entity, PrimaryGeneratedColumn, ManyToOne, JoinColumn } from "t
 import { CategorySchema } from "./category.entity";
 
 @Entity({ name: 'homes' })
-export class HomeSchema {
+export class    HomeSchema {
     @PrimaryGeneratedColumn()
     idHome: number;
 
@@ -28,12 +28,15 @@ export class HomeSchema {
     @Column({nullable: true})
     rate_stars: number;
 
+    @Column({default: true})
+    status: boolean;
+
     @ManyToOne((type) => UserSchema, (users) => users.idUser)
     @JoinColumn({name: 'idUser', referencedColumnName: 'idUser'})
-    idUser: UserSchema;
+    idUser: number;
 
     @ManyToOne((type) => CategorySchema, (categories) => categories.idCategory)
     @JoinColumn({name: 'idCategory', referencedColumnName: 'idCategory'})
-    idCategory: CategorySchema; 
+    idCategory: number; 
 
 }

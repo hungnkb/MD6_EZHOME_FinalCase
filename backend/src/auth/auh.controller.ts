@@ -12,7 +12,7 @@ export class AuthController {
     }
 
     @Options()
-    verifyToken(@Body() body: any): Promise<Object> {
+    verifyToken(@Body() body: any): any {
         return this.authService.verifyToken(body.accessToken)
     }
 

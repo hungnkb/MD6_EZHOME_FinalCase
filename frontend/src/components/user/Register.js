@@ -15,68 +15,103 @@ import PasswordStrengthBar from "react-password-strength-bar";
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
+import GoogleButton from "../google/GoogleLogin";
 import * as Yup from "yup";
 import { clearErrors, registerUser } from "../../service/userAction";
 import Auth from "../auth/Auth";
+import axios from "../../api/axios";
+import { Button, Dialog, DialogTitle, DialogActions, Modal, Box } from "@mui/material";
 
-function SignUp() {
-    let navigate = useNavigate();
-    const [userSignUp, setUserSignUp] = useState({
-        email: "",
-        password: "",
-        phone:""
-      }); 
-    const dispatch = useDispatch();
-    const formik = useFormik({
-        initialValues: {
-            email: "",
-            password: "",
-            phone: "",
-         
-        },
-        validationSchema: Yup.object({
-            email: Yup.string()
-                .required("Không được để trống")
-                .email("Vui lòng nhập đúng định dạng Email"),
-            password: Yup.string()
-                .required("Không được để trống")
-                .matches(
-                    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,8}$/,
-                    "Tối thiểu 6 và tối đa 8 ký tự, ít nhất một chữ hoa, một chữ thường, một số và một ký tự đặc biệt"
-                ),
-            username: Yup.string().required("Không được để trống"),
-        }),
-        onSubmit: (values) => {
-            dispatch(registerUser(values));
-            navigate("/login")
-        },
-    });
+export default function Register() {
+  const [open, setOpen] = React.useState(false);
 
-    const [showPassword, setShowPassword] = useState(false);
-    const handleClickShowPassword = () => setShowPassword((show) => !show);
-    const handleMouseDownPassword = (event) => {
-        event.preventDefault();
-    };
-    return (
-        <>
-            <Auth>
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  let navigate = useNavigate();
+  const [userSignUp, setUserSignUp] = useState({
+      email: "",
+      password: "",
+      phone:""
+    }); 
+  const dispatch = useDispatch();
+  const formik = useFormik({
+      initialValues: {
+          email: "",
+          password: "",
+          phone: "",
+       
+      },
+      validationSchema: Yup.object({
+          email: Yup.string()
+              .required("Không được để trống")
+              .email("Vui lòng nhập đúng định dạng Email"),
+          password: Yup.string()
+              .required("Không được để trống")
+              .matches(
+                  /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,8}$/,
+                  "Tối thiểu 6 và tối đa 8 ký tự, ít nhất một chữ hoa, một chữ thường, một số và một ký tự đặc biệt"
+              ),
+          username: Yup.string().required("Không được để trống"),
+      }),
+      onSubmit: (values) => {
+          dispatch(registerUser(values));
+          navigate("/login")
+      },
+  });
+
+  const [showPassword, setShowPassword] = useState(false);
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
+  const handleMouseDownPassword = (event) => {
+      event.preventDefault();
+  };
+  const handleSubmit = event => {
+      event.preventDefault();
+      axios.post('http://localhost:3002/api/v1/users', {email: userSignUp.email, password: userSignUp.password, phone: userSignUp.phone})
+      .then((response) => {
+        console.log(response);
+      }, (error) => {
+        console.log(error);
+      });
+      };
+
+  const handleChange = event =>
+  setUserSignUp({ ...userSignUp, [event.target.name]: event.target.value });
+      console.log(userSignUp.email);
+
+
+  return (
+    <>
+    <div>
+      <Button variant="outlined" onClick={handleClickOpen}>
+        Login
+      </Button>
+      <Modal open={open} onClose={handleClose}>
+        
+      <Box sx={{ position: 'absolute', width: 400, top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}>
             <div 
-            className="bg-white border flex flex-col gap-2 p-4 pt-10 drop-shadow-md"
+            className="bg-white border flex flex-col p-4 pt-10 drop-shadow-md"
             style={{marginBlockStart:"50px", textAlign:"center"}}
             >
                     <form
-                        onSubmit={formik.handleSubmit}
-                        className="flex flex-col justify-center items-center gap-3 m-3 md:m-8"
+                        onSubmit={handleSubmit}
+                        className="flex flex-col justify-center items-center"
                     >
                         
                         <TextField
+                            className="form-control"
                             fullWidth
                             label="Email"
                             type="email"
                             name="email"
                             size="small"
-                            value={formik.values.email}
-                            onChange={formik.handleChange}
+                            valueDefault={formik.values.email}
+                            onChange={handleChange}
                             error={!!formik.errors.email && formik.touched.email}
                             helperText={
                                 formik.errors.email && formik.touched.email
@@ -90,7 +125,7 @@ function SignUp() {
                             type="text"
                             name="username"
                             value={formik.values.username}
-                            onChange={formik.handleChange}
+                            onChange={handleChange}
                             error={!!formik.errors.username && formik.touched.username}
                             helperText={
                                 formik.errors.username && formik.touched.username
@@ -105,7 +140,7 @@ function SignUp() {
                             fullWidth
                             size="small"
                             value={formik.values.password}
-                            onChange={formik.handleChange}
+                            onChange={handleChange}
                             variant="outlined"
                         >
                             <InputLabel htmlFor="outlined-adornment-password">
@@ -144,7 +179,7 @@ function SignUp() {
                                 </FormHelperText>
                             ) : null}
                         </FormControl>
-
+                        
                         <button style={{background:"#f7a800"}}
                             type="submit"
                             className="bg-primary-blue font-medium py-2 rounded text-white w-full"
@@ -170,9 +205,16 @@ function SignUp() {
             </Link>
           </span>
                 </div>
-            </Auth>
-        </>
-    );
-}
+            
+        
+          <Button onClick={handleClose}>Cancel</Button>
+          <Button onClick={handleClose}>Subscribe</Button>
+        
 
-export default SignUp;
+        </Box>
+      </Modal>
+
+    </div>
+    </>
+  );
+}

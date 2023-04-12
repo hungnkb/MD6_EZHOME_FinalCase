@@ -18,7 +18,8 @@ import MoreIcon from '@mui/icons-material/MoreVert';
 import { Button, ButtonGroup } from "@mui/material";
 import {useEffect, useState} from "react";
 import GoogleButton from "../google/GoogleLogin";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
+import Register from '../user/Register';
 
 const Search = styled('div')(({ theme }) => ({
     position: 'relative',
@@ -106,7 +107,8 @@ export default function Navbar() {
             onClose={handleMenuClose}
         >
             <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-            <MenuItem><GoogleButton parentCallback={callbackFunction}/></MenuItem>
+            <MenuItem onClick={<Register/>}>Login</MenuItem>
+            <MenuItem><GoogleButton parentCallback={callbackFunction} /></MenuItem>
             <MenuItem onClick={handleMenuClose}>My account</MenuItem>
         </Menu>
     );

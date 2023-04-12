@@ -88,7 +88,7 @@ console.log(userLogin.email);
               fullWidth
               label="Email"
               name="email"
-              value={formik.values.email}
+              valueDefault={formik.values.email}
               onChange={handleChange}
               error={!!formik.errors.email && formik.touched.email}
               helperText={
@@ -104,7 +104,7 @@ console.log(userLogin.email);
               fullWidth
               required
               size="small"
-              value={formik.values.password}
+              value ={formik.values.password}
               onChange={handleChange}
               variant="outlined"
             >
@@ -137,7 +137,7 @@ console.log(userLogin.email);
               ) : null}
             </FormControl>
             <GoogleButton/>
-            <button
+            <button style={{background:"#f7a800"}}
               type="submit"
               className="bg-primary-blue font-medium py-2 rounded text-white w-full"
             >
@@ -147,6 +147,7 @@ console.log(userLogin.email);
               <span className="my-3 text-gray-500">Or</span>
             </div>
             <Link
+              style={{color:"#e85710"}}
               to="/password/forgot"
               className="text-sm font-medium  text-blue-800"
             >
@@ -158,7 +159,7 @@ console.log(userLogin.email);
         <div className="bg-white border p-5 text-center drop-shadow-md">
           <span>
             Bạn chưa có tài khoản ư?{" "}
-            <Link to="/sign-up" className="text-primary-blue">
+            <Link to="/sign-up" className="text-primary-blue" style={{color:"#e85710"}}>
               Đăng Ký
             </Link>
           </span>

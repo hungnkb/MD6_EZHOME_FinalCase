@@ -1,6 +1,9 @@
-import React, {useState} from "react";
-import {Form} from "react-bootstrap";
+import React, { useState, useCallback } from "react";
+import { Form } from "react-bootstrap";
 import Button from 'react-bootstrap/Button';
+import { useSelector } from "react-redux";
+import axios from "../../api/axios";
+import { useDropzone } from 'react-dropzone'
 // Thông tin nhà bao gồm:
 //     - Tên của căn nhà ()
 // - Loại phòng (): phòng đơn, phòng đôi, phòng tổng thống, Phòng VIP, phòng Luxury (Selectbox)
@@ -15,14 +18,35 @@ import Button from 'react-bootstrap/Button';
 
 export default function CreateHome(){
     const [validated, setValidated] = useState(false);
+    const [images, setImages] = useState([]);
+    const currentState = useSelector(state => state.auth);
 
-    const handleSubmit = (event) => {
+    const onDrop = useCallback(acceptedFiles => {
+        setImages(images => [...images, ...acceptedFiles]);
+    }, [])
+
+    console.log(222, images);
+
+    const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
+
+    const handleSubmit = async (event) => {
         const form = event.currentTarget;
+        let title = form.idCategory.value;
+        let price = form.price.value;
+        let address = form.address.value;
+        let bathrooms = form.bathrooms.value;
+        let bedrooms = form.bedrooms.value;
+        let description = form.description.value;
+        let idCategory = form.idCategory.value;
+        let file = form.file.value;
+
+        let newHome = await axios.post('http://localhost:3002/api/v1/homes', {
+            title, price, address, bathrooms, bedrooms, description, idCategory, file
+        })
         if (form.checkValidity() === false) {
             event.preventDefault();
             event.stopPropagation();
         }
-
         setValidated(true);
     };
 
@@ -86,11 +110,25 @@ export default function CreateHome(){
                 </Form.Group>
                 <Form.Group controlId="formFileMultiple" className="mb-3">
                     <Form.Label>Up image</Form.Label>
-                    <Form.Control type="file" multiple repuired />
+                    {/* <Form.Control id='file' type="file" multiple repuired />
                     <Form.Control.Feedback type="invalid">
                         Please provide a valid price.
-                    </Form.Control.Feedback>
+                    </Form.Control.Feedback> */}
+                    <div {...getRootProps()}>
+                        <input {...getInputProps()} />
+                        {
+                            isDragActive ?
+                                <p>Drop the files here ...</p> :
+                                <p>Drag 'n' drop some files here, or click to select files</p>
+                        }
+                    </div>
                 </Form.Group>
+                <div style={{display: 'flex', direction: 'ltr'}}>
+                    {images.map((image, i) => (
+                        <img style={{ width: '150px' }} key={i} src={URL.createObjectURL(image)} />
+                    ))}
+                </div>
+
                 <Form.Group className="mb-3" md="4" controlId="exampleForm.ControlInput1">
                     <Form.Label>Price</Form.Label>
                     <Form.Control

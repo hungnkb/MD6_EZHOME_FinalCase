@@ -5,9 +5,12 @@ import Home from './components/home/Home';
 import CardHome from "./pages/card/cardHome";
 import DetailHome from "./pages/detail/detailHome";
 import ModalHome from "./pages/home-action/modalHome";
-import GoogleAuth from "./components/google/GoogleLogin";
 import GoogleButton from "./components/google/GoogleLogin";
 import Login from "./components/user/Login";
+import CreateHome2 from './pages/home-action/create-home/createHome2';
+import CreateHome21 from './pages/home-action/create-home/createHome21';
+import CreateHome22 from './pages/home-action/create-home/createHome22';
+import CreateHome23 from './pages/home-action/create-home/createHome23';
 import Register from './components/user/Register';
 
 function App() {
@@ -21,6 +24,10 @@ function App() {
               <Route path='/login' element={<Login />} />
               <Route path='/register' element={<Register />} />
               <Route path='/test' element={<GoogleButton />} />
+              <Route path='/create-home2' element={<CreateHome2/>}></Route>
+              <Route path='/create-home2/1' element={<CreateHome21/>}></Route>
+              <Route path='/create-home2/2' element={<CreateHome22/>}></Route>
+              <Route path='/create-home2/3' element={<CreateHome23/>}></Route>
           </Route>
       </Routes>
     </BrowserRouter>

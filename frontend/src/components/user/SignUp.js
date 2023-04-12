@@ -22,7 +22,7 @@ import Auth from "../auth/Auth";
 
 function SignUp() {
     let navigate = useNavigate();
-    const [userSignIn, setUserSignIn] = useState({
+    const [userSignUp, setUserSignUp] = useState({
         email: "",
         password: "",
         phone:""

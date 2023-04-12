@@ -26,7 +26,7 @@ export const databaseProviders = [
                     CategorySchema,
                     ReviewSchema,
                 ],
-                synchronize: true,
+                synchronize: false,
             });
 
             return dataSource.initialize();

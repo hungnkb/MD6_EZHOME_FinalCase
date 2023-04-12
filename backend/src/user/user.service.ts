@@ -7,7 +7,7 @@ import * as bcrypt from 'bcrypt';
 export class UserService {
     constructor(
         @Inject('USER_REPOSITORY')
-        private userRepository: Repository<UserSchema>
+        private userRepository: Repository<UserSchema>,
     ) { }
 
     async findAll(): Promise<UserSchema[] | undefined> {
@@ -71,11 +71,36 @@ export class UserService {
         // })
     }
 
-    async active({idUser}): Promise<any> {
-        // let user = await this.findByObj(idUser)
-        // console.log(user);
-        
-        
+    async active({ idUser }): Promise<any> {
+        let user = await this.findByObj(idUser)
+        if (user.active) {
+            throw new HttpException('Already active', HttpStatus.OK)
+        }
+        let activeUser = await this.userRepository
+            .createQueryBuilder()
+            .update('users')
+            .set({ active: true })
+            .where('idUser = :id', { id: idUser })
+            .execute()
+
+        throw new HttpException('Active success', HttpStatus.OK)
+    }
+
+    async activeHost({ idUser }): Promise<any> {
+        let user = await this.findByObj(idUser)
+        if (user.idUser) {
+            if (user.role == 'user') {
+                let activeUserHost = await this.userRepository
+                    .createQueryBuilder()
+                    .update('users')
+                    .set({ role: 'host' })
+                    .where({idUser})
+                    .execute()
+                throw new HttpException('Active host success', HttpStatus.OK)
+            } else {
+                throw new HttpException('Active host already', HttpStatus.OK)
+            }
+        }
     }
 
 }

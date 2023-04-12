@@ -30,4 +30,9 @@ export class UserController {
         return this.userService.active(param)
     }
 
+    @Get('/active-host/:idUser')
+    activeHost(@Param() param: any): Promise<any> {
+        return this.userService.activeHost(param)
+    }
+
 }

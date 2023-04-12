@@ -16,7 +16,8 @@ import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import { Button, ButtonGroup } from "@mui/material";
-import { useEffect } from "react";
+import {useEffect, useState} from "react";
+import GoogleButton from "../google/GoogleLogin";
 
 
 const Search = styled('div')(({ theme }) => ({
@@ -64,31 +65,11 @@ export default function Navbar() {
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
     const isMenuOpen = Boolean(anchorEl);
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+    const [message, setMessage] = useState('')
 
-    function handleTokenResponse(response) {
-        console.log(response);
-    }
-
-    function handleCallbackResponse(response) {
-        const client = google.accounts.oauth2.initTokenClient({
-            client_id: response.clientId,
-            scope: 'https://www.googleapis.com/auth/userinfo.profile',
-            callback: handleTokenResponse
-        })
-        client.requestAccessToken()
-    }
-
-    useEffect(() => {
-        /* global google */
-        google.accounts.id.initialize({
-            client_id: "1079258411381-d7dle0hglsh47e6icqdetrtqh3jj6e47.apps.googleusercontent.com",
-            callback: handleCallbackResponse,
-        });
-        google.accounts.id.renderButton(
-            document.getElementById("signInDiv"),
-            { theme: "outline", size: "large" }
-        );
-    }, []);
+    const callbackFunction = (childData) => {
+        setMessage(childData)
+    };
 
     const handleProfileMenuOpen = (event) => {
         setAnchorEl(event.currentTarget);
@@ -125,11 +106,10 @@ export default function Navbar() {
             onClose={handleMenuClose}
         >
             <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-            <p id="signInDiv">Login</p>
+            <MenuItem><GoogleButton parentCallback={callbackFunction}/></MenuItem>
             <MenuItem onClick={handleMenuClose}>My account</MenuItem>
         </Menu>
     );
-
     const mobileMenuId = 'primary-search-account-menu-mobile';
     const renderMobileMenu = (
         <Menu

@@ -17,6 +17,6 @@ export class HomeController {
 
     @Get()
     findByObj(@Query() query: any): Promise < any > {
-        return this.homeService.findByObj(query)
+    return this.homeService.findByObj(query);
     }
 }

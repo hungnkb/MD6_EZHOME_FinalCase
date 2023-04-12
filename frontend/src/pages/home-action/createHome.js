@@ -16,7 +16,7 @@ import { useDropzone } from 'react-dropzone'
 //     Các trường phải validate.
 //     Lưu ý: Thuê là thuê cả căn nhà chứ không thuê từng phòng
 
-export default function CreateHome() {
+export default function CreateHome(){
     const [validated, setValidated] = useState(false);
     const [images, setImages] = useState([]);
     const currentState = useSelector(state => state.auth);
@@ -30,7 +30,6 @@ export default function CreateHome() {
     const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
 
     const handleSubmit = async (event) => {
-        event.preventDefault();
         const form = event.currentTarget;
         let title = form.idCategory.value;
         let price = form.price.value;
@@ -44,20 +43,16 @@ export default function CreateHome() {
         let newHome = await axios.post('http://localhost:3002/api/v1/homes', {
             title, price, address, bathrooms, bedrooms, description, idCategory, file
         })
-
-
-
         if (form.checkValidity() === false) {
             event.preventDefault();
             event.stopPropagation();
         }
-
         setValidated(true);
     };
 
     return (
         <>
-            <Form encType="multipart/form-data" noValidate validated={validated} onSubmit={handleSubmit}>
+            <Form noValidate validated={validated} onSubmit={handleSubmit}>
                 <Form.Group className="mb-3" md="4" controlId="exampleForm.ControlInput1">
                     <Form.Label>Name home</Form.Label>
                     <Form.Control
@@ -69,23 +64,9 @@ export default function CreateHome() {
                         Please provide a valid price.
                     </Form.Control.Feedback>
                 </Form.Group>
-
-                <Form.Group className="mb-3" md="4" controlId="exampleForm.ControlInput1">
-                    <Form.Label>Address</Form.Label>
-                    <Form.Control
-                        id='address'
-                        type="text"
-                        placeholder="Enter address"
-                        autoFocus required
-                    />
-                    <Form.Control.Feedback type="invalid">
-                        Please provide a valid address.
-                    </Form.Control.Feedback>
-                </Form.Group>
-
                 <Form.Group>
                     <Form.Label>Categories</Form.Label>
-                    <Form.Select id='idCategory' aria-label="Default select example">
+                    <Form.Select aria-label="Default select example">
                         {/*<option disabled>Categories</option>*/}
                         <option value="1">Presidential</option>
                         <option value="2">Single</option>
@@ -94,9 +75,9 @@ export default function CreateHome() {
                         <option value="5">Luxury</option>
                     </Form.Select>
                 </Form.Group>
-                <Form.Group style={{ width: 200, float: "left", marginLeft: "15px", marginTop: "14px" }}>
+                <Form.Group style={{width:200,float:"left", marginLeft:"15px", marginTop:"14px"}}>
                     <Form.Label>Bedrooms</Form.Label>
-                    <Form.Select id='bedrooms' aria-label="Default select example" >
+                    <Form.Select aria-label="Default select example" >
                         <option value="1">1</option>
                         <option value="2">2</option>
                         <option value="3">3</option>
@@ -109,9 +90,9 @@ export default function CreateHome() {
                         <option value="10">10</option>
                     </Form.Select>
                 </Form.Group>
-                <Form.Group style={{ width: 200, float: "left", marginLeft: "15px", marginTop: "14px" }}>
+                <Form.Group style={{width:200,float:"left", marginLeft:"15px", marginTop:"14px"}}>
                     <Form.Label>Bathroom</Form.Label>
-                    <Form.Select id='bathrooms' aria-label="Default select example">
+                    <Form.Select aria-label="Default select example">
                         <option value="1">1</option>
                         <option value="2">2</option>
                         <option value="3">3</option>
@@ -119,10 +100,10 @@ export default function CreateHome() {
                 </Form.Group>
                 <Form.Group
                     className="mb-3"
-                // controlId="validationCustom03"
+                    // controlId="validationCustom03"
                 >
                     <Form.Label>Description</Form.Label>
-                    <Form.Control id='description' as="textarea" rows={3} required />
+                    <Form.Control as="textarea" rows={3} required />
                     <Form.Control.Feedback type="invalid">
                         Please provide a valid Description.
                     </Form.Control.Feedback>
@@ -152,7 +133,6 @@ export default function CreateHome() {
                     <Form.Label>Price</Form.Label>
                     <Form.Control
                         type="number"
-                        id='price'
                         placeholder="Enter price"
                         autoFocus required
                     />
@@ -160,7 +140,7 @@ export default function CreateHome() {
                         Please provide a valid price.
                     </Form.Control.Feedback>
                 </Form.Group>
-                <Button type="submit" variant="warning">Submit form</Button>
+                <Button type="submit"  variant="warning">Submit form</Button>
             </Form>
         </>
     )

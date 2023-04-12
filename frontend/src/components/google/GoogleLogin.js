@@ -1,8 +1,7 @@
-import { useEffect, useState } from "react";
+import {useEffect, useState} from "react";
 import jwt_decode from "jwt-decode";
 
 const GoogleButton = (props) => {
-    const google = window.google
     const [user, setUser] = useState({})
 
     const sendData = () => {

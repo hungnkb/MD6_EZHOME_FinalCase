@@ -71,4 +71,11 @@ export class UserService {
         // })
     }
 
+    async active({idUser}): Promise<any> {
+        // let user = await this.findByObj(idUser)
+        // console.log(user);
+        
+        
+    }
+
 }

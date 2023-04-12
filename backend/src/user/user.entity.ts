@@ -32,6 +32,9 @@ export class UserSchema {
     @Column({nullable: true})
     image: string;
 
+    @Column({default: false})
+    active: boolean;
+
     @Column(
         {
             type: 'enum',

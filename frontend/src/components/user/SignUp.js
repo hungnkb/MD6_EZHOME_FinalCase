@@ -14,7 +14,6 @@ import React, { useEffect, useState } from "react";
 import PasswordStrengthBar from "react-password-strength-bar";
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import * as Yup from "yup";
 import { clearErrors, registerUser } from "../../service/userAction";

@@ -6,7 +6,7 @@ import { jwtConstants } from "./constants";
 import { changePasswordDto } from "src/user/user.dto";
 import { Repository } from "typeorm";
 import { UserSchema } from "src/user/user.entity";
-
+//Thao tác câu lệnh với database
 export type User = any;
 
 @Injectable()

@@ -16,7 +16,7 @@ import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import { Button, ButtonGroup } from "@mui/material";
-import { useEffect, useState } from "react";
+import {useEffect, useState} from "react";
 import GoogleButton from "../google/GoogleLogin";
 import { Link } from "react-router-dom";
 import Register from '../user/Register';
@@ -183,10 +183,10 @@ export default function Navbar() {
                         component="div"
                         sx={{ display: { xs: 'none', sm: 'block', } }}
                     >
-                        <Link to={'/'}>
-                            <img style={{ width: 100 }}
-                                src="https://cebuhomebuilders.com/wp-content/uploads/2020/10/ez-home-768-x-331-px.jpg" />
-                        </Link>
+                       <Link to={'/'}>
+                           <img style={{width: 100}}
+                                src="https://cebuhomebuilders.com/wp-content/uploads/2020/10/ez-home-768-x-331-px.jpg"/>
+                       </Link>
                     </Typography>
                     {/*<Search style={{border: "1px solid black"}}>*/}
                     {/*    <SearchIconWrapper>*/}
@@ -204,8 +204,8 @@ export default function Navbar() {
                     {/*    <Button>Three</Button>*/}
                     {/*</ButtonGroup>*/}
                     {/*</Typography>*/}
-                    <Box sx={{ flexGrow: 1 }} />
-                    <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+                    <Box sx={{flexGrow: 1}}/>
+                    <Box sx={{display: {xs: 'none', md: 'flex'}}}>
                         <IconButton size="large" aria-label="show 4 new mails" color="inherit">
                             <Badge badgeContent={4} color="error">
                                 <MailIcon />

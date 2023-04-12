@@ -32,11 +32,11 @@ function Login() {
   );
   const formik = useFormik({
     initialValues: {
-      username: "",
+      email: "",
       password: "",
     },
     validationSchema: Yup.object({
-      username: Yup.string().required("Không được để trống"),
+      email: Yup.string().required("Không được để trống"),
       password: Yup.string().required("Không được để trống"),
     }),
     onSubmit: (values) => {
@@ -90,10 +90,10 @@ console.log(userLogin.email);
               name="email"
               value={formik.values.email}
               onChange={handleChange}
-              error={!!formik.errors.username && formik.touched.username}
+              error={!!formik.errors.email && formik.touched.email}
               helperText={
-                formik.errors.username && formik.touched.username
-                  ? formik.errors.username
+                formik.errors.email && formik.touched.email
+                  ? formik.errors.email
                   : null
               }
               required

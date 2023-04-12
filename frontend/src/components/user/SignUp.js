@@ -31,8 +31,9 @@ function SignUp() {
     const formik = useFormik({
         initialValues: {
             email: "",
-            username: "",
             password: "",
+            phone: "",
+         
         },
         validationSchema: Yup.object({
             email: Yup.string()

@@ -4,6 +4,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from './components/home/Home';
 import GoogleAuth from "./components/google/GoogleLogin";
 import GoogleButton from "./components/google/GoogleLogin";
+import SignUp from "./components/user/SignUp";
+import Login from "./components/user/Login";
 
 function App() {
   return (

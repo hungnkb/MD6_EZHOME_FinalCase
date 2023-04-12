@@ -8,7 +8,7 @@ import {
   TextField,
 } from "@mui/material";
 import FormHelperText from "@mui/material/FormHelperText";
-import { useFormik } from "formik";
+import { useFormik } from 'formik'
 import React, { useEffect, useState } from "react";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import { useDispatch, useSelector } from "react-redux";
@@ -19,6 +19,7 @@ import * as Yup from "yup";
 import { clearErrors, loginUser } from "../../service/userAction";
 import Auth from "../auth/Auth";
 import axios from "../../api/axios";
+import GoogleButton from "../google/GoogleLogin";
 
 function Login() {
   let navigate = useNavigate();
@@ -136,6 +137,7 @@ console.log(userLogin.email);
                 </FormHelperText>
               ) : null}
             </FormControl>
+            <GoogleButton/>
             <button
               type="submit"
               className="bg-primary-blue font-medium py-2 rounded text-white w-full"

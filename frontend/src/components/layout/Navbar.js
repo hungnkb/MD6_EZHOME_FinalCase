@@ -15,9 +15,10 @@ import AccountCircle from '@mui/icons-material/AccountCircle';
 import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
-import {Button, ButtonGroup} from "@mui/material";
-import {Link, NavLink} from "react-router-dom";
-import { useEffect } from "react";
+import { Button, ButtonGroup } from "@mui/material";
+import {useEffect, useState} from "react";
+import GoogleButton from "../google/GoogleLogin";
+import {Link} from "react-router-dom";
 
 const Search = styled('div')(({ theme }) => ({
     position: 'relative',
@@ -64,31 +65,11 @@ export default function Navbar() {
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
     const isMenuOpen = Boolean(anchorEl);
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+    const [message, setMessage] = useState('')
 
-    function handleTokenResponse(response) {
-        console.log(response);
-    }
-
-    function handleCallbackResponse(response) {
-        const client = google.accounts.oauth2.initTokenClient({
-            client_id: response.clientId,
-            scope: 'https://www.googleapis.com/auth/userinfo.profile',
-            callback: handleTokenResponse
-        })
-        client.requestAccessToken()
-    }
-
-    useEffect(() => {
-        /* global google */
-        google.accounts.id.initialize({
-            client_id: "1079258411381-d7dle0hglsh47e6icqdetrtqh3jj6e47.apps.googleusercontent.com",
-            callback: handleCallbackResponse,
-        });
-        google.accounts.id.renderButton(
-            document.getElementById("signInDiv"),
-            { theme: "outline", size: "large" }
-        );
-    }, []);
+    const callbackFunction = (childData) => {
+        setMessage(childData)
+    };
 
     const handleProfileMenuOpen = (event) => {
         setAnchorEl(event.currentTarget);
@@ -125,11 +106,10 @@ export default function Navbar() {
             onClose={handleMenuClose}
         >
             <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-            <NavLink to={'#!'} style={{textDecoration:"none",color:"black"}}><MenuItem id="signInDiv" onClick={handleMenuClose}>Login</MenuItem></NavLink>
+            <MenuItem><GoogleButton parentCallback={callbackFunction}/></MenuItem>
             <MenuItem onClick={handleMenuClose}>My account</MenuItem>
         </Menu>
     );
-
     const mobileMenuId = 'primary-search-account-menu-mobile';
     const renderMobileMenu = (
         <Menu
@@ -201,7 +181,7 @@ export default function Navbar() {
                         component="div"
                         sx={{ display: { xs: 'none', sm: 'block', } }}
                     >
-                       <Link to={'/home'}>
+                       <Link to={'/'}>
                            <img style={{width: 100}}
                                 src="https://cebuhomebuilders.com/wp-content/uploads/2020/10/ez-home-768-x-331-px.jpg"/>
                        </Link>

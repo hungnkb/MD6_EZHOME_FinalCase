@@ -44,13 +44,11 @@ export default function CardHome() {
                                             <Typography gutterBottom variant="p" component="div">
                                               <b>{value.price.toLocaleString("en-EN")}đ</b> night
                                             </Typography>
-
                                         </CardContent>
                                     </CardActionArea>
                                 </Card>
                             </NavLink>
                         ))}
-
                     </div>
                 </div>
             </div>

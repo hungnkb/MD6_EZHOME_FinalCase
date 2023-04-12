@@ -5,16 +5,23 @@ import Home from './components/home/Home';
 import CardHome from "./pages/card/cardHome";
 import DetailHome from "./pages/detail/detailHome";
 import ModalHome from "./pages/home-action/modalHome";
+import GoogleAuth from "./components/google/GoogleLogin";
+import GoogleButton from "./components/google/GoogleLogin";
+import SignUp from "./components/user/SignUp";
+import {Login} from "@mui/icons-material";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-          <Route path='/' element={<Home />}>
-              <Route path='/home' element={<CardHome/>}/>
+          <Route path='' element={<Home />}>
+              <Route path='/' element={<CardHome/>}/>
               <Route path='/detail-home/:id' element={<DetailHome/>}/>
+              <Route path='/create-home' element={<ModalHome/>}></Route>
+              <Route path='/sign-up' element={<SignUp />} />
+              <Route path='/login' element={<Login />} />
+              <Route path='/test' element={<GoogleButton />} />
           </Route>
-          <Route path='/create-home' element={<ModalHome/>}></Route>
       </Routes>
     </BrowserRouter>
   );

@@ -3,7 +3,7 @@ import { Repository } from "typeorm";
 import { UserSchema } from "./user.entity";
 import { CreateUserDto, UpdateUserDto } from "./user.dto";
 import * as bcrypt from 'bcrypt';
-
+//Thao tác cụ thể dữ liệu db
 export class UserService {
     constructor(
         @Inject('USER_REPOSITORY')

@@ -1,15 +1,18 @@
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import ContentHome from "./contentHome";
+import {useParams} from "react-router-dom";
 
 export default function DetailHome() {
+    const idHome = useParams();
+
     return (
         <>
             <div>
                 <div className="container">
                     <div className="row">
                         <div className="col-12">
-                            <h1> HOIAN, 2BEDS, king beds, free bike </h1>
+                            <h4> HOIAN, 2BEDS, king beds, free bike </h4>
                             54 reviews
                             Hoi An City, Quảng Nam, Vietnam
                         </div>

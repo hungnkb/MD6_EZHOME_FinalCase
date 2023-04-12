@@ -11,6 +11,7 @@ import BedIcon from '@mui/icons-material/Bed';
 import Typography from "@mui/material/Typography";
 import CardActions from "@mui/material/CardActions";
 import Button from "@mui/material/Button";
+import PayForm from "../payments/payForm";
 // Thông tin nhà bao gồm:
 //     - Tên của căn nhà
 // - Loại phòng
@@ -123,6 +124,14 @@ export default function DetailHome() {
                                             </div>
                                         </div>
                                     </div>
+                                    <div className="container">
+                                        <div className="row">
+                                            <div className="col-12">
+                                                <p><b> Category :</b>{detail.idCategory}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
 
                                 </Card>
                             </Box>
@@ -140,7 +149,7 @@ export default function DetailHome() {
                             </div>
                         </div>
                         <div className="col-5" style={{marginTop: "65px"}}>
-                            <ContentHome/>
+                            <PayForm/>
                         </div>
                     </div>
                 </div>

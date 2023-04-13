@@ -1,7 +1,7 @@
 import Card from 'react-bootstrap/Card';
 import CardContent from "@mui/material/CardContent";
 import ContentHome from "./contentHome";
-import {Link, useParams} from "react-router-dom";
+import {Link, NavLink, useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
 import axios from "axios";
 import Box from "@mui/material/Box";
@@ -11,7 +11,7 @@ import BedIcon from '@mui/icons-material/Bed';
 import Typography from "@mui/material/Typography";
 import CardActions from "@mui/material/CardActions";
 import Button from "@mui/material/Button";
-import PayForm from "../payments/payForm";
+import FormPay from "../payment/formPay";
 // Thông tin nhà bao gồm:
 //     - Tên của căn nhà
 // - Loại phòng
@@ -49,6 +49,11 @@ export default function DetailHome() {
 
                     </div>
                     <hr/>
+                    <div className="row">
+                        <div className="col-12">
+                             <Button type="submit">Show all image..</Button>
+                        </div>
+                    </div>
                     <div className="row">
                         <div className="col-6">
                             <img style={{width: 500}}
@@ -123,15 +128,12 @@ export default function DetailHome() {
                                                 <p><b> Description :</b>{detail.description}</p>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div className="container">
                                         <div className="row">
                                             <div className="col-12">
                                                 <p><b> Category :</b>{detail.idCategory}</p>
                                             </div>
                                         </div>
                                     </div>
-
 
                                 </Card>
                             </Box>
@@ -149,7 +151,7 @@ export default function DetailHome() {
                             </div>
                         </div>
                         <div className="col-5" style={{marginTop: "65px"}}>
-                            <PayForm/>
+                            <FormPay/>
                         </div>
                     </div>
                 </div>

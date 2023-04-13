@@ -12,6 +12,7 @@ import CreateHome21 from './pages/home-action/create-home/createHome21';
 import CreateHome22 from './pages/home-action/create-home/createHome22';
 import CreateHome23 from './pages/home-action/create-home/createHome23';
 import Register from './components/user/Register';
+import '@mobiscroll/react/dist/css/mobiscroll.min.css';
 import CreateHome24 from './pages/home-action/create-home/createHome24';
 
 function App() {

@@ -40,8 +40,9 @@ export class HomeService {
         } else if (obj.idHome) {
             return this.homeRepository
                 .createQueryBuilder('homes')
-                .select(['homes', 'users.idUser', 'users.email', 'users.phone', 'users.image'])
+                .select(['homes', 'users.idUser', 'users.email', 'users.phone', 'users.image', 'categories.categoryName'])
                 .leftJoin('homes.idUser', 'users')
+                .leftJoin('homes.idCategory', 'categories')
                 .where('idHome = :id', { id: obj.idHome })
                 .getMany()
         } else {

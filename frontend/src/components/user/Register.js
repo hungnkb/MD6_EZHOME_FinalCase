@@ -120,15 +120,15 @@ export default function Register() {
 
                         <TextField
                             className="form-control"
-                            label="User Name" 
+                            label="Phone" 
                             type="text"
-                            name="username"
-                            valueDefault={formik.values.username}
+                            name="phone"
+                            valueDefault={formik.values.phone}
                             onChange={handleChange}
-                            error={!!formik.errors.username && formik.touched.username}
+                            error={!!formik.errors.phone && formik.touched.phone}
                             helperText={
-                                formik.errors.username && formik.touched.username
-                                    ? formik.errors.username
+                                formik.errors.phone && formik.touched.phone
+                                    ? formik.errors.phone
                                     : null
                             }
                             size="small"

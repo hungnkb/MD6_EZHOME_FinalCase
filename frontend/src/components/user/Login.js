@@ -113,6 +113,7 @@ function Login() {
         onSubmit={handleSubmit}
         className="flex flex-col justify-center items-center gap-3 m-3 md:m-8"
       >
+        <div>
         <TextField
           fullWidth
           label="Email"
@@ -128,6 +129,8 @@ function Login() {
           required
           size="small"
         />
+        </div>
+        <div>
         <FormControl
           error={!!formik.errors.password && formik.touched.password}
           fullWidth
@@ -165,9 +168,10 @@ function Login() {
             </FormHelperText>
           ) : null}
         </FormControl>
+        </div>
         <GoogleButton/>
         <button style={{background:"#f7a800"}}
-          
+
           type="submit"
           className="bg-primary-blue font-medium py-2 rounded text-white w-full"
         >

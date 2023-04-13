@@ -36,7 +36,6 @@ export class UserService {
             let { password, email, phone } = body
             const saltOrRounds = 10
             const hashPassword = await bcrypt.hash(password, saltOrRounds)
-            console.log(hashPassword)
             let newUser = await this.userRepository.save({
                 password: hashPassword,
                 email,
@@ -44,7 +43,6 @@ export class UserService {
             });
             if (newUser){
                 bcrypt.hash(newUser.email, parseInt(process.env.BCRYPT_SALT_ROUND)).then((hashedEmail) => {
-                    console.log(newUser.email)
                     mailer.sendMail(newUser.email, "Xin Chào,Hãy xác thực tài khoản EZHome 0.1", `<a href="http://localhost:3002/api/v1/users/active?email=${newUser.email}&token=${hashedEmail}"> Verify </a>`)
                 })
             }
@@ -62,7 +60,6 @@ export class UserService {
             .into('users')
             .values({ email })
             .execute()
-        console.log(newUser);
         
         if (newUser) {
             return newUser
@@ -90,7 +87,6 @@ export class UserService {
 
     async active(query): Promise<any> {
         let user = await this.findByObj(query.email)
-        console.log(user);
         if (user.active) {
             throw new HttpException('Already active', HttpStatus.OK)
         }

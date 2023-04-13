@@ -1,4 +1,4 @@
-import { Inject, HttpException, HttpStatus } from "@nestjs/common";
+import { Inject, HttpException, HttpStatus, Redirect } from "@nestjs/common";
 import { Repository } from "typeorm";
 import { UserSchema } from "./user.entity";
 import { CreateUserDto, CreateWithGoogleUserDto, UpdateUserDto } from "./user.dto";
@@ -95,9 +95,7 @@ export class UserService {
             .update('users')
             .set({ active: true })
             .where( { email: query.email })
-            .execute()
-
-        throw new HttpException('Active success', HttpStatus.OK)
+            .execute()  
     }
 
     async activeHost({ idUser }): Promise<any> {
@@ -116,5 +114,4 @@ export class UserService {
             }
         }
     }
-
 }

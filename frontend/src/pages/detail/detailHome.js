@@ -34,26 +34,23 @@ export default function DetailHome() {
     const idHome = useParams();
     console.log(idHome.id, 11)
     const [detail, setDetail] = useState([])
+    const [price, setPrice] = useState()
     useEffect(() => {
-        axios.get(`http://localhost:3002/api/v1/homes?idHome=${idHome.id}`).then(res => setDetail(res.data[0]))
+        axios.get(`http://localhost:3002/api/v1/homes?idHome=${idHome.id}`).then(res => {
+            console.log(res);setDetail(res.data[0]); setPrice(res.data[0].price)})
     }, [])
     return (
         <>
             <div>
-                <div className="container">
+                <div className="container" style={{marginTop:"50px"}}>
                     <div className="row">
                         <div className="col-12">
-                            <h4> {detail.title} </h4>
+                            <h3> {detail.title} </h3>
                             <Link to={"#!"} style={{color: 'black'}}>  {detail.address} - Vietnam </Link>
                         </div>
 
                     </div>
                     <hr/>
-                    <div className="row">
-                        <div className="col-12">
-                            <Button type="submit">Show all image..</Button>
-                        </div>
-                    </div>
                     <div className="row">
                         <div className="col-6">
                             <img style={{width: 500}}
@@ -125,14 +122,15 @@ export default function DetailHome() {
                                     <div className="container">
                                         <div className="row">
                                             <div className="col-12">
-                                                <p><b> Description :</b>{detail.description}</p>
+                                                <p><b>Category :</b> <b style={{color:"green"}}> {detail.idCategory?.categoryName} </b> </p>
                                             </div>
                                         </div>
                                         <div className="row">
                                             <div className="col-12">
-                                                <p><b> Category :</b>{detail.idCategory}</p>
+                                                <p><b> Description :</b>{detail.description}</p>
                                             </div>
                                         </div>
+
                                     </div>
 
                                 </Card>
@@ -151,7 +149,7 @@ export default function DetailHome() {
                             </div>
                         </div>
                         <div className="col-5" style={{marginTop: "65px"}}>
-                            <FormPay/>
+                            <FormPay price={price}/>
                         </div>
                     </div>
                 </div>

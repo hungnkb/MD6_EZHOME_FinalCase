@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Put, Post, Query, Param } from '@nestjs/common';
+import { Body, Controller, Get, Put, Post, Query, Param, Redirect } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto, UpdateUserDto } from './user.dto';
 import { UserSchema } from './user.entity';
@@ -25,9 +25,11 @@ export class UserController {
         return this.userService.update(body)
     }
 
+    @Redirect('http://localhost:3000/', 301)
     @Get('/active')
-    active(@Query() query: any): Promise<any> {
-        return this.userService.active(query)
+    async active(@Query() query: any): Promise<any> {
+        await this.userService.active(query)
+        return { url: 'http://localhost:3000/' }
     }
 
 

@@ -13,6 +13,8 @@ import CreateHome22 from './pages/home-action/create-home/createHome22';
 import CreateHome23 from './pages/home-action/create-home/createHome23';
 import Register from './components/user/Register';
 import '@mobiscroll/react/dist/css/mobiscroll.min.css';
+import CreateHome24 from './pages/home-action/create-home/createHome24';
+
 function App() {
   return (
     <BrowserRouter>
@@ -29,6 +31,7 @@ function App() {
               <Route path='/create-home2/1' element={<CreateHome21/>}></Route>
               <Route path='/create-home2/2' element={<CreateHome22/>}></Route>
               <Route path='/create-home2/3' element={<CreateHome23/>}></Route>
+              <Route path='/create-home2/4' element={<CreateHome24/>}></Route>
           </Route>
       </Routes>
     </BrowserRouter>

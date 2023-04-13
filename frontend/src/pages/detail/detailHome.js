@@ -32,10 +32,10 @@ const bull = (
 );
 export default function DetailHome() {
     const idHome = useParams();
-    console.log(idHome.idHome, 11)
+    console.log(idHome.id, 11)
     const [detail, setDetail] = useState([])
     useEffect(() => {
-        axios.get(`http://localhost:3002/api/v1/homes?idHome=${idHome.idHome}`).then(res => setDetail(res.data[0]))
+        axios.get(`http://localhost:3002/api/v1/homes?idHome=${idHome.id}`).then(res => setDetail(res.data[0]))
     }, [])
     return (
         <>
@@ -51,7 +51,7 @@ export default function DetailHome() {
                     <hr/>
                     <div className="row">
                         <div className="col-12">
-                             <Button type="submit">Show all image..</Button>
+                            <Button type="submit">Show all image..</Button>
                         </div>
                     </div>
                     <div className="row">

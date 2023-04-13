@@ -2,7 +2,7 @@
 import Navbar from "../layout/Navbar";
 import CardHome from "../../pages/card/cardHome";
 import Footer from "../layout/footer";
-import {Outlet} from "react-router-dom";
+import { Outlet } from "react-router-dom";
 
 function Home() {
 
@@ -10,16 +10,16 @@ function Home() {
         <>
             <div className="row">
                 <div className="col-12">
-                    <Navbar/>
+                    <Navbar />
                 </div>
                 <div className="row">
                     <div className="col-12">
-                           <Outlet/>
+                        <Outlet />
                     </div>
                 </div>
                 <div className="row">
                     <div className="col-12">
-                            <Footer/>
+                        <Footer />
                     </div>
                 </div>
             </div>

@@ -7,6 +7,7 @@ import { Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useDropzone } from 'react-dropzone';
+import { setFiles } from '../../../redux/features/homeSlice';
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -28,10 +29,13 @@ export default function CreateHome23() {
   }, []);
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
-
+  console.log(currentState);
   useEffect(() => {
     if (images.length > 0) {
+      dispatch(setFiles(images))
       setCheck(true);
+    } else if (currentState.files?.length > 0) {
+      setImages(currentState.files)
     }
   }, [images]);
   return (

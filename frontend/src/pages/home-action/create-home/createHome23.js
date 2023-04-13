@@ -76,7 +76,16 @@ export default function CreateHome23() {
             >
               Next
             </Button>
-          ) : null}
+          ) : (
+            <Button
+              style={{ marginLeft: '10px', background: 'gray' }}
+              Button
+              variant="contained"
+              type='button'
+            >
+              Next
+            </Button>
+          )}
         </Grid>
       </Box>
     </>

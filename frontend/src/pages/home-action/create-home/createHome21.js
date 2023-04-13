@@ -26,9 +26,11 @@ export default function CreateHome21() {
   const dispatch = useDispatch();
   const currentState = useSelector((state) => state.createHome);
   useEffect(() => {
-    setCheck(true);
+    if (currentState.idCategory) {
+      setCheck(true);
+    }
   }, [currentState.idCategory]);
-
+  console.log(check, currentState.idCategory);
   return (
     <>
       <div className="container" style={{ marginTop: '70px' }}>
@@ -163,7 +165,15 @@ export default function CreateHome21() {
               >
                 Next
               </Button>
-            ) : null}
+            ) : (
+              <Button
+                style={{ background: 'gray' }}
+                variant="contained"
+                type='button'
+              >
+                Next
+              </Button>
+            )}
           </div>
         </div>
       </div>

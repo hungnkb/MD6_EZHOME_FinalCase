@@ -12,6 +12,8 @@ import CreateHome21 from './pages/home-action/create-home/createHome21';
 import CreateHome22 from './pages/home-action/create-home/createHome22';
 import CreateHome23 from './pages/home-action/create-home/createHome23';
 import Register from './components/user/Register';
+import ForgotPassword from "./components/user/ForgotPassword";
+import ResetPassword from "./components/user/ResetPassword";
 
 function App() {
   return (
@@ -24,7 +26,8 @@ function App() {
               {/*<Route path='/sign-up' element={<SignUp />} />*/}
               <Route path='/login' element={<Login />} />
               <Route path='/register' element={<Register />} />
-              <Route path='/test' element={<GoogleButton />} />
+              <Route path='/reset-password' element={<ResetPassword/>} />
+              <Route path='/test' element={<ForgotPassword />} />
               <Route path='/create-home2' element={<CreateHome2/>}></Route>
               <Route path='/create-home2/1' element={<CreateHome21/>}></Route>
               <Route path='/create-home2/2' element={<CreateHome22/>}></Route>

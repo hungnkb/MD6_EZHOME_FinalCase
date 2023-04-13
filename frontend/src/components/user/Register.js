@@ -1,7 +1,5 @@
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
-import Backdrop from "@mui/material/Backdrop";
-import CircularProgress from "@mui/material/CircularProgress";
 import FormControl from "@mui/material/FormControl";
 import FormHelperText from "@mui/material/FormHelperText";
 import IconButton from "@mui/material/IconButton";
@@ -15,7 +13,6 @@ import PasswordStrengthBar from "react-password-strength-bar";
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
-import GoogleButton from "../google/GoogleLogin";
 import * as Yup from "yup";
 import { clearErrors, registerUser } from "../../service/userAction";
 import Auth from "../auth/Auth";
@@ -117,10 +114,9 @@ export default function Register() {
                                     : null
                             }
                         />
-
                         <TextField
                             className="form-control"
-                            label="User Name" 
+                            label="User Name"
                             type="text"
                             name="username"
                             valueDefault={formik.values.username}
@@ -188,7 +184,7 @@ export default function Register() {
                         <span className="my-3 text-gray-500">OR</span>
                         <Link
                             style={{color:"#e85710"}}
-                            to="/password/forgot"
+                            to="/test"
                             className="text-sm font-medium  text-blue-800"
                         >
                             Quên mật khẩu?

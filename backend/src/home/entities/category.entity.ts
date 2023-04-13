@@ -1,10 +1,10 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
-@Entity({name: 'categories'})
+@Entity({ name: 'categories' })
 export class CategorySchema {
-    @PrimaryGeneratedColumn()
-    idCategory: number;
+  @PrimaryGeneratedColumn()
+  idCategory: number;
 
-    @Column()
-    categoryName: string; 
+  @Column()
+  categoryName: string;
 }

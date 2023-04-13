@@ -1,5 +1,5 @@
 import * as dotenv from 'dotenv';
-import * as process from "process";
+import * as process from 'process';
 dotenv.config();
 
 module.exports = {
@@ -11,4 +11,4 @@ module.exports = {
   ENCRYPTION: process.env.MAIL_ENCRYPTION,
   FROM_ADDRESS: process.env.MAIL_FROM_ADDRESS,
   FROM_NAME: process.env.MAIL_FROM_NAME,
-}
+};

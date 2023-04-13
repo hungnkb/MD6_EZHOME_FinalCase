@@ -210,7 +210,7 @@ function Login() {
                   </div>
                   <Link
                     style={{ color: '#e85710' }}
-                    to="/password/forgot"
+                    to="/test"
                     className="text-sm font-medium  text-blue-800"
                   >
                     Quên mật khẩu?

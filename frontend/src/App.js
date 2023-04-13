@@ -12,9 +12,14 @@ import CreateHome21 from './pages/home-action/create-home/createHome21';
 import CreateHome22 from './pages/home-action/create-home/createHome22';
 import CreateHome23 from './pages/home-action/create-home/createHome23';
 import Register from './components/user/Register';
+import ForgotPassword from "./components/user/ForgotPassword";
+import ResetPassword from "./components/user/ResetPassword";
 import '@mobiscroll/react/dist/css/mobiscroll.min.css';
 import CreateHome24 from './pages/home-action/create-home/createHome24';
 import Navbar from './components/layout/Navbar';
+import Test from "./components/test/test";
+import SuccessModal from "./components/successmodal/successModal";
+
 
 function App() {
   return (
@@ -27,7 +32,9 @@ function App() {
           {/*<Route path='/sign-up' element={<SignUp />} />*/}
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/test" element={<GoogleButton />} />
+          <Route path='/reset-password' element={<ResetPassword/>} />
+          <Route path='/test' element={<ForgotPassword />} />
+          <Route path="/test1" element={<SuccessModal/>} />
         </Route>
         <Route path={''} element={<Navbar />}>
           <Route path="/create-home2" element={<CreateHome2 />}></Route>

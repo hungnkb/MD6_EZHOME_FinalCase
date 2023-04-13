@@ -19,200 +19,200 @@ import axios from '../../api/axios';
 import { Button, Modal, Box } from '@mui/material';
 
 export default function Register(props) {
-  const [open, setOpen] = React.useState(true);
-  const [err, setErr] = useState('');
+    const [open, setOpen] = React.useState(true);
+    const [err, setErr] = useState('');
 
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
+    const handleClickOpen = () => {
+        setOpen(true);
+    };
 
-  const handleClose = () => {
-    setOpen(false);
-  };
+    const handleClose = () => {
+        setOpen(false);
+    };
 
-  let navigate = useNavigate();
-  const [userSignUp, setUserSignUp] = useState({
-    email: '',
-    password: '',
-    phone: '',
-  });
-  const dispatch = useDispatch();
-  const formik = useFormik({
-    initialValues: {
-      email: '',
-      password: '',
-      phone: '',
-    },
-    validationSchema: Yup.object({
-      email: Yup.string()
-        .email('Invalid email address')
-        .required('Email Required'),
-      password: Yup.string().required('Password Required'),
-    }),
-    onSubmit: (values) => {
-      try {
-        dispatch(registerUser(values));
-        navigate('/login');
-      } catch (e) {
-        setErr(e.message);
-      }
-    },
-  });
-
-  const [showPassword, setShowPassword] = useState(false);
-  const handleClickShowPassword = () => setShowPassword((show) => !show);
-  const handleMouseDownPassword = (event) => {
-    event.preventDefault();
-  };
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    axios
-      .post('http://localhost:3002/api/v1/users', {
-        email: userSignUp.email,
-        password: userSignUp.password,
-        phone: userSignUp.phone,
-      })
-      .then(
-        (response) => {
-          console.log(response);
+    let navigate = useNavigate();
+    const [userSignUp, setUserSignUp] = useState({
+        email: '',
+        password: '',
+        phone: '',
+    });
+    const dispatch = useDispatch();
+    const formik = useFormik({
+        initialValues: {
+            email: '',
+            password: '',
+            phone: '',
         },
-        (error) => {
-          console.log(error);
+        validationSchema: Yup.object({
+            email: Yup.string()
+                .email('Invalid email address')
+                .required('Email Required'),
+            password: Yup.string().required('Password Required'),
+        }),
+        onSubmit: (values) => {
+            try {
+                dispatch(registerUser(values));
+                navigate('/login');
+            } catch (e) {
+                setErr(e.message);
+            }
         },
-      );
-  };
+    });
 
-  const handleChange = (event) =>
-    setUserSignUp({ ...userSignUp, [event.target.name]: event.target.value });
-  return (
-    <>
-      <div>
-        <Button variant="outlined" onClick={handleClickOpen}>
-          Register
-        </Button>
-        <Modal open={open} onClose={handleClose}>
-          <Box
-            sx={{
-              position: 'absolute',
-              width: 400,
-              top: '50%',
-              left: '50%',
-              transform: 'translate(-50%, -50%)',
-            }}
-          >
-            <div
-              className="bg-white border flex flex-col p-4 pt-10 drop-shadow-md"
-              style={{ marginBlockStart: '50px', textAlign: 'center' }}
-            >
-              <form
-                onSubmit={handleSubmit}
-                className="flex flex-col justify-center items-center"
-              >
-                <TextField
-                  className="form-control"
-                  fullWidth
-                  label="Email"
-                  type="email"
-                  name="email"
-                  size="small"
-                  valueDefault={formik.values.email}
-                  onChange={handleChange}
-                  error={!!formik.errors.email && formik.touched.email}
-                  helperText={
-                    formik.errors.email && formik.touched.email
-                      ? formik.errors.email
-                      : null
-                  }
-                />
+    const [showPassword, setShowPassword] = useState(false);
+    const handleClickShowPassword = () => setShowPassword((show) => !show);
+    const handleMouseDownPassword = (event) => {
+        event.preventDefault();
+    };
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        axios
+            .post('http://localhost:3002/api/v1/users', {
+                email: userSignUp.email,
+                password: userSignUp.password,
+                phone: userSignUp.phone,
+            })
+            .then(
+                (response) => {
+                    console.log(response);
+                },
+                (error) => {
+                    console.log(error);
+                },
+            );
+    };
 
-                <TextField
-                  className="form-control"
-                  label="Phone"
-                  type="text"
-                  name="phone"
-                  valueDefault={formik.values.phone}
-                  onChange={handleChange}
-                  error={!!formik.errors.phone && formik.touched.phone}
-                  helperText={
-                    formik.errors.phone && formik.touched.phone
-                      ? formik.errors.phone
-                      : null
-                  }
-                  size="small"
-                  fullWidth
-                />
-                <FormControl
-                  error={!!formik.errors.password && formik.touched.password}
-                  fullWidth
-                  size="small"
-                  valueDefault={formik.values.password}
-                  onChange={handleChange}
-                  variant="outlined"
-                >
-                  <InputLabel htmlFor="outlined-adornment-password">
-                    Password
-                  </InputLabel>
-                  <OutlinedInput
-                    name="password"
-                    autoComplete="on"
-                    id="outlined-adornment-password"
-                    type={showPassword ? 'text' : 'password'}
-                    endAdornment={
-                      <InputAdornment position="end">
-                        <IconButton
-                          aria-label="toggle password visibility"
-                          onClick={handleClickShowPassword}
-                          onMouseDown={handleMouseDownPassword}
-                          edge="end"
+    const handleChange = (event) =>
+        setUserSignUp({ ...userSignUp, [event.target.name]: event.target.value });
+    return (
+        <>
+            <div>
+                <Button variant="outlined" onClick={handleClickOpen}>
+                    Register
+                </Button>
+                <Modal open={open} onClose={handleClose}>
+                    <Box
+                        sx={{
+                            position: 'absolute',
+                            width: 400,
+                            top: '50%',
+                            left: '50%',
+                            transform: 'translate(-50%, -50%)',
+                        }}
+                    >
+                        <div
+                            className="bg-white border flex flex-col p-4 pt-10 drop-shadow-md"
+                            style={{ marginBlockStart: '50px', textAlign: 'center' }}
                         >
-                          {showPassword ? <VisibilityOff /> : <Visibility />}
-                        </IconButton>
-                      </InputAdornment>
-                    }
-                    label="Password"
-                  />
-                  <PasswordStrengthBar
-                    password={formik.values.password}
-                    minLength={1}
-                    minScore={4}
-                    scoreWords={['Yếu', 'Trung bình', 'Tốt', 'Mạnh']}
-                    shortScoreWord={'Quá ngắn'}
-                  />
+                            <form
+                                onSubmit={handleSubmit}
+                                className="flex flex-col justify-center items-center"
+                            >
+                                <TextField
+                                    className="form-control"
+                                    fullWidth
+                                    label="Email"
+                                    type="email"
+                                    name="email"
+                                    size="small"
+                                    valueDefault={formik.values.email}
+                                    onChange={handleChange}
+                                    error={!!formik.errors.email && formik.touched.email}
+                                    helperText={
+                                        formik.errors.email && formik.touched.email
+                                            ? formik.errors.email
+                                            : null
+                                    }
+                                />
 
-                  {formik.errors.password && formik.touched.password ? (
-                    <FormHelperText style={{ color: '#d32f2f' }}>
-                      {formik.errors.password}
-                    </FormHelperText>
-                  ) : null}
-                </FormControl>
+                                <TextField
+                                    className="form-control"
+                                    label="Phone"
+                                    type="text"
+                                    name="phone"
+                                    valueDefault={formik.values.phone}
+                                    onChange={handleChange}
+                                    error={!!formik.errors.phone && formik.touched.phone}
+                                    helperText={
+                                        formik.errors.phone && formik.touched.phone
+                                            ? formik.errors.phone
+                                            : null
+                                    }
+                                    size="small"
+                                    fullWidth
+                                />
+                                <FormControl
+                                    error={!!formik.errors.password && formik.touched.password}
+                                    fullWidth
+                                    size="small"
+                                    valueDefault={formik.values.password}
+                                    onChange={handleChange}
+                                    variant="outlined"
+                                >
+                                    <InputLabel htmlFor="outlined-adornment-password">
+                                        Password
+                                    </InputLabel>
+                                    <OutlinedInput
+                                        name="password"
+                                        autoComplete="on"
+                                        id="outlined-adornment-password"
+                                        type={showPassword ? 'text' : 'password'}
+                                        endAdornment={
+                                            <InputAdornment position="end">
+                                                <IconButton
+                                                    aria-label="toggle password visibility"
+                                                    onClick={handleClickShowPassword}
+                                                    onMouseDown={handleMouseDownPassword}
+                                                    edge="end"
+                                                >
+                                                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                                                </IconButton>
+                                            </InputAdornment>
+                                        }
+                                        label="Password"
+                                    />
+                                    <PasswordStrengthBar
+                                        password={formik.values.password}
+                                        minLength={1}
+                                        minScore={4}
+                                        scoreWords={['Yếu', 'Trung bình', 'Tốt', 'Mạnh']}
+                                        shortScoreWord={'Quá ngắn'}
+                                    />
 
-                <button
-                  style={{ background: '#f7a800' }}
-                  type="submit"
-                  className="bg-primary-blue font-medium py-2 rounded text-white w-full"
-                >
-                  Register
-                </button>
-              </form>
-            </div>
+                                    {formik.errors.password && formik.touched.password ? (
+                                        <FormHelperText style={{ color: '#d32f2f' }}>
+                                            {formik.errors.password}
+                                        </FormHelperText>
+                                    ) : null}
+                                </FormControl>
 
-            <div className="bg-white border p-5 text-center drop-shadow-md">
+                                <button
+                                    style={{ background: '#f7a800' }}
+                                    type="submit"
+                                    className="bg-primary-blue font-medium py-2 rounded text-white w-full"
+                                >
+                                    Register
+                                </button>
+                            </form>
+                        </div>
+
+                        <div className="bg-white border p-5 text-center drop-shadow-md">
               <span>
                 Bạn đã có tài khoản ?{' '}
-                <Link
-                  onClick={() => {
-                    props.setIsLogin(1);
-                  }}
-                  className="text-primary-blue"
-                  style={{ color: '#e85710' }}
-                >
+                  <Link
+                      onClick={() => {
+                          props.setIsLogin(1);
+                      }}
+                      className="text-primary-blue"
+                      style={{ color: '#e85710' }}
+                  >
                   Đăng nhập
                 </Link>
               </span>
+                        </div>
+                    </Box>
+                </Modal>
             </div>
-          </Box>
-        </Modal>
-      </div>
-    </>
-  );
+        </>
+    );
 }

@@ -20,7 +20,7 @@ import * as Yup from "yup";
 import { clearErrors, registerUser } from "../../service/userAction";
 import Auth from "../auth/Auth";
 import axios from "../../api/axios";
-import { Button, Dialog, DialogTitle, DialogActions, Modal, Box } from "@mui/material";
+import { Button, Dialog, DialogTitle, DialogActions, Modal, Box, DialogContent } from "@mui/material";
 
 export default function Register() {
   const [open, setOpen] = React.useState(false);
@@ -57,7 +57,6 @@ export default function Register() {
                   /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,8}$/,
                   "Tối thiểu 6 và tối đa 8 ký tự, ít nhất một chữ hoa, một chữ thường, một số và một ký tự đặc biệt"
               ),
-          username: Yup.string().required("Không được để trống"),
       }),
       onSubmit: (values) => {
           dispatch(registerUser(values));
@@ -84,13 +83,12 @@ export default function Register() {
   setUserSignUp({ ...userSignUp, [event.target.name]: event.target.value });
       console.log(userSignUp.email);
 
-
   return (
     <>
     <div>
-      <Button variant="outlined" onClick={handleClickOpen}>
-        Login
-      </Button>
+    <Button variant="outlined" onClick={handleClickOpen}>
+        Register
+    </Button>
       <Modal open={open} onClose={handleClose}>
         
       <Box sx={{ position: 'absolute', width: 400, top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}>
@@ -119,12 +117,13 @@ export default function Register() {
                                     : null
                             }
                         />
-            
+
                         <TextField
+                            className="form-control"
                             label="User Name" 
                             type="text"
                             name="username"
-                            value={formik.values.username}
+                            valueDefault={formik.values.username}
                             onChange={handleChange}
                             error={!!formik.errors.username && formik.touched.username}
                             helperText={
@@ -205,12 +204,6 @@ export default function Register() {
             </Link>
           </span>
                 </div>
-            
-        
-          <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={handleClose}>Subscribe</Button>
-        
-
         </Box>
       </Modal>
 

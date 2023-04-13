@@ -25,10 +25,11 @@ export class UserController {
         return this.userService.update(body)
     }
 
-    @Get('/active/:idUser')
-    active(@Param() param: any): Promise<any> {
-        return this.userService.active(param)
+    @Get('/active')
+    active(@Query() query: any): Promise<any> {
+        return this.userService.active(query)
     }
+
 
     @Get('/active-host/:idUser')
     activeHost(@Param() param: any): Promise<any> {

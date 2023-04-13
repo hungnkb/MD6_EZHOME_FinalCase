@@ -3,30 +3,30 @@
 @tailwind utilities;
 
 body {
-    background-color: #fafafa;
-    font-family: "Segoe UI", sans-serif;
+  background-color: #fafafa;
+  font-family: 'Segoe UI', sans-serif;
 }
 
 .slick-arrow {
-    margin: 0 2.3rem;
-    background-color: #ffffff;
-    z-index: 100;
+  margin: 0 2.3rem;
+  background-color: #ffffff;
+  z-index: 100;
 }
 
 @keyframes like {
-    0% {
-        transform: scale(0.2);
-    }
+  0% {
+    transform: scale(0.2);
+  }
 
-    25% {
-        transform: scale(0.6);
-    }
+  25% {
+    transform: scale(0.6);
+  }
 
-    50% {
-        transform: scale(1.04);
-    }
+  50% {
+    transform: scale(1.04);
+  }
 
-    100% {
-        transform: scale(0.4);
-    }
+  100% {
+    transform: scale(0.4);
+  }
 }

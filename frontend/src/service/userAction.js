@@ -1,4 +1,4 @@
-import axios from "../api/axios";
+import axios from '../api/axios';
 
 import {
   CLEAR_ERRORS,
@@ -22,21 +22,20 @@ import {
   UPDATE_PASSWORD_REQUEST,
   UPDATE_PASSWORD_SUCCESS,
   UPDATE_PASSWORD_FAIL,
-} from "../constants/userConstants";
-
+} from '../constants/userConstants';
 
 export const loginUser = (values) => async (dispatch) => {
   try {
     dispatch({ type: LOGIN_USER_REQUEST });
     const config = {
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
     };
-    const { data } = await axios.post("/api/v1/auth", values, config);
+    const { data } = await axios.post('/api/v1/auth', values, config);
     const token = data.accessToken;
-    localStorage.setItem("token", token);
-    axios.defaults.headers.common["Authorization"] = "Bearer " + token;
+    localStorage.setItem('token', token);
+    axios.defaults.headers.common['Authorization'] = 'Bearer ' + token;
     dispatch({
       type: LOGIN_USER_SUCCESS,
       payload: data.user,
@@ -55,10 +54,10 @@ export const registerUser = (userData) => async (dispatch) => {
     dispatch({ type: REGISTER_USER_REQUEST });
     const config = {
       headers: {
-        "Content-Type": "multipart/form-data",
+        'Content-Type': 'multipart/form-data',
       },
     };
-    const { data } = await axios.post("/api/v1/users", userData);
+    const { data } = await axios.post('/api/v1/users', userData);
     dispatch({
       type: REGISTER_USER_SUCCESS,
       payload: data.newUser,
@@ -76,7 +75,7 @@ export const loadUser = () => async (dispatch) => {
   try {
     dispatch({ type: LOAD_USER_REQUEST });
 
-    const { data } = await axios.get("/api/v1/me");
+    const { data } = await axios.get('/api/v1/me');
 
     dispatch({
       type: LOAD_USER_SUCCESS,
@@ -92,8 +91,8 @@ export const loadUser = () => async (dispatch) => {
 
 export const logoutUser = () => async (dispatch) => {
   try {
-    await axios.get("/api/v1/logout");
-    localStorage.removeItem("token");
+    await axios.get('/api/v1/logout');
+    localStorage.removeItem('token');
     dispatch({ type: LOGOUT_USER_SUCCESS });
   } catch (error) {
     dispatch({
@@ -109,14 +108,14 @@ export const forgotPassword = (email) => async (dispatch) => {
 
     const config = {
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
     };
 
     const { data } = await axios.post(
-      "/api/v1/password/forgot",
+      '/api/v1/password/forgot',
       { email },
-      config
+      config,
     );
 
     dispatch({
@@ -137,14 +136,14 @@ export const resetPassword = (token, password) => async (dispatch) => {
 
     const config = {
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
     };
 
     const { data } = await axios.put(
       `/api/v1/password/reset/${token}`,
       { password },
-      config
+      config,
     );
 
     dispatch({
@@ -165,13 +164,13 @@ export const updatePassword = (passwords) => async (dispatch) => {
 
     const config = {
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
     };
     const { data } = await axios.put(
-      "/api/v1/update/password",
+      '/api/v1/update/password',
       passwords,
-      config
+      config,
     );
 
     dispatch({

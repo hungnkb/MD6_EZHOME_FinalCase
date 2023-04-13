@@ -18,30 +18,49 @@ export default function CreateHome2() {
     const navigate = useNavigate()
     return (
         <>
-            <Box sx={{ flexGrow: 1, marginTop: '50px', marginBottom: '50px' }}>
-                <Grid container spacing={2} style={{ marginLeft: '5%', marginRight: '5%' }}>
-                    <Grid xs={6}>
-                        <p style={{ fontSize: '70px' }}>It’s easy to get started on EZHOME</p>
-                    </Grid>
-                    <Grid xs={6}>
-                        <Item>
-                            <h1>1 Tell us about your place</h1>
-                            <p>Share some basic info, like where it is and how many guests can stay.</p>
-                        </Item>
-                        <Item>
-                            <h1>2 Make it stand out</h1>
-                            <p>Share some basic info, like where it is and how many guests can stay.</p>
-                        </Item>
-                        <Item>
-                            <h1>3 Finish up and publish</h1>
-                            <p>Share some basic info, like where it is and how many guests can stay.</p>
-                        </Item>
-                    </Grid>
+            <div className="container" style={{marginTop:"90px"}}>
+                <div className="row">
+                    <div className="col-6">
+                        <h1 style={{fontSize:"350%"}}>It’s easy to get started on EZHOME</h1>
+                    </div>
+                    <div className="col-6">
+                        <div className="row">
+                            <div className="col-10">
+                                <h3><b> 1 Tell us about your place</b> </h3>
+                                <h5 style={{color: "gray"}}>Share some basic info, like where it is and how many guests can stay.</h5>
+                            </div>
+                            <div className="col-2">
+                                <img src="https://a0.muscache.com/4ea/air/v2/pictures/da2e1a40-a92b-449e-8575-d8208cc5d409.jpg" alt="create"/>
+                            </div>
+                        </div>
+                        <hr/>
+                        <div className="row">
+                            <div className="col-10">
+                                <h3><b> 2 Make it stand out</b> </h3>
+                                <h5 style={{color: "gray"}}>Share some basic info, like where it is and how many guests can stay.</h5>
+                            </div>
+                            <div className="col-2">
+                                <img src="https://a0.muscache.com/4ea/air/v2/pictures/bfc0bc89-58cb-4525-a26e-7b23b750ee00.jpg" alt="create"/>
+                            </div>
+                        </div>
+                        <hr/>
+                        <div className="row">
+                            <div className="col-10">
+                                <h3><b>3 Finish up and publish </b></h3>
+                                <h5 style={{color: "gray"}}>Share some basic info, like where it is and how many guests can stay.</h5>
+                            </div>
+                            <div className="col-2">
+                                <img src="https://a0.muscache.com/4ea/air/v2/pictures/c0634c73-9109-4710-8968-3e927df1191c.jpg" alt="create"/>
+                            </div>
+                        </div>
+                        <hr/>
+                    </div>
+                </div>
+            </div>
+
+                <Grid style={{ marginLeft: '80%'}}>
+                    <Button onClick={() => navigate('/create-home2/1')} style={{ background:"#f7a800"}} variant="contained">Get started</Button>
                 </Grid>
-                <Grid style={{ marginLeft: '5%', marginRight: '5%' }}>
-                    <Button onClick={() => navigate('/create-home2/1')} variant="contained">Get started</Button>
-                </Grid>
-            </Box>
         </>
     );
 }

@@ -52,7 +52,7 @@ export default function FormPay(props) {
                         <div className="d-flex justify-content-between mt-2" style={{ marginLeft: "40px" }} >
                             <div
                                 onClick={() => setOpenDate(!openDate)}
-                                className="calendar_check_in_out flex mr-10 cursor-pointer"
+                                className="calendar_check_in_out flex mr-10 cursor-pointer" style={{ width: "100%" }}
                             >
                                 <div className="row">
                                     <div className="col-6">

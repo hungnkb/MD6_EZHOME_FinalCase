@@ -8,7 +8,6 @@ import { useNavigate } from 'react-router-dom';
 import { GoogleMap, useJsApiLoader, Autocomplete } from '@react-google-maps/api';
 import { useDispatch } from 'react-redux';
 import { setAddress } from '../../../redux/features/homeSlice';
-
 const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
     ...theme.typography.body2,
@@ -173,50 +172,60 @@ export default function CreateHome22() {
 
     return (
         <>
-            <Box sx={{ flexGrow: 1, marginTop: '50px', marginBottom: '50px' }}>
-                <Grid container spacing={2} style={{ marginLeft: '5%', marginRight: '5%' }}>
-                    <h1>Where's your place located?</h1>
-                    <Autocomplete>
-                        <div className="search-map">
-                            <div className="search-map-icon">
-                                <i className="fa-solid fa-location-dot"></i>
+            <div className="container" style={{marginTop:"50px"}}>
+                <div className="row">
+                    <div className="col-6">
+                        <h1>Where's your place located?</h1>
+                        <Autocomplete>
+                            <div className="search-map">
+                                <div className="search-map-icon">
+                                    <i className="fa-solid fa-location-dot"></i>
+                                </div>
+                                <input
+                                    type="text"
+                                    name="search-map"
+                                    placeholder="Nhập địa chỉ của bạn"
+                                    id="search-location"
+                                    onBlur={(event) => handleGetPosition(event)}
+                                    onKeyDown={(event) => handleGetPosition(event)}
+                                    onChange={handleChange}
+                                    ref={inputRef}
+                                />
+                                <button
+                                    className="current-location"
+                                    onClick={handleGetPositionCurrent}
+                                >
+                                    <i className="fa-solid fa-location-arrow"></i>Vị trí hiện tại
+                                </button>
                             </div>
-                            <input
-                                type="text"
-                                name="search-map"
-                                placeholder="Nhập địa chỉ của bạn"
-                                id="search-location"
-                                onBlur={(event) => handleGetPosition(event)}
-                                onKeyDown={(event) => handleGetPosition(event)}
-                                onChange={handleChange}
-                                ref={inputRef}
-                            />
-                            <button
-                                className="current-location"
-                                onClick={handleGetPositionCurrent}
-                            >
-                                <i className="fa-solid fa-location-arrow"></i>Vị trí hiện tại
-                            </button>
-                        </div>
-                    </Autocomplete>
-                    {
-                        isLoaded ? (
-                            <GoogleMap
-                                mapContainerStyle={containerStyle}
-                                center={center}
-                                zoom={10}
-                                onLoad={(map) => setMap(map)}
-                            >
-                            </GoogleMap>
-                        ) : <></>
-                    }
-                </Grid>
-                <Grid style={{ marginLeft: '5%', marginRight: '5%' }}>
-                    <Button onClick={() => navigate('/create-home2/1')} variant="contained">Back</Button>
-                    {check ? (<Button Button onClick={() => { handleSetAddress(); navigate('/create-home2/3') }} variant="contained">Next</Button>) : null}
-
-                </Grid>
-            </Box >
+                        </Autocomplete>
+                    </div>
+                    <div className="col-6">
+                        {
+                            isLoaded ? (
+                                <GoogleMap
+                                    mapContainerStyle={containerStyle}
+                                    center={center}
+                                    zoom={10}
+                                    onLoad={(map) => setMap(map)}
+                                >
+                                </GoogleMap>
+                            ) : <></>
+                        }
+                    </div>
+                </div>
+                <div className="row">
+                    <div className="col-12">
+                        <Button onClick={() => navigate('/create-home2/1')} variant="contained">Back</Button>
+                        {check ? (<Button style={{marginLeft:"10px"}} Button onClick={() => { handleSetAddress(); navigate('/create-home2/3') }} variant="contained">Next</Button>) : null}
+                    </div>
+                </div>
+            </div>
+            {/*<Box sx={{ flexGrow: 1, marginTop: '50px', marginBottom: '50px' }}>*/}
+            {/*    <Grid style={{ marginLeft: '20%' }}>*/}
+            {/*        */}
+            {/*    </Grid>*/}
+            {/*</Box >*/}
         </>
 
     );

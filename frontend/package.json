@@ -5,6 +5,7 @@
   "dependencies": {
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
+    "@mobiscroll/react": "https://npm.mobiscroll.com/@mobiscroll/react-trial/-/react-trial-5.23.1.tgz",
     "@mui/icons-material": "^5.11.16",
     "@mui/material": "^5.12.0",
     "@react-google-maps/api": "^2.18.1",
@@ -17,6 +18,8 @@
     "axios": "^1.3.5",
     "bootstrap": "^5.2.3",
     "buffer": "^6.0.3",
+    "date-fns": "^2.29.3",
+    "format": "^0.2.2",
     "formik": "^2.2.9",
     "google-auth-library": "^8.7.0",
     "googleapis": "^116.0.0",
@@ -62,5 +65,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "prettier": "2.8.7"
   }
 }

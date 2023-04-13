@@ -34,7 +34,7 @@ export default function CreateHome() {
         let newHome = await axios.post('http://localhost:3002/api/v1/homes', {
             title, price, address, bathrooms, bedrooms, description, idCategory, file
         })
-
+``
         console.log(newHome);
 
         if (form.checkValidity() === false) {

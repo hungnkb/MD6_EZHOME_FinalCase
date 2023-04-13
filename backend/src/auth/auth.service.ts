@@ -6,6 +6,7 @@ import { jwtConstants } from "./constants";
 import { CreateWithGoogleUserDto, changePasswordDto } from "src/user/user.dto";
 import { Repository } from "typeorm";
 import { UserSchema } from "src/user/user.entity";
+import { log } from "console";
 //Thao tác câu lệnh với database
 export type User = any;
 
@@ -40,8 +41,8 @@ export class AuthService {
 
     async login(body): Promise<Object> {
         let { email, password } = body
-
         let user = await this.userService.findByObj(email)
+   
         if (!user) throw new HttpException('User not found', HttpStatus.BAD_REQUEST)
         let isMatch = await bcrypt.compare(password, user.password);
         if (isMatch) {

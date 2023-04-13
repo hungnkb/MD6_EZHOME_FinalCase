@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import { GoogleMap, useJsApiLoader, Autocomplete } from '@react-google-maps/api';
 import { useDispatch } from 'react-redux';
 import { setAddress } from '../../../redux/features/homeSlice';
+import "./style.css"
 const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
     ...theme.typography.body2,
@@ -177,14 +178,12 @@ export default function CreateHome22() {
                     <div className="col-6">
                         <h1>Where's your place located?</h1>
                         <Autocomplete>
-                            <div className="search-map">
-                                <div className="search-map-icon">
-                                    <i className="fa-solid fa-location-dot"></i>
-                                </div>
-                                <input
+                            <div className="search-map" >
+                                {/*<i className="fa-solid fa-location-dot"></i>*/}
+                                <input style={{height:50,borderRadius:"10px"}}
                                     type="text"
                                     name="search-map"
-                                    placeholder="Nhập địa chỉ của bạn"
+                                    placeholder="   Enter your address.."
                                     id="search-location"
                                     onBlur={(event) => handleGetPosition(event)}
                                     onKeyDown={(event) => handleGetPosition(event)}
@@ -193,9 +192,9 @@ export default function CreateHome22() {
                                 />
                                 <button
                                     className="current-location"
-                                    onClick={handleGetPositionCurrent}
+                                    onClick={handleGetPositionCurrent} style={{height:50,borderRadius:"10px", marginLeft:"15px"}}
                                 >
-                                    <i className="fa-solid fa-location-arrow"></i>Vị trí hiện tại
+                                    <i className="fa-solid fa-location-arrow"></i>Current position
                                 </button>
                             </div>
                         </Autocomplete>
@@ -215,9 +214,13 @@ export default function CreateHome22() {
                     </div>
                 </div>
                 <div className="row">
-                    <div className="col-12">
-                        <Button onClick={() => navigate('/create-home2/1')} variant="contained">Back</Button>
-                        {check ? (<Button style={{marginLeft:"10px"}} Button onClick={() => { handleSetAddress(); navigate('/create-home2/3') }} variant="contained">Next</Button>) : null}
+                    <div className="col-10">
+                    </div>
+                    <div className="col-2">
+                        <div style={{marginTop:"15px"}}>
+                        <Button onClick={() => navigate('/create-home2/1')} style={{background:"gray"}} variant="contained">Back</Button>
+                        {check ? (<Button style={{marginLeft:"10px",background:"#f7a800"}} Button onClick={() => { handleSetAddress(); navigate('/create-home2/3') }} variant="contained">Next</Button>) : null}
+                        </div>
                     </div>
                 </div>
             </div>

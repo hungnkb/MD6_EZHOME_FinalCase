@@ -11,5 +11,28 @@
 }
 #ggmap{
     width: 20%;
+}
+#search-location{
+    width: 50%;
+    /*height: 500%;*/
+    /*border-radius: 50%;*/
+}
+.search-map{
+    margin-top: 100px;
+}
+#btn-create23{
+    background: gray;
+    margin-top: 30px;
 
+}
+#btn-create231{
+    margin-top: 30px;
+    background: #f7a800;
+    margin-left: 10px;
+
+}
+#img{
+    color: red;
+    cursor: pointer;
+    text-decoration: underline;
 }

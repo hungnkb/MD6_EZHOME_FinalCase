@@ -29,21 +29,28 @@ export default function CreateHome24() {
     const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
     return (
         <>
-            <Box sx={{ flexGrow: 1, marginTop: '50px', marginBottom: '50px' }}>
-                <Grid container spacing={2} style={{ marginLeft: '5%', marginRight: '5%' }}>
-                    <Grid xs={6}>
-                        <p style={{ fontSize: '70px' }}>It’s easy to get started on EZHOME</p>
-                    </Grid>
-                    <Grid xs={6}>
-                        <h1>Some more information about your home</h1>
+            <div className="row">
+                <div className="col-5">
+                    <h1 style={{fontSize:"350%", marginTop:"100px"}}>It’s easy to get started on EZHOME</h1>
+                </div>
+                <div className="col-7">
+                    <h2>Some more information about your home</h2>
+                    <div className="row" style={{width:700,height:400, border:"2px solid gray"}}>
+                        <div className="col-6">
+                            every here.....
 
-                    </Grid>
-                </Grid>
-                <Grid style={{ marginLeft: '5%', marginRight: '5%' }}>
-                    <Button onClick={() => navigate('/create-home2/3')} variant="contained">Back</Button>
-                    <Button variant="contained">Next</Button>
-                </Grid>
-            </Box>
+                        </div>
+                        <div className="col-6"></div>
+                    </div>
+                </div>
+            </div>
+            <div className="row">
+                <div className="col-10"></div>
+                <div className="col-2">
+                    <Button id="btn-create23" onClick={() => navigate('/create-home2/3')} variant="contained">Back</Button>
+                    <Button id="btn-create231" variant="contained">Next</Button>
+                </div>
+            </div>
         </>
     );
 }

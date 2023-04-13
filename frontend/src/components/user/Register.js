@@ -86,7 +86,9 @@ export default function Register() {
   return (
     <>
     <div>
- 
+    <Button variant="outlined" onClick={handleClickOpen}>
+        Register
+    </Button>
       <Modal open={open} onClose={handleClose}>
         
       <Box sx={{ position: 'absolute', width: 400, top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}>
@@ -115,12 +117,13 @@ export default function Register() {
                                     : null
                             }
                         />
-            
+
                         <TextField
+                            className="form-control"
                             label="User Name" 
                             type="text"
                             name="username"
-                            value={formik.values.username}
+                            valueDefault={formik.values.username}
                             onChange={handleChange}
                             error={!!formik.errors.username && formik.touched.username}
                             helperText={

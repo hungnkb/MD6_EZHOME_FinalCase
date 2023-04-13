@@ -167,6 +167,7 @@ function Login() {
         </FormControl>
         <GoogleButton/>
         <button style={{background:"#f7a800"}}
+          
           type="submit"
           className="bg-primary-blue font-medium py-2 rounded text-white w-full"
         >

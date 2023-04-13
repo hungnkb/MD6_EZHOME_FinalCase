@@ -9,7 +9,6 @@ import {
   Modal,
   OutlinedInput,
   TextField,
-  Typography,
 } from "@mui/material";
 import FormHelperText from "@mui/material/FormHelperText";
 import { useFormik } from 'formik'
@@ -20,14 +19,15 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import * as Yup from "yup";
 import { clearErrors, loginUser } from "../../service/userAction";
-import Auth from "../auth/Auth";
 import axios from "../../api/axios";
 import GoogleButton from "../google/GoogleLogin";
+import Register from "./Register";
 
 
 function Login() {
     let navigate = useNavigate();
     const dispatch = useDispatch();
+    const [isLogin, setIsLogin] = useState(true)
     const [userLogin, setUserLogin] = useState({
       email: "",
       password: ""
@@ -47,8 +47,8 @@ function Login() {
         password: Yup.string()
              .required("Không được để trống")
              .matches(
-              /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,8}$/,
-              "Tối thiểu 6 và tối đa 8 ký tự, ít nhất một chữ hoa, một chữ thường, một số và một ký tự đặc biệt"
+              /^^[a-zA-Z]\w{6,8}$/,
+              "Bắt đầu bằng chữ. Tối thiểu 6 và tối đa 8 ký tự"
           ),
       }),
       onSubmit: (values) => {
@@ -100,7 +100,7 @@ function Login() {
 
   return (
     <>
-    <div>
+    {isLogin ? (<div>
     <Button variant="outlined" onClick={handleClickOpen}>
         Login
     </Button>
@@ -169,9 +169,11 @@ function Login() {
           ) : null}
         </FormControl>
         </div>
+        <div style={{width:"100%", display:"flex", alignItems:"center"}}>
         <GoogleButton/>
-        <button style={{background:"#f7a800"}}
-
+        </div>
+        <button style={{background:"#f7a800", width:"100%"}}
+   
           type="submit"
           className="bg-primary-blue font-medium py-2 rounded text-white w-full"
         >
@@ -193,14 +195,15 @@ function Login() {
     <div className="bg-white border p-5 text-center drop-shadow-md">
       <span>
         Bạn chưa có tài khoản ư?{" "}
-        <Link to="/register" className="text-primary-blue" style={{color:"#e85710"}}>
+        <Link onClick={() => {setIsLogin(false)}} className="text-primary-blue" style={{color:"#e85710"}}>
           Register
         </Link>
       </span>
     </div>
     </Box>
     </Modal>
-    </div>
+    </div>) : <Register setIsLogin={setIsLogin}/>}
+    
 </>
   );
 }

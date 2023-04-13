@@ -1,7 +1,5 @@
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
-import Backdrop from "@mui/material/Backdrop";
-import CircularProgress from "@mui/material/CircularProgress";
 import FormControl from "@mui/material/FormControl";
 import FormHelperText from "@mui/material/FormHelperText";
 import IconButton from "@mui/material/IconButton";
@@ -15,16 +13,15 @@ import PasswordStrengthBar from "react-password-strength-bar";
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
-import GoogleButton from "../google/GoogleLogin";
 import * as Yup from "yup";
 import { clearErrors, registerUser } from "../../service/userAction";
-import Auth from "../auth/Auth";
 import axios from "../../api/axios";
-import { Button, Dialog, DialogTitle, DialogActions, Modal, Box, DialogContent } from "@mui/material";
+import { Button, Modal, Box } from "@mui/material";
 
-export default function Register() {
-  const [open, setOpen] = React.useState(false);
-
+export default function Register(props) {
+  const [open, setOpen] = React.useState(true);
+  const [err, setErr] = useState('');
+    
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -32,7 +29,7 @@ export default function Register() {
   const handleClose = () => {
     setOpen(false);
   };
-
+  console.log(props.setIsLogin)
   let navigate = useNavigate();
   const [userSignUp, setUserSignUp] = useState({
       email: "",
@@ -48,19 +45,16 @@ export default function Register() {
        
       },
       validationSchema: Yup.object({
-          email: Yup.string()
-              .required("Không được để trống")
-              .email("Vui lòng nhập đúng định dạng Email"),
-          password: Yup.string()
-              .required("Không được để trống")
-              .matches(
-                  /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,8}$/,
-                  "Tối thiểu 6 và tối đa 8 ký tự, ít nhất một chữ hoa, một chữ thường, một số và một ký tự đặc biệt"
-              ),
+        email: Yup.string().email('Invalid email address').required('Email Required'),
+        password: Yup.string().required('Password Required')
       }),
       onSubmit: (values) => {
+        try {
           dispatch(registerUser(values));
           navigate("/login")
+        } catch(e) {
+            setErr(e.message)
+        }
       },
   });
 
@@ -81,8 +75,6 @@ export default function Register() {
 
   const handleChange = event =>
   setUserSignUp({ ...userSignUp, [event.target.name]: event.target.value });
-      console.log(userSignUp.email);
-
   return (
     <>
     <div>
@@ -138,7 +130,7 @@ export default function Register() {
                             error={!!formik.errors.password && formik.touched.password}
                             fullWidth
                             size="small"
-                            value={formik.values.password}
+                            valueDefault={formik.values.password}
                             onChange={handleChange}
                             variant="outlined"
                         >
@@ -183,7 +175,7 @@ export default function Register() {
                             type="submit"
                             className="bg-primary-blue font-medium py-2 rounded text-white w-full"
                         >
-                            Đăng Ký
+                            Register
                         </button>
                         <span className="my-3 text-gray-500">OR</span>
                         <Link
@@ -199,7 +191,7 @@ export default function Register() {
                 <div className="bg-white border p-5 text-center drop-shadow-md">
           <span>
             Bạn đã có tài khoản ?{" "}
-              <Link to="/login" className="text-primary-blue" style={{color:"#e85710"}}>
+              <Link onClick={() => {props.setIsLogin(true)}} className="text-primary-blue" style={{color:"#e85710"}}>
               Đăng nhập
             </Link>
           </span>

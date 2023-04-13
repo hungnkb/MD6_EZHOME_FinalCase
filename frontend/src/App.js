@@ -14,6 +14,7 @@ import CreateHome23 from './pages/home-action/create-home/createHome23';
 import Register from './components/user/Register';
 import '@mobiscroll/react/dist/css/mobiscroll.min.css';
 import CreateHome24 from './pages/home-action/create-home/createHome24';
+import Navbar from "./components/layout/Navbar";
 
 function App() {
   return (
@@ -27,12 +28,15 @@ function App() {
               <Route path='/login' element={<Login />} />
               <Route path='/register' element={<Register />} />
               <Route path='/test' element={<GoogleButton />} />
+          </Route>
+          <Route path={""} element={<Navbar/>}>
               <Route path='/create-home2' element={<CreateHome2/>}></Route>
               <Route path='/create-home2/1' element={<CreateHome21/>}></Route>
               <Route path='/create-home2/2' element={<CreateHome22/>}></Route>
               <Route path='/create-home2/3' element={<CreateHome23/>}></Route>
               <Route path='/create-home2/4' element={<CreateHome24/>}></Route>
           </Route>
+
       </Routes>
     </BrowserRouter>
   );

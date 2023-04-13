@@ -39,3 +39,6 @@
 .hidden{
   display: none;
 }
+img{
+  width: 100%;
+}

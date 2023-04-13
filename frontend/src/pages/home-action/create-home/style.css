@@ -1,0 +1,15 @@
+.card-createHome{
+    width: 50%;
+    height: 7%;
+    float: left;
+    border:2px solid gray;
+    margin-top:10px;
+    color:black
+}
+#btn{
+    color: black;
+}
+#ggmap{
+    width: 20%;
+
+}

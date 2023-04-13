@@ -1,10 +1,10 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
-import { AppService } from './app.service';
+import { HealthCheckService } from './health-check.service';
 import { DatabaseModule } from './database/database.module';
 import { RouterModule } from '@nestjs/core';
 import { UserModule } from './user/user.module';
-import { ConfigModule } from '@nestjs/config'
+import { ConfigModule } from '@nestjs/config';
 import { AuthModule } from './auth/auth.module';
 import { CloudinaryModule } from './cloudinary/cloudinary.module';
 import { CloudinaryService } from './cloudinary/cloudinary.service';
@@ -33,14 +33,14 @@ import { TypeOrmModule } from '@nestjs/typeorm';
           {
             path: 'homes',
             module: HomeModule,
-          }
-        ]
-      }
+          },
+        ],
+      },
     ]),
     CloudinaryModule,
-    HomeModule
+    HomeModule,
   ],
   controllers: [AppController],
-  providers: [AppService, CloudinaryService],
+  providers: [HealthCheckService, CloudinaryService],
 })
 export class AppModule {}

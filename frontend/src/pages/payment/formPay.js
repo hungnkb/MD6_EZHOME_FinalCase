@@ -1,4 +1,4 @@
-import React, {useCallback, useState} from "react";
+import React, { useCallback, useState } from "react";
 import {
     MDBContainer,
     MDBCol,
@@ -7,7 +7,7 @@ import {
     MDBBtn,
 } from "mdb-react-ui-kit";
 import { format } from "date-fns";
-import {Datepicker, localeVi} from "@mobiscroll/react";
+import { Datepicker, localeVi } from "@mobiscroll/react";
 import Button from "react-bootstrap/Button";
 const getBookings = (date, callback) => {
     const invalid = [];
@@ -46,72 +46,72 @@ export default function FormPay(props) {
         <MDBContainer>
             <MDBRow>
                 <MDBCol>
-                    <div className="p-3" style={{border:"1px solid gray"}} >
+                    <div className="p-3" style={{ border: "1px solid gray" }} >
                         <span className="fw-bold"> <b>{props.price?.toLocaleString('en-EN')}đ </b>/night</span>
                         <hr />
-                        <div className="d-flex justify-content-between mt-2" style={{marginLeft:"40px"}} >
-                                <div
-                                    onClick={() => setOpenDate(!openDate)}
-                                    className="calendar_check_in_out flex mr-10 cursor-pointer"
-                                >
-                                    <div className="row">
-                                        <div className="col-6">
-                                            <div className="home-booking-checkinout flex items-center">
-                                                <div className="home-booking-content cursor-pointer">
-                                                    <label htmlFor="check-in"><b>Nhận phòng</b></label>
-                                                    <div className="home-booking-info">
-                                                        {date[0]
-                                                            ? format(new Date(date[0]), "dd/MM/yyyy")
-                                                            : "Chọn ngày"}
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div className="col-6">
-                                            <div className="home-booking-checkinout flex items-center">
-                                                <div className="home-booking-content cursor-pointer">
-                                                    <label htmlFor="check-out"> <b> Trả phòng</b> </label>
-                                                    <div className="home-booking-info">
-                                                        {date[1]
-                                                            ? format(new Date(date[1]), "dd/MM/yyyy")
-                                                            : "Chọn ngày"}
-                                                    </div>
+                        <div className="d-flex justify-content-between mt-2" style={{ marginLeft: "40px" }} >
+                            <div
+                                onClick={() => setOpenDate(!openDate)}
+                                className="calendar_check_in_out flex mr-10 cursor-pointer"
+                            >
+                                <div className="row">
+                                    <div className="col-6">
+                                        <div className="home-booking-checkinout flex items-center">
+                                            <div className="home-booking-content cursor-pointer">
+                                                <label htmlFor="check-in"><b>Nhận phòng</b></label>
+                                                <div className="home-booking-info">
+                                                    {date[0]
+                                                        ? format(new Date(date[0]), "dd/MM/yyyy")
+                                                        : "Chọn ngày"}
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-
-
-                                    <div
-                                        onClick={(event) => event.stopPropagation()}
-                                        className={`calendar-range ${openDate ? "" : "hidden"}`}
-                                    >
-                                        <Datepicker
-                                            theme="ios"
-                                            themeVariant="light"
-                                            dateFormat="DD-MM-YYYY"
-                                            select="range"
-                                            display="inline"
-                                            touchUi={false}
-                                            value={date}
-                                            onChange={handleChange}
-                                            rangeStartLabel="Ngày đến"
-                                            rangeEndLabel="Ngày trả"
-                                            locale={localeVi}
-                                            minRange={3}
-                                            maxRange={10}
-                                            width={`200px`}
-                                            rangeHighlight={true}
-                                            showRangeLabels={true}
-                                            controls={["calendar"]}
-                                            invalid={multipleInvalid}
-                                            onPageLoading={onPageLoadingMultiple}
-                                        />
+                                    <div className="col-6">
+                                        <div className="home-booking-checkinout flex items-center">
+                                            <div className="home-booking-content cursor-pointer">
+                                                <label htmlFor="check-out"> <b> Trả phòng</b> </label>
+                                                <div className="home-booking-info">
+                                                    {date[1]
+                                                        ? format(new Date(date[1]), "dd/MM/yyyy")
+                                                        : "Chọn ngày"}
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
+
+
+                                <div
+                                    onClick={(event) => event.stopPropagation()}
+                                    className={`calendar-range ${openDate ? "" : "hidden"}`}
+                                >
+                                    <Datepicker
+                                        theme="ios"
+                                        themeVariant="light"
+                                        dateFormat="DD-MM-YYYY"
+                                        select="range"
+                                        display="inline"
+                                        touchUi={false}
+                                        value={date}
+                                        onChange={handleChange}
+                                        rangeStartLabel="Ngày đến"
+                                        rangeEndLabel="Ngày trả"
+                                        locale={localeVi}
+                                        minRange={3}
+                                        maxRange={10}
+                                        width={`200px`}
+                                        rangeHighlight={true}
+                                        showRangeLabels={true}
+                                        controls={["calendar"]}
+                                        invalid={multipleInvalid}
+                                        onPageLoading={onPageLoadingMultiple}
+                                    />
+                                </div>
+                            </div>
                         </div>
                         <div className="d-flex justify-content-between mt-2">
-                             <Button variant="warning" style={{width:400}}>Reserve</Button>
+                            <Button variant="warning" style={{ width: 400 }}>Reserve</Button>
                         </div>
                         <hr />
                         <div className="d-flex justify-content-between mt-2">

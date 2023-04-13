@@ -21,6 +21,6 @@ import { UserProvider } from 'src/user/user.provider';
     HomeService,
     UserService,
   ],
-  controllers: [HomeController]
+  controllers: [HomeController],
 })
-export class HomeModule { }
+export class HomeModule {}

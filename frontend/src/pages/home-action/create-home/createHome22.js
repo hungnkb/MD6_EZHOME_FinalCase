@@ -233,7 +233,19 @@ export default function CreateHome22() {
               >
                 Next
               </Button>
-            ) : null}
+            ) : (
+              <Button
+                style={{ marginLeft: '10px', background: 'gray' }}
+                Button
+                onClick={() => {
+                  handleSetAddress();
+                }}
+                variant="contained"
+                type='button'
+              >
+                Next
+              </Button>
+            )}
           </div>
         </div>
       </div>

@@ -57,14 +57,6 @@ function Login() {
       // dispatch(loginUser(values));
     },
   });
-
-  // useEffect(() => {
-  //   if (localStorage.getItem('token')) {
-  //     dispatch(setUserLogin(true));
-  //   }  else {
-  //     dispatch(setUserLogin(false));
-  //   }
-  // },[])
   
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -106,7 +98,7 @@ function Login() {
   return (
     <>
       <Button
-        variant="outlined"
+        variant="light"
         onClick={() => {
           setIsLogin(1);
           handleClickOpen();

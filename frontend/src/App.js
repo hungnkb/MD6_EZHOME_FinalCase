@@ -20,29 +20,56 @@ import Navbar from "./components/layout/Navbar";
 import NavbarCreate from "./pages/home-action/create-home/navbarCreate";
 import Test from "./components/test/test";
 import SuccessModal from "./components/successmodal/successModal";
+<<<<<<< HEAD
 import AddressForm from "./components/updateProfile/UpdateProfile";
+=======
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+import { useSelector } from 'react-redux';
+>>>>>>> 362f92c2f1bed9db6a244e6b33f5a27a093f7dfb
 
 function App() {
+  const currentAuth = useSelector(state => state.auth)
+  const [token, setToken] = useState(null)
+  
+  useEffect(() => {
+    setToken(localStorage.getItem('token'))
+  },[localStorage.getItem('token')])
+
+  useEffect(() => {
+    const verifyToken = async () => {
+      if (token) {
+        let response = await axios({
+          method: 'get',
+          url: 'http://localhost:3002/api/v1/auth/profile',
+          headers: {
+            Authorization: JSON.parse(token) 
+          }
+        })
+        console.log(response);
+      }
+    }
+    verifyToken();
+  }, [token])
   return (
     <BrowserRouter>
       <Routes>
-          <Route path='' element={<Home />}>
-              <Route path='/' element={<CardHome/>}/>
-              <Route path='/detail-home/:id' element={<DetailHome/>}/>
-              <Route path='/create-home' element={<ModalHome/>}></Route>
-              {/*<Route path='/sign-up' element={<SignUp />} />*/}
-              <Route path='/login' element={<Login />} />
-              <Route path='/register' element={<Register />} />
-              <Route path='/reset-password' element={<ResetPassword />} />
-              <Route path='/test' element={<AddressForm />} />
-          </Route>
-          <Route path={""} element={<NavbarCreate/>}>
-              <Route path='/create-home2' element={<CreateHome2/>}></Route>
-              <Route path='/create-home2/1' element={<CreateHome21/>}></Route>
-              <Route path='/create-home2/2' element={<CreateHome22/>}></Route>
-              <Route path='/create-home2/3' element={<CreateHome23/>}></Route>
-              <Route path='/create-home2/4' element={<CreateHome24/>}></Route>
-          </Route>
+        <Route path='' element={<Home />}>
+          <Route path='/' element={<CardHome />} />
+          <Route path='/detail-home/:id' element={<DetailHome />} />
+          <Route path='/create-home' element={<ModalHome />}></Route>
+          {/*<Route path='/sign-up' element={<SignUp />} />*/}
+          <Route path='/login' element={<Login />} />
+          <Route path='/register' element={<Register />} />
+          <Route path='/test' element={<AddressForm />} />
+        </Route>
+        <Route path={""} element={<NavbarCreate />}>
+          <Route path='/create-home2' element={<CreateHome2 />}></Route>
+          <Route path='/create-home2/1' element={<CreateHome21 />}></Route>
+          <Route path='/create-home2/2' element={<CreateHome22 />}></Route>
+          <Route path='/create-home2/3' element={<CreateHome23 />}></Route>
+          <Route path='/create-home2/4' element={<CreateHome24 />}></Route>
+        </Route>
       </Routes>
     </BrowserRouter>
   );

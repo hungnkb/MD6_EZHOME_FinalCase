@@ -20,6 +20,7 @@ import Navbar from "./components/layout/Navbar";
 import NavbarCreate from "./pages/home-action/create-home/navbarCreate";
 import Test from "./components/test/test";
 import SuccessModal from "./components/successmodal/successModal";
+import AddressForm from "./components/updateProfile/UpdateProfile";
 
 function App() {
   return (
@@ -33,7 +34,7 @@ function App() {
               <Route path='/login' element={<Login />} />
               <Route path='/register' element={<Register />} />
               <Route path='/reset-password' element={<ResetPassword />} />
-              <Route path='/test' element={<GoogleButton />} />
+              <Route path='/test' element={<AddressForm />} />
           </Route>
           <Route path={""} element={<NavbarCreate/>}>
               <Route path='/create-home2' element={<CreateHome2/>}></Route>

@@ -29,11 +29,12 @@ function Login() {
   let navigate = useNavigate();
   const dispatch = useDispatch();
   const [isLogin, setIsLogin] = useState(0);
+  const [items, setItems] = useState(null);
   const [userLogin, setUserLogin] = useState({
     email: '',
     password: '',
   });
-  const { isAuthenticated, error } = useSelector((state) => state.auth);
+  const { isLogined } = useSelector((state) => state.auth);
   const formik = useFormik({
     initialValues: {
       email: '',
@@ -55,6 +56,10 @@ function Login() {
     },
   });
 
+  useEffect(() => {
+    localStorage.setItem('token', JSON.stringify(items));
+  }, [isLogined,items]);
+
   const handleSubmit = (event) => {
     event.preventDefault();
     axios
@@ -64,6 +69,7 @@ function Login() {
       })
       .then(
         (response) => {
+          setItems(response.data.accessToken)
           console.log(response);
         },
         (error) => {
@@ -74,17 +80,6 @@ function Login() {
 
   const handleChange = (event) =>
     setUserLogin({ ...userLogin, [event.target.name]: event.target.value });
-
-  useEffect(() => {
-    if (error) {
-      toast.error(error);
-      dispatch(clearErrors());
-    }
-    if (isAuthenticated) {
-      navigate('/');
-    }
-  }, [dispatch, error, isAuthenticated, navigate]);
-
   const [showPassword, setShowPassword] = useState(false);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
   const handleMouseDownPassword = (event) => {
@@ -205,7 +200,7 @@ function Login() {
                   </button>
                   <div
                     style={{
-                      width: '100%',
+                      width: '52%',
                       marginLeft: "100px",
                       marginTop: '10px'
                     }}

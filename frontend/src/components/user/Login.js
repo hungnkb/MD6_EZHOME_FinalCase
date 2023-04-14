@@ -24,17 +24,19 @@ import axios from '../../api/axios';
 import GoogleButton from '../google/GoogleLogin';
 import Register from './Register';
 import ForgotPassword from "./ForgotPassword";
+import { setUserLogin } from '../../redux/features/authSlice';
 
 function Login() {
   let navigate = useNavigate();
   const dispatch = useDispatch();
   const [isLogin, setIsLogin] = useState(0);
   const [items, setItems] = useState(null);
-  const [userLogin, setUserLogin] = useState({
+  const [userLogins, setUserLogins] = useState({
     email: '',
     password: '',
   });
-  const { isLogined } = useSelector((state) => state.auth);
+  const  currentState  = useSelector((state) => state.auth);
+  console.log(currentState);
   const formik = useFormik({
     initialValues: {
       email: '',
@@ -52,34 +54,39 @@ function Login() {
         ),
     }),
     onSubmit: (values) => {
-      dispatch(loginUser(values));
+      // dispatch(loginUser(values));
     },
   });
 
-  useEffect(() => {
-    localStorage.setItem('token', JSON.stringify(items));
-  }, [isLogined,items]);
-
-  const handleSubmit = (event) => {
+  // useEffect(() => {
+  //   if (localStorage.getItem('token')) {
+  //     dispatch(setUserLogin(true));
+  //   }  else {
+  //     dispatch(setUserLogin(false));
+  //   }
+  // },[])
+  
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    axios
-      .post('http://localhost:3002/api/v1/auth', {
-        email: userLogin.email,
-        password: userLogin.password,
+    let response = await axios.post('http://localhost:3002/api/v1/auth', {
+        email: userLogins.email,
+        password: userLogins.password,
       })
-      .then(
-        (response) => {
-          setItems(response.data.accessToken)
+
+      if (response)  {
+        console.log('response', response);
+          localStorage.setItem('token', JSON.stringify(response.data.accessToken));
+          dispatch(setUserLogin({
+            isLogined: true,
+            userLogin: response.data,
+          })) 
           console.log(response);
-        },
-        (error) => {
-          console.log(error);
-        },
-      );
+        }
+      
   };
 
   const handleChange = (event) =>
-    setUserLogin({ ...userLogin, [event.target.name]: event.target.value });
+    setUserLogins({ ...userLogins, [event.target.name]: event.target.value });
   const [showPassword, setShowPassword] = useState(false);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
   const handleMouseDownPassword = (event) => {

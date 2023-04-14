@@ -4,12 +4,25 @@ import {Link, useNavigate, useParams} from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "../../api/axios";
 import {Button, Dialog, DialogTitle, DialogActions, Modal, Box, DialogContent} from "@mui/material";
+import Swal from 'sweetalert2';
+const Toast = Swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+        toast.addEventListener('mouseenter', Swal.stopTimer)
+        toast.addEventListener('mouseleave', Swal.resumeTimer)
+    }
+})
 
 export default function ResetPassword() {
     const searchParams = new URLSearchParams(window.location.search);
     const email = searchParams.get('email');
     const token = searchParams.get('token');
-    const [open, setOpen] = React.useState(true);
+    const [open, setOpen] = useState(true);
+    const [flag, setFlag] = useState(false);
     const [emailTokenPassword, setEmailTokenPassword] = useState({
         email: email,
         token: token,
@@ -23,20 +36,33 @@ export default function ResetPassword() {
     };
 
     const REGEX = {
-        username: /^[a-zA-Z]{2,}$/,
-        email: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
-        password: /^[a-zA-Z0-9!@#\$%\^\&*\)\(+=._-]{6,}$/
+        password: /^\w{6,8}$/
     };
-
     const [form, setForm] = useState({});
     const handleClose = () => {
         setOpen(false);
     };
+    useEffect(() => {
+        if (flag) {
+            console.log('flagggggggggg')
+            setOpen(false)
+        }
+    }, [flag])
+
+    console.log(111111, open)
     const handleSubmit = event => {
         event.preventDefault();
+        setFlag(true)
         axios.post('http://localhost:3002/api/v1/users/password-reset', {email: emailTokenPassword.email, password: emailTokenPassword.password, token: emailTokenPassword.token})
             .then((response) => {
-                console.log(response);
+                    handleClose();
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'success',
+                        title: 'Please Check Your Email!',
+                        showConfirmButton: false,
+                        timer: 2000
+                    })
             }, (error) => {
                 console.log(error);
             });
@@ -71,12 +97,10 @@ export default function ResetPassword() {
         });
         setEmailTokenPassword({ ...emailTokenPassword, [event.target.name]: event.target.value });
     }
-    console.log(emailTokenPassword)
+    console.log(open)
     return (
-        <>
-            <div>
-
-                <Modal open={open} onClose={handleClose}>
+        <div>
+            <Modal open={open} onClose={handleClose}>
                     <Box sx={{
                         position: 'absolute',
                         width: 400,
@@ -112,18 +136,18 @@ export default function ResetPassword() {
                                     form.password.error &&
                                     "custom-input-error"}`}
                                 >
-                                <input name="password" value={(form.password && form.password.value) || ""} onChange={handleChange} placeholder="New Password" style={{
-                                    marginBottom: "10px",
-                                    padding: "10px",
-                                    width: "100%",
-                                    borderRadius: "5px",
-                                    fontSize: "16px",
-                                    backgroundColor: "#f2f2f2",
-                                    border: "1px solid #ccc"
-                                }} type={"password"}></input>
-                                {form.password && form.password.error && (
-                                    <p className="error">{form.password.error}</p>
-                                )}
+                                    <input name="password" value={(form.password && form.password.value) || ""} onChange={handleChange} placeholder="New Password" style={{
+                                        marginBottom: "10px",
+                                        padding: "10px",
+                                        width: "100%",
+                                        borderRadius: "5px",
+                                        fontSize: "16px",
+                                        backgroundColor: "#f2f2f2",
+                                        border: "1px solid #ccc"
+                                    }} type={"password"}></input>
+                                    {form.password && form.password.error && (
+                                        <p className="error">{form.password.error}</p>
+                                    )}
                                 </div>
                                 <br/>
                                 <div
@@ -131,15 +155,15 @@ export default function ResetPassword() {
                                     form.confirmPassword.error &&
                                     "custom-input-error"}`}
                                 >
-                                <input name="confirmPassword" onChange={handleChange} placeholder="Re New Password" style={{
-                                    marginBottom: "10px",
-                                    padding: "10px",
-                                    width: "100%",
-                                    borderRadius: "5px",
-                                    fontSize: "16px",
-                                    backgroundColor: "#f2f2f2",
-                                    border: "1px solid #ccc"
-                                }} type={"password"}></input>
+                                    <input name="confirmPassword" onChange={handleChange} placeholder="Re New Password" style={{
+                                        marginBottom: "10px",
+                                        padding: "10px",
+                                        width: "100%",
+                                        borderRadius: "5px",
+                                        fontSize: "16px",
+                                        backgroundColor: "#f2f2f2",
+                                        border: "1px solid #ccc"
+                                    }} type={"password"}></input>
                                     {form.confirmPassword && form.confirmPassword.error && (
                                         <p className="error">{form.confirmPassword.error}</p>
                                     )}
@@ -149,7 +173,7 @@ export default function ResetPassword() {
                                     <button style={{background: "#f7a800", color: "#fff", fontWeight: "bold", padding: "10px", borderRadius: "5px"}} type="submit" className="w-full">
                                         Submit
                                     </button>
-                                    
+
                                 </div>
                             </form>
                         </div>
@@ -158,10 +182,6 @@ export default function ResetPassword() {
                         </div>
                     </Box>
                 </Modal>
-
-
-
-            </div>
-        </>
+        </div>
     );
 }

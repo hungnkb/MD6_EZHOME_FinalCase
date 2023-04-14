@@ -16,7 +16,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import * as Yup from 'yup';
 import { clearErrors, registerUser } from '../../service/userAction';
 import axios from '../../api/axios';
-import { Button, Modal, Box } from '@mui/material';
+import { Button, Modal, Box, Typography } from '@mui/material';
 
 export default function Register(props) {
     const [open, setOpen] = React.useState(true);
@@ -91,15 +91,16 @@ export default function Register(props) {
                     Register
                 </Button>
                 <Modal open={open} onClose={handleClose}>
-                    <Box
-                        sx={{
-                            position: 'absolute',
-                            width: 400,
-                            top: '50%',
-                            left: '50%',
-                            transform: 'translate(-50%, -50%)',
-                        }}
-                    >
+                <Box
+                   sx={{
+                    position: 'absolute',
+                    width: 500,
+                    height: 500,
+                    top: '50%',
+                    left: '50%',
+                    transform: 'translate(-50%, -50%)',
+                 }}
+            >
                         <div
                             className="bg-white border flex flex-col p-4 pt-10 drop-shadow-md"
                             style={{ marginBlockStart: '50px', textAlign: 'center' }}
@@ -108,6 +109,14 @@ export default function Register(props) {
                                 onSubmit={handleSubmit}
                                 className="flex flex-col justify-center items-center"
                             >
+                            <Typography
+                               id="keep-mounted-modal-title" 
+                               variant="h4" component="h2" 
+                               style={{textAlign:"center", marginBottom:"20px"}}
+                            >
+                            Register
+                            </Typography>
+                            <div>
                                 <TextField
                                     className="form-control"
                                     fullWidth
@@ -124,7 +133,8 @@ export default function Register(props) {
                                             : null
                                     }
                                 />
-
+                            </div>
+                            <div style={{marginTop:"10px"}}>
                                 <TextField
                                     className="form-control"
                                     label="Phone"
@@ -141,6 +151,8 @@ export default function Register(props) {
                                     size="small"
                                     fullWidth
                                 />
+                            </div>
+                            <div style={{marginTop:"10px"}}>
                                 <FormControl
                                     error={!!formik.errors.password && formik.touched.password}
                                     fullWidth
@@ -185,9 +197,9 @@ export default function Register(props) {
                                         </FormHelperText>
                                     ) : null}
                                 </FormControl>
-
+                            </div>
                                 <button
-                                    style={{ background: '#f7a800' }}
+                                    style={{ background: '#f7a800', width: '100%', marginTop: '10px'}}
                                     type="submit"
                                     className="bg-primary-blue font-medium py-2 rounded text-white w-full"
                                 >
@@ -198,7 +210,7 @@ export default function Register(props) {
 
                         <div className="bg-white border p-5 text-center drop-shadow-md">
               <span>
-                Bạn đã có tài khoản ?{' '}
+              You already have an account?{' '}
                   <Link
                       onClick={() => {
                           props.setIsLogin(1);
@@ -206,7 +218,7 @@ export default function Register(props) {
                       className="text-primary-blue"
                       style={{ color: '#e85710' }}
                   >
-                  Đăng nhập
+                  Login
                 </Link>
               </span>
                         </div>

@@ -260,13 +260,7 @@ export default function Navbar() {
         {renderMobileMenu}
         {renderMenu}
       </Box>
-      <div className="container">
-        <div className="row">
-          <div className="col-12">
-            <Outlet />
-          </div>
-        </div>
-      </div>
     </>
   );
 }
+

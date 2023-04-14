@@ -9,6 +9,7 @@ import {
   Modal,
   OutlinedInput,
   TextField,
+  Typography,
 } from '@mui/material';
 import FormHelperText from '@mui/material/FormHelperText';
 import { useFormik } from 'formik';
@@ -28,11 +29,12 @@ function Login() {
   let navigate = useNavigate();
   const dispatch = useDispatch();
   const [isLogin, setIsLogin] = useState(0);
+  const [items, setItems] = useState(null);
   const [userLogin, setUserLogin] = useState({
     email: '',
     password: '',
   });
-  const { isAuthenticated, error } = useSelector((state) => state.auth);
+  const { isLogined } = useSelector((state) => state.auth);
   const formik = useFormik({
     initialValues: {
       email: '',
@@ -54,6 +56,10 @@ function Login() {
     },
   });
 
+  useEffect(() => {
+    localStorage.setItem('token', JSON.stringify(items));
+  }, [isLogined,items]);
+
   const handleSubmit = (event) => {
     event.preventDefault();
     axios
@@ -63,6 +69,7 @@ function Login() {
       })
       .then(
         (response) => {
+          setItems(response.data.accessToken)
           console.log(response);
         },
         (error) => {
@@ -73,17 +80,6 @@ function Login() {
 
   const handleChange = (event) =>
     setUserLogin({ ...userLogin, [event.target.name]: event.target.value });
-
-  useEffect(() => {
-    if (error) {
-      toast.error(error);
-      dispatch(clearErrors());
-    }
-    if (isAuthenticated) {
-      navigate('/');
-    }
-  }, [dispatch, error, isAuthenticated, navigate]);
-
   const [showPassword, setShowPassword] = useState(false);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
   const handleMouseDownPassword = (event) => {
@@ -118,6 +114,7 @@ function Login() {
               sx={{
                 position: 'absolute',
                 width: 500,
+                height: 500,
                 top: '50%',
                 left: '50%',
                 transform: 'translate(-50%, -50%)',
@@ -128,6 +125,9 @@ function Login() {
                   onSubmit={handleSubmit}
                   className="flex flex-col justify-center items-center gap-3 m-3 md:m-8"
                 >
+                <Typography id="keep-mounted-modal-title" variant="h4" component="h2" style={{textAlign:"center", marginBottom:"20px"}}>
+                    Login
+                </Typography>
                   <div>
                     <TextField
                       fullWidth
@@ -145,7 +145,7 @@ function Login() {
                       size="small"
                     />
                   </div>
-                  <div>
+                  <div style={{marginTop:"10px"}}>
                     <FormControl
                       error={
                         !!formik.errors.password && formik.touched.password
@@ -190,46 +190,47 @@ function Login() {
                       ) : null}
                     </FormControl>
                   </div>
-                  <div
-                    style={{
-                      width: '100%',
-                      display: 'flex',
-                      alignItems: 'center',
-                    }}
-                  >
-                    <GoogleButton />
-                  </div>
+              
                   <button
-                    style={{ background: '#f7a800', width: '100%' }}
+                    style={{ background: '#f7a800', width: '100%', marginTop: '10px'}}
                     type="submit"
                     className="bg-primary-blue font-medium py-2 rounded text-white w-full"
                   >
                     Login
                   </button>
-                  <div className="flex">
-                    <span className="my-3 text-gray-500">Or</span>
+                  <div
+                    style={{
+                      width: '52%',
+                      marginLeft: "100px",
+                      marginTop: '10px'
+                    }}
+                  >
+                    <GoogleButton />
+                  </div>
+                  <div className="flex" style={{textAlign:"center", marginTop:"5px"}}>
+                    <span className="my-3 text-gray-500">OR</span>
                   </div>
                   <Link
-                    style={{ color: '#e85710' }}
+                    style={{ color: '#e85710', marginLeft: "150px", textDecoration:"none", marginTop: "5px"}}
                     className="text-sm font-medium  text-blue-800"
                     onClick={() => {
                       setIsLogin(3);
                     }}
                   >
-                    Quên mật khẩu?
+                    Forgot password?
                   </Link>
                 </form>
               </div>
 
               <div className="bg-white border p-5 text-center drop-shadow-md">
                 <span>
-                  Bạn chưa có tài khoản ư?{' '}
+                You don't have an account yet?{' '}
                   <Link
                     onClick={() => {
                       setIsLogin(2);
                     }}
                     className="text-primary-blue"
-                    style={{ color: '#e85710' }}
+                    style={{ color: '#e85710', textDecoration:"none"}}
                   >
                     Register
                   </Link>

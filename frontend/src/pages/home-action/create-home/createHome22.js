@@ -12,6 +12,7 @@ import {
 } from '@react-google-maps/api';
 import { useDispatch } from 'react-redux';
 import { setAddress } from '../../../redux/features/homeSlice';
+import "./style.css"
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
   ...theme.typography.body2,
@@ -123,7 +124,6 @@ export default function CreateHome22() {
       });
     }
   };
-
   const handleGetPositionCurrent = () => {
     clearMarker();
     geocoder = new google.maps.Geocoder();
@@ -149,7 +149,6 @@ export default function CreateHome22() {
       })
       .catch((error) => window.alert('Geocoder failed due to: ' + error));
   };
-
   const locationInit = (position) => {
     const curPosition = {
       lat: position.coords.latitude,
@@ -178,13 +177,10 @@ export default function CreateHome22() {
             <h1>Where's your place located?</h1>
             <Autocomplete>
               <div className="search-map">
-                <div className="search-map-icon">
-                  <i className="fa-solid fa-location-dot"></i>
-                </div>
-                <input
+                <input style={{height:50,borderRadius:"10px"}}
                   type="text"
                   name="search-map"
-                  placeholder="Nhập địa chỉ của bạn"
+                  placeholder="Enter your address.."
                   id="search-location"
                   onBlur={(event) => handleGetPosition(event)}
                   onKeyDown={(event) => handleGetPosition(event)}
@@ -193,9 +189,9 @@ export default function CreateHome22() {
                 />
                 <button
                   className="current-location"
-                  onClick={handleGetPositionCurrent}
+                  onClick={handleGetPositionCurrent} style={{height:50,borderRadius:"10px", marginLeft:"15px"}}
                 >
-                  <i className="fa-solid fa-location-arrow"></i>Vị trí hiện tại
+                  <i className="fa-solid fa-location-arrow"></i>Current position
                 </button>
               </div>
             </Autocomplete>
@@ -215,45 +211,43 @@ export default function CreateHome22() {
         </div>
         <div className="row">
           <div className="col-12">
-            <Button
-              onClick={() => navigate('/create-home2/1')}
-              variant="contained"
-            >
-              Back
-            </Button>
-            {check ? (
-              <Button
-                style={{ marginLeft: '10px' }}
-                Button
-                onClick={() => {
-                  handleSetAddress();
-                  navigate('/create-home2/3');
-                }}
-                variant="contained"
+            <div style={{marginTop:"15px" }} >
+              <Button  style={{background:'gray' }}
+                  onClick={() => navigate('/create-home2/1')}
+                  variant="contained"
               >
-                Next
+                Back
               </Button>
-            ) : (
-              <Button
-                style={{ marginLeft: '10px', background: 'gray' }}
-                Button
-                onClick={() => {
-                  handleSetAddress();
-                }}
-                variant="contained"
-                type='button'
-              >
-                Next
-              </Button>
-            )}
+              {check ? (
+                  <Button
+                      style={{ marginLeft: '900px', background:'#f7a800' }}
+                      Button
+                      onClick={() => {
+                        handleSetAddress();
+                        navigate('/create-home2/3');
+                      }}
+                      variant="contained"
+                  >
+                    Next
+                  </Button>
+              ) : (
+                  <Button
+                      style={{ marginLeft: '900px', background: 'gray' }}
+                      Button
+                      onClick={() => {
+                        handleSetAddress();
+                      }}
+                      variant="contained"
+                      type='button'
+                  >
+                    Next
+                  </Button>
+              )}
+            </div>
+
           </div>
         </div>
       </div>
-      {/*<Box sx={{ flexGrow: 1, marginTop: '50px', marginBottom: '50px' }}>*/}
-      {/*    <Grid style={{ marginLeft: '20%' }}>*/}
-      {/*        */}
-      {/*    </Grid>*/}
-      {/*</Box >*/}
     </>
   );
 }

@@ -22,6 +22,7 @@ import { clearErrors, loginUser } from '../../service/userAction';
 import axios from '../../api/axios';
 import GoogleButton from '../google/GoogleLogin';
 import Register from './Register';
+import ForgotPassword from "./ForgotPassword";
 
 function Login() {
   let navigate = useNavigate();
@@ -210,8 +211,10 @@ function Login() {
                   </div>
                   <Link
                     style={{ color: '#e85710' }}
-                    to="/test"
                     className="text-sm font-medium  text-blue-800"
+                    onClick={() => {
+                      setIsLogin(3);
+                    }}
                   >
                     Quên mật khẩu?
                   </Link>
@@ -236,6 +239,7 @@ function Login() {
           </Modal>
         </div>
       ) : null}
+      {isLogin == 3 ? <ForgotPassword setIsLogin={setIsLogin} /> : null}
       {isLogin == 2 ? <Register setIsLogin={setIsLogin} /> : null}
     </>
   );

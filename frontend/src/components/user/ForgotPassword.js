@@ -22,7 +22,7 @@ import Auth from "../auth/Auth";
 import axios from "../../api/axios";
 import { Button, Dialog, DialogTitle, DialogActions, Modal, Box, DialogContent } from "@mui/material";
 
-export default function ForgotPassword() {
+export default function ForgotPassword(props) {
     const [open, setOpen] = React.useState(true);
 
     const handleClickOpen = () => {
@@ -124,7 +124,9 @@ export default function ForgotPassword() {
                         <div className="bg-white border p-5 text-center drop-shadow-md">
           <span>
             Bạn đã có tài khoản ?{" "}
-              <Link to="/login" className="text-primary-blue" style={{color:"#e85710"}}>
+              <Link onClick={() => {
+                  props.setIsLogin(1);
+              }} className="text-primary-blue" style={{color:"#e85710"}}>
               Đăng nhập
             </Link>
           </span>

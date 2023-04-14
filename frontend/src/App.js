@@ -16,33 +16,31 @@ import ForgotPassword from "./components/user/ForgotPassword";
 import ResetPassword from "./components/user/ResetPassword";
 import '@mobiscroll/react/dist/css/mobiscroll.min.css';
 import CreateHome24 from './pages/home-action/create-home/createHome24';
-import Navbar from './components/layout/Navbar';
+import Navbar from "./components/layout/Navbar";
+import NavbarCreate from "./pages/home-action/create-home/navbarCreate";
 import Test from "./components/test/test";
 import SuccessModal from "./components/successmodal/successModal";
-
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="" element={<Home />}>
-          <Route path="/" element={<CardHome />} />
-          <Route path="/detail-home/:id" element={<DetailHome />} />
-          <Route path="/create-home" element={<ModalHome />}></Route>
-          {/*<Route path='/sign-up' element={<SignUp />} />*/}
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route path='/reset-password' element={<ResetPassword/>} />
-          <Route path='/test' element={<ForgotPassword />} />
-          <Route path="/test1" element={<SuccessModal/>} />
-        </Route>
-        <Route path={''} element={<Navbar />}>
-          <Route path="/create-home2" element={<CreateHome2 />}></Route>
-          <Route path="/create-home2/1" element={<CreateHome21 />}></Route>
-          <Route path="/create-home2/2" element={<CreateHome22 />}></Route>
-          <Route path="/create-home2/3" element={<CreateHome23 />}></Route>
-          <Route path="/create-home2/4" element={<CreateHome24 />}></Route>
-        </Route>
+          <Route path='' element={<Home />}>
+              <Route path='/' element={<CardHome/>}/>
+              <Route path='/detail-home/:id' element={<DetailHome/>}/>
+              <Route path='/create-home' element={<ModalHome/>}></Route>
+              {/*<Route path='/sign-up' element={<SignUp />} />*/}
+              <Route path='/login' element={<Login />} />
+              <Route path='/register' element={<Register />} />
+              <Route path='/test' element={<GoogleButton />} />
+          </Route>
+          <Route path={""} element={<NavbarCreate/>}>
+              <Route path='/create-home2' element={<CreateHome2/>}></Route>
+              <Route path='/create-home2/1' element={<CreateHome21/>}></Route>
+              <Route path='/create-home2/2' element={<CreateHome22/>}></Route>
+              <Route path='/create-home2/3' element={<CreateHome23/>}></Route>
+              <Route path='/create-home2/4' element={<CreateHome24/>}></Route>
+          </Route>
       </Routes>
     </BrowserRouter>
   );

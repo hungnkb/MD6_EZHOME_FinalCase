@@ -14,7 +14,7 @@ export default class Footer extends React.Component {
                 <MDBContainer className='p-4'>
                     <MDBRow>
                         <MDBCol lg='3' md='6' className='mb-4 mb-md-0'>
-                            <h5 className='text-uppercase'>Support</h5>
+                            <h6 className='text-uppercase'>Support</h6>
 
                             <ul className='list-unstyled mb-0'>
                                 <li>
@@ -41,7 +41,7 @@ export default class Footer extends React.Component {
                         </MDBCol>
 
                         <MDBCol lg='3' md='6' className='mb-4 mb-md-0'>
-                            <h5 className='text-uppercase mb-0'>Community</h5>
+                            <h6 className='text-uppercase mb-0'>Community</h6>
 
                             <ul className='list-unstyled'>
                                 <li>
@@ -58,7 +58,7 @@ export default class Footer extends React.Component {
                         </MDBCol>
 
                         <MDBCol lg='3' md='6' className='mb-4 mb-md-0'>
-                            <h5 className='text-uppercase'>Hosting</h5>
+                            <h6 className='text-uppercase'>Hosting</h6>
 
                             <ul className='list-unstyled mb-0'>
                                 <li>
@@ -85,7 +85,7 @@ export default class Footer extends React.Component {
                         </MDBCol>
 
                         <MDBCol lg='3' md='6' className='mb-4 mb-md-0'>
-                            <h5 className='text-uppercase mb-0'>EzHome</h5>
+                            <h6 className='text-uppercase mb-0'>EzHome</h6>
 
                             <ul className='list-unstyled'>
                                 <li>

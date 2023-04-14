@@ -17,10 +17,8 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import { Button, ButtonGroup } from "@mui/material";
 import {useEffect, useState} from "react";
-import GoogleButton from "../google/GoogleLogin";
 import {Link, Outlet} from "react-router-dom";
-import Login from '../user/Login';
-import Register from '../user/Register';
+import Register from "../../../components/user/Register";
 
 const Search = styled('div')(({ theme }) => ({
     position: 'relative',
@@ -62,7 +60,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     },
 }));
 
-export default function Navbar() {
+export default function NavbarCreate() {
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
     const isMenuOpen = Boolean(anchorEl);
@@ -189,22 +187,6 @@ export default function Navbar() {
                                      src="https://cebuhomebuilders.com/wp-content/uploads/2020/10/ez-home-768-x-331-px.jpg"/>
                             </Link>
                         </Typography>
-                        {/*<Search style={{border: "1px solid black"}}>*/}
-                        {/*    <SearchIconWrapper>*/}
-                        {/*        <SearchIcon/>*/}
-                        {/*    </SearchIconWrapper>*/}
-                        {/*    <StyledInputBase*/}
-                        {/*        placeholder="Search…"*/}
-                        {/*        inputProps={{'aria-label': 'search'}}*/}
-                        {/*    />*/}
-                        {/*</Search>*/}
-                        {/*<Typography>*/}
-                        {/*    <ButtonGroup variant="outlined" color="warning"  aria-label="outlined button group" style={{borderRadius:50}}>*/}
-                        {/*    <Button>One</Button>*/}
-                        {/*    <Button>Two</Button>*/}
-                        {/*    <Button>Three</Button>*/}
-                        {/*</ButtonGroup>*/}
-                        {/*</Typography>*/}
                         <Box sx={{flexGrow: 1}}/>
                         <Box sx={{display: {xs: 'none', md: 'flex'}}}>
                             <IconButton size="large" aria-label="show 4 new mails" color="inherit">
@@ -250,6 +232,13 @@ export default function Navbar() {
                 {renderMobileMenu}
                 {renderMenu}
             </Box>
+            <div className="container">
+                <div className="row">
+                    <div className="col-12">
+                        <Outlet/>
+                    </div>
+                </div>
+            </div>
         </>
 
     );

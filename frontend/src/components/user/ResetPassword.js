@@ -55,16 +55,19 @@ export default function ResetPassword() {
         setFlag(true)
         axios.post('http://localhost:3002/api/v1/users/password-reset', {email: emailTokenPassword.email, password: emailTokenPassword.password, token: emailTokenPassword.token})
             .then((response) => {
-                    handleClose();
-                    Swal.fire({
-                        position: 'center',
+                setOpen(false);
+                setTimeout(() => {
+                    Toast.fire({
                         icon: 'success',
-                        title: 'Please Check Your Email!',
-                        showConfirmButton: false,
-                        timer: 2000
+                        title: 'Change Password Successfull'
                     })
+                },0)
             }, (error) => {
                 console.log(error);
+                Toast.fire({
+                    icon: 'error',
+                    title: 'Token Incorrect!'
+                })
             });
     };
 
@@ -100,7 +103,8 @@ export default function ResetPassword() {
     console.log(open)
     return (
         <div>
-            <Modal open={open} onClose={handleClose}>
+            {
+                open &&  (<Modal open={open} onClose={handleClose}>
                     <Box sx={{
                         position: 'absolute',
                         width: 400,
@@ -173,7 +177,6 @@ export default function ResetPassword() {
                                     <button style={{background: "#f7a800", color: "#fff", fontWeight: "bold", padding: "10px", borderRadius: "5px"}} type="submit" className="w-full">
                                         Submit
                                     </button>
-
                                 </div>
                             </form>
                         </div>
@@ -181,7 +184,11 @@ export default function ResetPassword() {
                             <p style={{color: "#6b7280"}}>Welcome To EZHome 1.0</p>
                         </div>
                     </Box>
-                </Modal>
+                </Modal>)
+            }
+
         </div>
+
+
     );
 }

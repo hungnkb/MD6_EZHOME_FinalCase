@@ -18,10 +18,12 @@ import MoreIcon from '@mui/icons-material/MoreVert';
 import { Button, ButtonGroup } from '@mui/material';
 import { useEffect, useState } from 'react';
 import GoogleButton from '../google/GoogleLogin';
+import LanguageIcon from '@mui/icons-material/Language';
 import { Link, Outlet } from 'react-router-dom';
 import Login from '../user/Login';
 import { useDispatch, useSelector } from 'react-redux';
 import { setUserLogin } from '../../redux/features/authSlice';
+import CarouselMulti from "./carousel-multi";
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -121,7 +123,7 @@ export default function Navbar() {
     >
       <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
       <MenuItem onClick={handleMenuClose}>
-        {currentState.isLogined ? (<Button/>) : (<Login />)}
+        {currentState.isLogined ? (<Button/>) : (<Login/>)}
       </MenuItem>
       <MenuItem onClick={handleMenuClose}>My account</MenuItem>
     </Menu>
@@ -157,9 +159,9 @@ export default function Navbar() {
           aria-label="show 17 new notifications"
           color="inherit"
         >
-          <Badge badgeContent={17} color="error">
-            <NotificationsIcon />
-          </Badge>
+          {/*<Badge badgeContent={17} color="error">*/}
+          {/*  <NotificationsIcon />*/}
+          {/*</Badge>*/}
         </IconButton>
         <p>Notifications</p>
       </MenuItem>
@@ -208,15 +210,15 @@ export default function Navbar() {
                 />
               </Link>
             </Typography>
-            {/*<Search style={{border: "1px solid black"}}>*/}
-            {/*    <SearchIconWrapper>*/}
-            {/*        <SearchIcon/>*/}
-            {/*    </SearchIconWrapper>*/}
-            {/*    <StyledInputBase*/}
-            {/*        placeholder="Search…"*/}
-            {/*        inputProps={{'aria-label': 'search'}}*/}
-            {/*    />*/}
-            {/*</Search>*/}
+            <Search style={{border: "2px solid black", marginLeft:"300px", borderRadius:"30px", width:400}}>
+                <SearchIconWrapper>
+                    <SearchIcon/>
+                </SearchIconWrapper>
+                <StyledInputBase
+                    placeholder="Search…"
+                    inputProps={{'aria-label': 'search'}}
+                />
+            </Search>
             {/*<Typography>*/}
             {/*    <ButtonGroup variant="outlined" color="warning"  aria-label="outlined button group" style={{borderRadius:50}}>*/}
             {/*    <Button>One</Button>*/}
@@ -226,22 +228,28 @@ export default function Navbar() {
             {/*</Typography>*/}
             <Box sx={{ flexGrow: 1 }} />
             <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-              <IconButton
-                size="large"
-                aria-label="show 4 new mails"
-                color="inherit"
-              >
-                <Badge badgeContent={4} color="error">
-                  <MailIcon />
-                </Badge>
-              </IconButton>
-              <IconButton
-                size="large"
-                aria-label="show 17 new notifications"
-                color="inherit"
-              >
-                <Badge badgeContent={17} color="error">
-                  <NotificationsIcon />
+              {/*<IconButton*/}
+              {/*  size="large"*/}
+              {/*  aria-label="show 4 new mails"*/}
+              {/*  color="inherit"*/}
+              {/*>*/}
+              {/*  <Badge badgeContent={4} color="error">*/}
+              {/*    <MailIcon />*/}
+              {/*  </Badge>*/}
+              {/*</IconButton>*/}
+              {/*<IconButton*/}
+              {/*  size="large"*/}
+              {/*  aria-label="show 17 new notifications"*/}
+              {/*  color="inherit"*/}
+              {/*>*/}
+              {/*  <Badge badgeContent={17} color="error">*/}
+              {/*    <NotificationsIcon />*/}
+              {/*  </Badge>*/}
+              {/*</IconButton>*/}
+              {/*<IconButton */}
+              <IconButton>
+                <Badge>
+                  <LanguageIcon />
                 </Badge>
               </IconButton>
               <IconButton
@@ -253,7 +261,7 @@ export default function Navbar() {
                 onClick={handleProfileMenuOpen}
                 color="inherit"
               >
-                <AccountCircle />
+           <Button style={{borderRadius:"30px", color:"black", border:"1px solid gray", width:"80px"}}> <MenuIcon fontSize="small"/>   <AccountCircle fontSize="large"/> </Button>
               </IconButton>
             </Box>
             <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
@@ -273,6 +281,7 @@ export default function Navbar() {
         {renderMobileMenu}
         {renderMenu}
       </Box>
+      {/*<CarouselMulti/>*/}
     </>
   );
 }

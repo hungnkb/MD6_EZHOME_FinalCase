@@ -57,7 +57,7 @@ export default function DetailHome() {
               </Link>
             </div>
           </div>
-          <hr />
+          <br />
           <div className="row">
             <div className="col-6">
               <img
@@ -96,11 +96,11 @@ export default function DetailHome() {
               </div>
             </div>
           </div>
-          <hr />
+          <br />
           <div className="row">
             <div className="col-7">
               <h4> What is there where you are staying?</h4>
-              <hr />
+              <br />
               <Box sx={{ minWidth: 275 }}>
                 <Card>
                   <div className="row">
@@ -116,7 +116,7 @@ export default function DetailHome() {
                         >
                           <Card.Body>
                             <center>
-                              <BathtubIcon /> Bathrooms: {detail.bathrooms}
+                              <BathtubIcon /> Batbrooms: {detail.batbrooms}
                             </center>
                           </Card.Body>
                         </Card>
@@ -134,7 +134,7 @@ export default function DetailHome() {
                       </Card.Body>
                     </div>
                   </div>
-                  <hr />
+                  <br />
                   <div className="container">
                     <div className="row">
                       <div className="col-12">
@@ -158,13 +158,28 @@ export default function DetailHome() {
                   </div>
                 </Card>
               </Box>
-              <hr />
+              <br />
               <div className="row">
                 <div className="col-12">
-                  {/*<h4> What is there where you are staying?</h4>*/}
+                  <h4> What is there where you are staying?</h4>
+                  <br/>
                   <div className="row">
-                    <div className="col-6"></div>
-                    <div className="col-6"></div>
+                    <div className="col-6">
+                      < p><i className="fa-solid fa-wifi"></i>  Wifi </p>
+                      <br/>
+                      < p><i className="fa-solid fa-tv"></i>  TV </p>
+                      <br/>
+                      < p><i className="fa-regular fa-snowflake"></i>  Air conditioning </p>
+
+
+                    </div>
+                    <div className="col-6">
+                      < p><i className="fa-solid fa-bed-front"></i>  Bed </p>
+                      <br/>
+                      <p><i className="fa-solid fa-clothes-hanger"></i> Hanger </p>
+                      <br/>
+                      <p><i className="fa-regular fa-kitchen-set"></i> Kitchen </p>
+                    </div>
                   </div>
                 </div>
               </div>

@@ -40,7 +40,7 @@ export default function CardHome() {
                       alt="green iguana"
                     />
                     <CardContent>
-                      <Typography gutterBottom variant="h5" component="div">
+                      <Typography gutterBottom variant="p" component="div">
                         <b> {value.title}</b>
                       </Typography>
                       <Typography variant="body2" color="text.secondary">

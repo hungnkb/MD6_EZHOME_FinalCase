@@ -20,6 +20,8 @@ import { useEffect, useState } from 'react';
 import GoogleButton from '../google/GoogleLogin';
 import { Link, Outlet } from 'react-router-dom';
 import Login from '../user/Login';
+import { useDispatch, useSelector } from 'react-redux';
+import { setUserLogin } from '../../redux/features/authSlice';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -61,12 +63,15 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
+
 export default function Navbar() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
   const [message, setMessage] = useState('');
+  const currentState = useSelector(state => state.auth);
+  const dispatch = useDispatch();
 
   const callbackFunction = (childData) => {
     setMessage(childData);
@@ -89,6 +94,14 @@ export default function Navbar() {
     setMobileMoreAnchorEl(event.currentTarget);
   };
 
+  // useEffect(() => {
+  //   if (
+  //     localStorage.getItem('token') 
+  //   ) {
+      
+  //   }
+  // },[currentState.isLogined])
+
   const menuId = 'primary-search-account-menu';
   const renderMenu = (
     <Menu
@@ -108,7 +121,7 @@ export default function Navbar() {
     >
       <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
       <MenuItem onClick={handleMenuClose}>
-        <Login />
+        {currentState.isLogined ? (<Button/>) : (<Login />)}
       </MenuItem>
       <MenuItem onClick={handleMenuClose}>My account</MenuItem>
     </Menu>

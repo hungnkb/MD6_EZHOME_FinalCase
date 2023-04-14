@@ -106,7 +106,7 @@ function Login() {
   return (
     <>
       <Button
-        variant="outlined"
+        variant="light"
         onClick={() => {
           setIsLogin(1);
           handleClickOpen();

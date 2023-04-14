@@ -140,11 +140,11 @@ export default function ForgotPassword(props) {
 
                         <div className="bg-white border p-5 text-center drop-shadow-md">
           <span>
-            Bạn đã có tài khoản ?{" "}
+            You have account ?{" "}
               <Link onClick={() => {
                   props.setIsLogin(1);
               }} className="text-primary-blue" style={{color:"#e85710"}}>
-              Đăng nhập
+              Register
             </Link>
           </span>
                         </div>

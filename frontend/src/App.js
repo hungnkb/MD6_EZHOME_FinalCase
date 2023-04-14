@@ -32,6 +32,7 @@ function App() {
               {/*<Route path='/sign-up' element={<SignUp />} />*/}
               <Route path='/login' element={<Login />} />
               <Route path='/register' element={<Register />} />
+              <Route path='/reset-password' element={<ResetPassword />} />
               <Route path='/test' element={<GoogleButton />} />
           </Route>
           <Route path={""} element={<NavbarCreate/>}>

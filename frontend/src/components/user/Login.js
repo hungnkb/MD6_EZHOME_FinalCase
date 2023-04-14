@@ -56,26 +56,30 @@ function Login() {
     },
   });
 
-  useEffect(() => {
-    localStorage.setItem('token', JSON.stringify(items));
-  }, [isLogined,items]);
-
-  const handleSubmit = (event) => {
+  // useEffect(() => {
+  //   if (localStorage.getItem('token')) {
+  //     dispatch(setUserLogin(true));
+  //   }  else {
+  //     dispatch(setUserLogin(false));
+  //   }
+  // },[])
+  
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    axios
-      .post('http://localhost:3002/api/v1/auth', {
+    let response = await axios.post('http://localhost:3002/api/v1/auth', {
         email: userLogin.email,
         password: userLogin.password,
       })
-      .then(
-        (response) => {
-          setItems(response.data.accessToken)
+       
+      if (response)  {
+          localStorage.setItem('token', JSON.stringify(response.data.accessToken));
+          dispatch(setUserLogin({
+            isLogined: true,
+            userLogin: response.data,
+          }))
           console.log(response);
-        },
-        (error) => {
-          console.log(error);
-        },
-      );
+        } 
+      
   };
 
   const handleChange = (event) =>

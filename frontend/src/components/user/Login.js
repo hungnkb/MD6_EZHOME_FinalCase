@@ -57,14 +57,6 @@ function Login() {
       // dispatch(loginUser(values));
     },
   });
-
-  // useEffect(() => {
-  //   if (localStorage.getItem('token')) {
-  //     dispatch(setUserLogin(true));
-  //   }  else {
-  //     dispatch(setUserLogin(false));
-  //   }
-  // },[])
   
   const handleSubmit = async (event) => {
     event.preventDefault();

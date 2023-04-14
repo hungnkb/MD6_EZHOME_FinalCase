@@ -158,7 +158,7 @@ export default function CreateHome21() {
             </Button>
             {check ? (
               <Button
-                style={{ background: '#f7a800', marginLeft:"900px" }}
+                style={{ background: '#f7a800', marginLeft: '900px' }}
                 onClick={() => navigate('/create-home2/2')}
                 variant="contained"
               >
@@ -166,9 +166,9 @@ export default function CreateHome21() {
               </Button>
             ) : (
               <Button
-                style={{ background: 'gray',marginLeft:"900px"  }}
+                style={{ background: 'gray', marginLeft: '900px' }}
                 variant="contained"
-                type='button'
+                type="button"
               >
                 Next
               </Button>

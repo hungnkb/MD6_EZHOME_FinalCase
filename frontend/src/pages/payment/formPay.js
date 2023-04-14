@@ -132,7 +132,14 @@ export default function FormPay(props) {
             </div>
             <hr />
             <div className="d-flex justify-content-between mt-2">
-               <span> <b> Total</b>  </span> <span class="text-success"> <b> đ85.00</b> </span>
+              <span>
+                {' '}
+                <b> Total</b>{' '}
+              </span>{' '}
+              <span class="text-success">
+                {' '}
+                <b> đ85.00</b>{' '}
+              </span>
             </div>
           </div>
         </MDBCol>

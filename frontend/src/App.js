@@ -12,25 +12,23 @@ import CreateHome21 from './pages/home-action/create-home/createHome21';
 import CreateHome22 from './pages/home-action/create-home/createHome22';
 import CreateHome23 from './pages/home-action/create-home/createHome23';
 import Register from './components/user/Register';
-import ForgotPassword from "./components/user/ForgotPassword";
-import ResetPassword from "./components/user/ResetPassword";
 import '@mobiscroll/react/dist/css/mobiscroll.min.css';
 import CreateHome24 from './pages/home-action/create-home/createHome24';
-import Navbar from "./components/layout/Navbar";
-import NavbarCreate from "./pages/home-action/create-home/navbarCreate";
-import Test from "./components/test/test";
-import SuccessModal from "./components/successmodal/successModal";
+import NavbarCreate from './pages/home-action/create-home/navbarCreate';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { setUserLogin } from './redux/features/authSlice';
 
 function App() {
-  const currentAuth = useSelector(state => state.auth)
-  const [token, setToken] = useState(null)
-  
+  const currentAuth = useSelector((state) => state.auth);
+  const [token, setToken] = useState(null);
+
+  const dispatch = useDispatch(state => state.auth);
+
   useEffect(() => {
-    setToken(localStorage.getItem('token'))
-  },[localStorage.getItem('token')])
+    setToken(localStorage.getItem('token'));
+  }, [localStorage.getItem('token')]);
 
   useEffect(() => {
     const verifyToken = async () => {
@@ -39,32 +37,37 @@ function App() {
           method: 'get',
           url: 'http://localhost:3002/api/v1/auth/profile',
           headers: {
-            Authorization: JSON.parse(token) 
-          }
-        })
-        console.log(response);
+            Authorization: JSON.parse(token),
+          },
+        });
+        if (response) {
+          dispatch(setUserLogin({
+            isLogined: true,
+            userLogin: response.data
+          }))
+        }
       }
-    }
+    };
     verifyToken();
-  }, [token])
+  }, [token]);
   return (
     <BrowserRouter>
       <Routes>
-        <Route path='' element={<Home />}>
-          <Route path='/' element={<CardHome />} />
-          <Route path='/detail-home/:id' element={<DetailHome />} />
-          <Route path='/create-home' element={<ModalHome />}></Route>
+        <Route path="" element={<Home />}>
+          <Route path="/" element={<CardHome />} />
+          <Route path="/detail-home/:id" element={<DetailHome />} />
+          <Route path="/create-home" element={<ModalHome />}></Route>
           {/*<Route path='/sign-up' element={<SignUp />} />*/}
-          <Route path='/login' element={<Login />} />
-          <Route path='/register' element={<Register />} />
-          <Route path='/test' element={<GoogleButton />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/test" element={<GoogleButton />} />
         </Route>
-        <Route path={""} element={<NavbarCreate />}>
-          <Route path='/create-home2' element={<CreateHome2 />}></Route>
-          <Route path='/create-home2/1' element={<CreateHome21 />}></Route>
-          <Route path='/create-home2/2' element={<CreateHome22 />}></Route>
-          <Route path='/create-home2/3' element={<CreateHome23 />}></Route>
-          <Route path='/create-home2/4' element={<CreateHome24 />}></Route>
+        <Route path={''} element={<NavbarCreate />}>
+          <Route path="/create-home2" element={<CreateHome2 />}></Route>
+          <Route path="/create-home2/1" element={<CreateHome21 />}></Route>
+          <Route path="/create-home2/2" element={<CreateHome22 />}></Route>
+          <Route path="/create-home2/3" element={<CreateHome23 />}></Route>
+          <Route path="/create-home2/4" element={<CreateHome24 />}></Route>
         </Route>
       </Routes>
     </BrowserRouter>

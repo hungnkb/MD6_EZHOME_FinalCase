@@ -162,23 +162,34 @@ export default function DetailHome() {
               <div className="row">
                 <div className="col-12">
                   <h4> What is there where you are staying?</h4>
-                  <br/>
+                  <br />
                   <div className="row">
                     <div className="col-6">
-                      < p><i className="fa-solid fa-wifi"></i>  Wifi </p>
-                      <br/>
-                      < p><i className="fa-solid fa-tv"></i>  TV </p>
-                      <br/>
-                      < p><i className="fa-regular fa-snowflake"></i>  Air conditioning </p>
-
-
+                      <p>
+                        <i className="fa-solid fa-wifi"></i> Wifi{' '}
+                      </p>
+                      <br />
+                      <p>
+                        <i className="fa-solid fa-tv"></i> TV{' '}
+                      </p>
+                      <br />
+                      <p>
+                        <i className="fa-regular fa-snowflake"></i> Air
+                        conditioning{' '}
+                      </p>
                     </div>
                     <div className="col-6">
-                      < p><i className="fa-solid fa-bed-front"></i>  Bed </p>
-                      <br/>
-                      <p><i className="fa-solid fa-clothes-hanger"></i> Hanger </p>
-                      <br/>
-                      <p><i className="fa-regular fa-kitchen-set"></i> Kitchen </p>
+                      <p>
+                        <i className="fa-solid fa-bed-front"></i> Bed{' '}
+                      </p>
+                      <br />
+                      <p>
+                        <i className="fa-solid fa-clothes-hanger"></i> Hanger{' '}
+                      </p>
+                      <br />
+                      <p>
+                        <i className="fa-regular fa-kitchen-set"></i> Kitchen{' '}
+                      </p>
                     </div>
                   </div>
                 </div>

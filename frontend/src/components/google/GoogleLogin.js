@@ -1,10 +1,9 @@
 import { useEffect, useState } from 'react';
 import jwt_decode from 'jwt-decode';
-import axios from "axios";
+import axios from 'axios';
 
 const GoogleButton = (props) => {
   const [user, setUser] = useState({});
-
 
   const sendData = () => {
     props.parentCallback(`${user}`);
@@ -13,8 +12,8 @@ const GoogleButton = (props) => {
     const userObject = jwt_decode(response.credential);
     setUser(userObject);
     axios.post('http://localhost:3002/api/v1/auth/login-with-google', {
-      email: userObject.email
-    })
+      email: userObject.email,
+    });
     console.log(userObject);
   }
 

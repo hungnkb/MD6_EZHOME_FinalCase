@@ -23,7 +23,7 @@ import { clearErrors, loginUser } from '../../service/userAction';
 import axios from '../../api/axios';
 import GoogleButton from '../google/GoogleLogin';
 import Register from './Register';
-import ForgotPassword from "./ForgotPassword";
+import ForgotPassword from './ForgotPassword';
 import { setUserLogin } from '../../redux/features/authSlice';
 
 function Login() {
@@ -35,7 +35,7 @@ function Login() {
     email: '',
     password: '',
   });
-  const  currentState  = useSelector((state) => state.auth);
+  const currentState = useSelector((state) => state.auth);
   console.log(currentState);
   const formik = useFormik({
     initialValues: {
@@ -57,24 +57,23 @@ function Login() {
       // dispatch(loginUser(values));
     },
   });
-  
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     let response = await axios.post('http://localhost:3002/api/v1/auth', {
-        email: userLogins.email,
-        password: userLogins.password,
-      })
+      email: userLogins.email,
+      password: userLogins.password,
+    });
 
-      if (response)  {
-        console.log('response', response);
-          localStorage.setItem('token', JSON.stringify(response.data.accessToken));
-          dispatch(setUserLogin({
-            isLogined: true,
-            userLogin: response.data,
-          })) 
-          console.log(response);
-        }
-      
+    if (response) {
+      localStorage.setItem('token', JSON.stringify(response.data.accessToken));
+      dispatch(
+        setUserLogin({
+          isLogined: true,
+          userLogin: response.data,
+        }),
+      );
+    }
   };
 
   const handleChange = (event) =>
@@ -97,7 +96,7 @@ function Login() {
 
   return (
     <>
-      <Button
+      <div
         variant="light"
         onClick={() => {
           setIsLogin(1);
@@ -105,7 +104,7 @@ function Login() {
         }}
       >
         Login
-      </Button>
+      </div>
       {isLogin == 1 ? (
         <div>
           <Modal open={open} onClose={handleClose}>
@@ -124,9 +123,14 @@ function Login() {
                   onSubmit={handleSubmit}
                   className="flex flex-col justify-center items-center gap-3 m-3 md:m-8"
                 >
-                <Typography id="keep-mounted-modal-title" variant="h4" component="h2" style={{textAlign:"center", marginBottom:"20px"}}>
+                  <Typography
+                    id="keep-mounted-modal-title"
+                    variant="h4"
+                    component="h2"
+                    style={{ textAlign: 'center', marginBottom: '20px' }}
+                  >
                     Login
-                </Typography>
+                  </Typography>
                   <div>
                     <TextField
                       fullWidth
@@ -144,7 +148,7 @@ function Login() {
                       size="small"
                     />
                   </div>
-                  <div style={{marginTop:"10px"}}>
+                  <div style={{ marginTop: '10px' }}>
                     <FormControl
                       error={
                         !!formik.errors.password && formik.touched.password
@@ -189,9 +193,13 @@ function Login() {
                       ) : null}
                     </FormControl>
                   </div>
-              
+
                   <button
-                    style={{ background: '#f7a800', width: '100%', marginTop: '10px'}}
+                    style={{
+                      background: '#f7a800',
+                      width: '100%',
+                      marginTop: '10px',
+                    }}
                     type="submit"
                     className="bg-primary-blue font-medium py-2 rounded text-white w-full"
                   >
@@ -200,17 +208,25 @@ function Login() {
                   <div
                     style={{
                       width: '52%',
-                      marginLeft: "100px",
-                      marginTop: '10px'
+                      marginLeft: '100px',
+                      marginTop: '10px',
                     }}
                   >
                     <GoogleButton />
                   </div>
-                  <div className="flex" style={{textAlign:"center", marginTop:"5px"}}>
+                  <div
+                    className="flex"
+                    style={{ textAlign: 'center', marginTop: '5px' }}
+                  >
                     <span className="my-3 text-gray-500">OR</span>
                   </div>
                   <Link
-                    style={{ color: '#e85710', marginLeft: "150px", textDecoration:"none", marginTop: "5px"}}
+                    style={{
+                      color: '#e85710',
+                      marginLeft: '150px',
+                      textDecoration: 'none',
+                      marginTop: '5px',
+                    }}
                     className="text-sm font-medium  text-blue-800"
                     onClick={() => {
                       setIsLogin(3);
@@ -223,13 +239,13 @@ function Login() {
 
               <div className="bg-white border p-5 text-center drop-shadow-md">
                 <span>
-                You don't have an account yet?{' '}
+                  You don't have an account yet?{' '}
                   <Link
                     onClick={() => {
                       setIsLogin(2);
                     }}
                     className="text-primary-blue"
-                    style={{ color: '#e85710', textDecoration:"none"}}
+                    style={{ color: '#e85710', textDecoration: 'none' }}
                   >
                     Register
                   </Link>

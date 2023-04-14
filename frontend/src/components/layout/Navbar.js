@@ -22,8 +22,8 @@ import LanguageIcon from '@mui/icons-material/Language';
 import { Link, Outlet } from 'react-router-dom';
 import Login from '../user/Login';
 import { useDispatch, useSelector } from 'react-redux';
-import { setUserLogin } from '../../redux/features/authSlice';
-import CarouselMulti from "./carousel-multi";
+import { logout, setUserLogin } from '../../redux/features/authSlice';
+import CarouselMulti from './carousel-multi';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -65,14 +65,13 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-
 export default function Navbar() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
   const [message, setMessage] = useState('');
-  const currentState = useSelector(state => state.auth);
+  const currentState = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
   const callbackFunction = (childData) => {
@@ -96,13 +95,9 @@ export default function Navbar() {
     setMobileMoreAnchorEl(event.currentTarget);
   };
 
-  // useEffect(() => {
-  //   if (
-  //     localStorage.getItem('token') 
-  //   ) {
-      
-  //   }
-  // },[currentState.isLogined])
+  const handleLogout = () => {
+    dispatch(logout())
+  }
 
   const menuId = 'primary-search-account-menu';
   const renderMenu = (
@@ -122,9 +117,9 @@ export default function Navbar() {
       onClose={handleMenuClose}
     >
       <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>
-        {currentState.isLogined ? (<Button/>) : (<Login/>)}
-      </MenuItem>
+
+        {currentState.isLogined ?  <MenuItem onClick={() => {handleLogout(); handleMenuClose()}}>Logout</MenuItem> : <MenuItem><Login /></MenuItem>}
+  
       <MenuItem onClick={handleMenuClose}>My account</MenuItem>
     </Menu>
   );
@@ -210,14 +205,21 @@ export default function Navbar() {
                 />
               </Link>
             </Typography>
-            <Search style={{border: "2px solid black", marginLeft:"300px", borderRadius:"30px", width:400}}>
-                <SearchIconWrapper>
-                    <SearchIcon/>
-                </SearchIconWrapper>
-                <StyledInputBase
-                    placeholder="Search…"
-                    inputProps={{'aria-label': 'search'}}
-                />
+            <Search
+              style={{
+                border: '2px solid black',
+                marginLeft: '300px',
+                borderRadius: '30px',
+                width: 400,
+              }}
+            >
+              <SearchIconWrapper>
+                <SearchIcon />
+              </SearchIconWrapper>
+              <StyledInputBase
+                placeholder="Search…"
+                inputProps={{ 'aria-label': 'search' }}
+              />
             </Search>
             {/*<Typography>*/}
             {/*    <ButtonGroup variant="outlined" color="warning"  aria-label="outlined button group" style={{borderRadius:50}}>*/}
@@ -261,7 +263,18 @@ export default function Navbar() {
                 onClick={handleProfileMenuOpen}
                 color="inherit"
               >
-           <Button style={{borderRadius:"30px", color:"black", border:"1px solid gray", width:"80px"}}> <MenuIcon fontSize="small"/>   <AccountCircle fontSize="large"/> </Button>
+                <Button
+                  style={{
+                    borderRadius: '30px',
+                    color: 'black',
+                    border: '1px solid gray',
+                    width: '80px',
+                  }}
+                >
+                  {' '}
+                  <MenuIcon fontSize="small" />{' '}
+                  <AccountCircle fontSize="large" />{' '}
+                </Button>
               </IconButton>
             </Box>
             <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
@@ -285,4 +298,3 @@ export default function Navbar() {
     </>
   );
 }
-

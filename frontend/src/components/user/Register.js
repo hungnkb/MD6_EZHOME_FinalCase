@@ -210,7 +210,7 @@ export default function Register(props) {
 
                         <div className="bg-white border p-5 text-center drop-shadow-md">
               <span>
-                Bạn đã có tài khoản ?{' '}
+              You already have an account?{' '}
                   <Link
                       onClick={() => {
                           props.setIsLogin(1);
@@ -218,7 +218,7 @@ export default function Register(props) {
                       className="text-primary-blue"
                       style={{ color: '#e85710' }}
                   >
-                  Đăng nhập
+                  Login
                 </Link>
               </span>
                         </div>

@@ -23,6 +23,7 @@ import { clearErrors, loginUser } from '../../service/userAction';
 import axios from '../../api/axios';
 import GoogleButton from '../google/GoogleLogin';
 import Register from './Register';
+import ForgotPassword from "./ForgotPassword";
 
 function Login() {
   let navigate = useNavigate();
@@ -216,17 +217,19 @@ function Login() {
                   </div>
                   <Link
                     style={{ color: '#e85710', marginLeft: "150px", textDecoration:"none", marginTop: "5px"}}
-                    to="/test"
                     className="text-sm font-medium  text-blue-800"
+                    onClick={() => {
+                      setIsLogin(3);
+                    }}
                   >
-                    Quên mật khẩu?
+                    Forgot password?
                   </Link>
                 </form>
               </div>
 
               <div className="bg-white border p-5 text-center drop-shadow-md">
                 <span>
-                  Bạn chưa có tài khoản ư?{' '}
+                You don't have an account yet?{' '}
                   <Link
                     onClick={() => {
                       setIsLogin(2);
@@ -242,6 +245,7 @@ function Login() {
           </Modal>
         </div>
       ) : null}
+      {isLogin == 3 ? <ForgotPassword setIsLogin={setIsLogin} /> : null}
       {isLogin == 2 ? <Register setIsLogin={setIsLogin} /> : null}
     </>
   );

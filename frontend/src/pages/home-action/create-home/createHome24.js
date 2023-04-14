@@ -9,7 +9,6 @@ import axios from '../../../api/axios';
 import "./style.css"
 import InputGroup from 'react-bootstrap/InputGroup';
 import Form from 'react-bootstrap/Form';
-
 export default function CreateHome24() {
     const [descriptions, setDescriptions] = useState(null);
     const [bathrooms, setBathrooms] = useState(1);
@@ -80,9 +79,9 @@ export default function CreateHome24() {
         <>
             <div className="row" style={{height: "450px"}}>
                 <div className="col-5">
-                    <p style={{fontSize: '70px'}}>
+                    <h1 style={{ fontSize: '350%' }}>
                         It’s easy to get started on EZHOME
-                    </p>
+                    </h1>
                 </div>
                 <div className="col-7">
                     <h2>Some more information about your home</h2>
@@ -115,26 +114,25 @@ export default function CreateHome24() {
                         <div>
                             <p>Bathrooms:</p>
 
-                            <button type='button' style={{marginLeft: '50px', marginRight: '50px'}}
-                                    onClick={() => handleBathroomsDescrease()}>-
-                            </button>
+                            <Button type='button' variant="warning" style={{marginLeft: '50px', marginRight: '50px', background:"#e9ecef"}}
+                                    onClick={() => handleBathroomsDescrease()}> -
+                            </Button>
                             {bathrooms}
-                            <button type='button' style={{marginLeft: '50px'}}
+                            <Button type='button' variant="warning" style={{marginLeft: '50px',background:"#e9ecef"}}
                                     onClick={() => handleBathroomsInscrease()}>+
-                            </button>
+                            </Button>
                         </div>
                         <hr/>
                         <div>
                             <p>Bedrooms:</p>
-                            <button type='button' style={{marginLeft: '50px', marginRight: '50px'}}
-                                    onClick={() => handleBedroomsDescrease()}>-
-                            </button>
+                            <Button type='button' variant="warning" style={{marginLeft: '50px', marginRight: '50px', background:"#e9ecef"}}
+                                    onClick={() => handleBedroomsDescrease()}> -
+                            </Button>
                             {bedrooms}
-                            <button type='button' style={{marginLeft: '50px'}} onClick={() => handleBedroomsInscrease()}>+
-                            </button>
+                            <Button type='button' variant="warning" style={{marginLeft: '50px',background:"#e9ecef"}} onClick={() => handleBedroomsInscrease()}>+
+                            </Button>
                         </div>
-                        {/*<div><b> </b> </div>*/}
-                        {/*<textarea type='textarea' onChange={(e) => setDescriptions(e.target.value)}></textarea>*/}
+                        <br/>
                         <InputGroup>
                             <InputGroup.Text>Description</InputGroup.Text>
                             <Form.Control as="textarea" aria-label="Description"

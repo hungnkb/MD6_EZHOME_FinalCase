@@ -1,16 +1,11 @@
 import Card from 'react-bootstrap/Card';
-import CardContent from '@mui/material/CardContent';
-import ContentHome from './contentHome';
-import { Link, NavLink, useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import Box from '@mui/material/Box';
 import * as React from 'react';
 import BathtubIcon from '@mui/icons-material/Bathtub';
 import BedIcon from '@mui/icons-material/Bed';
-import Typography from '@mui/material/Typography';
-import CardActions from '@mui/material/CardActions';
-import Button from '@mui/material/Button';
 import FormPay from '../payment/formPay';
 // Thông tin nhà bao gồm:
 //     - Tên của căn nhà
@@ -124,7 +119,13 @@ export default function DetailHome() {
                     </div>
                     <div className="col-6">
                       <Card.Body>
-                        <Card style={{ width: 200, height: 70, float: 'left' }}>
+                        <Card
+                          style={{
+                            width: 200,
+                            height: 70,
+                            float: 'left',
+                          }}
+                        >
                           <Card.Body>
                             <center>
                               <BedIcon /> Bedrooms: {detail.bedrooms}
@@ -140,7 +141,11 @@ export default function DetailHome() {
                       <div className="col-12">
                         <p>
                           <b>Category :</b>{' '}
-                          <b style={{ color: 'green' }}>
+                          <b
+                            style={{
+                              color: 'green',
+                            }}
+                          >
                             {' '}
                             {detail.idCategory?.categoryName}{' '}
                           </b>{' '}

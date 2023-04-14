@@ -21,7 +21,7 @@ export default function CardHome() {
         <div className="row">
           <div className="col-12">
             {home.map((value, index) => (
-              <NavLink to={`/detail-home/${value.idHome}`}>
+              <NavLink key={index} to={`/detail-home/${value.idHome}`}>
                 <Card
                   sx={{
                     maxWidth: 250,
@@ -33,7 +33,10 @@ export default function CardHome() {
                 >
                   <CardActionArea>
                     <CardMedia
-                      style={{ height: 250, borderRadius: '15px' }}
+                      style={{
+                        height: 250,
+                        borderRadius: '15px',
+                      }}
                       component="img"
                       height="250"
                       image="https://a0.muscache.com/im/pictures/2ebf3b25-9b6c-402f-9b29-23aa2a5e5b21.jpg?im_w=720"

@@ -8,13 +8,13 @@ import InputLabel from '@mui/material/InputLabel';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import TextField from '@mui/material/TextField';
 import { useFormik } from 'formik';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import PasswordStrengthBar from 'react-password-strength-bar';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import 'react-toastify/dist/ReactToastify.css';
 import * as Yup from 'yup';
-import { clearErrors, registerUser } from '../../service/userAction';
+import { registerUser } from '../../service/userAction';
 import axios from '../../api/axios';
 import { Button, Modal, Box, Typography } from '@mui/material';
 
@@ -83,7 +83,10 @@ export default function Register(props) {
   };
 
   const handleChange = (event) =>
-    setUserSignUp({ ...userSignUp, [event.target.name]: event.target.value });
+    setUserSignUp({
+      ...userSignUp,
+      [event.target.name]: event.target.value,
+    });
   return (
     <>
       <div>
@@ -103,7 +106,10 @@ export default function Register(props) {
           >
             <div
               className="bg-white border flex flex-col p-4 pt-10 drop-shadow-md"
-              style={{ marginBlockStart: '50px', textAlign: 'center' }}
+              style={{
+                marginBlockStart: '50px',
+                textAlign: 'center',
+              }}
             >
               <form
                 onSubmit={handleSubmit}
@@ -113,7 +119,10 @@ export default function Register(props) {
                   id="keep-mounted-modal-title"
                   variant="h4"
                   component="h2"
-                  style={{ textAlign: 'center', marginBottom: '20px' }}
+                  style={{
+                    textAlign: 'center',
+                    marginBottom: '20px',
+                  }}
                 >
                   Register
                 </Typography>

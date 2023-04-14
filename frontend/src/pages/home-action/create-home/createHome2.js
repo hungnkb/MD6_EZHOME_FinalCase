@@ -86,7 +86,7 @@ export default function CreateHome2() {
 
       <Grid style={{ marginLeft: '80%' }}>
         <Button
-          onClick={() => navigate('/create-home2/1')}
+          onClick={() => navigate('/create-home/1')}
           style={{ background: '#f7a800' }}
           variant="contained"
         >

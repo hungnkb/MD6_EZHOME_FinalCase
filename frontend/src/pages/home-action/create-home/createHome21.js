@@ -151,22 +151,28 @@ export default function CreateHome21() {
           <div className="col-12">
             <Button
               style={{ marginRight: '15px', background: 'gray' }}
-              onClick={() => navigate('/create-home2')}
+              onClick={() => navigate('/create-home')}
               variant="contained"
             >
               Back
             </Button>
             {check ? (
               <Button
-                style={{ background: '#f7a800', marginLeft: '900px' }}
-                onClick={() => navigate('/create-home2/2')}
+                style={{
+                  background: '#f7a800',
+                  marginLeft: '900px',
+                }}
+                onClick={() => navigate('/create-home/2')}
                 variant="contained"
               >
                 Next
               </Button>
             ) : (
               <Button
-                style={{ background: 'gray', marginLeft: '900px' }}
+                style={{
+                  background: 'gray',
+                  marginLeft: '900px',
+                }}
                 variant="contained"
                 type="button"
               >

@@ -19,12 +19,13 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { setUserLogin } from './redux/features/authSlice';
+import DashboardHosting from './pages/hosting/dashboard';
 
 function App() {
   const currentAuth = useSelector((state) => state.auth);
   const [token, setToken] = useState(null);
 
-  const dispatch = useDispatch(state => state.auth);
+  const dispatch = useDispatch((state) => state.auth);
 
   useEffect(() => {
     setToken(localStorage.getItem('token'));
@@ -41,10 +42,12 @@ function App() {
           },
         });
         if (response) {
-          dispatch(setUserLogin({
-            isLogined: true,
-            userLogin: response.data
-          }))
+          dispatch(
+            setUserLogin({
+              isLogined: true,
+              userLogin: response.data,
+            }),
+          );
         }
       }
     };
@@ -56,18 +59,17 @@ function App() {
         <Route path="" element={<Home />}>
           <Route path="/" element={<CardHome />} />
           <Route path="/detail-home/:id" element={<DetailHome />} />
-          <Route path="/create-home" element={<ModalHome />}></Route>
-          {/*<Route path='/sign-up' element={<SignUp />} />*/}
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/test" element={<GoogleButton />} />
+          <Route path="/user/hosting" element={<DashboardHosting />} />
         </Route>
         <Route path={''} element={<NavbarCreate />}>
-          <Route path="/create-home2" element={<CreateHome2 />}></Route>
-          <Route path="/create-home2/1" element={<CreateHome21 />}></Route>
-          <Route path="/create-home2/2" element={<CreateHome22 />}></Route>
-          <Route path="/create-home2/3" element={<CreateHome23 />}></Route>
-          <Route path="/create-home2/4" element={<CreateHome24 />}></Route>
+          <Route path="/create-home" element={<CreateHome2 />}></Route>
+          <Route path="/create-home/1" element={<CreateHome21 />}></Route>
+          <Route path="/create-home/2" element={<CreateHome22 />}></Route>
+          <Route path="/create-home/3" element={<CreateHome23 />}></Route>
+          <Route path="/create-home/4" element={<CreateHome24 />}></Route>
         </Route>
       </Routes>
     </BrowserRouter>

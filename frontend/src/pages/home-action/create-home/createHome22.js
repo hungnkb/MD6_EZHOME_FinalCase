@@ -1,8 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { styled } from '@mui/material/styles';
-import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
-import Grid from '@mui/material/Unstable_Grid2';
 import { Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import {
@@ -197,7 +195,8 @@ export default function CreateHome22() {
                     marginLeft: '15px',
                   }}
                 >
-                  <i className="fa-solid fa-location-arrow"></i>Current position
+                  <i className="fa-solid fa-location-arrow"></i>
+                  Current position
                 </button>
               </div>
             </Autocomplete>
@@ -220,18 +219,21 @@ export default function CreateHome22() {
             <div style={{ marginTop: '15px' }}>
               <Button
                 style={{ background: 'gray' }}
-                onClick={() => navigate('/create-home2/1')}
+                onClick={() => navigate('/create-home/1')}
                 variant="contained"
               >
                 Back
               </Button>
               {check ? (
                 <Button
-                  style={{ marginLeft: '900px', background: '#f7a800' }}
+                  style={{
+                    marginLeft: '900px',
+                    background: '#f7a800',
+                  }}
                   Button
                   onClick={() => {
                     handleSetAddress();
-                    navigate('/create-home2/3');
+                    navigate('/create-home/3');
                   }}
                   variant="contained"
                 >
@@ -239,7 +241,10 @@ export default function CreateHome22() {
                 </Button>
               ) : (
                 <Button
-                  style={{ marginLeft: '900px', background: 'gray' }}
+                  style={{
+                    marginLeft: '900px',
+                    background: 'gray',
+                  }}
                   Button
                   onClick={() => {
                     handleSetAddress();

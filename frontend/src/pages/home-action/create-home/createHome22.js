@@ -177,13 +177,10 @@ export default function CreateHome22() {
             <h1>Where's your place located?</h1>
             <Autocomplete>
               <div className="search-map">
-                <div className="search-map-icon">
-                  <i className="fa-solid fa-location-dot"></i>
-                </div>
                 <input style={{height:50,borderRadius:"10px"}}
                   type="text"
                   name="search-map"
-                  placeholder="Nhập địa chỉ của bạn"
+                  placeholder="Enter your address.."
                   id="search-location"
                   onBlur={(event) => handleGetPosition(event)}
                   onKeyDown={(event) => handleGetPosition(event)}
@@ -194,7 +191,7 @@ export default function CreateHome22() {
                   className="current-location"
                   onClick={handleGetPositionCurrent} style={{height:50,borderRadius:"10px", marginLeft:"15px"}}
                 >
-                  <i className="fa-solid fa-location-arrow"></i>Vị trí hiện tại
+                  <i className="fa-solid fa-location-arrow"></i>Current position
                 </button>
               </div>
             </Autocomplete>
@@ -213,11 +210,9 @@ export default function CreateHome22() {
           </div>
         </div>
         <div className="row">
-          <div className="col-10">
-          </div>
-          <div className="col-2">
+          <div className="col-12">
             <div style={{marginTop:"15px" }} >
-              <Button
+              <Button  style={{background:'gray' }}
                   onClick={() => navigate('/create-home2/1')}
                   variant="contained"
               >
@@ -225,7 +220,7 @@ export default function CreateHome22() {
               </Button>
               {check ? (
                   <Button
-                      style={{ marginLeft: '10px' }}
+                      style={{ marginLeft: '900px', background:'#f7a800' }}
                       Button
                       onClick={() => {
                         handleSetAddress();
@@ -237,7 +232,7 @@ export default function CreateHome22() {
                   </Button>
               ) : (
                   <Button
-                      style={{ marginLeft: '10px', background: 'gray' }}
+                      style={{ marginLeft: '900px', background: 'gray' }}
                       Button
                       onClick={() => {
                         handleSetAddress();

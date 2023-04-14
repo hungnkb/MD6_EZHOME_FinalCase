@@ -58,8 +58,8 @@ export default function CreateHome24() {
     console.log(title, price, address, bathrooms, bedrooms, description, email, idCategory, files);
     // let newHome = await axios({
     //   method: 'post',
-    //   url: 'http://localhost:3002/api/v1/homes', 
-    //   data: { title, price, address, bathrooms, bedrooms, description, email, idCategory, files }, 
+    //   url: 'http://localhost:3002/api/v1/homes',
+    //   data: { title, price, address, bathrooms, bedrooms, description, email, idCategory, files },
     //   headers: {'Content-Type': 'application/json'}
     // })
     let newHome = await axios({

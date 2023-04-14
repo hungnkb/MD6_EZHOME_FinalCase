@@ -8,7 +8,7 @@ import {useNavigate} from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
 import {useDropzone} from 'react-dropzone';
 import {setFiles} from '../../../redux/features/homeSlice';
-
+import "./style.css"
 const Item = styled(Paper)(({theme}) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
     ...theme.typography.body2,
@@ -55,7 +55,7 @@ export default function CreateHome23() {
                         }
                     </div>
             </div>
-                    <div style={{width: "800px", height: "350px", border: "2px solid gray"}}>
+                    <div style={{width: "800px", height: "300px", border: "2px solid gray"}}>
                         {images.map((image, i) => (
                             <img
                                 style={{width: 170, height: 140}}
@@ -64,17 +64,16 @@ export default function CreateHome23() {
                             />
                         ))}
                     </div>
-                    <div className="row">
-                        <div className="col-10"></div>
-                        <div className="col-2">
-                            <Button
+                    <div className="row" id="btn-create" >
+                        <div className="col-12">
+                            <Button id="btn-back"
                                 onClick={() => navigate('/create-home2/2')}
                                 variant="contained"
                             >
                                 Back
                             </Button>
                             {check ? (
-                                <Button
+                                <Button id="btn-next1"
                                     onClick={() => navigate('/create-home2/4')}
                                     variant="contained"
                                 >
@@ -82,7 +81,7 @@ export default function CreateHome23() {
                                 </Button>
                             ) : (
                                 <Button
-                                    style={{marginLeft: '10px', background: 'gray'}}
+                                  id="btn-next2"
                                     Button
                                     variant="contained"
                                     type='button'

@@ -148,8 +148,7 @@ export default function CreateHome21() {
           </div>
         </div>
         <div className="row" style={{ marginTop: '90px' }}>
-          <div className="col-7"></div>
-          <div className="col-5" style={{ marginLeft: '900px' }}>
+          <div className="col-12">
             <Button
               style={{ marginRight: '15px', background: 'gray' }}
               onClick={() => navigate('/create-home2')}
@@ -159,7 +158,7 @@ export default function CreateHome21() {
             </Button>
             {check ? (
               <Button
-                style={{ background: '#f7a800' }}
+                style={{ background: '#f7a800', marginLeft:"900px" }}
                 onClick={() => navigate('/create-home2/2')}
                 variant="contained"
               >
@@ -167,7 +166,7 @@ export default function CreateHome21() {
               </Button>
             ) : (
               <Button
-                style={{ background: 'gray' }}
+                style={{ background: 'gray',marginLeft:"900px"  }}
                 variant="contained"
                 type='button'
               >

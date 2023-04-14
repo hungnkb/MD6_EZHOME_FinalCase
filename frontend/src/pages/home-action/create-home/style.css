@@ -1,38 +1,71 @@
 .card-createHome {
-  width: 50%;
-  height: 7%;
-  float: left;
-  border: 2px solid gray;
-  margin-top: 10px;
-  color: black;
+    width: 50%;
+    height: 7%;
+    float: left;
+    border: 2px solid gray;
+    margin-top: 10px;
+    color: black;
 }
+
 #btn {
-  color: black;
+    color: black;
 }
-#ggmap{
+
+#ggmap {
     width: 20%;
 }
-#search-location{
+
+#search-location {
     width: 50%;
     /*height: 500%;*/
     /*border-radius: 50%;*/
 }
-.search-map{
+
+.search-map {
     margin-top: 100px;
 }
-#btn-create23{
+
+#btn-create23 {
     background: gray;
     margin-top: 30px;
 
 }
-#btn-create231{
+
+#btn-create231 {
     margin-top: 30px;
     background: #f7a800;
     margin-left: 10px;
 
 }
-#img{
+
+#img {
     color: red;
     cursor: pointer;
     text-decoration: underline;
 }
+
+#btn-create {
+    margin-top: 40px
+}
+
+#btn-back {
+    background: gray;
+}
+
+#btn-next1 {
+    background: #f7a800;
+    margin-left: 900px;
+}
+
+#btn-next2 {
+    margin-left: 900px;
+    background: gray
+}
+#btn-finish1{
+    background: #f7a800;
+    margin-left: 900px;
+
+}#btn-finish2{
+     margin-left: 900px;
+     background: gray
+ }

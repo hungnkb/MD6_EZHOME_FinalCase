@@ -14,7 +14,7 @@ body {
 }
 
 .swal2-container {
-  z-index: 99999999
+  z-index: 99999999;
 }
 
 @keyframes like {

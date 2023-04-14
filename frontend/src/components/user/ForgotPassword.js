@@ -21,6 +21,8 @@ import { clearErrors, registerUser } from "../../service/userAction";
 import Auth from "../auth/Auth";
 import axios from "../../api/axios";
 import { Button, Dialog, DialogTitle, DialogActions, Modal, Box, DialogContent } from "@mui/material";
+import Swal from 'sweetalert2';
+
 
 export default function ForgotPassword(props) {
     const [open, setOpen] = React.useState(true);
@@ -66,9 +68,22 @@ export default function ForgotPassword(props) {
         event.preventDefault();
         axios.post('http://localhost:3002/api/v1/users/forgot-password', {email: userForgotPassword.email})
             .then((response) => {
-                console.log(response);
+                handleClose();
+                console.log(response, 222);
+                Swal.fire({
+                    position: 'center',
+                    icon: 'success',
+                    title: 'Please Check Your Email!',
+                    showConfirmButton: false,
+                    timer: 2000
+                })
             }, (error) => {
-                console.log(error);
+                handleClose();
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Email not found!',
+                })
             });
     };
 
@@ -93,7 +108,9 @@ export default function ForgotPassword(props) {
                                 className="flex flex-col justify-center items-center"
                             >
 
-                                <label>Điền Email Để Lấy Lại Mật Khẩu:</label>
+                                <label style={{fontSize: "22px"}}>Your Email Address:</label>
+                                <br/>
+                                <br/>
                                 <TextField
                                     className="form-control"
                                     fullWidth

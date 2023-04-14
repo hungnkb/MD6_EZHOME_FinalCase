@@ -18,7 +18,8 @@ export class AuthService {
         @Inject('USER_REPOSITORY')
         private userRepository: Repository<UserSchema>,
     ) { }
-
+   
+    
     // async register(body): Promise<Object> {
     //     let { password, email, phone } = body;
     //     let userByPhone = await this.userService.findByObj(phone)

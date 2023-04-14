@@ -9,6 +9,7 @@ import {
   Modal,
   OutlinedInput,
   TextField,
+  Typography,
 } from "@mui/material";
 import FormHelperText from "@mui/material/FormHelperText";
 import { useFormik } from 'formik'
@@ -113,6 +114,9 @@ function Login() {
         onSubmit={handleSubmit}
         className="flex flex-col justify-center items-center gap-3 m-3 md:m-8"
       >
+          <Typography id="keep-mounted-modal-title" variant="h6" component="h2" style={{marginBottom:"20px", textAlign:"center"}}>
+            Login
+          </Typography>
         <div>
         <TextField
           fullWidth
@@ -130,7 +134,7 @@ function Login() {
           size="small"
         />
         </div>
-        <div>
+        <div style={{marginTop:"10px"}}>
         <FormControl
           error={!!formik.errors.password && formik.touched.password}
           fullWidth
@@ -139,6 +143,7 @@ function Login() {
           value ={formik.values.password}
           onChange={handleChange}
           variant="outlined"
+        
         >
           <InputLabel htmlFor="outlined-adornment-password">
             Password
@@ -169,33 +174,33 @@ function Login() {
           ) : null}
         </FormControl>
         </div>
-        <div style={{width:"100%", display:"flex", alignItems:"center"}}>
-        <GoogleButton/>
-        </div>
-        <button style={{background:"#f7a800", width:"100%"}}
+        <button style={{background:"#f7a800", width:"100%", marginTop:"15px"}}
    
           type="submit"
           className="bg-primary-blue font-medium py-2 rounded text-white w-full"
         >
           Login
         </button>
-        <div className="flex">
-          <span className="my-3 text-gray-500">Or</span>
+        <div style={{marginTop:"10px", marginLeft:"100px"}}>
+        <GoogleButton />
+        </div>
+        <div className="flex" style={{textAlign:"center"}}>
+          <span className="my-3 text-gray-500">OR</span>
         </div>
         <Link
-          style={{color:"#e85710"}}
+          style={{color:"#e85710", marginLeft:"150px", textDecoration: "none"}}
           to="/password/forgot"
           className="text-sm font-medium  text-blue-800"
         >
-          Quên mật khẩu?
+          Forgot Password?
         </Link>
       </form>
     </div>
 
     <div className="bg-white border p-5 text-center drop-shadow-md">
       <span>
-        Bạn chưa có tài khoản ư?{" "}
-        <Link onClick={() => {setIsLogin(false)}} className="text-primary-blue" style={{color:"#e85710"}}>
+        You don't have an account yet?{" "}
+        <Link onClick={() => {setIsLogin(false)}} className="text-primary-blue" style={{color:"#e85710", textDecoration: "none"}}>
           Register
         </Link>
       </span>

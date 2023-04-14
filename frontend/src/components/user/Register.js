@@ -16,7 +16,7 @@ import "react-toastify/dist/ReactToastify.css";
 import * as Yup from "yup";
 import { clearErrors, registerUser } from "../../service/userAction";
 import axios from "../../api/axios";
-import { Button, Modal, Box } from "@mui/material";
+import { Button, Modal, Box, Typography } from "@mui/material";
 
 export default function Register(props) {
   const [open, setOpen] = React.useState(true);
@@ -83,16 +83,19 @@ export default function Register(props) {
     </Button>
       <Modal open={open} onClose={handleClose}>
         
-      <Box sx={{ position: 'absolute', width: 400, top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}>
+      <Box sx={{ position: 'absolute', width: 500, top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}>
             <div 
             className="bg-white border flex flex-col p-4 pt-10 drop-shadow-md"
             style={{marginBlockStart:"50px", textAlign:"center"}}
             >
+      <Typography id="keep-mounted-modal-title" variant="h6" component="h2" style={{marginBottom:"20px", textAlign:"center"}}>
+            Register
+      </Typography>
                     <form
                         onSubmit={handleSubmit}
                         className="flex flex-col justify-center items-center"
                     >
-                        
+                    <div>
                         <TextField
                             className="form-control"
                             fullWidth
@@ -109,7 +112,8 @@ export default function Register(props) {
                                     : null
                             }
                         />
-
+                    </div>
+                    <div style={{marginTop:"10px"}}>
                         <TextField
                             className="form-control"
                             label="Phone" 
@@ -126,6 +130,8 @@ export default function Register(props) {
                             size="small"
                             fullWidth
                         />
+                    </div>
+                    <div style={{marginTop:"10px"}}>
                         <FormControl
                             error={!!formik.errors.password && formik.touched.password}
                             fullWidth
@@ -170,29 +176,31 @@ export default function Register(props) {
                                 </FormHelperText>
                             ) : null}
                         </FormControl>
+                        </div>
                         
-                        <button style={{background:"#f7a800"}}
+                        <button style={{background:"#f7a800", width:"100%", marginTop:"15px"}}
                             type="submit"
                             className="bg-primary-blue font-medium py-2 rounded text-white w-full"
                         >
                             Register
                         </button>
-                        <span className="my-3 text-gray-500">OR</span>
+                        <span className="my-3 text-gray-500" style={{width:"100%", marginTop:"151px"}}>OR</span>
+                        <br/>
                         <Link
-                            style={{color:"#e85710"}}
+                            style={{color:"#e85710", textDecoration: "none"}}
                             to="/password/forgot"
                             className="text-sm font-medium  text-blue-800"
                         >
-                            Quên mật khẩu?
+                            Forgot Password?
                         </Link>
                     </form>
                 </div>
 
                 <div className="bg-white border p-5 text-center drop-shadow-md">
           <span>
-            Bạn đã có tài khoản ?{" "}
-              <Link onClick={() => {props.setIsLogin(true)}} className="text-primary-blue" style={{color:"#e85710"}}>
-              Đăng nhập
+            Do you already have an account ?{" "}
+              <Link onClick={() => {props.setIsLogin(true)}} className="text-primary-blue" style={{color:"#e85710", textDecoration: "none"}}>
+              Login
             </Link>
           </span>
                 </div>

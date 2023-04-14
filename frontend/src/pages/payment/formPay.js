@@ -1,11 +1,5 @@
 import React, { useCallback, useState } from 'react';
-import {
-  MDBContainer,
-  MDBCol,
-  MDBRow,
-  MDBBtnGroup,
-  MDBBtn,
-} from 'mdb-react-ui-kit';
+import { MDBContainer, MDBCol, MDBRow } from 'mdb-react-ui-kit';
 import { format } from 'date-fns';
 import { Datepicker, localeVi } from '@mobiscroll/react';
 import Button from 'react-bootstrap/Button';
@@ -53,7 +47,8 @@ export default function FormPay(props) {
           <div className="p-3" style={{ border: '1px solid gray' }}>
             <span className="fw-bold">
               {' '}
-              <b>{props.price?.toLocaleString('en-EN')}đ </b>/night
+              <b>{props.price?.toLocaleString('en-EN')}đ </b>
+              /night
             </span>
             <hr />
             <div

@@ -19,11 +19,12 @@ import { Button, ButtonGroup } from '@mui/material';
 import { useEffect, useState } from 'react';
 import GoogleButton from '../google/GoogleLogin';
 import LanguageIcon from '@mui/icons-material/Language';
-import { Link, Outlet } from 'react-router-dom';
+import { Link, Outlet, useNavigate } from 'react-router-dom';
 import Login from '../user/Login';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout, setUserLogin } from '../../redux/features/authSlice';
 import CarouselMulti from './carousel-multi';
+import Swal from 'sweetalert2';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -73,6 +74,7 @@ export default function Navbar() {
   const [message, setMessage] = useState('');
   const currentState = useSelector((state) => state.auth);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const callbackFunction = (childData) => {
     setMessage(childData);
@@ -96,8 +98,8 @@ export default function Navbar() {
   };
 
   const handleLogout = () => {
-    dispatch(logout())
-  }
+    dispatch(logout());
+  };
 
   const menuId = 'primary-search-account-menu';
   const renderMenu = (
@@ -118,8 +120,21 @@ export default function Navbar() {
     >
       <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
 
-        {currentState.isLogined ?  <MenuItem onClick={() => {handleLogout(); handleMenuClose()}}>Logout</MenuItem> : <MenuItem><Login /></MenuItem>}
-  
+      {currentState.isLogined ? (
+        <MenuItem
+          onClick={() => {
+            handleLogout();
+            handleMenuClose();
+          }}
+        >
+          Logout
+        </MenuItem>
+      ) : (
+        <MenuItem onClick={handleMenuClose}>
+          <Login />
+        </MenuItem>
+      )}
+
       <MenuItem onClick={handleMenuClose}>My account</MenuItem>
     </Menu>
   );
@@ -249,6 +264,24 @@ export default function Navbar() {
               {/*  </Badge>*/}
               {/*</IconButton>*/}
               {/*<IconButton */}
+              {currentState.isLogined && (
+                <div
+                  onClick={() => {
+                    if (currentState.userLogin.active) {
+                      navigate('/user/hosting');
+                    } else {
+                      Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Please active your account first',
+                      });
+                    }
+                  }}
+                >
+                  Switch to hosting
+                </div>
+              )}
+
               <IconButton>
                 <Badge>
                   <LanguageIcon />

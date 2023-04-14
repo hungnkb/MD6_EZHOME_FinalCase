@@ -9,14 +9,11 @@ import InputBase from '@mui/material/InputBase';
 import Badge from '@mui/material/Badge';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
-import MenuIcon from '@mui/icons-material/Menu';
-import SearchIcon from '@mui/icons-material/Search';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
-import { Button, ButtonGroup } from '@mui/material';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Link, Outlet } from 'react-router-dom';
 import Register from '../../../components/user/Register';
 

@@ -1,7 +1,6 @@
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import {
   Box,
-  Button,
   FormControl,
   IconButton,
   InputAdornment,
@@ -13,21 +12,19 @@ import {
 } from '@mui/material';
 import FormHelperText from '@mui/material/FormHelperText';
 import { useFormik } from 'formik';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import * as Yup from 'yup';
-import { clearErrors, loginUser } from '../../service/userAction';
 import axios from '../../api/axios';
 import GoogleButton from '../google/GoogleLogin';
 import Register from './Register';
 import ForgotPassword from './ForgotPassword';
 import { setUserLogin } from '../../redux/features/authSlice';
+import Swal from 'sweetalert2';
 
 function Login() {
-  let navigate = useNavigate();
   const dispatch = useDispatch();
   const [isLogin, setIsLogin] = useState(0);
   const [items, setItems] = useState(null);
@@ -60,12 +57,11 @@ function Login() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    let response = await axios.post('http://localhost:3002/api/v1/auth', {
-      email: userLogins.email,
-      password: userLogins.password,
-    });
-
-    if (response) {
+    try {
+      let response = await axios.post('http://localhost:3002/api/v1/auth', {
+        email: userLogins.email,
+        password: userLogins.password,
+      });
       localStorage.setItem('token', JSON.stringify(response.data.accessToken));
       dispatch(
         setUserLogin({
@@ -73,11 +69,28 @@ function Login() {
           userLogin: response.data,
         }),
       );
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Login success',
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    } catch (err) {
+      handleClose();
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Email or password is wrong!',
+      });
     }
   };
 
   const handleChange = (event) =>
-    setUserLogins({ ...userLogins, [event.target.name]: event.target.value });
+    setUserLogins({
+      ...userLogins,
+      [event.target.name]: event.target.value,
+    });
   const [showPassword, setShowPassword] = useState(false);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
   const handleMouseDownPassword = (event) => {
@@ -127,7 +140,10 @@ function Login() {
                     id="keep-mounted-modal-title"
                     variant="h4"
                     component="h2"
-                    style={{ textAlign: 'center', marginBottom: '20px' }}
+                    style={{
+                      textAlign: 'center',
+                      marginBottom: '20px',
+                    }}
                   >
                     Login
                   </Typography>
@@ -216,7 +232,10 @@ function Login() {
                   </div>
                   <div
                     className="flex"
-                    style={{ textAlign: 'center', marginTop: '5px' }}
+                    style={{
+                      textAlign: 'center',
+                      marginTop: '5px',
+                    }}
                   >
                     <span className="my-3 text-gray-500">OR</span>
                   </div>
@@ -245,7 +264,10 @@ function Login() {
                       setIsLogin(2);
                     }}
                     className="text-primary-blue"
-                    style={{ color: '#e85710', textDecoration: 'none' }}
+                    style={{
+                      color: '#e85710',
+                      textDecoration: 'none',
+                    }}
                   >
                     Register
                   </Link>

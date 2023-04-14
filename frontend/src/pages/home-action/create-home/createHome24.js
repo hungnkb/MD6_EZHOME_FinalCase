@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import Box from '@mui/material/Box';
-import Grid from '@mui/material/Unstable_Grid2';
 import { Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -24,10 +22,11 @@ export default function CreateHome24() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const currentState = useSelector((state) => state.createHome);
+  const currentAuth = useSelector((state) => state.auth);
 
   useEffect(() => {
     if (bathrooms && bedrooms && descriptions) {
-      dispatch(setDesc(descriptions));  
+      dispatch(setDesc(descriptions));
       dispatch(setBath(bathrooms));
       dispatch(setBed(bedrooms));
     }
@@ -60,7 +59,7 @@ export default function CreateHome24() {
     const bathrooms = currentState.bathrooms;
     const bedrooms = currentState.bedrooms;
     const description = currentState.description;
-    const email = 'hungnkb@gmail.com';
+    const email = currentAuth.userLogin.email;
     const idCategory = currentState.idCategory;
     const files = currentState.files;
     console.log(
@@ -154,7 +153,10 @@ export default function CreateHome24() {
               <Button
                 type="button"
                 variant="warning"
-                style={{ marginLeft: '50px', background: '#e9ecef' }}
+                style={{
+                  marginLeft: '50px',
+                  background: '#e9ecef',
+                }}
                 onClick={() => handleBathroomsInscrease()}
               >
                 +
@@ -180,7 +182,10 @@ export default function CreateHome24() {
               <Button
                 type="button"
                 variant="warning"
-                style={{ marginLeft: '50px', background: '#e9ecef' }}
+                style={{
+                  marginLeft: '50px',
+                  background: '#e9ecef',
+                }}
                 onClick={() => handleBedroomsInscrease()}
               >
                 +
@@ -202,7 +207,7 @@ export default function CreateHome24() {
         <div className="col-12">
           <Button
             id="btn-back"
-            onClick={() => navigate('/create-home2/3')}
+            onClick={() => navigate('/create-home/3')}
             variant="contained"
           >
             Back

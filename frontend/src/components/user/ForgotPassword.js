@@ -125,7 +125,10 @@ export default function ForgotPassword(props) {
           >
             <div
               className="bg-white border flex flex-col p-4 pt-10 drop-shadow-md"
-              style={{ marginBlockStart: '50px', textAlign: 'center' }}
+              style={{
+                marginBlockStart: '50px',
+                textAlign: 'center',
+              }}
             >
               <form
                 onSubmit={handleSubmit}

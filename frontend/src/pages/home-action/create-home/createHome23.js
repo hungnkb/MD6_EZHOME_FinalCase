@@ -1,8 +1,6 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import { styled } from '@mui/material/styles';
-import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
-import Grid from '@mui/material/Unstable_Grid2';
 import { Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -28,7 +26,9 @@ export default function CreateHome23() {
     setImages((images) => [...images, ...acceptedFiles]);
   }, []);
 
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({
+    onDrop,
+  });
 
   useEffect(() => {
     if (images.length > 0) {
@@ -58,7 +58,11 @@ export default function CreateHome23() {
         </div>
       </div>
       <div
-        style={{ width: '800px', height: '300px', border: '2px solid gray' }}
+        style={{
+          width: '800px',
+          height: '300px',
+          border: '2px solid gray',
+        }}
       >
         {images.map((image, i) => (
           <img
@@ -72,7 +76,7 @@ export default function CreateHome23() {
         <div className="col-12">
           <Button
             id="btn-back"
-            onClick={() => navigate('/create-home2/2')}
+            onClick={() => navigate('/create-home/2')}
             variant="contained"
           >
             Back
@@ -80,7 +84,7 @@ export default function CreateHome23() {
           {check ? (
             <Button
               id="btn-next1"
-              onClick={() => navigate('/create-home2/4')}
+              onClick={() => navigate('/create-home/4')}
               variant="contained"
             >
               Next

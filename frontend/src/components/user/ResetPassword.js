@@ -137,7 +137,10 @@ export default function ResetPassword() {
           >
             <div
               className="bg-white border flex flex-col p-4 pt-10"
-              style={{ marginBlockStart: '50px', textAlign: 'center' }}
+              style={{
+                marginBlockStart: '50px',
+                textAlign: 'center',
+              }}
             >
               <h4
                 style={{

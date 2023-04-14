@@ -23,6 +23,7 @@ import { Link, Outlet } from 'react-router-dom';
 import Login from '../user/Login';
 import { useDispatch, useSelector } from 'react-redux';
 import { setUserLogin } from '../../redux/features/authSlice';
+import CarouselMulti from "./carousel-multi";
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -122,7 +123,7 @@ export default function Navbar() {
     >
       <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
       <MenuItem onClick={handleMenuClose}>
-        {currentState.isLogined ? (<Button/>) : (<Login />)}
+        {currentState.isLogined ? (<Button/>) : (<Login/>)}
       </MenuItem>
       <MenuItem onClick={handleMenuClose}>My account</MenuItem>
     </Menu>
@@ -209,15 +210,15 @@ export default function Navbar() {
                 />
               </Link>
             </Typography>
-            {/*<Search style={{border: "1px solid black"}}>*/}
-            {/*    <SearchIconWrapper>*/}
-            {/*        <SearchIcon/>*/}
-            {/*    </SearchIconWrapper>*/}
-            {/*    <StyledInputBase*/}
-            {/*        placeholder="Search…"*/}
-            {/*        inputProps={{'aria-label': 'search'}}*/}
-            {/*    />*/}
-            {/*</Search>*/}
+            <Search style={{border: "2px solid black", marginLeft:"300px", borderRadius:"30px", width:400}}>
+                <SearchIconWrapper>
+                    <SearchIcon/>
+                </SearchIconWrapper>
+                <StyledInputBase
+                    placeholder="Search…"
+                    inputProps={{'aria-label': 'search'}}
+                />
+            </Search>
             {/*<Typography>*/}
             {/*    <ButtonGroup variant="outlined" color="warning"  aria-label="outlined button group" style={{borderRadius:50}}>*/}
             {/*    <Button>One</Button>*/}
@@ -280,6 +281,7 @@ export default function Navbar() {
         {renderMobileMenu}
         {renderMenu}
       </Box>
+      {/*<CarouselMulti/>*/}
     </>
   );
 }

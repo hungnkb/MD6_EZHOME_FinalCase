@@ -18,8 +18,11 @@ import MoreIcon from '@mui/icons-material/MoreVert';
 import { Button, ButtonGroup } from '@mui/material';
 import { useEffect, useState } from 'react';
 import GoogleButton from '../google/GoogleLogin';
+import LanguageIcon from '@mui/icons-material/Language';
 import { Link, Outlet } from 'react-router-dom';
 import Login from '../user/Login';
+import { useDispatch, useSelector } from 'react-redux';
+import { setUserLogin } from '../../redux/features/authSlice';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -61,12 +64,15 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
+
 export default function Navbar() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
   const [message, setMessage] = useState('');
+  const currentState = useSelector(state => state.auth);
+  const dispatch = useDispatch();
 
   const callbackFunction = (childData) => {
     setMessage(childData);
@@ -89,6 +95,14 @@ export default function Navbar() {
     setMobileMoreAnchorEl(event.currentTarget);
   };
 
+  // useEffect(() => {
+  //   if (
+  //     localStorage.getItem('token') 
+  //   ) {
+      
+  //   }
+  // },[currentState.isLogined])
+
   const menuId = 'primary-search-account-menu';
   const renderMenu = (
     <Menu
@@ -108,7 +122,7 @@ export default function Navbar() {
     >
       <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
       <MenuItem onClick={handleMenuClose}>
-        <Login />
+        {currentState.isLogined ? (<Button/>) : (<Login />)}
       </MenuItem>
       <MenuItem onClick={handleMenuClose}>My account</MenuItem>
     </Menu>
@@ -144,9 +158,9 @@ export default function Navbar() {
           aria-label="show 17 new notifications"
           color="inherit"
         >
-          <Badge badgeContent={17} color="error">
-            <NotificationsIcon />
-          </Badge>
+          {/*<Badge badgeContent={17} color="error">*/}
+          {/*  <NotificationsIcon />*/}
+          {/*</Badge>*/}
         </IconButton>
         <p>Notifications</p>
       </MenuItem>
@@ -213,22 +227,28 @@ export default function Navbar() {
             {/*</Typography>*/}
             <Box sx={{ flexGrow: 1 }} />
             <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-              <IconButton
-                size="large"
-                aria-label="show 4 new mails"
-                color="inherit"
-              >
-                <Badge badgeContent={4} color="error">
-                  <MailIcon />
-                </Badge>
-              </IconButton>
-              <IconButton
-                size="large"
-                aria-label="show 17 new notifications"
-                color="inherit"
-              >
-                <Badge badgeContent={17} color="error">
-                  <NotificationsIcon />
+              {/*<IconButton*/}
+              {/*  size="large"*/}
+              {/*  aria-label="show 4 new mails"*/}
+              {/*  color="inherit"*/}
+              {/*>*/}
+              {/*  <Badge badgeContent={4} color="error">*/}
+              {/*    <MailIcon />*/}
+              {/*  </Badge>*/}
+              {/*</IconButton>*/}
+              {/*<IconButton*/}
+              {/*  size="large"*/}
+              {/*  aria-label="show 17 new notifications"*/}
+              {/*  color="inherit"*/}
+              {/*>*/}
+              {/*  <Badge badgeContent={17} color="error">*/}
+              {/*    <NotificationsIcon />*/}
+              {/*  </Badge>*/}
+              {/*</IconButton>*/}
+              {/*<IconButton */}
+              <IconButton>
+                <Badge>
+                  <LanguageIcon />
                 </Badge>
               </IconButton>
               <IconButton
@@ -240,7 +260,7 @@ export default function Navbar() {
                 onClick={handleProfileMenuOpen}
                 color="inherit"
               >
-                <AccountCircle />
+           <Button style={{borderRadius:"30px", color:"black", border:"1px solid gray", width:"80px"}}> <MenuIcon fontSize="small"/>   <AccountCircle fontSize="large"/> </Button>
               </IconButton>
             </Box>
             <Box sx={{ display: { xs: 'flex', md: 'none' } }}>

@@ -14,29 +14,25 @@ function DashboardHosting() {
   const [homeList, setHomeList] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false);
   const currentAuth = useSelector((state) => state.auth);
-  const [checked, setChecked] = useState(true);
+  const [checked, setChecked] = useState(null);
+  const [flag, setFlag] = useState(false);
 
   const label = { inputProps: { true: 'false' } };
-  console.log(homeList[0]?.status);
-  const handleChange = (event, id) => {
-    const newDataHome = homeList.map((home) => {
-      if (home.idHome == id) {
-        home.status = home.status === 'false' ? 'true' : 'false';
-      }
-      return home;
-    });
-    setHomeList(newDataHome);
+  
+  const handleChange = async (event, id) => {
+  await axios({
+    method: 'POST',
+    url: 'http://localhost:3002/api/v1/homes/status',
+    data: {
+      idHome: id,
+      status: event.target.checked
+    },
+    headers: {
+      Authorization: JSON.parse(localStorage.getItem('token')),
+    },
+  })
+    setFlag(!flag);
     setChecked(event.target.checked);
-    console.log(homeList);
-    const switchState = {};
-
-    homeList.forEach((item, index) => {
-      switchState['switch-' + index] = false;
-    });
-
-    setState({
-      switchState: switchState,
-    });
   };
 
   useEffect(() => {
@@ -50,8 +46,7 @@ function DashboardHosting() {
       setHomeList(dataList.data);
     };
     getDataHome();
-  }, [currentAuth.isLogined]);
-
+  }, [currentAuth.isLogined, flag]);
   return (
     <>
       <TableContainer component={Paper}>
@@ -59,15 +54,15 @@ function DashboardHosting() {
           <TableHead>
             <TableRow>
               <TableCell>#</TableCell>
-              <TableCell align="right">Title</TableCell>
-              <TableCell align="right">Address</TableCell>
-              <TableCell align="right">Category</TableCell>
-              <TableCell align="right">Bathrooms</TableCell>
-              <TableCell align="right">Bedrooms</TableCell>
-              <TableCell align="right">Description</TableCell>
-              <TableCell align="right">Price</TableCell>
-              <TableCell align="right">Rate</TableCell>
-              <TableCell align="right">Status</TableCell>
+              <TableCell align="center">Title</TableCell>
+              <TableCell align="center">Address</TableCell>
+              <TableCell align="center">Category</TableCell>
+              <TableCell align="center">Bathrooms</TableCell>
+              <TableCell align="center">Bedrooms</TableCell>
+              <TableCell align="center">Description</TableCell>
+              <TableCell align="center">Price (đ)</TableCell>
+              <TableCell align="center">Rate</TableCell>
+              <TableCell align="center">Status</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -80,19 +75,19 @@ function DashboardHosting() {
                     <TableCell component="th" scope="row">
                       {index + 1}
                     </TableCell>
-                    <TableCell align="right">{data.title}</TableCell>
-                    <TableCell align="right">{data.address}</TableCell>
-                    <TableCell align="right">
+                    <TableCell align="left">{data.title}</TableCell>
+                    <TableCell align="left">{data.address}</TableCell>
+                    <TableCell align="left">
                       {data.idCategory.categoryName}
                     </TableCell>
                     <TableCell align="right">{data.bathrooms}</TableCell>
                     <TableCell align="right">{data.bedrooms}</TableCell>
-                    <TableCell align="right">{data.description}</TableCell>
-                    <TableCell align="right">{data.price}</TableCell>
-                    <TableCell align="right">{data.rate_stars}</TableCell>
-                    <TableCell align="right">
+                    <TableCell align="left">{data.description}</TableCell>
+                    <TableCell align="right">{data.price.toLocaleString('en-EN')}</TableCell>
+                    <TableCell align="center">{data.rate_stars}</TableCell>
+                    <TableCell align="center">
                       <Switch
-                        checked={checked}
+                        checked={data.status}
                         onChange={(e) => handleChange(e, data.idHome)}
                         inputProps={{ true: 'false' }}
                         color="warning"

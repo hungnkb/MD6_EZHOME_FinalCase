@@ -33,7 +33,7 @@ export default function CreateHome21() {
   console.log(check, currentState.idCategory);
   return (
     <>
-      <div className="container" style={{ marginTop: '70px' }}>
+      <div className="container" style={{ marginTop: '40px' }}>
         <div className="row">
           <div className="col-12">
             <h1>Which of these best describes your place?</h1>

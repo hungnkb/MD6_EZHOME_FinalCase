@@ -169,7 +169,7 @@ export default function CreateHome22() {
 
   return (
     <>
-      <div className="container" style={{ marginTop: '50px' }}>
+      <div className="container" style={{ marginTop: '20px' }}>
         <div className="row">
           <div className="col-6">
             <h1>Where's your place located?</h1>

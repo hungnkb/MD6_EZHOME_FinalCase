@@ -49,6 +49,8 @@ function DashboardHosting() {
     };
     getDataHome();
   }, [currentAuth.isLogined, flag]);
+  console.log(homeList)
+  console.log(currentAuth.userLogin.sub)
   return (
     <>
       <Button onClick={() => {navigate('/create-home')}} style={{ background: '#f7a800' }} variant="contained">Add home</Button>

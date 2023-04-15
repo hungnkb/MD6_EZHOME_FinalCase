@@ -18,11 +18,11 @@ export default function CreateHome2() {
   const navigate = useNavigate();
   return (
     <>
-      <div className="container" style={{ marginTop: '90px' }}>
+      <div className="container" style={{ marginTop: '40px' }}>
         <div className="row">
           <div className="col-6">
             <h1 style={{ fontSize: '350%' }}>
-              It’s easy to get started on EZHOME
+              It’s easy to get started on <b style={{color:"#f7a800"}}> EZHOME </b>
             </h1>
           </div>
           <div className="col-6">

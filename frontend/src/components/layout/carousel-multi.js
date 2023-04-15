@@ -1,28 +1,59 @@
-import React from 'react';
-import { Carousel } from 'react-bootstrap';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import 'bootstrap/dist/css/bootstrap.css';
+import React, {Component} from "react";
+import Slider from "react-slick";
+export default class CarouselMulti extends Component {
+    render() {
+        let settings = {
+            dots: true,
+            infinite: true,
+            slidesToShow: 7,
+            slidesToScroll: 1,
+            autoplay: true,
+            autoplaySpeed: 5000,
+            pauseOnHover: false,
+            prevArrow: <style></style>,
+            nextArrow: <style/>
 
-export default function CarouselMulti() {
-  const items = [
-    { id: 1, title: 'Item 1', image: 'https://example.com/image1.jpg' },
-    { id: 2, title: 'Item 2', image: 'https://example.com/image2.jpg' },
-    { id: 3, title: 'Item 3', image: 'https://example.com/image3.jpg' },
-    { id: 4, title: 'Item 4', image: 'https://example.com/image4.jpg' },
-    { id: 5, title: 'Item 5', image: 'https://example.com/image5.jpg' },
-  ];
-  return (
-    <>
-      <Carousel indicators={false}>
-        {items.map((item) => (
-          <Carousel.Item key={item.id}>
-            <img className="d-block w-100" src={item.image} alt={item.title} />
-            <Carousel.Caption>
-              <h3>{item.title}</h3>
-            </Carousel.Caption>
-          </Carousel.Item>
-        ))}
-      </Carousel>
-    </>
-  );
+        };
+        return (
+            <div>
+                {/*<h2>Pause On Hover</h2>*/}
+                <center>
+                <Slider {...settings}>
+                    <div>
+                        <h3><i className="fa-light fa-house-day" ></i></h3>
+                        <p>House</p>
+                    </div>
+                    <div>
+                        <h3><i className="fa-light fa-cactus"></i></h3>
+                        <p>Desert</p>
+                    </div>
+                    <div>
+                        <h3><i className="fa-light fa-sailboat"></i></h3>
+                        <p>Boats</p>
+                    </div>
+                    <div>
+                        <h3><i className="fa-regular fa-fire"></i></h3>
+                        <p>Trending</p>
+                    </div>
+                    <div>
+                        <h3><i className="fa-regular fa-mountain-sun"></i></h3>
+                        <p>Mountain</p>
+                    </div>
+                    <div>
+                        <h3><i className="fa-light fa-island-tropical"></i></h3>
+                        <p>Tropic</p>
+                    </div>
+                    <div>
+                        <h3><i className="fa-regular fa-city"></i></h3>
+                        <p>City</p>
+                    </div>
+                    <div>
+                        <h3><i className="fa-regular fa-castle"></i></h3>
+                        <p>Castle</p>
+                    </div>
+                </Slider>
+                </center>
+            </div>
+        );
+    }
 }

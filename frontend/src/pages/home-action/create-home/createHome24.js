@@ -130,7 +130,7 @@ export default function CreateHome24() {
       <div className="row" style={{ height: '450px' }}>
         <div className="col-5">
           <h1 style={{ fontSize: '300%', marginTop:"50px" }}>
-            It’s easy to get started on EZHOME
+            It’s easy to get started on <b style={{color:"#f7a800"}}> EZHOME </b>
           </h1>
         </div>
         <div className="col-7">

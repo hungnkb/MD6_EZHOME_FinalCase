@@ -104,7 +104,7 @@ export default function NavbarCreate() {
     >
       <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
       <MenuItem>
-        <Register />
+      
       </MenuItem>
       <MenuItem onClick={handleMenuClose}>My account</MenuItem>
     </Menu>

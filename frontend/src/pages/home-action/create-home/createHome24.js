@@ -13,6 +13,7 @@ import axios from '../../../api/axios';
 import './style.css';
 import InputGroup from 'react-bootstrap/InputGroup';
 import Form from 'react-bootstrap/Form';
+import Swal from 'sweetalert2';
 export default function CreateHome24() {
   const [descriptions, setDescriptions] = useState(null);
   const [bathrooms, setBathrooms] = useState(1);
@@ -52,6 +53,12 @@ export default function CreateHome24() {
     setBedrooms(bedrooms + 1);
   };
 
+  useEffect(() => {
+    console.log(bedrooms, bathrooms);
+    dispatch(setBed(bedrooms));
+    dispatch(setBath(bathrooms));
+  }, [bedrooms, bathrooms])
+
   const handleFinish = async () => {
     const title = currentState.title;
     const price = currentState.price;
@@ -73,20 +80,48 @@ export default function CreateHome24() {
       idCategory,
       files,
     );
-    // let newHome = await axios({
-    //   method: 'post',
-    //   url: 'http://localhost:3002/api/v1/homes',
-    //   data: { title, price, address, bathrooms, bedrooms, description, email, idCategory, files },
-    //   headers: {'Content-Type': 'application/json'}
-    // })
-    let newHome = await axios({
+
+    let urlList = []
+
+    let uploadImageHome = await axios({
       method: 'post',
       url: 'http://localhost:3002/api/v1/homes/image',
       data: { files: files },
       headers: { 'Content-Type': 'multipart/form-data' },
     });
-    if (newHome) {
-      console.log(newHome);
+
+    for (let i = 0; i < uploadImageHome.data.length; i++) {
+      urlList.push(uploadImageHome.data[i].url)
+    }
+
+    if (uploadImageHome) {
+      let newHome = await axios({
+        method: 'post',
+        url: 'http://localhost:3002/api/v1/homes',
+        data: { title, price, address, bathrooms, bedrooms, description, email, idCategory, files: urlList },
+        headers: { 'Content-Type': 'application/json' }
+      })
+
+      if (newHome) {
+        Swal.fire({
+          position: 'center',
+          icon: 'success',
+          title: 'Your home has been saved',
+          showConfirmButton: false,
+          timer: 1500
+        }).then(
+          navigate('/user/hosting')
+        )
+      } else {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Something went wrong!',
+          footer: '<a href="">Why do I have this issue?</a>'
+        }).then(
+          navigate('/user/hosting')
+        )
+      }
     }
   };
 
@@ -113,6 +148,7 @@ export default function CreateHome24() {
                   dispatch(setTitle(e.target.value));
                   setTitles(e.target.value);
                 }}
+                defaultValue={currentState.title}
               />
             </InputGroup>
 
@@ -129,6 +165,7 @@ export default function CreateHome24() {
                     e.target.value = 1;
                   }
                 }}
+                defaultValue={currentState.price}
                 aria-label="Amount (to the nearest dollar)"
               />
               <InputGroup.Text>đ</InputGroup.Text>
@@ -197,7 +234,11 @@ export default function CreateHome24() {
               <Form.Control
                 as="textarea"
                 aria-label="Description"
-                onChange={(e) => setDescriptions(e.target.value)}
+                onChange={(e) => {
+                  setDesc(e.target.value);
+                  setDescriptions(e.target.value);
+                }}
+                defaultValue={currentState.description}
               />
             </InputGroup>
           </div>
@@ -212,7 +253,7 @@ export default function CreateHome24() {
           >
             Back
           </Button>
-          {descriptions && titles && prices ? (
+          {currentState.description && currentState.title && currentState.price ? (
             <Button variant="contained" id="btn-finish1" onClick={handleFinish}>
               Finish
             </Button>

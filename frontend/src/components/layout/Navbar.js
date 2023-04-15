@@ -327,7 +327,12 @@ export default function Navbar() {
         {renderMobileMenu}
         {renderMenu}
       </Box>
-      {/*<CarouselMulti/>*/}
+      <br/>
+        <div className="row">
+          <div className="col-12">
+            <CarouselMulti/>
+          </div>
+        </div>
     </>
   );
 }

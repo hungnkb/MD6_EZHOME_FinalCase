@@ -24,7 +24,7 @@ export default function CardHome() {
               <NavLink key={index} to={`/detail-home/${value.idHome}`}>
                 <Card
                   sx={{
-                    maxWidth: 250,
+                    maxWidth: 256,
                     boxShadow: 'none',
                     marginTop: '50px',
                     float: 'left',

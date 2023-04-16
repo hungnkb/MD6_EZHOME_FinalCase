@@ -65,7 +65,7 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/reset-password" element={<ResetPassword />} />
           <Route path="/user/hosting" element={<DashboardHosting />} />
-          <Route path="/test" element={<UpdateUser />} />
+          <Route path="/profile" element={<UpdateUser />} />
         </Route>
         <Route
           path={''}

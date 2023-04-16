@@ -146,8 +146,9 @@ export default function Navbar() {
                     <Login />
                 </MenuItem>
             )}
-
-            <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+            <MenuItem>
+                <Link style={{textDecoration: 'none', color: "Black"}} to="/profile">My account</Link>
+            </MenuItem>
         </Menu>
     );
     const mobileMenuId = 'primary-search-account-menu-mobile';

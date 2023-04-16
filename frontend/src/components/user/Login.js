@@ -1,6 +1,7 @@
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import {
-  Box, Button,
+  Box,
+  Button,
   FormControl,
   IconButton,
   InputAdornment,

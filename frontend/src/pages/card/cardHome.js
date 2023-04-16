@@ -7,20 +7,32 @@ import { CardActionArea } from '@mui/material';
 import { NavLink } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import CarouselMulti from '../../components/layout/carousel-multi';
+import Stack from '@mui/material/Stack';
+import Skeleton from '@mui/material/Skeleton';
 
-export default function CardHome() {
+export default function CardHome(props) {
   const [home, setHome] = useState([]);
+  const { loading = false } = props;
   useEffect(() => {
-    axios
-      .get('http://localhost:3002/api/v1/homes')
-      .then((res) => setHome(res.data));
+    setTimeout(() => {
+      axios
+        .get('http://localhost:3002/api/v1/homes')
+        .then((res) => setHome(res.data));
+    }, 1500)
   }, []);
   return (
     <>
+      <br />
+      <div className="row">
+        <div className="col-12">
+          <CarouselMulti />
+        </div>
+      </div>
       <div className="container">
         <div className="row">
-          <div className="col-12">
-            {home.map((value, index) => (
+          <div className="col-12" style={{textAlign: 'center'}}>
+            {home.length > 0 ? (home.map((value, index) => (
               <NavLink key={index} to={`/detail-home/${value.idHome}`}>
                 <Card
                   sx={{
@@ -56,7 +68,16 @@ export default function CardHome() {
                   </CardActionArea>
                 </Card>
               </NavLink>
-            ))}
+            ))) :
+              <>
+                <Stack direction="row" spacing={5} sx={{ marginTop: '50px' }}>
+                  <Skeleton variant="rectangular" animation="wave" width={256} height={250} sx={{ borderRadius: '15px' }} />
+                  <Skeleton variant="rectangular" animation="wave" width={256} height={250} sx={{ borderRadius: '15px' }} />
+                  <Skeleton variant="rectangular" animation="wave" width={256} height={250} sx={{ borderRadius: '15px' }} />
+                  <Skeleton variant="rectangular" animation="wave" width={256} height={250} sx={{ borderRadius: '15px' }} />
+                </Stack>
+              </>
+            }
           </div>
         </div>
       </div>

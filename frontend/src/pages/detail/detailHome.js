@@ -27,14 +27,12 @@ const bull = (
 );
 export default function DetailHome() {
   const idHome = useParams();
-  console.log(idHome.id, 11);
   const [detail, setDetail] = useState([]);
   const [price, setPrice] = useState();
   useEffect(() => {
     axios
       .get(`http://localhost:3002/api/v1/homes?idHome=${idHome.id}`)
       .then((res) => {
-        console.log(res);
         setDetail(res.data[0]);
         setPrice(res.data[0].price);
       });
@@ -42,7 +40,7 @@ export default function DetailHome() {
   return (
     <>
       <div>
-        <div className="container" style={{ marginTop: '50px' }}>
+        <div className="container" style={{ marginTop: '5px' }}>
           <div className="row">
             <div className="col-12">
               <h3> {detail.title} </h3>

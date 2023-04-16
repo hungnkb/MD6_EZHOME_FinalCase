@@ -253,7 +253,7 @@ export default function NavbarCreate() {
                             }
                           }}
                       >
-                        <p>  Switch to hosting </p>
+                        <p style={{fontSize:"15px", marginTop:"8px"}}> <b> Switch to hosting</b>  </p>
                       </div>
                   )}
                 </IconButton>

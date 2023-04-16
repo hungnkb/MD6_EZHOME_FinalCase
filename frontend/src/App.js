@@ -69,6 +69,7 @@ function App() {
           <Route path="/detail-home/:id" element={<DetailHome />} />
           <Route path="/reset-password" element={<ResetPassword />} />
           <Route path="/user/hosting" element={<DashboardHosting />} />
+          <Route path="/profile" element={<UpdateUser />} />
         </Route>
         <Route
           path={''}

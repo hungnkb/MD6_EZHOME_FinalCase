@@ -20,7 +20,7 @@ export default function UpdateUser() {
     const [age, setAge] = React.useState("");
     const userLogin = useSelector((state) => state.auth);
     const [dataUser, setDataUser] = useState({});
-    const [data, setData] = useState(true)
+    const [data, setData] = useState(false)
     const [newDataUser, setnewDataUser] = useState({
         fullName: '',
         phone: '',
@@ -80,10 +80,13 @@ export default function UpdateUser() {
             [event.target.name]: event.target.value,
         });
 
-    console.log(emailOldandNewPassword)
+    const handleOpenComponentChild = (event) => {
+        setData(!data)
+    }
+    console.log(dataUser)
     return (
         <React.Fragment>
-            <Paper elevation={3} sx={{ marginRight: "15%", marginLeft: "15%" }}>
+            <Paper elevation={3} sx={{ marginRight: "15%", marginLeft: "15%", marginTop: "20px", marginBottom: "20px" }}>
                 <Box sx={{ padding: 5 }}>
                     <form
                         onSubmit={handleSubmit}
@@ -108,12 +111,34 @@ export default function UpdateUser() {
                                 required
                                 id="title"
                                 name="fullName"
-                                label="Title"
                                 fullWidth
                                 size="small"
                                 autoComplete="off"
                                 variant="outlined"
                                 onChange={handleChange}
+                                placeholder={dataUser.fullName}
+                            />
+                        </Grid>
+                        <Grid item xs={12} sm={2}>
+                            <InputLabel
+                                sx={{
+                                    display: "flex",
+                                    justifyContent: "center",
+                                    fontWeight: 700
+                                }}
+                            >
+                                Address
+                            </InputLabel>
+                        </Grid>
+                        <Grid item xs={12} sm={10}>
+                            <TextField
+                                id="outlined-multiline-static"
+                                name="address"
+                                multiline
+                                fullWidth
+                                rows={4}
+                                onChange={handleChange}
+                                placeholder={dataUser.address}
                             />
                         </Grid>
                         <Grid item xs={12} sm={2}>
@@ -133,8 +158,7 @@ export default function UpdateUser() {
                                 required
                                 id="author"
                                 name="phone"
-                                // label={dataUser.phone}
-                                defaultValue={dataUser.phone}
+                                placeholder={dataUser.phone}
                                 fullWidth
                                 size="small"
                                 autoComplete="off"
@@ -142,72 +166,36 @@ export default function UpdateUser() {
                                 onChange={handleChange}
                             />
                         </Grid>
-                        <Grid item xs={12} sm={2}>
-                            {/*<Link onClick={handleClose}>*/}
-                            {/*    Change Password*/}
-                            {/*</Link>*/}
+                        <Grid item xs={12} sm={6} sx={{
+                            marginTop: 2,
+                        }}
+                        >
+                            <Link style={{marginLeft: "295px"}} onClick={handleOpenComponentChild}>
+                                Change Password
+                            </Link>
                         </Grid>
-                        <UpdatePassword dataFromParent={data}/>
-                        <Grid item xs={12} sm={4}>
-                            <TextField
-                                required
-                                id="author"
-                                name="author"
-                                label="Author"
-                                fullWidth
-                                size="small"
-                                autoComplete="off"
-                                variant="outlined"
-                            />
-                        </Grid>
-                        <Grid item xs={12} sm={2}>
-                            <InputLabel
-                                sx={{
-                                    display: "flex",
-                                    justifyContent: "center",
-                                    fontWeight: 700
-                                }}
-                            >
-                                Address
-                            </InputLabel>
-                        </Grid>
-                        <Grid item xs={12} sm={10}>
-                            <TextField
-                                id="outlined-multiline-static"
-                                label="Content"
-                                name="address"
-                                multiline
-                                fullWidth
-                                rows={4}
-                                onChange={handleChange}
-                            />
-                        </Grid>
-                        {/*<Grid item xs={12} sm={2}>*/}
-                        {/*    <InputLabel*/}
-                        {/*        sx={{*/}
-                        {/*            display: "flex",*/}
-                        {/*            justifyContent: "center",*/}
-                        {/*            fontWeight: 700*/}
-                        {/*        }}*/}
-                        {/*    >*/}
-                        {/*        Img Upload*/}
-                        {/*    </InputLabel>*/}
-                        {/*</Grid>*/}
-                        {/*<Grid item xs={12} sm={4}>*/}
-                        {/*    <Button>*/}
-                        {/*        <UploadFileIcon />*/}
-                        {/*    </Button>*/}
-                        {/*</Grid>*/}
                         <Grid item xs={12} sm={6} />
                         <Grid item xs={12} sm={5} />
                         <Grid item xs={12} sm={4}>
-                            <Button type="submit" variant="contained" sx={{ color: "#ff781f" }}>
-                                Save
-                            </Button>
+                            <button
+                                style={{
+                                    background: '#f7a800',
+                                    color: '#fff',
+                                    fontWeight: 'bold',
+                                    padding: '10px',
+                                    borderRadius: '5px',
+                                    border: 'none'
+                                }}
+                                type="submit"
+                                className="w-full"
+                            >
+                                Submit
+                            </button>
                         </Grid>
                         <Grid item xs={12} sm={5} />
                     </Grid>
                     </form>
+                    <UpdatePassword dataFromParent={data}/>
                 </Box>
             </Paper>
         </React.Fragment>

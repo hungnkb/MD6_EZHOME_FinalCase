@@ -1,4 +1,4 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {useSelector} from "react-redux";
 import axios from "axios";
 import Box from "@mui/material/Box";
@@ -21,7 +21,13 @@ export default function UpdatePassword(props){
         newPassword: /^\w{6,8}$/,
     };
     const [form, setForm] = useState({});
-    console.log(props.dataFromParent, 222)
+    const handleClose = () => {
+        setOpen(false);
+    };
+    useEffect(() => {
+        setOpen(props.dataFromParent)
+    }, [props.dataFromParent]);
+
     const handleSubmitChangePassword = (event) => {
         event.preventDefault();
         axios
@@ -32,11 +38,12 @@ export default function UpdatePassword(props){
             })
             .then(
                 (response) => {
-                    console.log(response)
+                    console.log(response);
+                    handleClose();
                 },
                 (error) => {
                     console.log(error);
-
+                    handleClose();
                 },
             );
     }
@@ -78,9 +85,7 @@ export default function UpdatePassword(props){
             [event.target.name]: event.target.value,
         });
     };
-    const handleClose = () => {
-        setOpen(true);
-    };
+
     return(
         <>
             <Modal open={open} onClose={handleClose}>
@@ -130,6 +135,7 @@ export default function UpdatePassword(props){
                                     backgroundColor: '#f2f2f2',
                                     border: '1px solid #ccc',
                                 }}
+                                type="password"
                             ></input>
                             <br />
                             <br />
@@ -194,9 +200,11 @@ export default function UpdatePassword(props){
                                         fontWeight: 'bold',
                                         padding: '10px',
                                         borderRadius: '5px',
+                                        border: 'none'
                                     }}
                                     type="submit"
                                     className="w-full"
+                                    onClick={handleClose}
                                 >
                                     Submit
                                 </button>

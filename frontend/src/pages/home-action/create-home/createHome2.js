@@ -1,10 +1,11 @@
-import * as React from 'react';
+import React, { useEffect } from 'react';
 import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Unstable_Grid2';
 import { Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -15,7 +16,13 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 export default function CreateHome2() {
+  const currentAuth = useSelector(state => state.auth)
   const navigate = useNavigate();
+  useEffect(() => {
+    if (!currentAuth.isLogined) {
+      navigate('/')
+    }
+  }, [])
   return (
     <>
       <div className="container" style={{ marginTop: '40px' }}>

@@ -26,6 +26,12 @@ export default function CreateHome24() {
   const currentAuth = useSelector((state) => state.auth);
 
   useEffect(() => {
+    if (!currentAuth.isLogined) {
+      navigate('/')
+    }
+  }, [])
+
+  useEffect(() => {
     if (bathrooms && bedrooms && descriptions) {
       dispatch(setDesc(descriptions));
       dispatch(setBath(bathrooms));

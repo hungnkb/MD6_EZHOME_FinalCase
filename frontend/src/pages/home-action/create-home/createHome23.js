@@ -21,6 +21,13 @@ export default function CreateHome23() {
   const dispatch = useDispatch();
   const currentState = useSelector((state) => state.createHome);
   const [check, setCheck] = useState(false);
+  const currentAuth = useSelector(state => state.auth);
+  
+  useEffect(() => {
+    if (!currentAuth.isLogined) {
+      navigate('/')
+    }
+  }, [])
 
   const onDrop = useCallback((acceptedFiles) => {
     setImages((images) => [...images, ...acceptedFiles]);

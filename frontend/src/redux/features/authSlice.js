@@ -5,6 +5,7 @@ export const authSlice = createSlice({
   initialState: {
     userLogin: {},
     isLogined: false,
+    isFetchDataUser: false,
   },
   reducers: {
     setUserLogin: (state, action) => {
@@ -12,16 +13,19 @@ export const authSlice = createSlice({
       state.isLogined = action.payload.isLogined;
     },
     setRole: (state, action) => {
-      state.userLogin.role = action.payload.role
-    }
-    ,
+      state.userLogin.role = action.payload.role;
+    },
     logout: (state, action) => {
       state.userLogin = {};
       state.isLogined = false;
       localStorage.removeItem('token');
     },
+    setIsFetDataUser: (state, action) => {
+      state.isFetchDataUser = !state.isFetchDataUser;
+    },
   },
 });
 
-export const { setUserLogin, logout, setRole } = authSlice.actions;
+export const { setUserLogin, logout, setRole, setIsFetDataUser } =
+  authSlice.actions;
 export default authSlice.reducer;

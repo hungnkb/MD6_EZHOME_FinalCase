@@ -7,9 +7,9 @@ import * as React from 'react';
 import BathtubIcon from '@mui/icons-material/Bathtub';
 import BedIcon from '@mui/icons-material/Bed';
 import FormPay from '../payment/formPay';
-import {Button} from "@mui/material";
-import ModalHome from "../home-action/modalHome";
-import ModalImg from "./modalImg";
+import { Button } from '@mui/material';
+import ModalHome from '../home-action/modalHome';
+import ModalImg from './modalImg';
 // Thông tin nhà bao gồm:
 //     - Tên của căn nhà
 // - Loại phòng
@@ -56,17 +56,17 @@ export default function DetailHome() {
           <br />
           <div className="row">
             <div className="col-6">
-              <ModalImg/>
+              <ModalImg />
               <img
-                style={{ width: 500, height:400 }}
+                style={{ width: 500, height: 400 }}
                 src="https://a0.muscache.com/im/pictures/miso/Hosting-9738315/original/822ef891-8fb6-4695-a31c-485ab7c2ee21.jpeg?im_w=960"
               />
             </div>
             <div className="col-6">
               <center>
                 <img
-                    style={{ width: 500, height:400 }}
-                    src="https://a0.muscache.com/im/pictures/miso/Hosting-9738315/original/a6a87b0d-8854-4631-8797-444f1069f7df.jpeg?im_w=720"
+                  style={{ width: 500, height: 400 }}
+                  src="https://a0.muscache.com/im/pictures/miso/Hosting-9738315/original/a6a87b0d-8854-4631-8797-444f1069f7df.jpeg?im_w=720"
                 />
               </center>
             </div>

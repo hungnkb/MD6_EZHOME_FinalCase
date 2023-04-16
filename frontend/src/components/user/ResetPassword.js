@@ -56,8 +56,6 @@ export default function ResetPassword() {
       setOpen(false);
     }
   }, [flag]);
-
-  console.log(111111, open);
   const handleSubmit = (event) => {
     event.preventDefault();
     setFlag(true);

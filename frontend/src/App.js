@@ -25,6 +25,8 @@ function App() {
   const dispatch = useDispatch((state) => state.auth);
   const [fetchUserData, setFetchUserData] = useState(false);
 
+  console.log(currentAuth)
+
   useEffect(() => {
     setToken(localStorage.getItem('token'));
   }, [localStorage.getItem('token'), currentAuth.isFetchDataUser]);

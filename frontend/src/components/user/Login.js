@@ -34,7 +34,6 @@ function Login() {
     password: '',
   });
   const currentState = useSelector((state) => state.auth);
-  console.log(currentState);
   const formik = useFormik({
     initialValues: {
       email: '',
@@ -229,7 +228,7 @@ function Login() {
                       marginTop: '10px',
                     }}
                   >
-                    <GoogleButton />
+                    <GoogleButton handleClose={handleClose} />
                   </div>
                   <div
                     className="flex"

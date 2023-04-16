@@ -25,6 +25,13 @@ export default function CreateHome21() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const currentState = useSelector((state) => state.createHome);
+  const currentAuth = useSelector(state => state.auth)
+
+  useEffect(() => {
+    if (!currentAuth.isLogined) {
+      navigate('/')
+    }
+  }, [])
   useEffect(() => {
     if (currentState.idCategory) {
       setCheck(true);

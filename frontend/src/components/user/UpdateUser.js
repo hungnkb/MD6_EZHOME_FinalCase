@@ -86,7 +86,7 @@ export default function UpdateUser() {
     console.log(dataUser)
     return (
         <React.Fragment>
-            <Paper elevation={3} sx={{ marginRight: "15%", marginLeft: "15%" }}>
+            <Paper elevation={3} sx={{ marginRight: "15%", marginLeft: "15%", marginTop: "20px", marginBottom: "20px" }}>
                 <Box sx={{ padding: 5 }}>
                     <form
                         onSubmit={handleSubmit}

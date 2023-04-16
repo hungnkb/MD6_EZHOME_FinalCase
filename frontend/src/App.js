@@ -24,8 +24,8 @@ import DashboardHosting from './pages/hosting/dashboard';
 function App() {
   const currentAuth = useSelector((state) => state.auth);
   const [token, setToken] = useState(null);
-
   const dispatch = useDispatch((state) => state.auth);
+  const [fetchUserData, setFetchUserData] = useState(false);
 
   useEffect(() => {
     setToken(localStorage.getItem('token'));
@@ -52,7 +52,7 @@ function App() {
       }
     };
     verifyToken();
-  }, [token]);
+  }, [token, fetchUserData]);
   return (
     <BrowserRouter>
       <Routes>
@@ -64,7 +64,7 @@ function App() {
           <Route path="/test" element={<GoogleButton />} />
           <Route path="/user/hosting" element={<DashboardHosting />} />
         </Route>
-        <Route path={''} element={<NavbarCreate />}>
+        <Route path={''} element={<NavbarCreate setFetchUserData={setFetchUserData} />}>
           <Route path="/create-home" element={<CreateHome2 />}></Route>
           <Route path="/create-home/1" element={<CreateHome21 />}></Route>
           <Route path="/create-home/2" element={<CreateHome22 />}></Route>

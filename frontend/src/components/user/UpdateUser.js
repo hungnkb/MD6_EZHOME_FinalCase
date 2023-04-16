@@ -12,16 +12,33 @@ import Button from "@mui/material/Button";
 import {useSelector} from "react-redux";
 import axios from "axios";
 import Swal from 'sweetalert2';
+import {Link} from "react-router-dom";
+import {Modal} from "@mui/material";
+import UpdatePassword from "./UpdatePassword";
 
 export default function UpdateUser() {
     const [age, setAge] = React.useState("");
     const userLogin = useSelector((state) => state.auth);
     const [dataUser, setDataUser] = useState({});
+    const [data, setData] = useState(true)
     const [newDataUser, setnewDataUser] = useState({
         fullName: '',
         phone: '',
         address: '',
     });
+    const [emailOldandNewPassword, setEmailOldandNewPassword] = useState({
+        email: userLogin.userLogin.email,
+        oldPassword: '',
+        newPassword: '',
+    });
+    const MESSAGE_ERROR = {
+        newPassword: 'Password error',
+        confirmPassword: 'Password must be the same',
+    };
+    const REGEX = {
+        newPassword: /^\w{6,8}$/,
+    };
+    const [form, setForm] = useState({});
 
     useEffect(() => {
         axios.get(`http://localhost:3002/api/v1/users?email=${userLogin.userLogin.email}`)
@@ -48,30 +65,22 @@ export default function UpdateUser() {
                 })
             },
             (error) => {
-                // console.log(error);
-                // Toast.fire({
-                //     icon: 'error',
-                //     title: 'Token Incorrect!',
-                // });
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Error Try Again!',
+                });
             },
         );
     };
+
     const handleChange = (event) =>
         setnewDataUser({
             ...newDataUser,
             [event.target.name]: event.target.value,
         });
-    console.log(newDataUser,44)
-    const categories = [
-        "science",
-        "sports",
-        "business",
-        "politics",
-        "entertainment",
-        "technology",
-        "world",
-        "all"
-    ];
+
+    console.log(emailOldandNewPassword)
     return (
         <React.Fragment>
             <Paper elevation={3} sx={{ marginRight: "15%", marginLeft: "15%" }}>
@@ -134,16 +143,11 @@ export default function UpdateUser() {
                             />
                         </Grid>
                         <Grid item xs={12} sm={2}>
-                            <InputLabel
-                                sx={{
-                                    display: "flex",
-                                    justifyContent: "center",
-                                    fontWeight: 700
-                                }}
-                            >
-                                Author
-                            </InputLabel>
+                            {/*<Link onClick={handleClose}>*/}
+                            {/*    Change Password*/}
+                            {/*</Link>*/}
                         </Grid>
+                        <UpdatePassword dataFromParent={data}/>
                         <Grid item xs={12} sm={4}>
                             <TextField
                                 required
@@ -178,22 +182,22 @@ export default function UpdateUser() {
                                 onChange={handleChange}
                             />
                         </Grid>
-                        <Grid item xs={12} sm={2}>
-                            <InputLabel
-                                sx={{
-                                    display: "flex",
-                                    justifyContent: "center",
-                                    fontWeight: 700
-                                }}
-                            >
-                                Img Upload
-                            </InputLabel>
-                        </Grid>
-                        <Grid item xs={12} sm={4}>
-                            <Button>
-                                <UploadFileIcon />
-                            </Button>
-                        </Grid>
+                        {/*<Grid item xs={12} sm={2}>*/}
+                        {/*    <InputLabel*/}
+                        {/*        sx={{*/}
+                        {/*            display: "flex",*/}
+                        {/*            justifyContent: "center",*/}
+                        {/*            fontWeight: 700*/}
+                        {/*        }}*/}
+                        {/*    >*/}
+                        {/*        Img Upload*/}
+                        {/*    </InputLabel>*/}
+                        {/*</Grid>*/}
+                        {/*<Grid item xs={12} sm={4}>*/}
+                        {/*    <Button>*/}
+                        {/*        <UploadFileIcon />*/}
+                        {/*    </Button>*/}
+                        {/*</Grid>*/}
                         <Grid item xs={12} sm={6} />
                         <Grid item xs={12} sm={5} />
                         <Grid item xs={12} sm={4}>

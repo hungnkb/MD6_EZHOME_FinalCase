@@ -208,7 +208,7 @@ export default function Register(props) {
                     ) : null}
                   </FormControl>
                 </div>
-                <button
+                <Button
                   style={{
                     background: '#f7a800',
                     width: '100%',
@@ -218,7 +218,7 @@ export default function Register(props) {
                   className="bg-primary-blue font-medium py-2 rounded text-white w-full"
                 >
                   Register
-                </button>
+                </Button>
               </form>
             </div>
 

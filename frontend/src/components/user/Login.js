@@ -1,6 +1,6 @@
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import {
-  Box,
+  Box, Button,
   FormControl,
   IconButton,
   InputAdornment,
@@ -41,13 +41,13 @@ function Login() {
     },
     validationSchema: Yup.object({
       email: Yup.string()
-        .required('Không được để trống')
-        .email('Vui lòng nhập đúng định dạng Email'),
+        .required('Can not be left blank')
+        .email('Please enter correct email format'),
       password: Yup.string()
-        .required('Không được để trống')
+        .required('Can not be left blank')
         .matches(
           /^^[a-zA-Z]\w{6,8}$/,
-          'Bắt đầu bằng chữ. Tối thiểu 6 và tối đa 8 ký tự',
+          'Start with a letter. Minimum 6 and maximum 8 characters',
         ),
     }),
     onSubmit: (values) => {
@@ -85,7 +85,6 @@ function Login() {
       });
     }
   };
-
   const handleChange = (event) =>
     setUserLogins({
       ...userLogins,
@@ -210,17 +209,18 @@ function Login() {
                     </FormControl>
                   </div>
 
-                  <button
+                  <Button
                     style={{
                       background: '#f7a800',
                       width: '100%',
                       marginTop: '10px',
                     }}
+                    variant="warning"
                     type="submit"
                     className="bg-primary-blue font-medium py-2 rounded text-white w-full"
                   >
                     Login
-                  </button>
+                  </Button>
                   <div
                     style={{
                       width: '52%',

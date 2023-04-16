@@ -1,17 +1,13 @@
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { BrowserRouter, Routes, Route, useNavigate } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Home from './components/home/Home';
 import CardHome from './pages/card/cardHome';
 import DetailHome from './pages/detail/detailHome';
-import ModalHome from './pages/home-action/modalHome';
-import GoogleButton from './components/google/GoogleLogin';
-import Login from './components/user/Login';
 import CreateHome2 from './pages/home-action/create-home/createHome2';
 import CreateHome21 from './pages/home-action/create-home/createHome21';
 import CreateHome22 from './pages/home-action/create-home/createHome22';
 import CreateHome23 from './pages/home-action/create-home/createHome23';
-import Register from './components/user/Register';
 import '@mobiscroll/react/dist/css/mobiscroll.min.css';
 import CreateHome24 from './pages/home-action/create-home/createHome24';
 import NavbarCreate from './pages/home-action/create-home/navbarCreate';
@@ -31,8 +27,7 @@ function App() {
 
   useEffect(() => {
     setToken(localStorage.getItem('token'));
-  }, [localStorage.getItem('token')]);
-
+  }, [localStorage.getItem('token'), currentAuth.isFetchDataUser]);
   useEffect(() => {
     const verifyToken = async () => {
       if (token) {

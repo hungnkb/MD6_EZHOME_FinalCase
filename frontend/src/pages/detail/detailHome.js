@@ -91,7 +91,7 @@ export default function DetailHome() {
                         >
                           <Card.Body>
                             <center>
-                              <BathtubIcon /> Batbrooms: {detail.batbrooms}
+                              <BathtubIcon /> Bathrooms: {detail.bathrooms}
                             </center>
                           </Card.Body>
                         </Card>

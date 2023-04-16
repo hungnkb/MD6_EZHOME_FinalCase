@@ -1,5 +1,16 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+const initialState = {
+  title: null,
+  price: null,
+  address: null,
+  bathrooms: null,
+  bedrooms: null,
+  description: null,
+  idCategory: null,
+  files: null,
+}
+
 export const homeSlice = createSlice({
   name: 'homeCreate',
   initialState: {
@@ -37,6 +48,9 @@ export const homeSlice = createSlice({
     setFiles: (state, action) => {
       state.files = action.payload;
     },
+    setDefault: (state, action) => {
+      return { ...initialState };
+    }
   },
 });
 

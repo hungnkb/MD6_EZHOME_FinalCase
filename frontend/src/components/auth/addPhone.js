@@ -9,8 +9,8 @@ import { TextField } from '@mui/material';
 import axios from '../../api/axios';
 import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { setRole } from '../../redux/features/authSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { setIsFetDataUser, setRole } from '../../redux/features/authSlice';
 
 const style = {
   position: 'absolute',
@@ -33,6 +33,7 @@ function AddPhone(props) {
   };
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const currentAuth = useSelector(state => state.auth);
 
   const phoneRegExp =
     /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
@@ -59,18 +60,24 @@ function AddPhone(props) {
           Authorization: JSON.parse(localStorage.getItem('token')),
         },
       })
-        .then((response) => {
-          dispatch(setRole({ role: 'host' }));
-          Swal.fire({
-            position: 'center',
-            icon: 'success',
-            title: 'Your work has been saved',
-            showConfirmButton: false,
-            timer: 1500,
+        .then(() => {
+          axios({
+            method: 'GET',
+            url: `http://localhost:3002/api/v1/users/active-host/${currentAuth.userLogin.sub}`,
           }).then(() => {
-            setOpen(!open);
-            navigate('/user/hosting');
-          });
+            dispatch(setRole({ role: 'host' }));
+            dispatch(setIsFetDataUser());
+            Swal.fire({
+              position: 'center',
+              icon: 'success',
+              title: 'Your work has been saved',
+              showConfirmButton: false,
+              timer: 1500,
+            }).then(() => {
+              setOpen(!open);
+              navigate('/user/hosting');
+            });
+          })
         })
         .catch((error) => {
           Swal.fire({

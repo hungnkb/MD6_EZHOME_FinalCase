@@ -8,7 +8,7 @@ import {
   useJsApiLoader,
   Autocomplete,
 } from '@react-google-maps/api';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setAddress } from '../../../redux/features/homeSlice';
 import './style.css';
 const Item = styled(Paper)(({ theme }) => ({
@@ -40,6 +40,13 @@ export default function CreateHome22() {
   const navigate = useNavigate();
   const google = window.google;
   const dispatch = useDispatch();
+  const currentAuth = useSelector(state => state.auth);
+
+  useEffect(() => {
+    if (!currentAuth.isLogined) {
+      navigate('/')
+    }
+  }, [])
 
   let infowindow;
   let geocoder;

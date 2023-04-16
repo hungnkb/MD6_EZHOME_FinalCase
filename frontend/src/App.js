@@ -1,6 +1,6 @@
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, useNavigate } from 'react-router-dom';
 import Home from './components/home/Home';
 import CardHome from './pages/card/cardHome';
 import DetailHome from './pages/detail/detailHome';
@@ -54,22 +54,30 @@ function App() {
       }
     };
     verifyToken();
-  }, [token, fetchUserData]);
+  }, [
+    token,
+    fetchUserData,
+    currentAuth.isFetchDataUser,
+    currentAuth.isLogined,
+  ]);
+
   return (
     <BrowserRouter>
       <Routes>
         <Route path="" element={<Home />}>
           <Route path="/" element={<CardHome />} />
           <Route path="/detail-home/:id" element={<DetailHome />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
           <Route path="/reset-password" element={<ResetPassword />} />
           <Route path="/user/hosting" element={<DashboardHosting />} />
-          <Route path="/test" element={<UpdateUser />} />
         </Route>
         <Route
           path={''}
-          element={<NavbarCreate setFetchUserData={setFetchUserData} />}
+          element={
+            <NavbarCreate
+              setFetchUserData={setFetchUserData}
+              fetchUserData={fetchUserData}
+            />
+          }
         >
           <Route path="/create-home" element={<CreateHome2 />}></Route>
           <Route path="/create-home/1" element={<CreateHome21 />}></Route>

@@ -31,7 +31,7 @@ export default function CardHome(props) {
       </div>
       <div className="container">
         <div className="row">
-          <div className="col-12">
+          <div className="col-12" style={{textAlign: 'center'}}>
             {home.length > 0 ? (home.map((value, index) => (
               <NavLink key={index} to={`/detail-home/${value.idHome}`}>
                 <Card

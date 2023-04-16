@@ -22,7 +22,8 @@ export default function CreateHome2() {
         <div className="row">
           <div className="col-6">
             <h1 style={{ fontSize: '350%' }}>
-              It’s easy to get started on <b style={{color:"#f7a800"}}> EZHOME </b>
+              It’s easy to get started on{' '}
+              <b style={{ color: '#f7a800' }}> EZHOME </b>
             </h1>
           </div>
           <div className="col-6">

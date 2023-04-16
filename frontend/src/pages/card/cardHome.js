@@ -7,7 +7,7 @@ import { CardActionArea } from '@mui/material';
 import { NavLink } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import CarouselMulti from "../../components/layout/carousel-multi";
+import CarouselMulti from '../../components/layout/carousel-multi';
 
 export default function CardHome() {
   const [home, setHome] = useState([]);
@@ -18,10 +18,10 @@ export default function CardHome() {
   }, []);
   return (
     <>
-      <br/>
+      <br />
       <div className="row">
         <div className="col-12">
-          <CarouselMulti/>
+          <CarouselMulti />
         </div>
       </div>
       <div className="container">

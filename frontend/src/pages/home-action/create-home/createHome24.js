@@ -57,7 +57,7 @@ export default function CreateHome24() {
     console.log(bedrooms, bathrooms);
     dispatch(setBed(bedrooms));
     dispatch(setBath(bathrooms));
-  }, [bedrooms, bathrooms])
+  }, [bedrooms, bathrooms]);
 
   const handleFinish = async () => {
     const title = currentState.title;
@@ -81,7 +81,7 @@ export default function CreateHome24() {
       files,
     );
 
-    let urlList = []
+    let urlList = [];
 
     let uploadImageHome = await axios({
       method: 'post',
@@ -91,37 +91,46 @@ export default function CreateHome24() {
     });
 
     for (let i = 0; i < uploadImageHome.data.length; i++) {
-      urlList.push(uploadImageHome.data[i].url)
+      urlList.push(uploadImageHome.data[i].url);
     }
 
     if (uploadImageHome) {
       let newHome = await axios({
         method: 'post',
         url: 'http://localhost:3002/api/v1/homes',
-        data: { title, price, address, bathrooms, bedrooms, description, email, idCategory, files: urlList },
-        headers: { 'Content-Type': 'application/json' }
+        data: {
+          title,
+          price,
+          address,
+          bathrooms,
+          bedrooms,
+          description,
+          email,
+          idCategory,
+          files: urlList,
+        },
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: JSON.parse(localStorage.getItem('token')),
+        },
       })
-
-      if (newHome) {
-        Swal.fire({
-          position: 'center',
-          icon: 'success',
-          title: 'Your home has been saved',
-          showConfirmButton: false,
-          timer: 1500
-        }).then(
-          navigate('/user/hosting')
-        )
-      } else {
-        Swal.fire({
-          icon: 'error',
-          title: 'Oops...',
-          text: 'Something went wrong!',
-          footer: '<a href="">Why do I have this issue?</a>'
-        }).then(
-          navigate('/user/hosting')
-        )
-      }
+        .then((response) => {
+          Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'Your home has been saved',
+            showConfirmButton: false,
+            timer: 1500,
+          }).then(navigate('/user/hosting'));
+        })
+        .catch((err) => {
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Something went wrong!',
+            footer: '<a href="">Why do I have this issue?</a>',
+          }).then(navigate('/user/hosting'));
+        });
     }
   };
 
@@ -129,8 +138,9 @@ export default function CreateHome24() {
     <>
       <div className="row" style={{ height: '450px' }}>
         <div className="col-5">
-          <h1 style={{ fontSize: '300%', marginTop:"50px" }}>
-            It’s easy to get started on <b style={{color:"#f7a800"}}> EZHOME </b>
+          <h1 style={{ fontSize: '300%', marginTop: '50px' }}>
+            It’s easy to get started on{' '}
+            <b style={{ color: '#f7a800' }}> EZHOME </b>
           </h1>
         </div>
         <div className="col-7">
@@ -253,7 +263,9 @@ export default function CreateHome24() {
           >
             Back
           </Button>
-          {currentState.description && currentState.title && currentState.price ? (
+          {currentState.description &&
+          currentState.title &&
+          currentState.price ? (
             <Button variant="contained" id="btn-finish1" onClick={handleFinish}>
               Finish
             </Button>

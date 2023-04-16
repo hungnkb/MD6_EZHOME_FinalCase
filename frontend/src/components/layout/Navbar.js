@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {styled, alpha} from '@mui/material/styles';
+import { styled, alpha } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -13,20 +13,17 @@ import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import MailIcon from '@mui/icons-material/Mail';
-import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
-import {Button, ButtonGroup} from '@mui/material';
-import {useEffect, useState} from 'react';
-import GoogleButton from '../google/GoogleLogin';
-import LanguageIcon from '@mui/icons-material/Language';
-import {Link, Outlet, useNavigate} from 'react-router-dom';
+import { Button } from '@mui/material';
+import { useEffect, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import Login from '../user/Login';
-import {useDispatch, useSelector} from 'react-redux';
-import {logout, setUserLogin} from '../../redux/features/authSlice';
-import CarouselMulti from './carousel-multi';
+import { useDispatch, useSelector } from 'react-redux';
+import { logout, setUserLogin } from '../../redux/features/authSlice';
 import Swal from 'sweetalert2';
+import AddPhone from '../auth/addPhone';
 
-const Search = styled('div')(({theme}) => ({
+const Search = styled('div')(({ theme }) => ({
     position: 'relative',
     borderRadius: theme.shape.borderRadius,
     backgroundColor: alpha(theme.palette.common.white, 0.15),
@@ -42,7 +39,7 @@ const Search = styled('div')(({theme}) => ({
     },
 }));
 
-const SearchIconWrapper = styled('div')(({theme}) => ({
+const SearchIconWrapper = styled('div')(({ theme }) => ({
     padding: theme.spacing(0, 2),
     height: '100%',
     position: 'absolute',
@@ -52,7 +49,7 @@ const SearchIconWrapper = styled('div')(({theme}) => ({
     justifyContent: 'center',
 }));
 
-const StyledInputBase = styled(InputBase)(({theme}) => ({
+const StyledInputBase = styled(InputBase)(({ theme }) => ({
     color: 'inherit',
     '& .MuiInputBase-input': {
         padding: theme.spacing(1, 1, 1, 0),
@@ -75,6 +72,7 @@ export default function Navbar() {
     const currentState = useSelector((state) => state.auth);
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const [isHost, setIsHost] = useState(true);
 
     const callbackFunction = (childData) => {
         setMessage(childData);
@@ -100,6 +98,20 @@ export default function Navbar() {
     const handleLogout = () => {
         dispatch(logout());
     };
+
+    const handleSwitchhosting = () => {
+        if (currentState.userLogin.active && currentState.userLogin.role === 'host') {
+            navigate('/user/hosting');
+        } else if (currentState.userLogin.active && currentState.userLogin.role == 'user') {
+            setIsHost(false);
+        } else {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Please active your account first',
+            });
+        }
+    }
 
     const menuId = 'primary-search-account-menu';
     const renderMenu = (
@@ -131,7 +143,7 @@ export default function Navbar() {
                 </MenuItem>
             ) : (
                 <MenuItem onClick={handleMenuClose}>
-                    <Login/>
+                    <Login />
                 </MenuItem>
             )}
 
@@ -158,7 +170,7 @@ export default function Navbar() {
             <MenuItem>
                 <IconButton size="large" aria-label="show 4 new mails" color="inherit">
                     <Badge badgeContent={4} color="error">
-                        <MailIcon/>
+                        <MailIcon />
                     </Badge>
                 </IconButton>
                 <p>Messages</p>
@@ -183,7 +195,7 @@ export default function Navbar() {
                     aria-haspopup="true"
                     color="inherit"
                 >
-                    <AccountCircle/>
+                    <AccountCircle />
                 </IconButton>
                 <p>Profile</p>
             </MenuItem>
@@ -192,10 +204,11 @@ export default function Navbar() {
 
     return (
         <>
-            <Box sx={{flexGrow: 1}}>
+            {!isHost && (<AddPhone isHost={isHost} setIsHost={setIsHost} />)}
+            <Box sx={{ flexGrow: 1 }}>
                 <AppBar
                     position="static"
-                    style={{background: 'white', color: 'black'}}
+                    style={{ background: 'white', color: 'black' }}
                 >
                     <Toolbar>
                         <IconButton
@@ -203,7 +216,7 @@ export default function Navbar() {
                             edge="start"
                             color="inherit"
                             aria-label="open drawer"
-                            sx={{mr: 2}}
+                            sx={{ mr: 2 }}
                         >
                             {/*<MenuIcon/>*/}
                         </IconButton>
@@ -211,11 +224,11 @@ export default function Navbar() {
                             variant="h6"
                             noWrap
                             component="div"
-                            sx={{display: {xs: 'none', sm: 'block'}}}
+                            sx={{ display: { xs: 'none', sm: 'block' } }}
                         >
                             <Link to={'/'}>
                                 <img
-                                    style={{width: 100}}
+                                    style={{ width: 100 }}
                                     src="https://cebuhomebuilders.com/wp-content/uploads/2020/10/ez-home-768-x-331-px.jpg"
                                 />
                             </Link>
@@ -229,32 +242,24 @@ export default function Navbar() {
                             }}
                         >
                             <SearchIconWrapper>
-                                <SearchIcon/>
+                                <SearchIcon />
                             </SearchIconWrapper>
                             <StyledInputBase
                                 placeholder="Search…"
-                                inputProps={{'aria-label': 'search'}}
+                                inputProps={{ 'aria-label': 'search' }}
                             />
                         </Search>
-                        <Box sx={{flexGrow: 1}}/>
-                        <Box sx={{display: {xs: 'none', md: 'flex'}}}>
+                        <Box sx={{ flexGrow: 1 }} />
+                        <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
                             <IconButton>
-
-                                    {currentState.isLogined && (
+                                {currentState.isLogined && (
                                     <div
-                                        onClick={() => {
-                                            if (currentState.userLogin.active) {
-                                                navigate('/user/hosting');
-                                            } else {
-                                                Swal.fire({
-                                                    icon: 'error',
-                                                    title: 'Oops...',
-                                                    text: 'Please active your account first',
-                                                });
-                                            }
-                                        }}
+                                        onClick={handleSwitchhosting}
                                     >
-                                        <p style={{fontSize:"15px", marginTop:"8px"}}> <b> Switch to hosting</b>  </p>
+                                        <p style={{ fontSize: '15px', marginTop: '8px' }}>
+                                            {' '}
+                                            <b> Switch to hosting</b>{' '}
+                                        </p>
                                     </div>
                                 )}
                             </IconButton>
@@ -276,12 +281,12 @@ export default function Navbar() {
                                     }}
                                 >
                                     {' '}
-                                    <MenuIcon fontSize="small"/>{' '}
-                                    <AccountCircle fontSize="large"/>{' '}
+                                    <MenuIcon fontSize="small" />{' '}
+                                    <AccountCircle fontSize="large" />{' '}
                                 </Button>
                             </IconButton>
                         </Box>
-                        <Box sx={{display: {xs: 'flex', md: 'none'}}}>
+                        <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
                             <IconButton
                                 size="large"
                                 aria-label="show more"
@@ -290,7 +295,7 @@ export default function Navbar() {
                                 onClick={handleMobileMenuOpen}
                                 color="inherit"
                             >
-                                <MoreIcon/>
+                                <MoreIcon />
                             </IconButton>
                         </Box>
                     </Toolbar>

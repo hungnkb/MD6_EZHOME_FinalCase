@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {styled, alpha} from '@mui/material/styles';
+import { styled, alpha } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -15,17 +15,17 @@ import AccountCircle from '@mui/icons-material/AccountCircle';
 import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
-import {Button, ButtonGroup} from '@mui/material';
-import {useEffect, useState} from 'react';
+import { Button, ButtonGroup } from '@mui/material';
+import { useEffect, useState } from 'react';
 import LanguageIcon from '@mui/icons-material/Language';
-import {Link, Outlet, useNavigate} from 'react-router-dom';
-import {useDispatch, useSelector} from 'react-redux';
+import { Link, Outlet, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import Swal from 'sweetalert2';
-import CarouselMulti from "../../../components/layout/carousel-multi";
-import {logout} from "../../../redux/features/authSlice";
-import Login from "../../../components/user/Login";
+import CarouselMulti from '../../../components/layout/carousel-multi';
+import { logout } from '../../../redux/features/authSlice';
+import Login from '../../../components/user/Login';
 
-const Search = styled('div')(({theme}) => ({
+const Search = styled('div')(({ theme }) => ({
   position: 'relative',
   borderRadius: theme.shape.borderRadius,
   backgroundColor: alpha(theme.palette.common.white, 0.15),
@@ -41,7 +41,7 @@ const Search = styled('div')(({theme}) => ({
   },
 }));
 
-const SearchIconWrapper = styled('div')(({theme}) => ({
+const SearchIconWrapper = styled('div')(({ theme }) => ({
   padding: theme.spacing(0, 2),
   height: '100%',
   position: 'absolute',
@@ -51,7 +51,7 @@ const SearchIconWrapper = styled('div')(({theme}) => ({
   justifyContent: 'center',
 }));
 
-const StyledInputBase = styled(InputBase)(({theme}) => ({
+const StyledInputBase = styled(InputBase)(({ theme }) => ({
   color: 'inherit',
   '& .MuiInputBase-input': {
     padding: theme.spacing(1, 1, 1, 0),
@@ -102,212 +102,213 @@ export default function NavbarCreate(props) {
 
   const menuId = 'primary-search-account-menu';
   const renderMenu = (
-      <Menu
-          anchorEl={anchorEl}
-          anchorOrigin={{
-            vertical: 'top',
-            horizontal: 'right',
-          }}
-          id={menuId}
-          keepMounted
-          transformOrigin={{
-            vertical: 'top',
-            horizontal: 'right',
-          }}
-          open={isMenuOpen}
-          onClose={handleMenuClose}
-      >
-        <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
+    <Menu
+      anchorEl={anchorEl}
+      anchorOrigin={{
+        vertical: 'top',
+        horizontal: 'right',
+      }}
+      id={menuId}
+      keepMounted
+      transformOrigin={{
+        vertical: 'top',
+        horizontal: 'right',
+      }}
+      open={isMenuOpen}
+      onClose={handleMenuClose}
+    >
+      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
 
-        {currentState.isLogined ? (
-            <MenuItem
-                onClick={() => {
-                  handleLogout();
-                  handleMenuClose();
-                }}
-            >
-              Logout
-            </MenuItem>
-        ) : (
-            <MenuItem onClick={handleMenuClose}>
-              <Login/>
-            </MenuItem>
-        )}
+      {currentState.isLogined ? (
+        <MenuItem
+          onClick={() => {
+            handleLogout();
+            handleMenuClose();
+          }}
+        >
+          Logout
+        </MenuItem>
+      ) : (
+        <MenuItem onClick={handleMenuClose}>
+          <Login />
+        </MenuItem>
+      )}
 
-        <MenuItem onClick={handleMenuClose}>My account</MenuItem>
-      </Menu>
+      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+    </Menu>
   );
   const mobileMenuId = 'primary-search-account-menu-mobile';
   const renderMobileMenu = (
-      <Menu
-          anchorEl={mobileMoreAnchorEl}
-          anchorOrigin={{
-            vertical: 'top',
-            horizontal: 'right',
-          }}
-          id={mobileMenuId}
-          keepMounted
-          transformOrigin={{
-            vertical: 'top',
-            horizontal: 'right',
-          }}
-          open={isMobileMenuOpen}
-          onClose={handleMobileMenuClose}
-      >
-        <MenuItem>
-          <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-            <Badge badgeContent={4} color="error">
-              <MailIcon/>
-            </Badge>
-          </IconButton>
-          <p>Messages</p>
-        </MenuItem>
-        <MenuItem>
-          <IconButton
-              size="large"
-              aria-label="show 17 new notifications"
-              color="inherit"
-          >
-            {/*<Badge badgeContent={17} color="error">*/}
-            {/*  <NotificationsIcon />*/}
-            {/*</Badge>*/}
-          </IconButton>
-          <p>Notifications</p>
-        </MenuItem>
-        <MenuItem onClick={handleProfileMenuOpen}>
-          <IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="primary-search-account-menu"
-              aria-haspopup="true"
-              color="inherit"
-          >
-            <AccountCircle/>
-          </IconButton>
-          <p>Profile</p>
-        </MenuItem>
-      </Menu>
+    <Menu
+      anchorEl={mobileMoreAnchorEl}
+      anchorOrigin={{
+        vertical: 'top',
+        horizontal: 'right',
+      }}
+      id={mobileMenuId}
+      keepMounted
+      transformOrigin={{
+        vertical: 'top',
+        horizontal: 'right',
+      }}
+      open={isMobileMenuOpen}
+      onClose={handleMobileMenuClose}
+    >
+      <MenuItem>
+        <IconButton size="large" aria-label="show 4 new mails" color="inherit">
+          <Badge badgeContent={4} color="error">
+            <MailIcon />
+          </Badge>
+        </IconButton>
+        <p>Messages</p>
+      </MenuItem>
+      <MenuItem>
+        <IconButton
+          size="large"
+          aria-label="show 17 new notifications"
+          color="inherit"
+        >
+          {/*<Badge badgeContent={17} color="error">*/}
+          {/*  <NotificationsIcon />*/}
+          {/*</Badge>*/}
+        </IconButton>
+        <p>Notifications</p>
+      </MenuItem>
+      <MenuItem onClick={handleProfileMenuOpen}>
+        <IconButton
+          size="large"
+          aria-label="account of current user"
+          aria-controls="primary-search-account-menu"
+          aria-haspopup="true"
+          color="inherit"
+        >
+          <AccountCircle />
+        </IconButton>
+        <p>Profile</p>
+      </MenuItem>
+    </Menu>
   );
 
   return (
-      <>
-        <Box sx={{flexGrow: 1}}>
-          <AppBar
-              position="static"
-              style={{background: 'white', color: 'black'}}
-          >
-            <Toolbar>
-              <IconButton
-                  size="large"
-                  edge="start"
-                  color="inherit"
-                  aria-label="open drawer"
-                  sx={{mr: 2}}
-              >
-                {/*<MenuIcon/>*/}
-              </IconButton>
-              <Typography
-                  variant="h6"
-                  noWrap
-                  component="div"
-                  sx={{display: {xs: 'none', sm: 'block'}}}
-              >
-                <Link to={'/'}>
-                  <img
-                      style={{width: 100}}
-                      src="https://cebuhomebuilders.com/wp-content/uploads/2020/10/ez-home-768-x-331-px.jpg"
-                  />
-                </Link>
-              </Typography>
-              <Search
-                  style={{
-                    border: '2px solid black',
-                    marginLeft: '300px',
-                    borderRadius: '30px',
-                    width: 400,
-                  }}
-              >
-                <SearchIconWrapper>
-                  <SearchIcon/>
-                </SearchIconWrapper>
-                <StyledInputBase
-                    placeholder="Search…"
-                    inputProps={{'aria-label': 'search'}}
+    <>
+      <Box sx={{ flexGrow: 1 }}>
+        <AppBar
+          position="static"
+          style={{ background: 'white', color: 'black' }}
+        >
+          <Toolbar>
+            <IconButton
+              size="large"
+              edge="start"
+              color="inherit"
+              aria-label="open drawer"
+              sx={{ mr: 2 }}
+            >
+              {/*<MenuIcon/>*/}
+            </IconButton>
+            <Typography
+              variant="h6"
+              noWrap
+              component="div"
+              sx={{ display: { xs: 'none', sm: 'block' } }}
+            >
+              <Link to={'/'}>
+                <img
+                  style={{ width: 100 }}
+                  src="https://cebuhomebuilders.com/wp-content/uploads/2020/10/ez-home-768-x-331-px.jpg"
                 />
-              </Search>
-              <Box sx={{flexGrow: 1}}/>
-              <Box sx={{display: {xs: 'none', md: 'flex'}}}>
-                <IconButton>
-
-                  {currentState.isLogined && (
-                      <div
-                          onClick={() => {
-                            props.setFetchUserData(true);
-                            if (currentState.userLogin.active) {
-                              navigate('/user/hosting');
-                            } else {
-                              Swal.fire({
-                                icon: 'error',
-                                title: 'Oops...',
-                                text: 'Please active your account first',
-                              });
-                            }
-                            props.setFetchUserData(false);
-                          }}
-                      >
-                        <p style={{fontSize:"15px", marginTop:"8px"}}> <b> Switch to hosting</b>  </p>
-                      </div>
-                  )}
-                </IconButton>
-                <IconButton
-                    size="large"
-                    edge="end"
-                    aria-label="account of current user"
-                    aria-controls={menuId}
-                    aria-haspopup="true"
-                    onClick={handleProfileMenuOpen}
-                    color="inherit"
-                >
-                  <Button
-                      style={{
-                        borderRadius: '30px',
-                        color: 'black',
-                        border: '1px solid gray',
-                        width: '80px',
-                      }}
+              </Link>
+            </Typography>
+            <Search
+              style={{
+                border: '2px solid black',
+                marginLeft: '300px',
+                borderRadius: '30px',
+                width: 400,
+              }}
+            >
+              <SearchIconWrapper>
+                <SearchIcon />
+              </SearchIconWrapper>
+              <StyledInputBase
+                placeholder="Search…"
+                inputProps={{ 'aria-label': 'search' }}
+              />
+            </Search>
+            <Box sx={{ flexGrow: 1 }} />
+            <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+              <IconButton>
+                {currentState.isLogined && (
+                  <div
+                    onClick={() => {
+                      props.setFetchUserData(true);
+                      if (currentState.userLogin.active) {
+                        navigate('/user/hosting');
+                      } else {
+                        Swal.fire({
+                          icon: 'error',
+                          title: 'Oops...',
+                          text: 'Please active your account first',
+                        });
+                      }
+                      props.setFetchUserData(false);
+                    }}
                   >
-                    {' '}
-                    <MenuIcon fontSize="small"/>{' '}
-                    <AccountCircle fontSize="large"/>{' '}
-                  </Button>
-                </IconButton>
-              </Box>
-              <Box sx={{display: {xs: 'flex', md: 'none'}}}>
-                <IconButton
-                    size="large"
-                    aria-label="show more"
-                    aria-controls={mobileMenuId}
-                    aria-haspopup="true"
-                    onClick={handleMobileMenuOpen}
-                    color="inherit"
+                    <p style={{ fontSize: '15px', marginTop: '8px' }}>
+                      {' '}
+                      <b> Switch to hosting</b>{' '}
+                    </p>
+                  </div>
+                )}
+              </IconButton>
+              <IconButton
+                size="large"
+                edge="end"
+                aria-label="account of current user"
+                aria-controls={menuId}
+                aria-haspopup="true"
+                onClick={handleProfileMenuOpen}
+                color="inherit"
+              >
+                <Button
+                  style={{
+                    borderRadius: '30px',
+                    color: 'black',
+                    border: '1px solid gray',
+                    width: '80px',
+                  }}
                 >
-                  <MoreIcon/>
-                </IconButton>
-              </Box>
-            </Toolbar>
-          </AppBar>
-          {renderMobileMenu}
-          {renderMenu}
-        </Box>
-        <br/>
-        <div className="container">
-          <div className="row">
-            <div className="col-12">
-              <Outlet/>
-            </div>
+                  {' '}
+                  <MenuIcon fontSize="small" />{' '}
+                  <AccountCircle fontSize="large" />{' '}
+                </Button>
+              </IconButton>
+            </Box>
+            <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
+              <IconButton
+                size="large"
+                aria-label="show more"
+                aria-controls={mobileMenuId}
+                aria-haspopup="true"
+                onClick={handleMobileMenuOpen}
+                color="inherit"
+              >
+                <MoreIcon />
+              </IconButton>
+            </Box>
+          </Toolbar>
+        </AppBar>
+        {renderMobileMenu}
+        {renderMenu}
+      </Box>
+      <br />
+      <div className="container">
+        <div className="row">
+          <div className="col-12">
+            <Outlet />
           </div>
         </div>
-
-      </>
+      </div>
+    </>
   );
 }

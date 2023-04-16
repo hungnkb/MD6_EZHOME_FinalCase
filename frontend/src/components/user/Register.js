@@ -81,15 +81,15 @@ export default function Register(props) {
             icon: 'success',
             title: 'Register success',
             showConfirmButton: false,
-            timer: 1500
-          })
+            timer: 1500,
+          });
         },
         (error) => {
           Swal.fire({
             icon: 'error',
             title: 'Oops...',
-            text: 'Something went wrong!'
-          })
+            text: 'Something went wrong!',
+          });
         },
       );
   };

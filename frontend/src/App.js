@@ -20,8 +20,8 @@ import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { setUserLogin } from './redux/features/authSlice';
 import DashboardHosting from './pages/hosting/dashboard';
-import UpdateUser from "./components/user/UpdateUser";
-import ResetPassword from "./components/user/ResetPassword";
+import UpdateUser from './components/user/UpdateUser';
+import ResetPassword from './components/user/ResetPassword';
 
 function App() {
   const currentAuth = useSelector((state) => state.auth);
@@ -67,7 +67,10 @@ function App() {
           <Route path="/user/hosting" element={<DashboardHosting />} />
           <Route path="/test" element={<UpdateUser />} />
         </Route>
-        <Route path={''} element={<NavbarCreate setFetchUserData={setFetchUserData} />}>
+        <Route
+          path={''}
+          element={<NavbarCreate setFetchUserData={setFetchUserData} />}
+        >
           <Route path="/create-home" element={<CreateHome2 />}></Route>
           <Route path="/create-home/1" element={<CreateHome21 />}></Route>
           <Route path="/create-home/2" element={<CreateHome22 />}></Route>

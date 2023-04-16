@@ -10,6 +10,7 @@ import axios from 'axios';
 import CarouselMulti from '../../components/layout/carousel-multi';
 import Stack from '@mui/material/Stack';
 import Skeleton from '@mui/material/Skeleton';
+import login from "../../components/user/Login";
 
 export default function CardHome(props) {
   const [home, setHome] = useState([]);
@@ -18,7 +19,7 @@ export default function CardHome(props) {
     setTimeout(() => {
       axios
         .get('http://localhost:3002/api/v1/homes')
-        .then((res) => setHome(res.data));
+        .then((res) =>setHome(res.data));
     }, 1500)
   }, []);
   return (

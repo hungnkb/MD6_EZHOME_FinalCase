@@ -3,6 +3,7 @@
 $ NodeJS v18.12.1
 $ ReactJS v18.2.0
 $ npm v8.19.2
+$ yarn v1.22.19
 
 ## Available Scripts
 

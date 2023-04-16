@@ -54,7 +54,7 @@ export default function ModalImg() {
                             <div className="row">
                                 <div className="col-12">
                                     <img style={{width: "62%"}}
-                                         src="https://a0.muscache.com/im/pictures/ff87818d-b407-43dc-b205-79ab0f962ada.jpg?im_w=720"
+                                         src="https://a0.muscache.com/im/pictures/ff87818d-b407-43dc-b205-79ab0f965ada.jpg?im_w=720"
                                     />
                                 </div>
                             </div>

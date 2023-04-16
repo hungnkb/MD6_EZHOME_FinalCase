@@ -17,6 +17,7 @@ import * as Yup from 'yup';
 import { registerUser } from '../../service/userAction';
 import axios from '../../api/axios';
 import { Button, Modal, Box, Typography } from '@mui/material';
+import Swal from 'sweetalert2';
 
 export default function Register(props) {
   const [open, setOpen] = React.useState(true);
@@ -74,10 +75,21 @@ export default function Register(props) {
       })
       .then(
         (response) => {
-          console.log(response);
+          handleClose();
+          Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'Register success',
+            showConfirmButton: false,
+            timer: 1500
+          })
         },
         (error) => {
-          console.log(error);
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Something went wrong!'
+          })
         },
       );
   };
@@ -90,9 +102,6 @@ export default function Register(props) {
   return (
     <>
       <div>
-        <Button variant="outlined" onClick={handleClickOpen}>
-          Register
-        </Button>
         <Modal open={open} onClose={handleClose}>
           <Box
             sx={{

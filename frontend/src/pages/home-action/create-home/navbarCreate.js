@@ -65,7 +65,7 @@ const StyledInputBase = styled(InputBase)(({theme}) => ({
   },
 }));
 
-export default function NavbarCreate() {
+export default function NavbarCreate(props) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
   const isMenuOpen = Boolean(anchorEl);
@@ -242,6 +242,7 @@ export default function NavbarCreate() {
                   {currentState.isLogined && (
                       <div
                           onClick={() => {
+                            props.setFetchUserData(true);
                             if (currentState.userLogin.active) {
                               navigate('/user/hosting');
                             } else {
@@ -251,6 +252,7 @@ export default function NavbarCreate() {
                                 text: 'Please active your account first',
                               });
                             }
+                            props.setFetchUserData(false);
                           }}
                       >
                         <p style={{fontSize:"15px", marginTop:"8px"}}> <b> Switch to hosting</b>  </p>

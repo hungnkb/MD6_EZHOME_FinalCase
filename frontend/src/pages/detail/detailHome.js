@@ -7,6 +7,9 @@ import * as React from 'react';
 import BathtubIcon from '@mui/icons-material/Bathtub';
 import BedIcon from '@mui/icons-material/Bed';
 import FormPay from '../payment/formPay';
+import {Button} from "@mui/material";
+import ModalHome from "../home-action/modalHome";
+import ModalImg from "./modalImg";
 // Thông tin nhà bao gồm:
 //     - Tên của căn nhà
 // - Loại phòng
@@ -53,40 +56,19 @@ export default function DetailHome() {
           <br />
           <div className="row">
             <div className="col-6">
+              <ModalImg/>
               <img
-                style={{ width: 500 }}
+                style={{ width: 500, height:400 }}
                 src="https://a0.muscache.com/im/pictures/miso/Hosting-9738315/original/822ef891-8fb6-4695-a31c-485ab7c2ee21.jpeg?im_w=960"
               />
             </div>
             <div className="col-6">
-              <div className="row">
-                <div className="col-6">
-                  <img
-                    style={{ width: 250 }}
+              <center>
+                <img
+                    style={{ width: 500, height:400 }}
                     src="https://a0.muscache.com/im/pictures/miso/Hosting-9738315/original/a6a87b0d-8854-4631-8797-444f1069f7df.jpeg?im_w=720"
-                  />
-                </div>
-                <div className="col-6">
-                  <img
-                    style={{ width: 250 }}
-                    src="https://a0.muscache.com/im/pictures/a0cb7a6b-06d1-4fad-b856-8bc9e7d5c46c.jpg?im_w=720"
-                  />
-                </div>
-              </div>
-              <div className="row">
-                <div className="col-6">
-                  <img
-                    style={{ width: 250 }}
-                    src="https://a0.muscache.com/im/pictures/ff87818d-b407-43dc-b205-79ab0f965ada.jpg?im_w=720"
-                  />
-                </div>
-                <div className="col-6">
-                  <img
-                    style={{ width: 250 }}
-                    src="https://a0.muscache.com/im/pictures/395c1775-d06e-4d84-900e-4cce999bf237.jpg?im_w=720"
-                  />
-                </div>
-              </div>
+                />
+              </center>
             </div>
           </div>
           <br />

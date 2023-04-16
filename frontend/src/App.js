@@ -20,6 +20,7 @@ import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { setUserLogin } from './redux/features/authSlice';
 import DashboardHosting from './pages/hosting/dashboard';
+import Example from "./pages/detail/modalImg";
 
 function App() {
   const currentAuth = useSelector((state) => state.auth);

@@ -254,7 +254,7 @@ export default function Navbar() {
                                             }
                                         }}
                                     >
-                                        <p>  Switch to hosting </p>
+                                        <p style={{fontSize:"15px", marginTop:"8px"}}> <b> Switch to hosting</b>  </p>
                                     </div>
                                 )}
                             </IconButton>
@@ -298,12 +298,6 @@ export default function Navbar() {
                 {renderMobileMenu}
                 {renderMenu}
             </Box>
-            <br/>
-            <div className="row">
-                <div className="col-12">
-                    <CarouselMulti/>
-                </div>
-            </div>
         </>
     );
 }

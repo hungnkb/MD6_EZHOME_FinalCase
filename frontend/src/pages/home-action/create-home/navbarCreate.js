@@ -255,7 +255,7 @@ export default function NavbarCreate(props) {
                             props.setFetchUserData(false);
                           }}
                       >
-                        <p>  Switch to hosting </p>
+                        <p style={{fontSize:"15px", marginTop:"8px"}}> <b> Switch to hosting</b>  </p>
                       </div>
                   )}
                 </IconButton>

@@ -20,7 +20,8 @@ export default function UpdateUser() {
     const [age, setAge] = React.useState("");
     const userLogin = useSelector((state) => state.auth);
     const [dataUser, setDataUser] = useState({});
-    const [data, setData] = useState(false)
+    const [data, setData] = useState(false);
+    const [dataPassword, setDataPassword] = useState();
     const [newDataUser, setnewDataUser] = useState({
         fullName: '',
         phone: '',
@@ -43,7 +44,9 @@ export default function UpdateUser() {
     useEffect(() => {
         axios.get(`http://localhost:3002/api/v1/users?email=${userLogin.userLogin.email}`)
             .then((response) => {
-                setDataUser(response.data[0])
+                console.log(response,2222)
+                setDataUser(response.data)
+                setDataPassword(response.data.password)
             })
     }, [])
     const handleSubmit = (event) => {
@@ -83,7 +86,7 @@ export default function UpdateUser() {
     const handleOpenComponentChild = (event) => {
         setData(!data)
     }
-    console.log(dataUser)
+    console.log(dataPassword)
     return (
         <React.Fragment>
             <Paper elevation={3} sx={{ marginRight: "15%", marginLeft: "15%", marginTop: "20px", marginBottom: "20px" }}>
@@ -195,7 +198,7 @@ export default function UpdateUser() {
                         <Grid item xs={12} sm={5} />
                     </Grid>
                     </form>
-                    <UpdatePassword dataFromParent={data}/>
+                    <UpdatePassword dataFromParent={data} dataFromParentt={dataPassword}/>
                 </Box>
             </Paper>
         </React.Fragment>

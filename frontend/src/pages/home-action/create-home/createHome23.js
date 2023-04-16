@@ -43,7 +43,7 @@ export default function CreateHome23() {
     <>
       <div className="row">
         <div className="col-12">
-          <h1 style={{ marginTop: '20px' }}>Make your home more beautiful </h1>
+          <h1 style={{ marginTop: '5px' }}>Make your home more beautiful </h1>
         </div>
         <div {...getRootProps()}>
           <input {...getInputProps()} />

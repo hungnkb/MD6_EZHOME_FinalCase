@@ -24,7 +24,7 @@ export default function CardHome() {
               <NavLink key={index} to={`/detail-home/${value.idHome}`}>
                 <Card
                   sx={{
-                    maxWidth: 250,
+                    maxWidth: 256,
                     boxShadow: 'none',
                     marginTop: '50px',
                     float: 'left',
@@ -39,7 +39,7 @@ export default function CardHome() {
                       }}
                       component="img"
                       height="250"
-                      image="https://a0.muscache.com/im/pictures/2ebf3b25-9b6c-402f-9b29-23aa2a5e5b21.jpg?im_w=720"
+                      image="https://a0.muscache.com/im/pictures/miso/Hosting-564873855309490515/original/2a8641f7-5c8d-4012-aa1b-85116c21e400.jpeg?im_w=960"
                       alt="green iguana"
                     />
                     <CardContent>

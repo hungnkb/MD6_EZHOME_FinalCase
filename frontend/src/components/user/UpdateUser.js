@@ -22,16 +22,9 @@ export default function UpdateUser() {
     const [dataUser, setDataUser] = useState({});
     const [data, setData] = useState(false);
     const [dataPassword, setDataPassword] = useState();
-    const [newDataUser, setnewDataUser] = useState({
-        fullName: '',
-        phone: '',
-        address: '',
-    });
-    const [emailOldandNewPassword, setEmailOldandNewPassword] = useState({
-        email: userLogin.userLogin.email,
-        oldPassword: '',
-        newPassword: '',
-    });
+    const [email, setEmail] = useState(null);
+
+    console.log(userLogin.userLogin, 12312313123123123321)
     const MESSAGE_ERROR = {
         newPassword: 'Password error',
         confirmPassword: 'Password must be the same',
@@ -42,20 +35,30 @@ export default function UpdateUser() {
     const [form, setForm] = useState({});
 
     useEffect(() => {
-        axios.get(`http://localhost:3002/api/v1/users?email=${userLogin.userLogin.email}`)
+        axios.get(`http://localhost:3002/api/v1/users?email=${email}`)
             .then((response) => {
-                console.log(response,2222)
-                setDataUser(response.data)
+                console.log(response.data,2222)
+                const {fullName, phone, address} = response.data
+                setDataUser({fullName, phone, address})
                 setDataPassword(response.data.password)
             })
-    }, [])
+    }, [email])
+    console.log(userLogin,23232332)
+    useEffect(() => {
+        if (userLogin.userLogin.email){
+            localStorage.setItem('email', userLogin.userLogin.email);
+            setEmail(localStorage.getItem("email"));
+        }
+    },[userLogin])
+
+
     const handleSubmit = (event) => {
         event.preventDefault();
         axios.put('http://localhost:3002/api/v1/users', {
                 email: dataUser.email,
-                fullName: newDataUser.fullName,
-                phone: newDataUser.phone,
-                address: newDataUser.address
+                fullName: dataUser.fullName,
+                phone: dataUser.phone,
+                address: dataUser.address
             }).then(
             (response) => {
                 console.log(response)
@@ -71,22 +74,22 @@ export default function UpdateUser() {
                 Swal.fire({
                     icon: 'error',
                     title: 'Oops...',
-                    text: 'Error Try Again!',
+                    text: 'Phone Number Already Exist!',
                 });
             },
         );
     };
 
     const handleChange = (event) =>
-        setnewDataUser({
-            ...newDataUser,
+        setDataUser({
+            ...dataUser,
             [event.target.name]: event.target.value,
         });
 
     const handleOpenComponentChild = (event) => {
         setData(!data)
     }
-    console.log(dataPassword)
+    console.log(typeof (dataUser.fullName),888)
     return (
         <React.Fragment>
             <Paper elevation={3} sx={{ marginRight: "15%", marginLeft: "15%", marginTop: "20px", marginBottom: "20px" }}>
@@ -119,7 +122,9 @@ export default function UpdateUser() {
                                 autoComplete="off"
                                 variant="outlined"
                                 onChange={handleChange}
-                                placeholder={dataUser.fullName}
+                                // placeholder={dataUser.fullName}
+                                // defaultvalue={dataUser.fullName}
+                                value={`${dataUser?.fullName ? dataUser.fullName : ""}`}
                             />
                         </Grid>
                         <Grid item xs={12} sm={2}>
@@ -141,7 +146,7 @@ export default function UpdateUser() {
                                 fullWidth
                                 rows={4}
                                 onChange={handleChange}
-                                placeholder={dataUser.address}
+                                value={`${dataUser?.address ? dataUser.address : ""}`}
                             />
                         </Grid>
                         <Grid item xs={12} sm={2}>
@@ -157,11 +162,11 @@ export default function UpdateUser() {
                         </Grid>
                         <Grid item xs={12} sm={4}>
                             <TextField
-                                type="number"
+                                type="text"
                                 required
                                 id="author"
                                 name="phone"
-                                placeholder={dataUser.phone}
+                                value={`${dataUser?.phone ? dataUser.phone : ""}`}
                                 fullWidth
                                 size="small"
                                 autoComplete="off"

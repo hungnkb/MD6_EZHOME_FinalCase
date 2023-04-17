@@ -94,7 +94,7 @@ export default function Navbar() {
   const handleMobileMenuOpen = (event) => {
     setMobileMoreAnchorEl(event.currentTarget);
   };
-
+  console.log(currentState.isLogined)
   const handleLogout = () => {
     dispatch(logout());
   };
@@ -143,6 +143,7 @@ export default function Navbar() {
                 onClick={() => {
                   handleLogout();
                   handleMenuClose();
+                  // removeEmailLocalStorage();
                 }}
             >
               Logout

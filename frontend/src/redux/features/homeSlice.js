@@ -63,5 +63,6 @@ export const {
   setDesc,
   setCategory,
   setFiles,
+  setDefault
 } = homeSlice.actions;
 export default homeSlice.reducer;

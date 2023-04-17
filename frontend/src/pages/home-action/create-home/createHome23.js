@@ -31,6 +31,11 @@ export default function CreateHome23() {
     }
   }, [])
 
+  const onImageRemoveAll = () => {
+    setImages([]);
+    dispatch(setFiles([]));
+  }
+
   const onChange = (imageList, addUpdateIndex) => {
     console.log(imageList);
     // console.log(imageList, addUpdateIndex);
@@ -63,7 +68,6 @@ export default function CreateHome23() {
           {({
             imageList,
             onImageUpload,
-            onImageRemoveAll,
             onImageUpdate,
             onImageRemove,
             isDragging,

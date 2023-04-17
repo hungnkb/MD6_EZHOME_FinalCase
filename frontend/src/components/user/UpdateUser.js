@@ -24,7 +24,7 @@ export default function UpdateUser() {
     const [dataPassword, setDataPassword] = useState();
     const [email, setEmail] = useState(null);
 
-    console.log(userLogin.userLogin, 12312313123123123321)
+    console.log(userLogin.userLogin, 7777777)
     const MESSAGE_ERROR = {
         newPassword: 'Password error',
         confirmPassword: 'Password must be the same',
@@ -55,7 +55,7 @@ export default function UpdateUser() {
     const handleSubmit = (event) => {
         event.preventDefault();
         axios.put('http://localhost:3002/api/v1/users', {
-                email: dataUser.email,
+                email: email,
                 fullName: dataUser.fullName,
                 phone: dataUser.phone,
                 address: dataUser.address
@@ -89,7 +89,7 @@ export default function UpdateUser() {
     const handleOpenComponentChild = (event) => {
         setData(!data)
     }
-    console.log((dataUser?.fullName),888)
+    console.log(dataUser,888)
     return (
         <React.Fragment>
             <Paper elevation={3} sx={{ marginRight: "15%", marginLeft: "15%", marginTop: "20px", marginBottom: "20px" }}>

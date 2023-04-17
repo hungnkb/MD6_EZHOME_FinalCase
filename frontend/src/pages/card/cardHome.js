@@ -27,7 +27,7 @@ export default function CardHome(props) {
   return (
     <>
       <br />
-      <div className="row">
+      <div className="row" >
         <div className="col-12">
           <CarouselMulti />
         </div>

@@ -31,7 +31,6 @@ function App() {
   useEffect(() => {
     const verifyToken = async () => {
       if (token) {
-        console.log(token)
         let response = await axios({
           method: 'get',
           url: 'http://localhost:3002/api/v1/auth/profile',

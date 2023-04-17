@@ -34,11 +34,12 @@ export default function DetailHome() {
     const [detail, setDetail] = useState([]);
     const [price, setPrice] = useState();
     const [image, setImage] = useState([]);
-    console.log(detail)
-    useEffect(async () => {
-        await axios
+    console.log(detail,0)
+    useEffect( () => {
+         axios
             .get(`http://localhost:3002/api/v1/homes?idHome=${idHome.id}`)
             .then(  (res) => {
+                console.log(res.data[0].images[0].urlHomeImage,11)
                 setDetail(res.data[0]);
                 // setImage(res.data[0].images[0].urlHomeImage);
                 setPrice(res.data[0].price);
@@ -63,18 +64,17 @@ export default function DetailHome() {
                     <div className="row">
                         <div className="col-6">
                             <ModalImg/>
-                            {detail.length>0 ? ( <img
+                            {detail?.images?.length>0 ? ( <img
                                 style={{width: 500, height: 400}}
-                                src={detail.urlHomeImage}
+                                src={detail?.images[0]?.urlHomeImage}
                             />):(  <Skeleton animation="wave" style={{width: 500, height: 400}} />)}
 
                         </div>
                         <div className="col-6">
-                            {detail.length>0 ? ( <img
+                            {detail?.images?.length>0 ? ( <img
                                 style={{width: 500, height: 400}}
-                                src={detail.urlHomeImage}
+                                src={detail?.images[1]?.urlHomeImage}
                             />):(  <Skeleton animation="wave" style={{width: 500, height: 400}} />)}
-
                         </div>
                     </div>
                     <br/>

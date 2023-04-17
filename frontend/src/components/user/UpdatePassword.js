@@ -4,6 +4,7 @@ import axios from "axios";
 import Box from "@mui/material/Box";
 import {Modal} from "@mui/material";
 import * as React from "react";
+import Swal from 'sweetalert2';
 
 export default function UpdatePassword(props){
     const [open, setOpen] = useState(false);
@@ -13,6 +14,7 @@ export default function UpdatePassword(props){
         oldPassword: '',
         newPassword: '',
     });
+    console.log(props.dataFromParentt,777)
     const MESSAGE_ERROR = {
         newPassword: 'Password error',
         confirmPassword: 'Password must be the same',
@@ -40,10 +42,22 @@ export default function UpdatePassword(props){
                 (response) => {
                     console.log(response);
                     handleClose();
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'success',
+                        title: 'Change Password Success',
+                        showConfirmButton: false,
+                        timer: 2000,
+                    })
                 },
                 (error) => {
                     console.log(error);
                     handleClose();
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Incorrect Password!',
+                    });
                 },
             );
     }
@@ -85,7 +99,7 @@ export default function UpdatePassword(props){
             [event.target.name]: event.target.value,
         });
     };
-
+    console.log(userLogin.userLogin, 999)
     return(
         <>
             <Modal open={open} onClose={handleClose}>
@@ -118,10 +132,10 @@ export default function UpdatePassword(props){
                         </h4>
                         <br></br>
                         <form
-                            onSubmit={handleSubmitChangePassword}
+                            // onSubmit={handleSubmitChangePassword}
                             className="flex flex-col justify-center items-center"
                         >
-                            <input
+                            {props.dataFromParentt !== null ? (<input
                                 onChange={handleInputChangePassword}
                                 // value={email}
                                 name="oldPassword"
@@ -136,7 +150,7 @@ export default function UpdatePassword(props){
                                     border: '1px solid #ccc',
                                 }}
                                 type="password"
-                            ></input>
+                            ></input>) : null}
                             <br />
                             <br />
                             <div
@@ -202,9 +216,9 @@ export default function UpdatePassword(props){
                                         borderRadius: '5px',
                                         border: 'none'
                                     }}
-                                    type="submit"
+                                    type="button"
                                     className="w-full"
-                                    onClick={handleClose}
+                                    onClick={handleSubmitChangePassword}
                                 >
                                     Submit
                                 </button>

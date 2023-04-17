@@ -36,44 +36,51 @@ export default function CardHome(props) {
         <div className="row">
           <div className="col-12" style={{ textAlign: 'center' }}>
             {home.length > 0 ? (
-              home.map((value, index) => (
-                <NavLink key={index} to={`/detail-home/${value.idHome}`}>
-                  <Card
-                    sx={{
-                      maxWidth: 256,
-                      boxShadow: 'none',
-                      marginTop: '50px',
-                      float: 'left',
-                      marginLeft: '20px',
-                    }}
-                  >
-                    <CardActionArea>
-                      <CardMedia
-                        style={{
-                          height: 250,
-                          borderRadius: '15px',
-                        }}
-                        component="img"
-                        height="250"
-                        image={value?.images[0]?.urlHomeImage}
-                        alt="green iguana"
-                        //{value?.images[0].urlHomeImage}
-                      />
-                      <CardContent>
-                        <Typography gutterBottom variant="p" component="div">
-                          <b> {value.title}</b>
-                        </Typography>
-                        <Typography variant="body2" color="text.secondary">
-                          {value.address}
-                        </Typography>
-                        <Typography gutterBottom variant="p" component="div">
-                          <b>{value.price.toLocaleString('en-EN')}đ</b> night
-                        </Typography>
-                      </CardContent>
-                    </CardActionArea>
-                  </Card>
-                </NavLink>
-              ))
+              home.map((value, index) => {
+                  if (value.status) {
+                      return (<NavLink key={index} to={`/detail-home/${value.idHome}`}>
+                          <Card
+                              sx={{
+                                  maxWidth: 256,
+                                  boxShadow: 'none',
+                                  marginTop: '50px',
+                                  float: 'left',
+                                  marginLeft: '20px',
+                              }}
+                          >
+                              <CardActionArea>
+                                  <CardMedia
+                                      style={{
+                                          height: 250,
+                                          borderRadius: '15px',
+                                      }}
+                                      component="img"
+                                      height="250"
+                                      image={value?.images[0]?.urlHomeImage}
+                                      alt="green iguana"
+                                      //{value?.images[0].urlHomeImage}
+                                  />
+                                  <CardContent>
+                                      <Typography gutterBottom variant="p" component="div">
+                                          <b> {value.title}</b>
+                                      </Typography>
+                                      <Typography variant="body2" color="text.secondary">
+                                          {value.address}
+                                      </Typography>
+                                      <Typography variant="body2" color="text.secondary">
+                                          {value.status}
+                                      </Typography>
+                                      <Typography gutterBottom variant="p" component="div">
+                                          <b>{value.price.toLocaleString('en-EN')}đ</b> night
+                                      </Typography>
+                                  </CardContent>
+                              </CardActionArea>
+                          </Card>
+                      </NavLink>)
+                  } else {
+                      return ''
+                  }
+              })
             ) : (
               <>
                 <Stack direction="row" spacing={5} sx={{ marginTop: '50px' }}>

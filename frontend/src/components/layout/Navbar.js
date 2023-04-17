@@ -99,7 +99,7 @@ export default function Navbar() {
     dispatch(logout());
   };
 
-  const handleSwitchhosting = () => {
+  const handleSwitchHosting = () => {
     if (
         currentState.userLogin.active &&
         currentState.userLogin.role === 'host'
@@ -260,7 +260,7 @@ export default function Navbar() {
               <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
                 <IconButton>
                   {currentState.isLogined && (
-                      <div onClick={handleSwitchhosting}>
+                      <div onClick={handleSwitchHosting}>
                         <p style={{ fontSize: '15px', marginTop: '8px' }}>
                           {' '}
                           <b> Switch to hosting</b>{' '}

@@ -1,253 +1,265 @@
-import Visibility from '@mui/icons-material/Visibility';
-import VisibilityOff from '@mui/icons-material/VisibilityOff';
-import FormControl from '@mui/material/FormControl';
-import FormHelperText from '@mui/material/FormHelperText';
-import IconButton from '@mui/material/IconButton';
-import InputAdornment from '@mui/material/InputAdornment';
-import InputLabel from '@mui/material/InputLabel';
-import OutlinedInput from '@mui/material/OutlinedInput';
-import TextField from '@mui/material/TextField';
-import { useFormik } from 'formik';
-import React, { useState } from 'react';
-import PasswordStrengthBar from 'react-password-strength-bar';
-import { useDispatch } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import 'react-toastify/dist/ReactToastify.css';
-import * as Yup from 'yup';
-import { registerUser } from '../../service/userAction';
 import axios from '../../api/axios';
-import { Button, Modal, Box, Typography } from '@mui/material';
+import {
+  Button,
+  Dialog,
+  DialogTitle,
+  DialogActions,
+  Modal,
+  Box,
+  DialogContent,
+} from '@mui/material';
 import Swal from 'sweetalert2';
+const Toast = Swal.mixin({
+  toast: true,
+  position: 'top-end',
+  showConfirmButton: false,
+  timer: 3000,
+  timerProgressBar: true,
+  didOpen: (toast) => {
+    toast.addEventListener('mouseenter', Swal.stopTimer);
+    toast.addEventListener('mouseleave', Swal.resumeTimer);
+  },
+});
 
 export default function Register(props) {
-  const [open, setOpen] = React.useState(true);
-  const [err, setErr] = useState('');
-
-  const handleClickOpen = () => {
-    setOpen(true);
+  const searchParams = new URLSearchParams(window.location.search);
+  const email = searchParams.get('email');
+  const token = searchParams.get('token');
+  const [open, setOpen] = useState(true);
+  const [flag, setFlag] = useState(false);
+  const [emailTokenPassword, setEmailTokenPassword] = useState({
+    email: '',
+    password: '',
+  });
+  const MESSAGE_ERROR = {
+    username: 'Username error',
+    email: 'Email error',
+    password: 'Password error',
+    confirmPassword: 'Password must be the same',
   };
 
+  const REGEX = {
+    email: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
+    password: /^\w{6,8}$/
+  };
+  const [form, setForm] = useState({});
   const handleClose = () => {
     setOpen(false);
   };
-
-  let navigate = useNavigate();
-  const [userSignUp, setUserSignUp] = useState({
-    email: '',
-    password: '',
-    phone: '',
-  });
-  const dispatch = useDispatch();
-  const formik = useFormik({
-    initialValues: {
-      email: '',
-      password: '',
-      phone: '',
-    },
-    validationSchema: Yup.object({
-      email: Yup.string()
-        .email('Invalid email address')
-        .required('Email Required'),
-      password: Yup.string().required('Password Required'),
-    }),
-    onSubmit: (values) => {
-      try {
-        dispatch(registerUser(values));
-        navigate('/login');
-      } catch (e) {
-        setErr(e.message);
-      }
-    },
-  });
-
-  const [showPassword, setShowPassword] = useState(false);
-  const handleClickShowPassword = () => setShowPassword((show) => !show);
-  const handleMouseDownPassword = (event) => {
-    event.preventDefault();
-  };
+  useEffect(() => {
+    if (flag) {
+      console.log('flagggggggggg');
+      setOpen(false);
+    }
+  }, [flag]);
   const handleSubmit = (event) => {
     event.preventDefault();
+    setFlag(true);
     axios
-      .post('http://localhost:3002/api/v1/users', {
-        email: userSignUp.email,
-        password: userSignUp.password,
-        phone: userSignUp.phone,
-      })
-      .then(
-        (response) => {
-          handleClose();
-          Swal.fire({
-            position: 'center',
-            icon: 'success',
-            title: 'Register success',
-            showConfirmButton: false,
-            timer: 1500,
-          });
-        },
-        (error) => {
-          Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            text: 'Something went wrong!',
-          });
-        },
-      );
+        .post('http://localhost:3002/api/v1/users', {
+          email: emailTokenPassword.email,
+          password: emailTokenPassword.password,
+        })
+        .then(
+            (response) => {
+              console.log(response)
+              setOpen(false);
+              setTimeout(() => {
+                Swal.fire({
+                  icon: 'success',
+                  title: 'Register Success, please check your Email to Active',
+                });
+              }, 0);
+            },
+            (error) => {
+              console.log(error);
+              Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Something went wrong!',
+                footer: '<a href="">Why do I have this issue?</a>'
+              })
+            },
+        );
   };
 
-  const handleChange = (event) =>
-    setUserSignUp({
-      ...userSignUp,
+  const handleChange = (event) => {
+    let error = '';
+    if (event.target.name === 'password') {
+      if (form.confirmPassword && form.confirmPassword.value) {
+        error =
+            event.target.value === form.confirmPassword.value
+                ? ''
+                : MESSAGE_ERROR[event.target.name];
+      } else {
+        error = REGEX[event.target.name].test(event.target.value)
+            ? ''
+            : MESSAGE_ERROR[event.target.name];
+      }
+    } else if (event.target.name === 'confirmPassword') {
+      error =
+          event.target.value === form.password.value
+              ? ''
+              : MESSAGE_ERROR[event.target.name];
+    } else {
+      error = REGEX[event.target.name].test(event.target.value)
+          ? ''
+          : MESSAGE_ERROR[event.target.name];
+    }
+    setForm({
+      ...form,
+      [event.target.name]: { value: event.target.value, error: error },
+    });
+    setEmailTokenPassword({
+      ...emailTokenPassword,
       [event.target.name]: event.target.value,
     });
+  };
+  console.log(emailTokenPassword);
   return (
-    <>
       <div>
-        <Modal open={open} onClose={handleClose}>
-          <Box
-            sx={{
-              position: 'absolute',
-              width: 500,
-              height: 500,
-              top: '50%',
-              left: '50%',
-              transform: 'translate(-50%, -50%)',
-            }}
-          >
-            <div
-              className="bg-white border flex flex-col p-4 pt-10 drop-shadow-md"
-              style={{
-                marginBlockStart: '50px',
-                textAlign: 'center',
-              }}
-            >
-              <form
-                onSubmit={handleSubmit}
-                className="flex flex-col justify-center items-center"
+        {open && (
+            <Modal open={open} onClose={handleClose}>
+              <Box
+                  sx={{
+                    position: 'absolute',
+                    width: 400,
+                    top: '50%',
+                    left: '50%',
+                    transform: 'translate(-50%, -50%)',
+                    borderRadius: '10px',
+                    boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.25)',
+                  }}
               >
-                <Typography
-                  id="keep-mounted-modal-title"
-                  variant="h4"
-                  component="h2"
-                  style={{
-                    textAlign: 'center',
-                    marginBottom: '20px',
-                  }}
+                <div
+                    className="bg-white border flex flex-col p-4 pt-10"
+                    style={{
+                      marginBlockStart: '50px',
+                      textAlign: 'center',
+                    }}
                 >
-                  Register
-                </Typography>
-                <div>
-                  <TextField
-                    className="form-control"
-                    fullWidth
-                    label="Email"
-                    type="email"
-                    name="email"
-                    size="small"
-                    valueDefault={formik.values.email}
-                    onChange={handleChange}
-                    error={!!formik.errors.email && formik.touched.email}
-                    helperText={
-                      formik.errors.email && formik.touched.email
-                        ? formik.errors.email
-                        : null
-                    }
-                  />
-                </div>
-                <div style={{ marginTop: '10px' }}>
-                  <TextField
-                    className="form-control"
-                    label="Phone"
-                    type="text"
-                    name="phone"
-                    valueDefault={formik.values.phone}
-                    onChange={handleChange}
-                    error={!!formik.errors.phone && formik.touched.phone}
-                    helperText={
-                      formik.errors.phone && formik.touched.phone
-                        ? formik.errors.phone
-                        : null
-                    }
-                    size="small"
-                    fullWidth
-                  />
-                </div>
-                <div style={{ marginTop: '10px' }}>
-                  <FormControl
-                    error={!!formik.errors.password && formik.touched.password}
-                    fullWidth
-                    size="small"
-                    valueDefault={formik.values.password}
-                    onChange={handleChange}
-                    variant="outlined"
+                  <h4
+                      style={{
+                        color: '#f7a800',
+                        fontWeight: 'bold',
+                        marginBottom: '10px',
+                      }}
                   >
-                    <InputLabel htmlFor="outlined-adornment-password">
-                      Password
-                    </InputLabel>
-                    <OutlinedInput
-                      name="password"
-                      autoComplete="on"
-                      id="outlined-adornment-password"
-                      type={showPassword ? 'text' : 'password'}
-                      endAdornment={
-                        <InputAdornment position="end">
-                          <IconButton
-                            aria-label="toggle password visibility"
-                            onClick={handleClickShowPassword}
-                            onMouseDown={handleMouseDownPassword}
-                            edge="end"
-                          >
-                            {showPassword ? <VisibilityOff /> : <Visibility />}
-                          </IconButton>
-                        </InputAdornment>
-                      }
-                      label="Password"
-                    />
-                    <PasswordStrengthBar
-                      password={formik.values.password}
-                      minLength={1}
-                      minScore={4}
-                      scoreWords={['Yếu', 'Trung bình', 'Tốt', 'Mạnh']}
-                      shortScoreWord={'Quá ngắn'}
-                    />
-
-                    {formik.errors.password && formik.touched.password ? (
-                      <FormHelperText style={{ color: '#d32f2f' }}>
-                        {formik.errors.password}
-                      </FormHelperText>
-                    ) : null}
-                  </FormControl>
+                    Register
+                  </h4>
+                  <br></br>
+                  <form
+                      onSubmit={handleSubmit}
+                      className="flex flex-col justify-center items-center"
+                  >
+                    <input
+                        onChange={handleChange}
+                        value={email}
+                        name="email"
+                        placeholder="Email"
+                        style={{
+                          marginBottom: '10px',
+                          padding: '10px',
+                          width: '100%',
+                          borderRadius: '5px',
+                          fontSize: '16px',
+                          backgroundColor: '#f2f2f2',
+                          border: '1px solid #ccc',
+                        }}
+                    ></input>
+                    <br />
+                    <br />
+                    <div
+                        className={`custom-input ${
+                            form.password && form.password.error && 'custom-input-error'
+                        }`}
+                    >
+                      <input
+                          name="password"
+                          value={(form.password && form.password.value) || ''}
+                          onChange={handleChange}
+                          placeholder="New Password"
+                          style={{
+                            marginBottom: '10px',
+                            padding: '10px',
+                            width: '100%',
+                            borderRadius: '5px',
+                            fontSize: '16px',
+                            backgroundColor: '#f2f2f2',
+                            border: '1px solid #ccc',
+                          }}
+                          type={'password'}
+                      ></input>
+                      {form.password && form.password.error && (
+                          <p className="error">{form.password.error}</p>
+                      )}
+                    </div>
+                    <br />
+                    <div
+                        className={`custom-input ${
+                            form.confirmPassword &&
+                            form.confirmPassword.error &&
+                            'custom-input-error'
+                        }`}
+                    >
+                      <input
+                          name="confirmPassword"
+                          onChange={handleChange}
+                          placeholder="Re New Password"
+                          style={{
+                            marginBottom: '10px',
+                            padding: '10px',
+                            width: '100%',
+                            borderRadius: '5px',
+                            fontSize: '16px',
+                            backgroundColor: '#f2f2f2',
+                            border: '1px solid #ccc',
+                          }}
+                          type={'password'}
+                      ></input>
+                      {form.confirmPassword && form.confirmPassword.error && (
+                          <p className="error">{form.confirmPassword.error}</p>
+                      )}
+                    </div>
+                    <br />
+                    <div className="flex justify-center">
+                      <button
+                          style={{
+                            background: '#f7a800',
+                            color: '#fff',
+                            fontWeight: 'bold',
+                            padding: '10px',
+                            borderRadius: '5px',
+                          }}
+                          type="submit"
+                          className="w-full"
+                      >
+                        Submit
+                      </button>
+                    </div>
+                  </form>
                 </div>
-                <Button
-                  style={{
-                    background: '#f7a800',
-                    width: '100%',
-                    marginTop: '10px',
-                  }}
-                  type="submit"
-                  className="bg-primary-blue font-medium py-2 rounded text-white w-full"
-                >
-                  Register
-                </Button>
-              </form>
-            </div>
-
-            <div className="bg-white border p-5 text-center drop-shadow-md">
+                <div className="bg-white border p-5 text-center drop-shadow-md">
               <span>
                 You already have an account?{' '}
                 <Link
-                  onClick={() => {
-                    props.setIsLogin(1);
-                  }}
-                  className="text-primary-blue"
-                  style={{ color: '#e85710' }}
+                    onClick={() => {
+                      props.setIsLogin(1);
+                    }}
+                    className="text-primary-blue"
+                    style={{ color: '#e85710' }}
                 >
                   Login
                 </Link>
               </span>
-            </div>
-          </Box>
-        </Modal>
+                </div>
+              </Box>
+            </Modal>
+        )}
       </div>
-    </>
   );
 }

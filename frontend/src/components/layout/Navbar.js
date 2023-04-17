@@ -214,7 +214,7 @@ export default function Navbar() {
         {!isHost && <AddPhone isHost={isHost} setIsHost={setIsHost} />}
         <Box sx={{ flexGrow: 1 }}>
           <AppBar
-              position="static"
+              position="static"  sx={{ top: 0 }}
               style={{ background: 'white', color: 'black' }}
           >
             <Toolbar>

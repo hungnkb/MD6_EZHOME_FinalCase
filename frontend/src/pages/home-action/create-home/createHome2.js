@@ -25,7 +25,7 @@ export default function CreateHome2() {
   }, [])
   return (
     <>
-      <div className="container" style={{ marginTop: '40px' }}>
+      <div className="container" style={{ marginTop: '3%' }}>
         <div className="row">
           <div className="col-6">
             <h1 style={{ fontSize: '350%' }}>

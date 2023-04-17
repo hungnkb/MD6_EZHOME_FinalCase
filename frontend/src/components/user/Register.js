@@ -127,8 +127,8 @@ export default function Register(props) {
               <Box
                   sx={{
                     position: 'absolute',
-                    width: 400,
-                    top: '50%',
+                    width: 500,
+                    top: '40%',
                     left: '50%',
                     transform: 'translate(-50%, -50%)',
                     borderRadius: '10px',
@@ -144,7 +144,6 @@ export default function Register(props) {
                 >
                   <h4
                       style={{
-                        color: '#f7a800',
                         fontWeight: 'bold',
                         marginBottom: '10px',
                       }}
@@ -227,19 +226,20 @@ export default function Register(props) {
                     </div>
                     <br />
                     <div className="flex justify-center">
-                      <button
+                      <Button
                           style={{
                             background: '#f7a800',
                             color: '#fff',
                             fontWeight: 'bold',
                             padding: '10px',
                             borderRadius: '5px',
+                            width:"100%"
                           }}
                           type="submit"
                           className="w-full"
                       >
                         Submit
-                      </button>
+                      </Button>
                     </div>
                   </form>
                 </div>

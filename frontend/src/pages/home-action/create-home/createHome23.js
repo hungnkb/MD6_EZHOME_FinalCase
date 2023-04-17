@@ -50,7 +50,7 @@ export default function CreateHome23() {
     <>
       <div className="row">
         <div className="col-12">
-          <h1 style={{ marginTop: '5px' }}>Make your home more beautiful </h1>
+          <h2>Make your home more beautiful </h2>
         </div>
         <div {...getRootProps()}>
           <input {...getInputProps()} />
@@ -66,18 +66,21 @@ export default function CreateHome23() {
       </div>
       <div
         style={{
-          width: '800px',
-          height: '300px',
+          width: '100%',
+          height: '90%',
           border: '2px solid gray',
         }}
       >
-        {images.map((image, i) => (
-          <img
-            style={{ width: 170, height: 140 }}
-            key={i}
-            src={URL.createObjectURL(image)}
-          />
-        ))}
+        <center>
+          {images.map((image, i) => (
+              <img
+                  style={{ width: 200, height: 120 }}
+                  key={i}
+                  src={URL.createObjectURL(image)}
+              />
+          ))}
+        </center>
+
       </div>
       <div className="row" id="btn-create">
         <div className="col-12">

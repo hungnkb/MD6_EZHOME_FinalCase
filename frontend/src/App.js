@@ -55,7 +55,6 @@ function App() {
     token,
     fetchUserData,
     currentAuth.isFetchDataUser,
-    currentAuth.isLogined,
   ]);
 
   return (

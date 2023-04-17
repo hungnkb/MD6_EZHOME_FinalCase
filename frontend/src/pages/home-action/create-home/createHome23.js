@@ -32,7 +32,8 @@ export default function CreateHome23() {
   }, [])
 
   const onChange = (imageList, addUpdateIndex) => {
-    console.log(imageList, addUpdateIndex);
+    console.log(imageList);
+    // console.log(imageList, addUpdateIndex);
     setImages(imageList);
   }
 
@@ -70,42 +71,28 @@ export default function CreateHome23() {
           }) => (
             // write your building UI
             <div className="upload__image-wrapper">
-              <button
-                style={isDragging ? { color: "red" } : null}
+              <Button
+                variant="outlined"
+                style={isDragging ? { color: "red", marginRight: '10px' } : null}
                 onClick={onImageUpload}
                 {...dragProps}
               >
                 Click or Drop here
-              </button>
+              </Button>
               &nbsp;
-              <button onClick={onImageRemoveAll}>Remove all images</button>
+              <Button variant="outlined" color="error" onClick={onImageRemoveAll}>Remove all images</Button>
               {imageList.map((image, index) => (
                 <div key={index} className="image-item">
                   <img src={image.data_url} alt="" width="100" />
                   <div className="image-item__btn-wrapper">
-                    <button onClick={() => onImageUpdate(index)}>Update</button>
-                    <button onClick={() => onImageRemove(index)}>Remove</button>
+                    <Button sx={{marginRight: '10px'}} variant="outlined" onClick={() => onImageUpdate(index)}>Update</Button>
+                    <Button variant="outlined" color="error" onClick={() => onImageRemove(index)}>Remove</Button>
                   </div>
                 </div>
               ))}
             </div>
           )}
         </ImageUploading>
-      </div>
-      <div
-        style={{
-          width: '800px',
-          height: '300px',
-          border: '2px solid gray',
-        }}
-      >
-        {images?.map((image, i) => (
-          <img
-            style={{ width: 170, height: 140 }}
-            key={i}
-            src={URL.createObjectURL(image)}
-          />
-        ))}
       </div>
       <div className="row" id="btn-create">
         <div className="col-12">

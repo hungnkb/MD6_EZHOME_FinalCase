@@ -34,3 +34,13 @@ body {
     transform: scale(0.4);
   }
 }
+
+@keyframes dot-flasing {
+  0% {
+    background-color: #9880ff;
+  }
+
+  50%, 100% {
+    background-color: #ebe6ff;
+  }
+}

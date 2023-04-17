@@ -25,14 +25,13 @@ function App() {
   const dispatch = useDispatch((state) => state.auth);
   const [fetchUserData, setFetchUserData] = useState(false);
 
-  console.log(currentAuth)
-
   useEffect(() => {
     setToken(localStorage.getItem('token'));
   }, [localStorage.getItem('token'), currentAuth.isFetchDataUser]);
   useEffect(() => {
     const verifyToken = async () => {
       if (token) {
+        console.log(token)
         let response = await axios({
           method: 'get',
           url: 'http://localhost:3002/api/v1/auth/profile',
@@ -55,7 +54,6 @@ function App() {
     token,
     fetchUserData,
     currentAuth.isFetchDataUser,
-    currentAuth.isLogined,
   ]);
 
   return (

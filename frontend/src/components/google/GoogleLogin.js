@@ -32,7 +32,7 @@ const GoogleButton = (props) => {
         Swal.fire({
           position: 'center',
           icon: 'success',
-          title: 'Your work has been saved',
+          title: 'Register Success, please check your Email to Active',
           showConfirmButton: false,
           timer: 1500,
         });

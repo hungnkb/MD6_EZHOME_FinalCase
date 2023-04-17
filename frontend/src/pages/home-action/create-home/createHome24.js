@@ -2,9 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import { CKEditor } from '@ckeditor/ckeditor5-react';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import {
   setBath,
   setBed,
+  setDefault,
   setDesc,
   setPrice,
   setTitle,
@@ -75,17 +78,15 @@ export default function CreateHome24() {
     const email = currentAuth.userLogin.email;
     const idCategory = currentState.idCategory;
     const files = currentState.files;
-    console.log(
-      title,
-      price,
-      address,
-      bathrooms,
-      bedrooms,
-      description,
-      email,
-      idCategory,
-      files,
-    );
+
+    document.querySelector('.finish-create-home').innerHTML = `
+    <div class="dot-flasing">
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    </div>
+    `
 
     let urlList = [];
 
@@ -127,15 +128,17 @@ export default function CreateHome24() {
             title: 'Your home has been saved',
             showConfirmButton: false,
             timer: 1500,
-          }).then(navigate('/user/hosting'));
+          }).then(() => {
+            dispatch(setDefault());
+            navigate('/user/hosting')
+          });
         })
         .catch((err) => {
           Swal.fire({
             icon: 'error',
             title: 'Oops...',
             text: 'Something went wrong!',
-            footer: '<a href="">Why do I have this issue?</a>',
-          }).then(navigate('/user/hosting'));
+          });
         });
     }
   };
@@ -245,18 +248,26 @@ export default function CreateHome24() {
               </Button>
             </div>
             <br />
-            <InputGroup>
-              <InputGroup.Text>Description</InputGroup.Text>
-              <Form.Control
-                as="textarea"
-                aria-label="Description"
-                onChange={(e) => {
-                  setDesc(e.target.value);
-                  setDescriptions(e.target.value);
-                }}
-                defaultValue={currentState.description}
-              />
-            </InputGroup>
+            <CKEditor
+              editor={ClassicEditor}
+              data={currentState.description}
+              onReady={editor => {
+                // You can store the "editor" and use when it is needed.
+                console.log('Editor is ready to use!', editor);
+              }}
+              onChange={(event, editor) => {
+                const data = editor.getData();
+                setDesc(data);
+                setDescriptions(data);
+                console.log({ event, editor, data });
+              }}
+              onBlur={(event, editor) => {
+                console.log('Blur.', editor);
+              }}
+              onFocus={(event, editor) => {
+                console.log('Focus.', editor);
+              }}
+            />
           </div>
         </div>
       </div>
@@ -270,9 +281,9 @@ export default function CreateHome24() {
             Back
           </Button>
           {currentState.description &&
-          currentState.title &&
-          currentState.price ? (
-            <Button variant="contained" id="btn-finish1" onClick={handleFinish}>
+            currentState.title &&
+            currentState.price ? (
+            <Button className='finish-create-home' variant="contained" id="btn-finish1" onClick={e => { handleFinish(e) }}>
               Finish
             </Button>
           ) : (

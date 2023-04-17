@@ -18,8 +18,8 @@ export const authSlice = createSlice({
     logout: (state, action) => {
       state.userLogin = {};
       state.isLogined = false;
-     localStorage.removeItem('token')
-     localStorage.removeItem('email')
+      localStorage.removeItem('token')
+      localStorage.removeItem('email')
 
       // localStorage.clear();
     },

@@ -89,7 +89,7 @@ export default function UpdateUser() {
     const handleOpenComponentChild = (event) => {
         setData(!data)
     }
-    console.log(typeof (dataUser.fullName),888)
+    console.log((dataUser?.fullName),888)
     return (
         <React.Fragment>
             <Paper elevation={3} sx={{ marginRight: "15%", marginLeft: "15%", marginTop: "20px", marginBottom: "20px" }}>

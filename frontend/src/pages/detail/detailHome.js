@@ -39,9 +39,9 @@ export default function DetailHome() {
          axios
             .get(`http://localhost:3002/api/v1/homes?idHome=${idHome.id}`)
             .then(  (res) => {
-                console.log(res.data[0].images[0].urlHomeImage,11)
+                // console.log(res.data[0].images[0].urlHomeImage,11)
+                setImage(res.data[0].images);
                 setDetail(res.data[0]);
-                // setImage(res.data[0].images[0].urlHomeImage);
                 setPrice(res.data[0].price);
             });
     }, []);
@@ -63,7 +63,7 @@ export default function DetailHome() {
                     <br/>
                     <div className="row">
                         <div className="col-6">
-                            <ModalImg/>
+                            <ModalImg image={image}/>
                             {detail?.images?.length>0 ? ( <img
                                 style={{width: 500, height: 400}}
                                 src={detail?.images[0]?.urlHomeImage}

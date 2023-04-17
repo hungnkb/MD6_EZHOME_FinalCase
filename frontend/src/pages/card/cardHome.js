@@ -15,11 +15,13 @@ import login from "../../components/user/Login";
 export default function CardHome(props) {
   const [home, setHome] = useState([]);
   const { loading = false } = props;
+    console.log(home,1)
   useEffect(() => {
     setTimeout(() => {
       axios
         .get('http://localhost:3002/api/v1/homes')
-        .then((res) =>setHome(res.data));
+        .then((res) => {
+            setHome(res.data) } );
     }, 1500)
   }, []);
   return (
@@ -53,8 +55,9 @@ export default function CardHome(props) {
                         }}
                         component="img"
                         height="250"
-                        image="https://a0.muscache.com/im/pictures/miso/Hosting-564873855309490515/original/2a8641f7-5c8d-4012-aa1b-85116c21e400.jpeg?im_w=960"
+                        image={value?.images[0]?.urlHomeImage}
                         alt="green iguana"
+                        //{value?.images[0].urlHomeImage}
                       />
                       <CardContent>
                         <Typography gutterBottom variant="p" component="div">

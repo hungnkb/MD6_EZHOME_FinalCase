@@ -6,6 +6,12 @@ import Button from 'react-bootstrap/Button';
 import { useEffect } from 'react';
 import { number } from 'yup';
 import { loginUser } from '../../service/userAction';
+import axios from '../../api/axios';
+import { useSelector } from 'react-redux';
+import Swal from 'sweetalert2';
+import HtmlParser from 'react-html-parser';
+
+
 const getBookings = (date, callback) => {
   const invalid = [];
   const labels = [];
@@ -16,6 +22,7 @@ export default function FormPay(props) {
   const [multipleInvalid, setMultipleInvalid] = useState([]);
   const [orders, setOrders] = useState([]);
   const [total, setTotal] = useState(null);
+  const [orderTime, setOrderTime] = useState({});
   // const [price, setPrice] = useState(null);
   const [data, setData] = useState({
     checkin: null,
@@ -24,14 +31,15 @@ export default function FormPay(props) {
     // numberOfChildrens: 0,
     // numberOfInfants: 0,
   });
-  
+
+  const currentAuth = useSelector(state => state.auth)
   useEffect(() => {
     let newOrderList = [];
     for (let i of props.orders) {
-      newOrderList.push({start: i.checkin, end: i.checkout})
+      newOrderList.push({ start: i.checkin, end: i.checkout })
     }
     setOrders(newOrderList)
-  },[props.orders])
+  }, [props.orders])
 
   const onPageLoadingMultiple = useCallback((event) => {
     getBookings(event.firstDay, (bookings) => {
@@ -40,6 +48,7 @@ export default function FormPay(props) {
   }, []);
   const handleChange = useCallback((ev) => {
     if (ev.value[0] && ev.value[1]) {
+      setOrderTime({ checkin: ev.value[0], checkout: ev.value[1] });
       let dayDiff = Math.round(
         Math.abs(ev.value[0] - ev.value[1]) / (1000 * 60 * 60 * 24),
       );
@@ -60,6 +69,36 @@ export default function FormPay(props) {
       checkout: format(new Date(ev.value[1]), 'yyyy-MM-dd'),
     });
   }, [props.price]);
+
+  const handleBook = async () => {
+    axios({
+      method: 'post',
+      url: process.env.REACT_APP_BASE_URL + '/orders',
+      data: {
+        checkin: data.checkin,
+        checkout: data.checkout,
+        idUser: currentAuth.userLogin.sub,
+        idHome: props.idHome,
+        charged: total
+      }
+    }).then((res) => 
+      {
+        console.log(res);
+        Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Oops...',
+        text: `${HtmlParser(
+          <div>
+            <h3>Order details:</h3>
+            <p>Checkin: ${orderTime.checkin}</p>
+            <p>Checkout: ${orderTime.checkout}</p>
+            <p>Address: ${props.address}</p>
+            <p>Total charged: ${total.toLocaleString('en-EN')}</p>
+          </div>
+        )}`,
+      })})
+  }
 
   return (
     <MDBContainer>
@@ -146,7 +185,7 @@ export default function FormPay(props) {
               </div>
             </div>
             <div style={{ display: 'flex', justifyContent: 'center' }}>
-              <Button onClick={() => setOpenDate(!openDate)} variant="warning" style={{ width: 400, marginTop: '10px' }}>
+              <Button onClick={() => { setOpenDate(!openDate); handleBook() }} variant="warning" style={{ width: 400, marginTop: '10px' }}>
                 Book now
               </Button>
             </div>

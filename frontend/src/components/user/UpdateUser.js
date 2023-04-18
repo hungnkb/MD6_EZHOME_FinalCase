@@ -13,9 +13,8 @@ import Swal from 'sweetalert2';
 import {Link} from "react-router-dom";
 import {Modal} from "@mui/material";
 import UpdatePassword from "./UpdatePassword";
-import { useForm } from "react-hook-form";
-import { yupResolver } from '@hookform/resolvers/yup';
-
+// import { useForm } from "react-hook-form";
+// import { yupResolver } from '@hookform/resolvers/yup';
 
 export default function UpdateUser() {
     const [age, setAge] = React.useState("");

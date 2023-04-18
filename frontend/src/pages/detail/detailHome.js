@@ -34,6 +34,7 @@ export default function DetailHome() {
     const [price, setPrice] = useState(null);
     const [image, setImage] = useState([]);
     const [fetchData, setFetchData] = useState(false);
+    const [orders, setOrders] = useState([]);
 
     useEffect(() => {
         const getData = async () => {
@@ -42,7 +43,7 @@ export default function DetailHome() {
                     setImage(response.data[0].images);
                     setDetail(response.data[0]);
                     setPrice(response.data[0].price);
-                    console.log(response.data[0]);
+                    setOrders(response.data[0].orders);
                 })
         }
         getData()
@@ -189,7 +190,7 @@ export default function DetailHome() {
                             </div>
                         </div>
                         <div className="col-5" style={{ marginTop: '65px' }}>
-                            <FormPay price={price} setFetchData={setFetchData} fetchData={fetchData} />
+                            <FormPay price={price} setFetchData={setFetchData} fetchData={fetchData} orders={orders} />
                         </div>
                     </div>
                 </div>

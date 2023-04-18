@@ -52,7 +52,7 @@
 }
 
 #btn-create {
-  margin-top: 40px;
+  /*margin-top: 40px;*/
   /*position: fixed;*/
 }
 
@@ -90,4 +90,14 @@
 
 .category-input:checked + .category-item {
   background-color: #f7a800;
+}
+.footer-end{
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 15%;
+  background-color: white;
+  color: white;
+  text-align: center;
 }

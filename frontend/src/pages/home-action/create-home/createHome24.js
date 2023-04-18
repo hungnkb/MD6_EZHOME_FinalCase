@@ -2,9 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import { CKEditor } from '@ckeditor/ckeditor5-react';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import {
   setBath,
   setBed,
+  setDefault,
   setDesc,
   setPrice,
   setTitle,
@@ -14,6 +17,7 @@ import './style.css';
 import InputGroup from 'react-bootstrap/InputGroup';
 import Form from 'react-bootstrap/Form';
 import Swal from 'sweetalert2';
+import ProgressBar from "react-bootstrap/ProgressBar";
 export default function CreateHome24() {
   const [descriptions, setDescriptions] = useState(null);
   const [bathrooms, setBathrooms] = useState(1);
@@ -75,17 +79,15 @@ export default function CreateHome24() {
     const email = currentAuth.userLogin.email;
     const idCategory = currentState.idCategory;
     const files = currentState.files;
-    console.log(
-      title,
-      price,
-      address,
-      bathrooms,
-      bedrooms,
-      description,
-      email,
-      idCategory,
-      files,
-    );
+
+    document.querySelector('.finish-create-home').innerHTML = `
+    <div class="dot-flasing">
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    </div>
+    `
 
     let urlList = [];
 
@@ -127,36 +129,38 @@ export default function CreateHome24() {
             title: 'Your home has been saved',
             showConfirmButton: false,
             timer: 1500,
-          }).then(navigate('/user/hosting'));
+          }).then(() => {
+            dispatch(setDefault());
+            navigate('/user/hosting')
+          });
         })
         .catch((err) => {
           Swal.fire({
             icon: 'error',
             title: 'Oops...',
             text: 'Something went wrong!',
-            footer: '<a href="">Why do I have this issue?</a>',
-          }).then(navigate('/user/hosting'));
+          });
         });
     }
   };
 
   return (
     <>
-      <div className="row" style={{ height: '450px' }}>
+      <center>
+        <h2 >Some more information about your home</h2>
+      </center>
+      <div className="row" style={{marginBottom:"20%"}}>
         <div className="col-5">
-          <h1 style={{ fontSize: '300%', marginTop: '50px' }}>
-            It’s easy to get started on{' '}
-            <b style={{ color: '#f7a800' }}> EZHOME </b>
-          </h1>
-        </div>
-        <div className="col-7">
-          <h2>Some more information about your home</h2>
-          <div style={{ width: 500, marginLeft: '30px' }}>
-            <InputGroup className="mb-3">
-              <InputGroup.Text id="inputGroup-sizing-default">
-                Title
-              </InputGroup.Text>
-              <Form.Control
+          {/*<h1 style={{ fontSize: '300%' }}>*/}
+          {/*  It’s easy to get started on{' '}*/}
+          {/*  <b style={{ color: '#f7a800' }}> EZHOME </b>*/}
+          {/*</h1>*/}
+          <br/>
+          <InputGroup className="mb-3">
+            <InputGroup.Text id="inputGroup-sizing-default">
+              Title
+            </InputGroup.Text>
+            <Form.Control
                 as="input"
                 aria-label="Default"
                 aria-describedby="inputGroup-sizing-default"
@@ -165,12 +169,12 @@ export default function CreateHome24() {
                   setTitles(e.target.value);
                 }}
                 defaultValue={currentState.title}
-              />
-            </InputGroup>
+            />
+          </InputGroup>
 
-            <InputGroup className="mb-3">
-              <InputGroup.Text>Price</InputGroup.Text>
-              <Form.Control
+          <InputGroup className="mb-3">
+            <InputGroup.Text>Price</InputGroup.Text>
+            <Form.Control
                 as="input"
                 type="number"
                 min="1"
@@ -183,105 +187,121 @@ export default function CreateHome24() {
                 }}
                 defaultValue={currentState.price}
                 aria-label="Amount (to the nearest dollar)"
-              />
-              <InputGroup.Text>đ</InputGroup.Text>
-            </InputGroup>
-            <div>
-              <p>Bathrooms:</p>
+            />
+            <InputGroup.Text>đ</InputGroup.Text>
+          </InputGroup>
+          <div>
+            <b>Bathrooms:</b>
 
-              <Button
+            <Button
                 type="button"
                 variant="warning"
                 style={{
-                  marginLeft: '50px',
-                  marginRight: '50px',
+                  marginLeft: '10%',
+                  marginRight: '10%',
                   background: '#e9ecef',
                 }}
                 onClick={() => handleBathroomsDescrease()}
-              >
-                {' '}
-                -
-              </Button>
-              {bathrooms}
-              <Button
+            >
+              {' '}
+              -
+            </Button>
+            {bathrooms}
+            <Button
                 type="button"
                 variant="warning"
                 style={{
-                  marginLeft: '50px',
+                  marginLeft: '10%',
                   background: '#e9ecef',
                 }}
                 onClick={() => handleBathroomsInscrease()}
-              >
-                +
-              </Button>
-            </div>
-            <hr />
-            <div>
-              <p>Bedrooms:</p>
-              <Button
+            >
+              +
+            </Button>
+          </div>
+          <hr />
+          <div>
+            <b>Bedrooms: </b>
+            <Button
                 type="button"
                 variant="warning"
                 style={{
-                  marginLeft: '50px',
-                  marginRight: '50px',
+                  marginLeft: '10%',
+                  marginRight: '10%',
                   background: '#e9ecef',
                 }}
                 onClick={() => handleBedroomsDescrease()}
-              >
-                {' '}
-                -
-              </Button>
-              {bedrooms}
-              <Button
+            >
+              {' '}
+              -
+            </Button>
+            {bedrooms}
+            <Button
                 type="button"
                 variant="warning"
                 style={{
-                  marginLeft: '50px',
+                  marginLeft: '10%',
                   background: '#e9ecef',
                 }}
                 onClick={() => handleBedroomsInscrease()}
-              >
-                +
-              </Button>
-            </div>
+            >
+              +
+            </Button>
+          </div>
+        </div>
+        <div className="col-7">
+          <div style={{ width: 500, marginLeft: '10%' }}>
             <br />
-            <InputGroup>
-              <InputGroup.Text>Description</InputGroup.Text>
-              <Form.Control
-                as="textarea"
-                aria-label="Description"
-                onChange={(e) => {
-                  setDesc(e.target.value);
-                  setDescriptions(e.target.value);
-                }}
-                defaultValue={currentState.description}
-              />
-            </InputGroup>
+            <CKEditor
+              editor={ClassicEditor}
+              data={currentState.description}
+              onReady={editor => {
+                // You can store the "editor" and use when it is needed.
+                console.log('Editor is ready to use!', editor);
+              }}
+              onChange={(event, editor) => {
+                const data = editor.getData();
+                setDesc(data);
+                setDescriptions(data);
+                console.log({ event, editor, data });
+              }}
+              onBlur={(event, editor) => {
+                console.log('Blur.', editor);
+              }}
+              onFocus={(event, editor) => {
+                console.log('Focus.', editor);
+              }}
+            />
           </div>
         </div>
       </div>
-      <div className="row">
-        <div className="col-12">
-          <Button
-            id="btn-back"
-            onClick={() => navigate('/create-home/3')}
-            variant="contained"
-          >
-            Back
-          </Button>
-          {currentState.description &&
-          currentState.title &&
-          currentState.price ? (
-            <Button variant="contained" id="btn-finish1" onClick={handleFinish}>
-              Finish
+      <div className="footer-end">
+        <ProgressBar variant="dark" now={100}/>
+        <br/>
+        <div className="row">
+          <div className="col-12">
+            <Button
+                id="btn-back"
+                onClick={() => navigate('/create-home/3')}
+                variant="contained"
+            >
+              Back
             </Button>
-          ) : (
-            <Button type="button" id="btn-finish2" variant="contained">
-              Finish
-            </Button>
-          )}
+            {currentState.description &&
+            currentState.title &&
+            currentState.price ? (
+                <Button className='finish-create-home' variant="contained" id="btn-finish1" onClick={e => { handleFinish(e) }}>
+                  Finish
+                </Button>
+            ) : (
+                <Button type="button" id="btn-finish2" variant="contained">
+                  Finish
+                </Button>
+            )}
+          </div>
         </div>
       </div>
+
     </>
   );
 }

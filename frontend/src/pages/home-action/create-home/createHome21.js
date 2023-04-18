@@ -12,6 +12,7 @@ import BedIcon from '@mui/icons-material/Bed';
 import * as React from 'react';
 import SingleBedIcon from '@mui/icons-material/SingleBed';
 import './style.css';
+import ProgressBar from 'react-bootstrap/ProgressBar';
 
 const Item = styled(Paper)(({theme}) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -92,38 +93,43 @@ export default function CreateHome21() {
                         ))}
 
                     </div>
-                    <div className="row" style={{marginTop: '10%'}}>
-                        <div className="col-12">
-                            <Button
-                                style={{background: 'gray'}}
-                                onClick={() => navigate('/create-home')}
-                                variant="contained"
-                            >
-                                Back
-                            </Button>
-                            {check ? (
+
+                    <div className="footer-end">
+                        <ProgressBar variant="dark" now={25}/>
+                        <br/>
+                        <div className="row">
+                            <div className="col-12">
                                 <Button
-                                    style={{
-                                        background: '#f7a800',
-                                        marginLeft: '85%',
-                                    }}
-                                    onClick={() => navigate('/create-home/2')}
+                                    style={{background: 'gray'}}
+                                    onClick={() => navigate('/create-home')}
                                     variant="contained"
                                 >
-                                    Next
+                                    Back
                                 </Button>
-                            ) : (
-                                <Button
-                                    style={{
-                                        background: 'gray',
-                                        marginLeft: '900px',
-                                    }}
-                                    variant="contained"
-                                    type="button"
-                                >
-                                    Next
-                                </Button>
-                            )}
+                                {check ? (
+                                    <Button
+                                        style={{
+                                            background: '#f7a800',
+                                            marginLeft: '85%',
+                                        }}
+                                        onClick={() => navigate('/create-home/2')}
+                                        variant="contained"
+                                    >
+                                        Next
+                                    </Button>
+                                ) : (
+                                    <Button
+                                        style={{
+                                            background: 'gray',
+                                            marginLeft: '85%',
+                                        }}
+                                        variant="contained"
+                                        type="button"
+                                    >
+                                        Next
+                                    </Button>
+                                )}
+                            </div>
                         </div>
                     </div>
                 </div>

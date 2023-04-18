@@ -39,6 +39,7 @@ export default function FormPay(props) {
       checkout: format(new Date(ev.value[1]), 'yyyy-MM-dd'),
     });
   }, []);
+  console.log(data.checkin, data.checkout);
 
   return (
     <MDBContainer>

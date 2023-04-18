@@ -29,16 +29,23 @@ export default function CreateHome23() {
     if (!currentAuth.isLogined) {
       navigate('/')
     }
-  }, [])
+  }, []);
+
+  const onImageRemove = (index) => {
+    const newImages = [...images];
+    if(newImages.length === 1) {
+      return onImageRemoveAll();
+    }
+    setImages(newImages.splice(index, 1))
+  }
 
   const onImageRemoveAll = () => {
     setImages([]);
     dispatch(setFiles([]));
-  }
+  };
 
   const onChange = (imageList, addUpdateIndex) => {
     console.log(imageList);
-    // console.log(imageList, addUpdateIndex);
     setImages(imageList);
   }
 
@@ -69,7 +76,6 @@ export default function CreateHome23() {
             imageList,
             onImageUpload,
             onImageUpdate,
-            onImageRemove,
             isDragging,
             dragProps
           }) => (
@@ -89,7 +95,7 @@ export default function CreateHome23() {
                 <div key={index} className="image-item">
                   <img src={image.data_url} alt="" width="100" />
                   <div className="image-item__btn-wrapper">
-                    <Button sx={{marginRight: '10px'}} variant="outlined" onClick={() => onImageUpdate(index)}>Update</Button>
+                    <Button sx={{ marginRight: '10px' }} variant="outlined" onClick={() => onImageUpdate(index)}>Update</Button>
                     <Button variant="outlined" color="error" onClick={() => onImageRemove(index)}>Remove</Button>
                   </div>
                 </div>

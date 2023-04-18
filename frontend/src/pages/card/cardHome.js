@@ -43,19 +43,19 @@ export default function CardHome(props) {
                               sx={{
                                   maxWidth: 256,
                                   boxShadow: 'none',
-                                  marginTop: '50px',
+                                  marginTop: '5%',
                                   float: 'left',
-                                  marginLeft: '20px',
+                                  marginLeft: '2%',
                               }}
                           >
                               <CardActionArea>
                                   <CardMedia
                                       style={{
                                           height: 250,
-                                          borderRadius: '15px',
+                                          borderRadius: '7%',
                                       }}
                                       component="img"
-                                      height="250"
+                                      height="250%"
                                       image={value?.images[0]?.urlHomeImage}
                                       alt="green iguana"
                                       //{value?.images[0].urlHomeImage}

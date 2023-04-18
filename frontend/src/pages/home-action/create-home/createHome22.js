@@ -11,6 +11,7 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import { setAddress } from '../../../redux/features/homeSlice';
 import './style.css';
+import ProgressBar from "react-bootstrap/ProgressBar";
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
   ...theme.typography.body2,
@@ -176,10 +177,12 @@ export default function CreateHome22() {
 
   return (
     <>
-      <div className="container" style={{ marginTop: '20px' }}>
+      <div className="container" style={{marginBottom:"20%"}}>
         <div className="row">
           <div className="col-6">
-            <h1>Where's your place located?</h1>
+            <h2>Where's your place located?</h2>
+            <br/>
+            <br/>
             <Autocomplete>
               <div className="search-map">
                 <input
@@ -199,7 +202,7 @@ export default function CreateHome22() {
                   style={{
                     height: 50,
                     borderRadius: '10px',
-                    marginLeft: '15px',
+                    marginLeft: '3%',
                   }}
                 >
                   <i className="fa-solid fa-location-arrow"></i>
@@ -209,62 +212,71 @@ export default function CreateHome22() {
             </Autocomplete>
           </div>
           <div className="col-6">
-            {isLoaded ? (
-              <GoogleMap
-                mapContainerStyle={containerStyle}
-                center={center}
-                zoom={10}
-                onLoad={(map) => setMap(map)}
-              ></GoogleMap>
-            ) : (
-              <></>
-            )}
-          </div>
-        </div>
-        <div className="row">
-          <div className="col-12">
-            <div style={{ marginTop: '15px' }}>
-              <Button
-                style={{ background: 'gray' }}
-                onClick={() => navigate('/create-home/1')}
-                variant="contained"
-              >
-                Back
-              </Button>
-              {check ? (
-                <Button
-                  style={{
-                    marginLeft: '900px',
-                    background: '#f7a800',
-                  }}
-                  Button
-                  onClick={() => {
-                    handleSetAddress();
-                    navigate('/create-home/3');
-                  }}
-                  variant="contained"
-                >
-                  Next
-                </Button>
+            <div>
+              {isLoaded ? (
+                  <GoogleMap
+                      mapContainerStyle={containerStyle}
+                      center={center}
+                      zoom={10}
+                      onLoad={(map) => setMap(map)}
+                  ></GoogleMap>
               ) : (
-                <Button
-                  style={{
-                    marginLeft: '900px',
-                    background: 'gray',
-                  }}
-                  Button
-                  onClick={() => {
-                    handleSetAddress();
-                  }}
-                  variant="contained"
-                  type="button"
-                >
-                  Next
-                </Button>
+                  <></>
               )}
             </div>
           </div>
         </div>
+
+        <div className="footer-end">
+          <ProgressBar variant="dark" now={50}/>
+          <br/>
+          <div className="row">
+            <div className="col-12">
+              <div>
+                <Button
+                    style={{ background: 'gray' }}
+                    onClick={() => navigate('/create-home/1')}
+                    variant="contained"
+                >
+                  Back
+                </Button>
+                {check ? (
+                    <Button
+                        style={{
+                          marginLeft: '85%',
+                          background: '#f7a800',
+                        }}
+                        Button
+                        onClick={() => {
+                          handleSetAddress();
+                          navigate('/create-home/3');
+                        }}
+                        variant="contained"
+                    >
+                      Next
+                    </Button>
+                ) : (
+                    <Button
+                        style={{
+                          marginLeft: '85%',
+                          background: 'gray',
+                        }}
+                        Button
+                        onClick={() => {
+                          handleSetAddress();
+                        }}
+                        variant="contained"
+                        type="button"
+                    >
+                      Next
+                    </Button>
+                )}
+              </div>
+            </div>
+          </div>
+
+        </div>
+
       </div>
     </>
   );

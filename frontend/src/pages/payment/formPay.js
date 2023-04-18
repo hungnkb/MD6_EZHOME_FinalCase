@@ -14,6 +14,7 @@ export default function FormPay(props) {
   const [openDate, setOpenDate] = useState(false);
   const [date, setDate] = useState([]);
   const [multipleInvalid, setMultipleInvalid] = useState([]);
+  const [orders, setOrders] = useState([]);
   const [total, setTotal] = useState(null);
   // const [price, setPrice] = useState(null);
   const [data, setData] = useState({
@@ -23,10 +24,18 @@ export default function FormPay(props) {
     // numberOfChildrens: 0,
     // numberOfInfants: 0,
   });
-  console.log(props);
+  
+  useEffect(() => {
+    let newOrderList = [];
+    for (let i of props.orders) {
+      newOrderList.push({start: i.checkin, end: i.checkout})
+    }
+    setOrders(newOrderList)
+  },[props.orders])
+
   const onPageLoadingMultiple = useCallback((event) => {
     getBookings(event.firstDay, (bookings) => {
-      setMultipleInvalid(bookings.invalid);
+      setMultipleInvalid([bookings.invalid]);
     });
   }, []);
   const handleChange = useCallback((ev) => {
@@ -121,19 +130,23 @@ export default function FormPay(props) {
                     rangeEndLabel="Ngày trả"
                     locale={localeVi}
                     minRange={1}
+                    min={Date.now() + 24 * 60 * 60 * 1000}
                     maxRange={100}
                     width={`200px`}
                     rangeHighlight={true}
                     showRangeLabels={true}
                     controls={['calendar']}
-                    invalid={multipleInvalid}
+                    invalid={[
+                      multipleInvalid,
+                      ...orders
+                    ]}
                     onPageLoading={onPageLoadingMultiple}
                   />
                 </div>
               </div>
             </div>
             <div style={{ display: 'flex', justifyContent: 'center' }}>
-              <Button onClick={() => setOpenDate(!openDate)} variant="warning" style={{ width: 400 }}>
+              <Button onClick={() => setOpenDate(!openDate)} variant="warning" style={{ width: 400, marginTop: '10px' }}>
                 Book now
               </Button>
             </div>

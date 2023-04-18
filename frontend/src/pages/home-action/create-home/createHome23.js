@@ -30,11 +30,23 @@ export default function CreateHome23() {
     if (!currentAuth.isLogined) {
       navigate('/')
     }
-  }, [])
+  }, []);
+
+  const onImageRemove = (index) => {
+    const newImages = [...images];
+    if(newImages.length === 1) {
+      return onImageRemoveAll();
+    }
+    setImages(newImages.splice(index, 1))
+  }
+
+  const onImageRemoveAll = () => {
+    setImages([]);
+    dispatch(setFiles([]));
+  };
 
   const onChange = (imageList, addUpdateIndex) => {
     console.log(imageList);
-    // console.log(imageList, addUpdateIndex);
     setImages(imageList);
   }
 
@@ -66,9 +78,7 @@ export default function CreateHome23() {
             {({
                 imageList,
                 onImageUpload,
-                onImageRemoveAll,
                 onImageUpdate,
-                onImageRemove,
                 isDragging,
                 dragProps
               }) => (

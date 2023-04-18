@@ -75,23 +75,28 @@ export default function CreateHome23() {
                 // write your building UI
                 <div className="upload__image-wrapper">
                   <Button
-                      variant="outlined"
                       style={isDragging ? { color: "red", marginRight: '10px' } : null}
                       onClick={onImageUpload}
                       {...dragProps}
                   >
-                    Click or Drop here
+                  Add image...
                   </Button>
                   &nbsp;
-                  <Button variant="outlined" color="error" onClick={onImageRemoveAll}>Remove all images</Button>
+                  <Button variant="light" color="error" onClick={onImageRemoveAll}>Remove all images</Button>
                   {imageList.map((image, index) => (
-                      <div key={index} className="image-item">
-                        <img src={image.data_url} alt="image" style={{width:"100%"}}/>
-                        <div className="image-item__btn-wrapper">
-                          <Button sx={{marginRight: '10px'}} variant="outlined" onClick={() => onImageUpdate(index)}>Update</Button>
-                          <Button variant="outlined" color="error" onClick={() => onImageRemove(index)}>Remove</Button>
+                      <div >
+                      <br/>
+                        <div key={index} className="image-item" style={{borderStyle:"dotted"}}>
+                          <div className="image-item__btn-wrapper">
+                            <Button sx={{marginLeft: '70%'}} variant="light" onClick={() => onImageUpdate(index)}><i
+                                className="fa-solid fa-pen"></i></Button>
+                            <Button variant="light" color="error" onClick={() => onImageRemove(index)}><i
+                                className="fa-regular fa-delete-left"></i></Button>
+                          </div>
+                          <img src={image.data_url} alt="image" style={{width:"100%"}}/>
                         </div>
                       </div>
+
                   ))}
                 </div>
             )}

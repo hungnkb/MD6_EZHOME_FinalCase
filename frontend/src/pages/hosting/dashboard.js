@@ -10,7 +10,7 @@ import axios from '../../api/axios';
 import { useSelector } from 'react-redux';
 import { Button, Switch } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-
+import ReactHtmlParser, { processNodes, convertNodeToElement, htmlparser2 } from 'react-html-parser';
 function DashboardHosting() {
   const [homeList, setHomeList] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false);
@@ -128,7 +128,7 @@ function DashboardHosting() {
                   </TableCell>
                   <TableCell align="right">{data.bathrooms}</TableCell>
                   <TableCell align="right">{data.bedrooms}</TableCell>
-                  <TableCell align="left">{data.description}</TableCell>
+                  <TableCell align="left">{ReactHtmlParser(data.description)}</TableCell>
                   <TableCell align="right">
                     {data.price.toLocaleString('en-EN')}
                   </TableCell>

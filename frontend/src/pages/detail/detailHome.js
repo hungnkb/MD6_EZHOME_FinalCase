@@ -61,7 +61,7 @@ export default function DetailHome() {
         }
         getData()
     }, []);
-
+console.log(detail);
     return (
         <>
             <div>
@@ -202,8 +202,9 @@ export default function DetailHome() {
                                 </div>
                             </div>
                         </div>
-                        <div className="col-5" style={{marginTop: '65px'}}>
-                            <FormPay price={price} setFetchData={setFetchData} fetchData={fetchData} orders={orders}/>
+                        <div className="col-5" style={{ marginTop: '65px' }}>
+                            <FormPay price={price} setFetchData={setFetchData} fetchData={fetchData} orders={orders} idHome={idHome.id} address={detail.address} />
+
                         </div>
                     </div>
                     <br/>

@@ -31,18 +31,21 @@ const bull = (
 export default function DetailHome() {
     const idHome = useParams();
     const [detail, setDetail] = useState([]);
-    const [price, setPrice] = useState();
+    const [price, setPrice] = useState(null);
     const [image, setImage] = useState([]);
-    console.log(detail, 0)
+    const [fetchData, setFetchData] = useState(false);
+
     useEffect(() => {
-        axios
-            .get(`http://localhost:3002/api/v1/homes?idHome=${idHome.id}`)
-            .then((res) => {
-                // console.log(res.data[0].images[0].urlHomeImage,11)
-                setImage(res.data[0].images);
-                setDetail(res.data[0]);
-                setPrice(res.data[0].price);
-            });
+        const getData = async () => {
+            axios.get(`http://localhost:3002/api/v1/homes?idHome=${idHome.id}`)
+                .then(response => {
+                    setImage(response.data[0].images);
+                    setDetail(response.data[0]);
+                    setPrice(response.data[0].price);
+                    console.log(response.data[0]);
+                })
+        }
+        getData()
     }, []);
 
     return (
@@ -186,7 +189,7 @@ export default function DetailHome() {
                             </div>
                         </div>
                         <div className="col-5" style={{ marginTop: '65px' }}>
-                            <FormPay price={price} />
+                            <FormPay price={price} setFetchData={setFetchData} fetchData={fetchData} />
                         </div>
                     </div>
                 </div>

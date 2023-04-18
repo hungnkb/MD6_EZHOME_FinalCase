@@ -3,6 +3,9 @@ import { MDBContainer, MDBCol, MDBRow } from 'mdb-react-ui-kit';
 import { format } from 'date-fns';
 import { Datepicker, localeVi } from '@mobiscroll/react';
 import Button from 'react-bootstrap/Button';
+import { useEffect } from 'react';
+import { number } from 'yup';
+import { loginUser } from '../../service/userAction';
 const getBookings = (date, callback) => {
   const invalid = [];
   const labels = [];
@@ -10,7 +13,9 @@ const getBookings = (date, callback) => {
 export default function FormPay(props) {
   const [openDate, setOpenDate] = useState(false);
   const [date, setDate] = useState([]);
-  const [multipleInvalid, setMultipleInvalid] = React.useState([]);
+  const [multipleInvalid, setMultipleInvalid] = useState([]);
+  const [total, setTotal] = useState(null);
+  // const [price, setPrice] = useState(null);
   const [data, setData] = useState({
     checkin: null,
     checkout: null,
@@ -18,8 +23,8 @@ export default function FormPay(props) {
     // numberOfChildrens: 0,
     // numberOfInfants: 0,
   });
-
-  const onPageLoadingMultiple = React.useCallback((event) => {
+  console.log(props);
+  const onPageLoadingMultiple = useCallback((event) => {
     getBookings(event.firstDay, (bookings) => {
       setMultipleInvalid(bookings.invalid);
     });
@@ -29,8 +34,15 @@ export default function FormPay(props) {
       let dayDiff = Math.round(
         Math.abs(ev.value[0] - ev.value[1]) / (1000 * 60 * 60 * 24),
       );
+
+      let charged = parseInt(dayDiff * Number(props.price));
+      setTotal(charged);
       // setTotal({ ...total, totalDay: dayDiff });
       // setOpenDate(false);
+    } else if (ev.value[0] || ev.value[1]) {
+      setTotal(0)
+    } else {
+      return
     }
     setDate([ev.value[0], ev.value[1]]);
     setData({
@@ -38,14 +50,13 @@ export default function FormPay(props) {
       checkin: format(new Date(ev.value[0]), 'yyyy-MM-dd'),
       checkout: format(new Date(ev.value[1]), 'yyyy-MM-dd'),
     });
-  }, []);
-  console.log(data.checkin, data.checkout);
+  }, [props.price]);
 
   return (
     <MDBContainer>
       <MDBRow>
         <MDBCol>
-          <div className="p-3" style={{ border: '1px solid gray' }}>
+          <div className="p-3" style={{ border: '1px solid gray', display: 'flex', justifyContent: 'center', flexDirection: 'column' }}>
             <span className="fw-bold">
               {' '}
               <b>{props.price?.toLocaleString('en-EN')}đ </b>
@@ -53,17 +64,16 @@ export default function FormPay(props) {
             </span>
             <hr />
             <div
-              className="d-flex justify-content-between mt-2"
-              style={{ marginLeft: '40px' }}
+              style={{ display: 'flex', justifyContent: 'center' }}
             >
               <div
                 onClick={() => setOpenDate(!openDate)}
                 className="calendar_check_in_out flex mr-10 cursor-pointer"
-                style={{ width: '100%' }}
+                style={{ width: '100%', display: 'flex', justifyContent: 'center', flexDirection: 'column', }}
               >
                 <div className="row">
                   <div className="col-6">
-                    <div className="home-booking-checkinout flex items-center">
+                    <div className="home-booking-checkinout flex items-center" style={{ display: 'flex', justifyContent: 'center' }}>
                       <div className="home-booking-content cursor-pointer">
                         <label htmlFor="check-in">
                           <b>Nhận phòng</b>
@@ -77,7 +87,7 @@ export default function FormPay(props) {
                     </div>
                   </div>
                   <div className="col-6">
-                    <div className="home-booking-checkinout flex items-center">
+                    <div className="home-booking-checkinout flex items-center" style={{ display: 'flex', justifyContent: 'center' }}>
                       <div className="home-booking-content cursor-pointer">
                         <label htmlFor="check-out">
                           {' '}
@@ -96,6 +106,7 @@ export default function FormPay(props) {
                 <div
                   onClick={(event) => event.stopPropagation()}
                   className={`calendar-range ${openDate ? '' : 'hidden'}`}
+                  style={{ display: 'flex', justifyContent: 'center' }}
                 >
                   <Datepicker
                     theme="ios"
@@ -109,8 +120,8 @@ export default function FormPay(props) {
                     rangeStartLabel="Ngày đến"
                     rangeEndLabel="Ngày trả"
                     locale={localeVi}
-                    minRange={3}
-                    maxRange={10}
+                    minRange={1}
+                    maxRange={100}
                     width={`200px`}
                     rangeHighlight={true}
                     showRangeLabels={true}
@@ -121,22 +132,24 @@ export default function FormPay(props) {
                 </div>
               </div>
             </div>
-            <div className="d-flex justify-content-between mt-2">
-              <Button variant="warning" style={{ width: 400 }}>
-                Reserve
+            <div style={{ display: 'flex', justifyContent: 'center' }}>
+              <Button onClick={() => setOpenDate(!openDate)} variant="warning" style={{ width: 400 }}>
+                Book now
               </Button>
             </div>
             <hr />
-            <div className="d-flex justify-content-between mt-2">
-              <span>
-                {' '}
-                <b> Total</b>{' '}
-              </span>{' '}
-              <span class="text-success">
-                {' '}
-                <b> đ85.00</b>{' '}
-              </span>
-            </div>
+            {total > 0 ? (
+              <div className="d-flex justify-content-between mt-2">
+                <span>
+                  {' '}
+                  <b> Total</b>{' '}
+                </span>{' '}
+                <span className="text-success">
+                  {' '}
+                  <b> đ{total?.toLocaleString('en-EN')}</b>{' '}
+                </span>
+              </div>
+            ) : null}
           </div>
         </MDBCol>
       </MDBRow>

@@ -94,7 +94,6 @@ export default function Navbar() {
   const handleMobileMenuOpen = (event) => {
     setMobileMoreAnchorEl(event.currentTarget);
   };
-  console.log(currentState.isLogined)
   const handleLogout = () => {
     dispatch(logout());
   };

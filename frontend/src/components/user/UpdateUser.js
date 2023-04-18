@@ -11,10 +11,11 @@ import { useSelector } from 'react-redux';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import {Link} from "react-router-dom";
-import {Modal} from "@mui/material";
 import UpdatePassword from "./UpdatePassword";
-import { useForm } from "react-hook-form";
-import { yupResolver } from '@hookform/resolvers/yup';
+
+
+
+
 
 
 export default function UpdateUser() {
@@ -163,22 +164,6 @@ export default function UpdateUser() {
                             />
                         </Grid>
                         <Grid item xs={12} sm={2}>
-                            {/*<Grid item xs={12} sm={4}>*/}
-                            {/*    <TextField*/}
-                            {/*        type="text"*/}
-                            {/*        required*/}
-                            {/*        id="author"*/}
-                            {/*        name="phone"*/}
-                            {/*        value={phone}*/}
-                            {/*        fullWidth*/}
-                            {/*        size="small"*/}
-                            {/*        autoComplete="off"*/}
-                            {/*        variant="outlined"*/}
-                            {/*        error={phoneError}*/}
-                            {/*        helperText={phoneError ? "Vui lòng nhập số điện thoại hợp lệ" : ""}*/}
-                            {/*        onChange={handleChange}*/}
-                            {/*    />*/}
-                            {/*</Grid>*/}
                         </Grid>
                         <Grid item xs={12} sm={4}>
                             <TextField

@@ -243,8 +243,8 @@ export default function Navbar() {
               <Search
                   style={{
                     border: '2px solid black',
-                    marginLeft: '300px',
-                    borderRadius: '30px',
+                    marginLeft: '30%',
+                    borderRadius: '20px',
                     width: 400,
                   }}
               >

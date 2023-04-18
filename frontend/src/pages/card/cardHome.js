@@ -35,87 +35,92 @@ export default function CardHome(props) {
                         <CarouselMulti/>
                     </div>
                 </div>
+                <br/>
+                <div className="d-flex flex-wrap justify-content-center">
+                    {home.length > 0 ? (
+                        home.map((value, index) => {
+                            if (value.status) {
+                                return (
+                                    <NavLink key={index} to={`/detail-home/${value.idHome}`} style={{
+                                        marginRight: "20px",
+                                        width: '256px',
+                                        display: 'inline-block',
+                                        textDecoration: "none"
+                                    }}>
+                                        <Card
+                                            sx={{
+                                                width: '100%',
+                                                boxShadow: 'none',
+                                                marginTop: '5%',
+                                                marginLeft: '2%',
+                                            }}
+                                        >
+                                            <CardActionArea>
+                                                <CardMedia
+                                                    style={{
+                                                        height: 250,
+                                                        borderRadius: '7%',
+                                                    }}
+                                                    component="img"
+                                                    height="250%"
+                                                    image={value?.images[0]?.urlHomeImage}
+                                                    alt="green iguana"
+                                                    //{value?.images[0].urlHomeImage}
+                                                />
+                                                <CardContent>
+                                                    <Typography gutterBottom variant="p" component="div">
+                                                        <b> {value.title}</b>
+                                                    </Typography>
+                                                    <Typography variant="body2" color="text.secondary">
+                                                        {value.address}
+                                                    </Typography>
+                                                    <Typography gutterBottom variant="p" component="div">
+                                                        <b>{value.price.toLocaleString('en-EN')}đ</b> night
+                                                    </Typography>
+                                                </CardContent>
+                                            </CardActionArea>
+                                        </Card>
+                                    </NavLink>)
+                            } else {
+                                return ''
+                            }
+                        })
+                    ) : (
+                        <>
+                            <Stack direction="row" spacing={5} sx={{marginTop: '50px'}}>
+                                <Skeleton
+                                    variant="rectangular"
+                                    animation="wave"
+                                    width={256}
+                                    height={250}
+                                    sx={{borderRadius: '15px'}}
+                                />
+                                <Skeleton
+                                    variant="rectangular"
+                                    animation="wave"
+                                    width={256}
+                                    height={250}
+                                    sx={{borderRadius: '15px'}}
+                                />
+                                <Skeleton
+                                    variant="rectangular"
+                                    animation="wave"
+                                    width={256}
+                                    height={250}
+                                    sx={{borderRadius: '15px'}}
+                                />
+                                <Skeleton
+                                    variant="rectangular"
+                                    animation="wave"
+                                    width={256}
+                                    height={250}
+                                    sx={{borderRadius: '15px'}}
+                                />
+                            </Stack>
+                        </>
+                    )}
 
-                    <div className="d-flex flex-wrap justify-content-center">
-                        {home.length > 0 ? (
-                            home.map((value, index) => {
-                                if (value.status) {
-                                    return (
-                                        <NavLink key={index} to={`/detail-home/${value.idHome}`} style={{marginRight:"20px", width: '256px', display: 'inline-block',textDecoration:"none"}}>
-                                            <Card
-                                                sx={{
-                                                    width: '100%',
-                                                    boxShadow: 'none',
-                                                    marginTop: '5%',
-                                                    marginLeft: '2%',
-                                                }}
-                                            >
-                                                <CardActionArea>
-                                                    <CardMedia
-                                                        style={{
-                                                            height: 250,
-                                                            borderRadius: '7%',
-                                                        }}
-                                                        component="img"
-                                                        height="250%"
-                                                        image={value?.images[0]?.urlHomeImage}
-                                                        alt="green iguana"
-                                                        //{value?.images[0].urlHomeImage}
-                                                    />
-                                                    <CardContent>
-                                                        <Typography  gutterBottom variant="p" component="div">
-                                                            <b> {value.title}</b>
-                                                        </Typography>
-                                                        <Typography  variant="body2" color="text.secondary">
-                                                            {value.address}
-                                                        </Typography>
-                                                        <Typography  gutterBottom variant="p" component="div">
-                                                            <b >{value.price.toLocaleString('en-EN')}đ</b> night
-                                                        </Typography>
-                                                    </CardContent>
-                                                </CardActionArea>
-                                            </Card>
-                                        </NavLink>)
-                                } else {
-                                    return ''
-                                }
-                            })
-                        ) : (
-                            <>
-                                <Stack direction="row" spacing={5} sx={{marginTop: '50px'}}>
-                                    <Skeleton
-                                        variant="rectangular"
-                                        animation="wave"
-                                        width={256}
-                                        height={250}
-                                        sx={{borderRadius: '15px'}}
-                                    />
-                                    <Skeleton
-                                        variant="rectangular"
-                                        animation="wave"
-                                        width={256}
-                                        height={250}
-                                        sx={{borderRadius: '15px'}}
-                                    />
-                                    <Skeleton
-                                        variant="rectangular"
-                                        animation="wave"
-                                        width={256}
-                                        height={250}
-                                        sx={{borderRadius: '15px'}}
-                                    />
-                                    <Skeleton
-                                        variant="rectangular"
-                                        animation="wave"
-                                        width={256}
-                                        height={250}
-                                        sx={{borderRadius: '15px'}}
-                                    />
-                                </Stack>
-                            </>
-                        )}
-
-                    </div>
+                </div>
 
 
             </div>

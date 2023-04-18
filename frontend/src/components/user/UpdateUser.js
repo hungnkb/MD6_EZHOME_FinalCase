@@ -6,15 +6,15 @@ import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import InputLabel from '@mui/material/InputLabel';
-import Input from '@mui/material/Input';
-import UploadFileIcon from '@mui/icons-material/UploadFile';
-import Button from '@mui/material/Button';
+import * as yup from "yup";
 import { useSelector } from 'react-redux';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import {Link} from "react-router-dom";
 import {Modal} from "@mui/material";
 import UpdatePassword from "./UpdatePassword";
+// import { useForm } from "react-hook-form";
+// import { yupResolver } from '@hookform/resolvers/yup';
 
 export default function UpdateUser() {
     const [age, setAge] = React.useState("");
@@ -22,17 +22,10 @@ export default function UpdateUser() {
     const [dataUser, setDataUser] = useState({});
     const [data, setData] = useState(false);
     const [dataPassword, setDataPassword] = useState();
+    const [phone, setPhone] = useState("");
+    const [phoneError, setPhoneError] = useState(false);
     const [email, setEmail] = useState(null);
 
-    console.log(userLogin.userLogin, 7777777)
-    const MESSAGE_ERROR = {
-        newPassword: 'Password error',
-        confirmPassword: 'Password must be the same',
-    };
-    const REGEX = {
-        newPassword: /^\w{6,8}$/,
-    };
-    const [form, setForm] = useState({});
 
     useEffect(() => {
         axios.get(`http://localhost:3002/api/v1/users?email=${email}`)
@@ -43,7 +36,6 @@ export default function UpdateUser() {
                 setDataPassword(response.data.password)
             })
     }, [email])
-    console.log(userLogin,23232332)
     useEffect(() => {
         if (userLogin.userLogin.email){
             localStorage.setItem('email', userLogin.userLogin.email);
@@ -79,17 +71,37 @@ export default function UpdateUser() {
             },
         );
     };
-
-    const handleChange = (event) =>
+    console.log(email)
+    const handleChange = (event) =>{
         setDataUser({
             ...dataUser,
             [event.target.name]: event.target.value,
         });
+    }
+
+    const handleChangePhone = (event) =>{
+        const value = event.target.value;
+        const regex = /^\d{10}$/; //định dạng số điện thoại là 10 số
+
+        if (regex.test(value)) {
+            setPhone(value);
+            setPhoneError(false);
+        } else {
+            setPhone("");
+            setPhoneError(true);
+        }
+        setDataUser({
+            ...dataUser,
+            [event.target.name]: event.target.value,
+        });
+    }
+
+
 
     const handleOpenComponentChild = (event) => {
         setData(!data)
     }
-    console.log(dataUser,888)
+
     return (
         <React.Fragment>
             <Paper elevation={3} sx={{ marginRight: "15%", marginLeft: "15%", marginTop: "20px", marginBottom: "20px" }}>
@@ -150,15 +162,22 @@ export default function UpdateUser() {
                             />
                         </Grid>
                         <Grid item xs={12} sm={2}>
-                            <InputLabel
-                                sx={{
-                                    display: "flex",
-                                    justifyContent: "center",
-                                    fontWeight: 700
-                                }}
-                            >
-                                Phone
-                            </InputLabel>
+                            {/*<Grid item xs={12} sm={4}>*/}
+                            {/*    <TextField*/}
+                            {/*        type="text"*/}
+                            {/*        required*/}
+                            {/*        id="author"*/}
+                            {/*        name="phone"*/}
+                            {/*        value={phone}*/}
+                            {/*        fullWidth*/}
+                            {/*        size="small"*/}
+                            {/*        autoComplete="off"*/}
+                            {/*        variant="outlined"*/}
+                            {/*        error={phoneError}*/}
+                            {/*        helperText={phoneError ? "Vui lòng nhập số điện thoại hợp lệ" : ""}*/}
+                            {/*        onChange={handleChange}*/}
+                            {/*    />*/}
+                            {/*</Grid>*/}
                         </Grid>
                         <Grid item xs={12} sm={4}>
                             <TextField
@@ -171,7 +190,9 @@ export default function UpdateUser() {
                                 size="small"
                                 autoComplete="off"
                                 variant="outlined"
-                                onChange={handleChange}
+                                error={phoneError}
+                                helperText={phoneError ? "Vui lòng nhập số điện thoại hợp lệ" : ""}
+                                onChange={handleChangePhone}
                             />
                         </Grid>
                         <Grid item xs={12} sm={6} sx={{

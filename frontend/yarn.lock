@@ -10960,7 +10960,14 @@
     "toposort" "^2.0.2"
     "type-fest" "^2.19.0"
 
+<<<<<<< HEAD
 "zxcvbn@4.4.2":
   "integrity" "sha512-Bq0B+ixT/DMyG8kgX2xWcI5jUvCwqrMxSFam7m0lAf78nf04hv6lNCsyLYdyYTrCVMqNDY/206K7eExYCeSyUQ=="
   "resolved" "https://registry.npmjs.org/zxcvbn/-/zxcvbn-4.4.2.tgz"
   "version" "4.4.2"
+=======
+zxcvbn@4.4.2:
+  version "4.4.2"
+  resolved "https://registry.npmjs.org/zxcvbn/-/zxcvbn-4.4.2.tgz"
+  integrity sha512-Bq0B+ixT/DMyG8kgX2xWcI5jUvCwqrMxSFam7m0lAf78nf04hv6lNCsyLYdyYTrCVMqNDY/206K7eExYCeSyUQ==
+>>>>>>> c05e059eff611ec5226081356241149639404703

@@ -1,14 +1,23 @@
 .card-createHome {
-  width: 50%;
-  height: 7%;
-  float: left;
+  width: 45%;
+  /*height: 5%;*/
   border: 2px solid gray;
-  margin-top: 10px;
   color: black;
+  margin-top: 5%;
 }
 
 #btn {
   color: black;
+  width: 100%;
+  height: 40%;
+
+}
+#btn.active{
+  background: #f7a800 ;
+}
+#btn:hover {
+  background: #f7a800;
+
 }
 
 #ggmap {
@@ -21,9 +30,9 @@
   /*border-radius: 50%;*/
 }
 
-.search-map {
-  margin-top: 100px;
-}
+/*.search-map {*/
+/*  margin-top: 10%;*/
+/*}*/
 
 #btn-create23 {
   background: gray;
@@ -43,7 +52,8 @@
 }
 
 #btn-create {
-  margin-top: 40px;
+  /*margin-top: 40px;*/
+  /*position: fixed;*/
 }
 
 #btn-back {
@@ -52,18 +62,42 @@
 
 #btn-next1 {
   background: #f7a800;
-  margin-left: 900px;
+  margin-left: 80%;
 }
 
 #btn-next2 {
-  margin-left: 900px;
+  margin-left: 80%;
   background: gray;
 }
 #btn-finish1 {
   background: #f7a800;
-  margin-left: 900px;
+  margin-left: 80%;
 }
 #btn-finish2 {
-  margin-left: 900px;
+  margin-left: 80%;
   background: gray;
+}
+/*createhome21
+ */
+.category-item{
+  cursor: pointer;
+  width: 100%;
+  background-color: white;
+}
+.category-input {
+  display: none;
+}
+
+.category-input:checked + .category-item {
+  background-color: #f7a800;
+}
+.footer-end{
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 15%;
+  background-color: white;
+  color: white;
+  text-align: center;
 }

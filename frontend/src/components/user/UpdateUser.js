@@ -14,10 +14,6 @@ import {Link} from "react-router-dom";
 import UpdatePassword from "./UpdatePassword";
 
 
-
-
-
-
 export default function UpdateUser() {
     const [age, setAge] = React.useState("");
     const userLogin = useSelector((state) => state.auth);

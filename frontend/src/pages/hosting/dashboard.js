@@ -12,6 +12,7 @@ import { Button, Switch } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import ReactHtmlParser, { processNodes, convertNodeToElement, htmlparser2 } from 'react-html-parser';
 import detailDashboard from "./detailDashboard";
+import DetailDashboard from "./detailDashboard";
 function DashboardHosting() {
   const [homeList, setHomeList] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false);
@@ -21,7 +22,8 @@ function DashboardHosting() {
 
   const label = { inputProps: { true: 'false' } };
   const navigate = useNavigate();
-
+  const [item,setItem]=useState();
+  const [lgShow, setLgShow] = useState(false);
   const handleChange = async (event, id) => {
     await axios({
       method: 'POST',
@@ -37,6 +39,11 @@ function DashboardHosting() {
     setFlag(!flag);
     setChecked(event.target.checked);
   };
+
+  const getData = (data) => {
+    setItem(data);
+    setLgShow(true)
+  }
 
   useEffect(() => {
     if (!currentAuth.isLogined) {
@@ -56,7 +63,6 @@ function DashboardHosting() {
     };
     getDataHome();
   }, [currentAuth.isLogined, flag]);
-
   return (
     <>
       <div className="container">
@@ -144,13 +150,13 @@ function DashboardHosting() {
                           />
                         </TableCell>
                         <TableCell align="center">
-                          <i
+                          <Button variant="light" onClick={() => getData(data)}> <i
                               className="fa-solid fa-pen-to-square"
                               style={{
                                 color: 'green',
                                 fontSize: '130%',
                               }}
-                          ></i>
+                          ></i></Button>
                         </TableCell>
                         <TableCell align="center">
                           <i
@@ -167,10 +173,10 @@ function DashboardHosting() {
             </TableBody>
           </Table>
         </TableContainer>
+        <DetailDashboard  dashboard={item} setLgShow={setLgShow} lgShow={lgShow}/>
 
       </div>
     </>
   );
 }
-
 export default DashboardHosting;

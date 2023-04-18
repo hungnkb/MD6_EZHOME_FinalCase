@@ -55,13 +55,13 @@ export default function DetailHome() {
                             <h3> {detail.title} </h3>
                             <Link to={'#!'} style={{ color: 'black' }}>
                                 {' '}
-                                {detail.address} - Vietnam{' '}
+                                {detail.address}{' '}
                             </Link>
                         </div>
                     </div>
                     <br />
-                    <div className="row">
-                        <div className="col-6">
+                    <div className="d-flex flex-wrap justify-content-center">
+                        <div>
                             <ModalImg image={image} />
                             {detail?.images?.length > 0 ? (<img
                                 style={{ width: 500, height: 400 }}
@@ -69,7 +69,7 @@ export default function DetailHome() {
                             />) : (<Skeleton animation="wave" style={{ width: 500, height: 400 }} />)}
 
                         </div>
-                        <div className="col-6">
+                        <div style={{marginLeft:"5%"}}>
                             {detail?.images?.length > 0 ? (<img
                                 style={{ width: 500, height: 400 }}
                                 src={detail?.images[1]?.urlHomeImage}

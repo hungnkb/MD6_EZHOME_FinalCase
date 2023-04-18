@@ -121,7 +121,7 @@ export default function FormPay(props) {
               </div>
             </div>
             <div className="d-flex justify-content-between mt-2">
-              <Button variant="warning" style={{ width: 400 }}>
+              <Button variant="warning" style={{ width: "100%" }}>
                 Reserve
               </Button>
             </div>

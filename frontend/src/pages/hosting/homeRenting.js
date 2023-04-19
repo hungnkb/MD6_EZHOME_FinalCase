@@ -17,7 +17,7 @@ import { useNavigate } from 'react-router-dom';
 export default function HomeRenting(){
     const [homeRent, setHomeRent] = useState([]);
     const [homeRentted, setHomeRentted] = useState([]);
-    const [age, setAge] = React.useState('');
+    const [status, setStatus] = React.useState('');
     const result = [];
     const navigate = useNavigate();
     useEffect(() => {
@@ -29,11 +29,20 @@ export default function HomeRenting(){
         };
         getDataRent();
     }, []);
+    useEffect(() => {
+        const getDataRent = async () => {
+            const dataList = await axios.get(
+                `http://localhost:3002/api/v1/homes?idUser=${localStorage.getItem("idUser")}&&status=${status}`
+            );
+            setHomeRent(dataList.data.filter(home => home.orders.length > 0))
+        };
+        getDataRent();
+    }, [status]);
     for(let i = 0; i< homeRent.length; i++){
         homeRent[i].orders.map(order => result.push({title: homeRent[i].title, address: homeRent[i].address, email: order.idUser.email, phone: order.idUser.phone, checkin: order.checkin, checkout: order.checkin}));
     }
     const handleChange = (event) => {
-        setAge(event.target.value);
+        setStatus(event.target.value);
     };
     return(
         <>
@@ -49,12 +58,30 @@ export default function HomeRenting(){
             {/*    +Add home*/}
             {/*</Button>*/}
             <hr />
-            <TableContainer component={Paper}>
+            <Box sx={{ minWidth: 120 }}>
+                <FormControl fullWidth>
+                    <InputLabel id="demo-simple-select-label">Status</InputLabel>
+                    <Select
+                        labelId="demo-simple-select-label"
+                        id="demo-simple-select"
+                        value={status}
+                        label="Age"
+                        onChange={handleChange}
+                    >
+                        <MenuItem value="ongoing">On Going</MenuItem>
+                        <MenuItem value="cancle">Cancel</MenuItem>
+                        <MenuItem value={30}>Thirty</MenuItem>
+                    </Select>
+                </FormControl>
+            </Box>
+            <TableContainer component={Paper} sx={{
+                height: "80%", width: "90%", marginLeft: "10%"
+            }}>
                 <Table sx={{ minWidth: 650 }} aria-label="simple table">
                     <TableHead>
                         <TableRow>
                             <TableCell>
-                                <b> # </b>{' '}
+                                <b> {status} </b>{' '}
                             </TableCell>
                             <TableCell align="center">
                                 <b> Email </b>{' '}
@@ -78,22 +105,6 @@ export default function HomeRenting(){
                             {/*<TableCell align="center">*/}
                             {/*    <b>Checkout </b>{' '}*/}
                             {/*</TableCell>*/}
-                            <Box sx={{ minWidth: 120 }}>
-                                <FormControl fullWidth>
-                                    <InputLabel id="demo-simple-select-label">Age</InputLabel>
-                                    <Select
-                                        labelId="demo-simple-select-label"
-                                        id="demo-simple-select"
-                                        value={age}
-                                        label="Age"
-                                        onChange={handleChange}
-                                    >
-                                        <MenuItem value="ongoing">Ten</MenuItem>
-                                        <MenuItem value={"cancle"}>Twenty</MenuItem>
-                                        <MenuItem value={30}>Thirty</MenuItem>
-                                    </Select>
-                                </FormControl>
-                            </Box>
                         </TableRow>
                     </TableHead>
                     <TableBody>

@@ -58,7 +58,7 @@ function App() {
   ]);
 
   return (
-    
+
     <BrowserRouter>
       <Routes>
         <Route path="" element={<Home />}>
@@ -68,6 +68,7 @@ function App() {
           <Route path="/user/hosting" element={<DashboardHosting />} />
           <Route path="/profile" element={<UpdateUser />} />
           <Route path="/test" element={<HomeRenting />}></Route>
+          <Route path='/homes' element={<CardHome />}></Route>
         </Route>
         <Route
           path={''}

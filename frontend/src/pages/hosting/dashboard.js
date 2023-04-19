@@ -72,21 +72,6 @@ function DashboardHosting() {
     console.log(homeList, 0)
     return (
         <>
-            <FormControl variant="standard" sx={{ m: 1, minWidth: 120, marginLeft: "8%" }}>
-                <InputLabel id="demo-simple-select-standard-label">Status</InputLabel>
-                <Select
-                    labelId="demo-simple-select-standard-label"
-                    id="demo-simple-select-standard"
-                    value={status}
-                    onChange={handleChange}
-                    label="Age"
-                >
-                    <MenuItem value="all">All Order</MenuItem>
-                    <MenuItem value="ongoing">On Going</MenuItem>
-                    <MenuItem value="done">Done</MenuItem>
-                    <MenuItem value="cancelled">Cancel</MenuItem>
-                </Select>
-            </FormControl>
             <div className="container">
                 <br/>
                 <div className="row">

@@ -153,7 +153,7 @@ export default function Navbar() {
             </MenuItem>
         )}
         <MenuItem>
-          <Link style={{textDecoration: 'none', color: "Black"}} to="/profile">My account</Link>
+          <Link style={{textDecoration: 'none', color: "Black"}} to="/user/profile">My account</Link>
         </MenuItem>
       </Menu>
   );

@@ -31,6 +31,15 @@ export default function HomeRenting(){
         getDataRent();
     }, []);
     useEffect(() => {
+        if (status == 'all'){
+            const getDataRent = async () => {
+                const dataList = await axios.get(
+                    `http://localhost:3002/api/v1/homes?idUser=${localStorage.getItem("idUser")}`
+                );
+                setHomeRent(dataList.data.filter(home => home.orders.length > 0))
+            };
+            getDataRent();
+        }
         const getDataRent = async () => {
             const dataList = await axios.get(
                 `http://localhost:3002/api/v1/homes?idUser=${localStorage.getItem("idUser")}&&status=${status}`
@@ -58,6 +67,7 @@ export default function HomeRenting(){
                     onChange={handleChange}
                     label="Age"
                 >
+                    <MenuItem value="all">All Order</MenuItem>
                     <MenuItem value="ongoing">On Going</MenuItem>
                     <MenuItem value="done">Done</MenuItem>
                     <MenuItem value="cancelled">Cancel</MenuItem>
@@ -111,7 +121,6 @@ export default function HomeRenting(){
                                     <TableCell align="center">{data.title}</TableCell>
                                     <TableCell align="center">{data.checkin}</TableCell>
                                     <TableCell align="center">{data.checkout}</TableCell>
-                                    {/*<TableCell align="center">{data.status}</TableCell>*/}
                                     {
                                         (data.status === "ongoing") ?
                                             <TableCell align="center">
@@ -120,44 +129,7 @@ export default function HomeRenting(){
                                             :
                                             data.status === "done" ? <TableCell align="center"><Chip label="Done" color="success" sx={{width: "80px"}} /></TableCell>
                                                 : <TableCell align="center"><Chip label="Cancel" color="warning" /></TableCell>
-
                                     }
-                                    {/*<TableCell align="left">*/}
-                                    {/*    {data.idCategory.categoryName}*/}
-                                    {/*</TableCell>*/}
-                                    {/*<TableCell align="right">{data.bathrooms}</TableCell>*/}
-                                    {/*<TableCell align="right">{data.bedrooms}</TableCell>*/}
-                                    {/*<TableCell align="left">{data.description}</TableCell>*/}
-                                    {/*<TableCell align="right">*/}
-                                    {/*    {data.price.toLocaleString('en-EN')}*/}
-                                    {/*</TableCell>*/}
-                                    {/*<TableCell align="center">{data.rate_stars}</TableCell>*/}
-                                    {/*<TableCell align="center">*/}
-                                        {/*<Switch*/}
-                                        {/*    checked={data.status}*/}
-                                        {/*    onChange={(e) => handleChange(e, data.idHome)}*/}
-                                        {/*    inputProps={{ true: 'false' }}*/}
-                                        {/*    color="warning"*/}
-                                        {/*/>*/}
-                                    {/*</TableCell>*/}
-                                    {/*<TableCell align="center">*/}
-                                    {/*    <i*/}
-                                    {/*        className="fa-solid fa-pen-to-square"*/}
-                                    {/*        style={{*/}
-                                    {/*            color: 'green',*/}
-                                    {/*            fontSize: '130%',*/}
-                                    {/*        }}*/}
-                                    {/*    ></i>*/}
-                                    {/*</TableCell>*/}
-                                    {/*<TableCell align="center">*/}
-                                    {/*    <i*/}
-                                    {/*        className="fa-solid fa-trash"*/}
-                                    {/*        style={{*/}
-                                    {/*            color: 'red',*/}
-                                    {/*            fontSize: '130%',*/}
-                                    {/*        }}*/}
-                                    {/*    ></i>*/}
-                                    {/*</TableCell>*/}
                                 </TableRow>
                             ))
                             : null}

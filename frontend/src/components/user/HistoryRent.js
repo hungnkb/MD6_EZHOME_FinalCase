@@ -86,7 +86,6 @@ function HistoryRent() {
                 onChange={handleChange}
                 label="Age"
             >
-              <p>hello</p>
               <MenuItem value="all">All Order</MenuItem>
               <MenuItem value="ongoing">On Going</MenuItem>
               <MenuItem value="done">Done</MenuItem>

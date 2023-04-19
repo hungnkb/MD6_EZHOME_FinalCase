@@ -40,7 +40,6 @@ function App() {
           },
         });
         if (response) {
-          console.log(response)
           dispatch(
             setUserLogin({
               isLogined: true,

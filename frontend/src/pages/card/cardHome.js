@@ -15,7 +15,6 @@ import login from "../../components/user/Login";
 export default function CardHome(props) {
     const [home, setHome] = useState([]);
     const {loading = false} = props;
-    console.log(home, 1)
     useEffect(() => {
         setTimeout(() => {
             axios

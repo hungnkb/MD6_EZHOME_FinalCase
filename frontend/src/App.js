@@ -59,7 +59,7 @@ function App() {
   ]);
 
   return (
-    
+
     <BrowserRouter>
       <Routes>
         <Route path="" element={<Home />}>
@@ -67,27 +67,27 @@ function App() {
           <Route path="/detail-home/:id" element={<DetailHome />} />
           <Route path="/reset-password" element={<ResetPassword />} />
           <Route path="/user/hosting" element={<DashboardHosting />} />
-          <Route path="/user/profile" element={<UpdateUser />} />
-          <Route path="/user/test" element={<HomeRenting />}></Route>
-          <Route path="/test" element={<HistoryRent />}></Route>
-        </Route>
-        <Route
-          path={''}
-          element={
-            <NavbarCreate
-              setFetchUserData={setFetchUserData}
-              fetchUserData={fetchUserData}
-            />
-          }
-        >
-          <Route path="/create-home" element={<CreateHome2 />}></Route>
-          <Route path="/create-home/1" element={<CreateHome21 />}></Route>
-          <Route path="/create-home/2" element={<CreateHome22 />}></Route>
-          <Route path="/create-home/3" element={<CreateHome23 />}></Route>
-          <Route path="/create-home/4" element={<CreateHome24 />}></Route>
-        </Route>
-      </Routes>
-    </BrowserRouter>
+        <Route path="/user/profile" element={<UpdateUser />} />
+          <Route path="/test" element={<HomeRenting />}></Route>
+          <Route path='/homes' element={<CardHome />}></Route>
+        </Route >
+    <Route
+      path={''}
+      element={
+        <NavbarCreate
+          setFetchUserData={setFetchUserData}
+          fetchUserData={fetchUserData}
+        />
+      }
+    >
+      <Route path="/create-home" element={<CreateHome2 />}></Route>
+      <Route path="/create-home/1" element={<CreateHome21 />}></Route>
+      <Route path="/create-home/2" element={<CreateHome22 />}></Route>
+      <Route path="/create-home/3" element={<CreateHome23 />}></Route>
+      <Route path="/create-home/4" element={<CreateHome24 />}></Route>
+    </Route>
+      </Routes >
+    </BrowserRouter >
   );
 }
 

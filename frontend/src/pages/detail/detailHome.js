@@ -9,6 +9,7 @@ import BedIcon from '@mui/icons-material/Bed';
 import FormPay from '../payment/formPay';
 import ModalImg from './modalImg';
 import Skeleton from '@mui/material/Skeleton';
+import Form from 'react-bootstrap/Form';
 import {
     MDBCard,
     MDBCardBody,
@@ -223,6 +224,20 @@ console.log(detail);
                         <div className="col-11">
                             <h3 style={{marginLeft:"1%"}}>32 comments</h3>
                         </div>
+                    </div>
+                    <div className="row">
+                        <div className="col-10">
+                            <Form.Control style={{height:"140%",border:"1px solid black " , marginLeft:"11px"}}
+                                type="text"
+                                id="inputPassword5"
+                                placeholder="Write your comments..."
+                                aria-describedby="passwordHelpBlock"
+                            />
+                        </div>
+                        <div className="col-2">
+                            <Button variant="light" type="submit" style={{height:"140%", border:"1px solid black ",marginLeft:"11px"}}>Comment </Button>
+                        </div>
+
                     </div>
                     <div className="row">
                         <div className="col-6">

@@ -40,7 +40,6 @@ function App() {
           },
         });
         if (response) {
-          console.log(response)
           dispatch(
             setUserLogin({
               isLogined: true,
@@ -59,6 +58,7 @@ function App() {
   ]);
 
   return (
+    
     <BrowserRouter>
       <Routes>
         <Route path="" element={<Home />}>

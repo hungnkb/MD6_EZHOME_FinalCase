@@ -14,6 +14,10 @@ import {useNavigate} from 'react-router-dom';
 import ReactHtmlParser, {processNodes, convertNodeToElement, htmlparser2} from 'react-html-parser';
 import detailDashboard from "./detailDashboard";
 import DetailDashboard from "./detailDashboard";
+import InputLabel from "@mui/material/InputLabel";
+import Select from "@mui/material/Select";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
 
 function DashboardHosting() {
     const [homeList, setHomeList] = useState([]);
@@ -70,16 +74,31 @@ function DashboardHosting() {
         <>
             <div className="container">
                 <br/>
-                <Button
-                    onClick={() => {
-                        navigate('/create-home');
-                    }}
-                    style={{background: '#f7a800', marginLeft: '90%'}}
-                    variant="contained"
-                >
-                    {' '}
-                    +Add home
-                </Button>
+                <div className="row">
+                    <div className="col-12">
+                        <Button
+                            onClick={() => {
+                                navigate('/create-home');
+                            }}
+                            style={{background: '#f7a800', marginLeft: '70%'}}
+                            variant="contained"
+                        >
+                            {' '}
+                            +Add homee
+                        </Button>
+                        <Button
+                            onClick={() => {
+                                navigate('/create-home');
+                            }}
+                            style={{background: '#f7a800', marginLeft: '90%'}}
+                            variant="contained"
+                        >
+                            {' '}
+                            +Add home
+                        </Button>
+                    </div>
+                </div>
+
                 <hr/>
                 <TableContainer component={Paper}>
                     <Table sx={{minWidth: 650}} aria-label="simple table">

@@ -121,7 +121,6 @@ export default function CardHome(props) {
 
                 </div>
 
-
             </div>
         </>
     );

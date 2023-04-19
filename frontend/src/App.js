@@ -19,6 +19,7 @@ import DashboardHosting from './pages/hosting/dashboard';
 import UpdateUser from './components/user/UpdateUser';
 import ResetPassword from './components/user/ResetPassword';
 import HomeRenting from "./pages/hosting/homeRenting";
+import HistoryRent from "./components/user/HistoryRent";
 
 function App() {
   const currentAuth = useSelector((state) => state.auth);
@@ -40,7 +41,6 @@ function App() {
           },
         });
         if (response) {
-          console.log(response)
           dispatch(
             setUserLogin({
               isLogined: true,
@@ -59,6 +59,7 @@ function App() {
   ]);
 
   return (
+    
     <BrowserRouter>
       <Routes>
         <Route path="" element={<Home />}>
@@ -68,7 +69,7 @@ function App() {
           <Route path="/user/hosting" element={<DashboardHosting />} />
           <Route path="/user/profile" element={<UpdateUser />} />
           <Route path="/user/test" element={<HomeRenting />}></Route>
-          <Route path="/user/orders" element={<HomeRenting />}></Route>
+          <Route path="/test" element={<HistoryRent />}></Route>
         </Route>
         <Route
           path={''}

@@ -18,6 +18,7 @@ import { setUserLogin } from './redux/features/authSlice';
 import DashboardHosting from './pages/hosting/dashboard';
 import UpdateUser from './components/user/UpdateUser';
 import ResetPassword from './components/user/ResetPassword';
+import HomeRenting from "./pages/hosting/homeRenting";
 
 function App() {
   const currentAuth = useSelector((state) => state.auth);
@@ -39,12 +40,14 @@ function App() {
           },
         });
         if (response) {
+          console.log(response)
           dispatch(
             setUserLogin({
               isLogined: true,
               userLogin: response.data,
             }),
           );
+          localStorage.setItem('idUser', response.data.sub);
         }
       }
     };
@@ -79,6 +82,7 @@ function App() {
           <Route path="/create-home/2" element={<CreateHome22 />}></Route>
           <Route path="/create-home/3" element={<CreateHome23 />}></Route>
           <Route path="/create-home/4" element={<CreateHome24 />}></Route>
+          <Route path="/test" element={<HomeRenting />}></Route>
         </Route>
       </Routes>
     </BrowserRouter>

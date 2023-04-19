@@ -20,7 +20,7 @@ import {
     MDBTypography,
 } from "mdb-react-ui-kit";
 import ReactHtmlParser, {processNodes, convertNodeToElement, htmlparser2} from 'react-html-parser';
-import {Rating, Typography} from "@mui/material";
+import {Rating, TextField, Typography} from "@mui/material";
 import Button from "react-bootstrap/Button";
 import ModalComments from "./modalComments";
 import Review from "./review/review";
@@ -226,16 +226,23 @@ export default function DetailHome() {
                         </div>
                     </div>
                     <div className="row">
-                        <div className="col-10">
-                            <Form.Control style={{height:"140%",border:"1px solid black " , marginLeft:"11px"}}
-                                type="text"
-                                id="inputPassword5"
-                                placeholder="Write your comments..."
-                                aria-describedby="passwordHelpBlock"
-                            />
+                        <div className="col-12">
+                            <TextField id="standard-basic" style={{width:"100%"}} label="Comment.." variant="standard" />
                         </div>
-                        <div className="col-2">
-                            <Button variant="light" type="submit" style={{height:"140%", border:"1px solid black ",marginLeft:"11px"}}>Comment </Button>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <div>
+                            <div className="row">
+                                <div className="col-11">
+                                    <Button variant="light" type="submit" style={{ borderRadius:"20px", border:"1px solid black ",marginLeft:"95%"}}>Cancel </Button>
+                                </div>
+                                <div className="col-1">
+                                    <Button variant="light" type="submit" style={{ borderRadius:"20px", border:"1px solid black ",marginLeft:"10%"}}>Comment </Button>
+                                </div>
+                            </div>
+
+
                         </div>
                     </div>
                    <Review/>

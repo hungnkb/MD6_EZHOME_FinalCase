@@ -51,10 +51,6 @@
   text-decoration: underline;
 }
 
-#btn-create {
-  /*margin-top: 40px;*/
-  /*position: fixed;*/
-}
 
 #btn-back {
   background: gray;
@@ -71,10 +67,10 @@
 }
 #btn-finish1 {
   background: #f7a800;
-  margin-left: 900px;
+  margin-left: 80%;
 }
 #btn-finish2 {
-  margin-left: 900px;
+  margin-left: 80%;
   background: gray;
 }
 /*createhome21

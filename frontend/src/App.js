@@ -18,6 +18,7 @@ import { setUserLogin } from './redux/features/authSlice';
 import DashboardHosting from './pages/hosting/dashboard';
 import UpdateUser from './components/user/UpdateUser';
 import ResetPassword from './components/user/ResetPassword';
+import HomeRenting from "./pages/hosting/homeRenting";
 
 function App() {
   const currentAuth = useSelector((state) => state.auth);
@@ -45,6 +46,7 @@ function App() {
               userLogin: response.data,
             }),
           );
+          localStorage.setItem('idUser', response.data.sub);
         }
       }
     };
@@ -56,6 +58,7 @@ function App() {
   ]);
 
   return (
+    
     <BrowserRouter>
       <Routes>
         <Route path="" element={<Home />}>
@@ -64,6 +67,7 @@ function App() {
           <Route path="/reset-password" element={<ResetPassword />} />
           <Route path="/user/hosting" element={<DashboardHosting />} />
           <Route path="/profile" element={<UpdateUser />} />
+          <Route path="/test" element={<HomeRenting />}></Route>
         </Route>
         <Route
           path={''}

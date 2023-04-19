@@ -11,10 +11,9 @@ import { useSelector } from 'react-redux';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import {Link} from "react-router-dom";
-import {Modal} from "@mui/material";
 import UpdatePassword from "./UpdatePassword";
-// import { useForm } from "react-hook-form";
-// import { yupResolver } from '@hookform/resolvers/yup';
+import HistoryRent from './HistoryRent';
+
 
 export default function UpdateUser() {
     const [age, setAge] = React.useState("");
@@ -103,130 +102,137 @@ export default function UpdateUser() {
     }
 
     return (
-        <React.Fragment>
-            <Paper elevation={3} sx={{ marginRight: "15%", marginLeft: "15%", marginTop: "20px", marginBottom: "20px" }}>
-                <Box sx={{ padding: 5 }}>
-                    <form
-                        onSubmit={handleSubmit}
-                    >
-                    <Typography variant="h6" gutterBottom sx={{ paddingBottom: 5 }}>
-                        My Proflie
-                    </Typography>
-                    <Grid container spacing={3}>
-                        <Grid item xs={12} sm={2}>
-                            <InputLabel
-                                sx={{
-                                    display: "flex",
-                                    justifyContent: "center",
-                                    fontWeight: 700
-                                }}
-                            >
-                                Full Name
-                            </InputLabel>
-                        </Grid>
-                        <Grid item xs={12} sm={10}>
-                            <TextField
-                                required
-                                id="title"
-                                name="fullName"
-                                fullWidth
-                                size="small"
-                                autoComplete="off"
-                                variant="outlined"
-                                onChange={handleChange}
-                                // placeholder={dataUser.fullName}
-                                // defaultvalue={dataUser.fullName}
-                                value={`${dataUser?.fullName ? dataUser.fullName : ""}`}
-                            />
-                        </Grid>
-                        <Grid item xs={12} sm={2}>
-                            <InputLabel
-                                sx={{
-                                    display: "flex",
-                                    justifyContent: "center",
-                                    fontWeight: 700
-                                }}
-                            >
-                                Address
-                            </InputLabel>
-                        </Grid>
-                        <Grid item xs={12} sm={10}>
-                            <TextField
-                                id="outlined-multiline-static"
-                                name="address"
-                                multiline
-                                fullWidth
-                                rows={4}
-                                onChange={handleChange}
-                                value={`${dataUser?.address ? dataUser.address : ""}`}
-                            />
-                        </Grid>
-                        <Grid item xs={12} sm={2}>
-                            {/*<Grid item xs={12} sm={4}>*/}
-                            {/*    <TextField*/}
-                            {/*        type="text"*/}
-                            {/*        required*/}
-                            {/*        id="author"*/}
-                            {/*        name="phone"*/}
-                            {/*        value={phone}*/}
-                            {/*        fullWidth*/}
-                            {/*        size="small"*/}
-                            {/*        autoComplete="off"*/}
-                            {/*        variant="outlined"*/}
-                            {/*        error={phoneError}*/}
-                            {/*        helperText={phoneError ? "Vui lòng nhập số điện thoại hợp lệ" : ""}*/}
-                            {/*        onChange={handleChange}*/}
-                            {/*    />*/}
-                            {/*</Grid>*/}
-                        </Grid>
-                        <Grid item xs={12} sm={4}>
-                            <TextField
-                                type="text"
-                                required
-                                id="author"
-                                name="phone"
-                                value={`${dataUser?.phone ? dataUser.phone : ""}`}
-                                fullWidth
-                                size="small"
-                                autoComplete="off"
-                                variant="outlined"
-                                error={phoneError}
-                                helperText={phoneError ? "Vui lòng nhập số điện thoại hợp lệ" : ""}
-                                onChange={handleChangePhone}
-                            />
-                        </Grid>
-                        <Grid item xs={12} sm={6} sx={{
-                            marginTop: 2,
-                        }}
-                        >
-                            <Link style={{marginLeft: "295px"}} onClick={handleOpenComponentChild}>
-                                Change Password
-                            </Link>
-                        </Grid>
-                        <Grid item xs={12} sm={6} />
-                        <Grid item xs={12} sm={5} />
-                        <Grid item xs={12} sm={4}>
-                            <button
-                                style={{
-                                    background: '#f7a800',
-                                    color: '#fff',
-                                    fontWeight: 'bold',
-                                    padding: '10px',
-                                    borderRadius: '5px',
-                                    border: 'none'
-                                }}
-                                type="submit"
-                                className="w-full"
-                            >
-                                Submit
-                            </button>
-                        </Grid>
-                        <Grid item xs={12} sm={5} />
-                    </Grid>
-                    </form>
-                    <UpdatePassword dataFromParent={data} dataFromParentt={dataPassword}/>
-                </Box>
-            </Paper>
-        </React.Fragment>
+      <React.Fragment>
+        <Paper
+          elevation={3}
+          sx={{
+            marginRight: '15%',
+            marginLeft: '15%',
+            marginTop: '20px',
+            marginBottom: '20px',
+          }}
+        >
+          <Box sx={{ padding: 5 }}>
+            <form onSubmit={handleSubmit}>
+
+              <Grid style={{ marginLeft: '850px' }}>
+                <Link><HistoryRent/></Link>
+              </Grid>
+
+              <Typography variant="h6" gutterBottom sx={{ paddingBottom: 5 }}>
+                My Proflie
+              </Typography>
+
+              <Grid container spacing={3}>
+                <Grid item xs={12} sm={2}>
+                  <InputLabel
+                    sx={{
+                      display: 'flex',
+                      justifyContent: 'center',
+                      fontWeight: 700,
+                    }}
+                  >
+                    Full Name
+                  </InputLabel>
+                </Grid>
+                <Grid item xs={12} sm={10}>
+                  <TextField
+                    required
+                    id="title"
+                    name="fullName"
+                    fullWidth
+                    size="small"
+                    autoComplete="off"
+                    variant="outlined"
+                    onChange={handleChange}
+                    // placeholder={dataUser.fullName}
+                    // defaultvalue={dataUser.fullName}
+                    value={`${dataUser?.fullName ? dataUser.fullName : ''}`}
+                  />
+                </Grid>
+                <Grid item xs={12} sm={2}>
+                  <InputLabel
+                    sx={{
+                      display: 'flex',
+                      justifyContent: 'center',
+                      fontWeight: 700,
+                    }}
+                  >
+                    Address
+                  </InputLabel>
+                </Grid>
+                <Grid item xs={12} sm={10}>
+                  <TextField
+                    id="outlined-multiline-static"
+                    name="address"
+                    multiline
+                    fullWidth
+                    rows={4}
+                    onChange={handleChange}
+                    value={`${dataUser?.address ? dataUser.address : ''}`}
+                  />
+                </Grid>
+                <Grid item xs={12} sm={2}></Grid>
+                <Grid item xs={12} sm={4}>
+                  <TextField
+                    type="text"
+                    required
+                    id="author"
+                    name="phone"
+                    value={`${dataUser?.phone ? dataUser.phone : ''}`}
+                    fullWidth
+                    size="small"
+                    autoComplete="off"
+                    variant="outlined"
+                    error={phoneError}
+                    helperText={
+                      phoneError ? 'Vui lòng nhập số điện thoại hợp lệ' : ''
+                    }
+                    onChange={handleChangePhone}
+                  />
+                </Grid>
+                <Grid
+                  item
+                  xs={12}
+                  sm={6}
+                  sx={{
+                    marginTop: 2,
+                  }}
+                >
+                  <Link
+                    style={{ marginLeft: '295px' }}
+                    onClick={handleOpenComponentChild}
+                  >
+                    Change Password
+                  </Link>
+                </Grid>
+                <Grid item xs={12} sm={6} />
+                <Grid item xs={12} sm={5} />
+                <Grid item xs={12} sm={4}>
+                  <button
+                    style={{
+                      background: '#f7a800',
+                      color: '#fff',
+                      fontWeight: 'bold',
+                      padding: '10px',
+                      borderRadius: '5px',
+                      border: 'none',
+                    }}
+                    type="submit"
+                    className="w-full"
+                  >
+                    Submit
+                  </button>
+                </Grid>
+                <Grid item xs={12} sm={5} />
+              </Grid>
+            </form>
+            <UpdatePassword
+              dataFromParent={data}
+              dataFromParentt={dataPassword}
+            />
+          </Box>
+        </Paper>
+      </React.Fragment>
     );
 }

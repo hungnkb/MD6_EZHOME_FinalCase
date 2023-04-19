@@ -241,8 +241,6 @@ export default function DetailHome() {
                                     <Button variant="light" type="submit" style={{ borderRadius:"20px", border:"1px solid black ",marginLeft:"10%"}}>Comment </Button>
                                 </div>
                             </div>
-
-
                         </div>
                     </div>
                    <Review/>

@@ -35,9 +35,16 @@ function HistoryRent() {
   const [historyRent, setHistoryRent] = useState([]);
 
   useEffect(() => {
-    axios.get('http://localhost:3002/api/v1/orders/?idUser=idUser').then((res) => {
-      setHistoryRent(res.data);
-    });
+    axios
+      .get(
+        `http://localhost:3002/api/v1/orders?idUser=${localStorage.getItem(
+          'idUser',
+        )}`,
+      )
+      .then((res) => {
+        console.log(res.data, 123);
+        setHistoryRent(res.data);
+      });
 }, []);
 
   return (
@@ -75,7 +82,7 @@ function HistoryRent() {
                 <TableRow>
                   <TableCell style={{ fontWeight: 'bold' }}>#</TableCell>
                   <TableCell align="right" style={{ fontWeight: 'bold' }}>
-                    Title
+                    Home 
                   </TableCell>
 
                   <TableCell align="right" style={{ fontWeight: 'bold' }}>
@@ -95,11 +102,11 @@ function HistoryRent() {
               <TableBody>
                 {historyRent.map((value, index) => (
                   <TableRow
-                    key={value.user}
+                    key={index}
                     sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                   >
                     <TableCell align="left">{index + 1}</TableCell>
-                    <TableCell align="right">{value.title}</TableCell>
+                    <TableCell align="right">{value.idHome.title}</TableCell>
                     <TableCell align="right">{value.checkin}</TableCell>
                     <TableCell align="right">{value.checkout}</TableCell>
                     <TableCell align="right">{value.charged}</TableCell>

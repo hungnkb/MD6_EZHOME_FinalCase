@@ -1,0 +1,22 @@
+.search-item{
+    cursor: pointer;
+    width: 100%;
+    background-color: white;
+  }
+  .search-input {
+    display: none;
+  }
+  
+  .search-input:checked + .search-item {
+    background-color: #f7a800;
+  }
+
+  .css-1ka5eyc-MuiPaper-root-MuiMenu-paper-MuiPopover-paper {
+    left: 50%!important;
+    transform: translateX(-50%)!important;
+  }
+
+  .mbsc-ios.mbsc-ltr.mbsc-form-control-wrapper.mbsc-textfield-wrapper.mbsc-font.mbsc-textfield-wrapper-underline{
+    display: flex!important;
+    align-items: center!important;
+  }

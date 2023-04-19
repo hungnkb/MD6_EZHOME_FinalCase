@@ -4,7 +4,6 @@ import Modal from 'react-bootstrap/Modal';
 
 export default function ModalImg(props) {
   const image = props.image
-  console.log(image,1111)
   const values = [true];
   const [fullscreen, setFullscreen] = useState(true);
   const [show, setShow] = useState(false);

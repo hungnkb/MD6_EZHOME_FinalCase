@@ -17,6 +17,7 @@ import './style.css';
 import InputGroup from 'react-bootstrap/InputGroup';
 import Form from 'react-bootstrap/Form';
 import Swal from 'sweetalert2';
+import ProgressBar from "react-bootstrap/ProgressBar";
 export default function CreateHome24() {
   const [descriptions, setDescriptions] = useState(null);
   const [bathrooms, setBathrooms] = useState(1);
@@ -145,21 +146,21 @@ export default function CreateHome24() {
 
   return (
     <>
-      <div className="row" style={{ height: '450px' }}>
+      <center>
+        <h2 >Some more information about your home</h2>
+      </center>
+      <div className="row" style={{marginBottom:"20%"}}>
         <div className="col-5">
-          <h1 style={{ fontSize: '300%', marginTop: '50px' }}>
-            It’s easy to get started on{' '}
-            <b style={{ color: '#f7a800' }}> EZHOME </b>
-          </h1>
-        </div>
-        <div className="col-7">
-          <h2>Some more information about your home</h2>
-          <div style={{ width: 500, marginLeft: '30px' }}>
-            <InputGroup className="mb-3">
-              <InputGroup.Text id="inputGroup-sizing-default">
-                Title
-              </InputGroup.Text>
-              <Form.Control
+          {/*<h1 style={{ fontSize: '300%' }}>*/}
+          {/*  It’s easy to get started on{' '}*/}
+          {/*  <b style={{ color: '#f7a800' }}> EZHOME </b>*/}
+          {/*</h1>*/}
+          <br/>
+          <InputGroup className="mb-3">
+            <InputGroup.Text id="inputGroup-sizing-default">
+              Title
+            </InputGroup.Text>
+            <Form.Control
                 as="input"
                 aria-label="Default"
                 aria-describedby="inputGroup-sizing-default"
@@ -168,12 +169,12 @@ export default function CreateHome24() {
                   setTitles(e.target.value);
                 }}
                 defaultValue={currentState.title}
-              />
-            </InputGroup>
+            />
+          </InputGroup>
 
-            <InputGroup className="mb-3">
-              <InputGroup.Text>Price</InputGroup.Text>
-              <Form.Control
+          <InputGroup className="mb-3">
+            <InputGroup.Text>Price</InputGroup.Text>
+            <Form.Control
                 as="input"
                 type="number"
                 min="1"
@@ -186,67 +187,70 @@ export default function CreateHome24() {
                 }}
                 defaultValue={currentState.price}
                 aria-label="Amount (to the nearest dollar)"
-              />
-              <InputGroup.Text>đ</InputGroup.Text>
-            </InputGroup>
-            <div>
-              <p>Bathrooms:</p>
+            />
+            <InputGroup.Text>đ</InputGroup.Text>
+          </InputGroup>
+          <div>
+            <b>Bathrooms:</b>
 
-              <Button
+            <Button
                 type="button"
                 variant="warning"
                 style={{
-                  marginLeft: '50px',
-                  marginRight: '50px',
+                  marginLeft: '10%',
+                  marginRight: '10%',
                   background: '#e9ecef',
                 }}
                 onClick={() => handleBathroomsDescrease()}
-              >
-                {' '}
-                -
-              </Button>
-              {bathrooms}
-              <Button
+            >
+              {' '}
+              -
+            </Button>
+            {bathrooms}
+            <Button
                 type="button"
                 variant="warning"
                 style={{
-                  marginLeft: '50px',
+                  marginLeft: '10%',
                   background: '#e9ecef',
                 }}
                 onClick={() => handleBathroomsInscrease()}
-              >
-                +
-              </Button>
-            </div>
-            <hr />
-            <div>
-              <p>Bedrooms:</p>
-              <Button
+            >
+              +
+            </Button>
+          </div>
+          <hr />
+          <div>
+            <b>Bedrooms: </b>
+            <Button
                 type="button"
                 variant="warning"
                 style={{
-                  marginLeft: '50px',
-                  marginRight: '50px',
+                  marginLeft: '10%',
+                  marginRight: '10%',
                   background: '#e9ecef',
                 }}
                 onClick={() => handleBedroomsDescrease()}
-              >
-                {' '}
-                -
-              </Button>
-              {bedrooms}
-              <Button
+            >
+              {' '}
+              -
+            </Button>
+            {bedrooms}
+            <Button
                 type="button"
                 variant="warning"
                 style={{
-                  marginLeft: '50px',
+                  marginLeft: '10%',
                   background: '#e9ecef',
                 }}
                 onClick={() => handleBedroomsInscrease()}
-              >
-                +
-              </Button>
-            </div>
+            >
+              +
+            </Button>
+          </div>
+        </div>
+        <div className="col-7">
+          <div style={{ width: 500, marginLeft: '10%' }}>
             <br />
             <CKEditor
               editor={ClassicEditor}
@@ -271,28 +275,33 @@ export default function CreateHome24() {
           </div>
         </div>
       </div>
-      <div className="row">
-        <div className="col-12">
-          <Button
-            id="btn-back"
-            onClick={() => navigate('/create-home/3')}
-            variant="contained"
-          >
-            Back
-          </Button>
-          {currentState.description &&
+      <div className="footer-end">
+        <ProgressBar variant="dark" now={100}/>
+        <br/>
+        <div className="row">
+          <div className="col-12">
+            <Button
+                id="btn-back"
+                onClick={() => navigate('/create-home/3')}
+                variant="contained"
+            >
+              Back
+            </Button>
+            {currentState.description &&
             currentState.title &&
             currentState.price ? (
-            <Button className='finish-create-home' variant="contained" id="btn-finish1" onClick={e => { handleFinish(e) }}>
-              Finish
-            </Button>
-          ) : (
-            <Button type="button" id="btn-finish2" variant="contained">
-              Finish
-            </Button>
-          )}
+                <Button className='finish-create-home' variant="contained" id="btn-finish1" onClick={e => { handleFinish(e) }}>
+                  Finish
+                </Button>
+            ) : (
+                <Button type="button" id="btn-finish2" variant="contained">
+                  Finish
+                </Button>
+            )}
+          </div>
         </div>
       </div>
+
     </>
   );
 }

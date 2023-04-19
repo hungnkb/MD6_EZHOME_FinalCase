@@ -67,6 +67,7 @@ function App() {
           <Route path="/reset-password" element={<ResetPassword />} />
           <Route path="/user/hosting" element={<DashboardHosting />} />
           <Route path="/profile" element={<UpdateUser />} />
+          <Route path="/test" element={<HomeRenting />}></Route>
         </Route>
         <Route
           path={''}
@@ -82,7 +83,6 @@ function App() {
           <Route path="/create-home/2" element={<CreateHome22 />}></Route>
           <Route path="/create-home/3" element={<CreateHome23 />}></Route>
           <Route path="/create-home/4" element={<CreateHome24 />}></Route>
-          <Route path="/test" element={<HomeRenting />}></Route>
         </Route>
       </Routes>
     </BrowserRouter>

@@ -3,18 +3,31 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
-import {CardActionArea} from '@mui/material';
-import {NavLink} from 'react-router-dom';
-import {useEffect, useState} from 'react';
+import { CardActionArea } from '@mui/material';
+import { NavLink, useLocation } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
 import CarouselMulti from '../../components/layout/carousel-multi';
 import Stack from '@mui/material/Stack';
 import Skeleton from '@mui/material/Skeleton';
-import login from "../../components/user/Login";
 
 export default function CardHome(props) {
     const [home, setHome] = useState([]);
-    const {loading = false} = props;
+    const [isFetchData, setIsFetchData] = useState(false);
+    const [isNothingFound, setIsNothingFound] = useState(false);
+    const { loading = false } = props;
+
+    let location = useLocation();
+
+    useEffect(() => {
+        if (location.state?.data.length > 0) {
+            setHome(location.state.data)
+        } else {
+            setIsNothingFound(true)
+            setIsFetchData(!isFetchData)
+        }
+    }, [location.state?.data])
+
     useEffect(() => {
         setTimeout(() => {
             axios
@@ -23,18 +36,18 @@ export default function CardHome(props) {
                     setHome(res.data)
                 });
         }, 1500)
-    }, []);
+    }, [isFetchData]);
     return (
         <>
 
             <div className="container">
-                <br/>
+                <br />
                 <div className="row">
                     <div className="col-12">
-                        <CarouselMulti/>
+                        <CarouselMulti />
                     </div>
                 </div>
-                <br/>
+                <br />
                 <div className="d-flex flex-wrap justify-content-center">
                     {home.length > 0 ? (
                         home.map((value, index) => {
@@ -64,7 +77,7 @@ export default function CardHome(props) {
                                                     height="250%"
                                                     image={value?.images[0]?.urlHomeImage}
                                                     alt="green iguana"
-                                                    //{value?.images[0].urlHomeImage}
+                                                //{value?.images[0].urlHomeImage}
                                                 />
                                                 <CardContent>
                                                     <Typography gutterBottom variant="p" component="div">
@@ -86,41 +99,40 @@ export default function CardHome(props) {
                         })
                     ) : (
                         <>
-                            <Stack direction="row" spacing={5} sx={{marginTop: '50px'}}>
+                            <Stack direction="row" spacing={5} sx={{ marginTop: '50px' }}>
                                 <Skeleton
                                     variant="rectangular"
                                     animation="wave"
                                     width={256}
                                     height={250}
-                                    sx={{borderRadius: '15px'}}
+                                    sx={{ borderRadius: '15px' }}
                                 />
                                 <Skeleton
                                     variant="rectangular"
                                     animation="wave"
                                     width={256}
                                     height={250}
-                                    sx={{borderRadius: '15px'}}
+                                    sx={{ borderRadius: '15px' }}
                                 />
                                 <Skeleton
                                     variant="rectangular"
                                     animation="wave"
                                     width={256}
                                     height={250}
-                                    sx={{borderRadius: '15px'}}
+                                    sx={{ borderRadius: '15px' }}
                                 />
                                 <Skeleton
                                     variant="rectangular"
                                     animation="wave"
                                     width={256}
                                     height={250}
-                                    sx={{borderRadius: '15px'}}
+                                    sx={{ borderRadius: '15px' }}
                                 />
                             </Stack>
                         </>
                     )}
 
                 </div>
-
 
             </div>
         </>

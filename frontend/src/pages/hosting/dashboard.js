@@ -8,12 +8,16 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import axios from '../../api/axios';
 import {useSelector} from 'react-redux';
-import {Button, Switch} from '@mui/material';
+import {Button, ButtonGroup, Switch} from '@mui/material';
 import Form from 'react-bootstrap/Form';
 import {useNavigate} from 'react-router-dom';
 import ReactHtmlParser, {processNodes, convertNodeToElement, htmlparser2} from 'react-html-parser';
 import detailDashboard from "./detailDashboard";
 import DetailDashboard from "./detailDashboard";
+import InputLabel from "@mui/material/InputLabel";
+import Select from "@mui/material/Select";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
 
 function DashboardHosting() {
     const [homeList, setHomeList] = useState([]);
@@ -70,16 +74,38 @@ function DashboardHosting() {
         <>
             <div className="container">
                 <br/>
-                <Button
-                    onClick={() => {
-                        navigate('/create-home');
-                    }}
-                    style={{background: '#f7a800', marginLeft: '90%'}}
-                    variant="contained"
-                >
-                    {' '}
-                    +Add home
-                </Button>
+                <div className="row">
+                    <div className="col-12">
+                        <ButtonGroup sx={{marginLeft:"80%",borderRadius:"20px",backgroundColor: 'white' }}
+                            color="warning"
+                            disableElevation
+                            variant="contained"
+                            aria-label="Disabled elevation buttons"
+                        >
+                            <Button
+                                onClick={() => {
+                                    navigate('/create-home');
+                                }}
+                                sx={{background:"#f7a800"}}
+                                variant="contained"
+                            >
+                                {' '}
+                               Views order
+                            </Button>
+                            <Button
+                                onClick={() => {
+                                    navigate('/create-home');
+                                }}
+                                sx={{background:"#f7a800"}}
+                                variant="contained"
+                            >
+                                {' '}
+                                +Add home
+                            </Button>
+                        </ButtonGroup>
+                    </div>
+                </div>
+
                 <hr/>
                 <TableContainer component={Paper}>
                     <Table sx={{minWidth: 650}} aria-label="simple table">

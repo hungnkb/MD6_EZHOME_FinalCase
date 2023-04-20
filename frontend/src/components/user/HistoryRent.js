@@ -76,22 +76,8 @@ function HistoryRent() {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
+
         <div>
-          <FormControl variant="standard" sx={{ m: 1, minWidth: 120, marginLeft: "8%" }}>
-            <InputLabel id="demo-simple-select-standard-label">Status</InputLabel>
-            <Select
-                labelId="demo-simple-select-standard-label"
-                id="demo-simple-select-standard"
-                value={status}
-                onChange={handleChange}
-                label="Age"
-            >
-              <MenuItem value="all">All Order</MenuItem>
-              <MenuItem value="ongoing">On Going</MenuItem>
-              <MenuItem value="done">Done</MenuItem>
-              <MenuItem value="cancelled">Cancel</MenuItem>
-            </Select>
-          </FormControl>
         <Box sx={style}>
           <Typography
             id="modal-modal-title"

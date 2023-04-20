@@ -12,6 +12,7 @@ import SearchCheckout from './SearchCheckout';
 import { format } from 'date-fns';
 import { Datepicker, Input, localeVi } from '@mobiscroll/react';
 import axios from '../../../api/axios';
+import { useNavigate } from 'react-router-dom';
 
 const searchList = ['Address', 'Checkin', 'Checkout', 'Bedrooms', 'Bathrooms']
 
@@ -71,9 +72,20 @@ function SearchBar() {
     const [bedrooms, setBedrooms] = useState('');
     const [homeList, setHomeList] = useState([]);
 
+    const navigate = useNavigate();
+
     const handleSearch = async () => {
-        let response = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/v1/homes/search?address=${address}&bathrooms=${bathrooms}&bedrooms=${bedrooms}&checkin=${data.checkin}&checkout=${data.checkout}`)
-        setHomeList(response.data)
+        console.log(address, bathrooms,bedrooms,data.checkin, data.checkout);
+        let response = await axios.get(`${process.env.REACT_APP_BASE_URL}/homes?address=${address}&bathrooms=${bathrooms}&bedrooms=${bedrooms}&checkin=${data.checkin}&checkout=${data.checkout}`);
+        setAddress('');
+        setBathrooms('');
+        setBedrooms('');
+        setData({
+            checkin: null,
+            checkout: null,
+        });
+        console.log(response.data);
+        navigate('/', {state: {data: response.data}});
     }
 
     const getBookings = (date, callback) => {
@@ -99,7 +111,6 @@ function SearchBar() {
         }
 
     }, []);
-    console.log(data);
 
     const [start, startRef] = useState(null);
     const [end, endRef] = useState(null);
@@ -171,17 +182,17 @@ function SearchBar() {
                                 style={{ display: 'flex', justifyContent: 'center' }}
                             >
                                 <Datepicker
-                                    style={{display: 'flex', justifyContent: 'center'}}
+                                    style={{ display: 'flex', justifyContent: 'center' }}
                                     select="range"
                                     themeVariant='light'
                                     theme='ios'
                                     dateFormat="DD-MM-YYYY"
-                                    min={ Date.now() + 24 * 60 * 60 * 1000 }
-                                    maxRange={ 100}
-                                    onChange={ handleChange }
-                                    controls={ ['calendar']}
-                                    touchUi={ false}
-                                        />
+                                    min={Date.now() + 24 * 60 * 60 * 1000}
+                                    maxRange={100}
+                                    onChange={handleChange}
+                                    controls={['calendar']}
+                                    touchUi={false}
+                                />
                             </div>
                             <MenuItem style={{ color: '#f7a800' }} onClick={handleSearch} >Apply</MenuItem>
                         </div>

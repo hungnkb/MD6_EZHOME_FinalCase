@@ -22,7 +22,6 @@ import {
 import ReactHtmlParser, {processNodes, convertNodeToElement, htmlparser2} from 'react-html-parser';
 import {Rating, TextField, Typography} from "@mui/material";
 import Button from "react-bootstrap/Button";
-import ModalComments from "./modalComments";
 import Review from "./review/review";
 // Thông tin nhà bao gồm:
 //     - Tên của căn nhà
@@ -243,7 +242,7 @@ export default function DetailHome() {
                             </div>
                         </div>
                     </div>
-                   <Review/>
+                   <Review  idHome={idHome.id}/>
                 </div>
             </div>
         </>

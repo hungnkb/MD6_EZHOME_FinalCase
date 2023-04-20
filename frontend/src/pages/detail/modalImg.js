@@ -3,7 +3,7 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 
 export default function ModalImg(props) {
-  const image = props.image
+  const image = props.image;
   const values = [true];
   const [fullscreen, setFullscreen] = useState(true);
   const [show, setShow] = useState(false);
@@ -41,21 +41,16 @@ export default function ModalImg(props) {
         <Modal.Body>
           <center>
             <div className="container">
-              {image.map((values,index)=>
-                  (
-                      <div>
-                      <div className="row">
-                        <div className="col-12">
-                          <img
-                              style={{ width: '62%' }}
-                              src={values.urlHomeImage}
-                          />
-                        </div>
-                      </div>
-                        <br/>
-                      </div>
-                  )
-              )}
+              {image.map((values, index) => (
+                <div>
+                  <div className="row">
+                    <div className="col-12">
+                      <img style={{ width: '62%' }} src={values.urlHomeImage} />
+                    </div>
+                  </div>
+                  <br />
+                </div>
+              ))}
             </div>
           </center>
         </Modal.Body>

@@ -110,7 +110,7 @@ export default class Footer extends React.Component {
           style={{ backgroundColor: 'rgba(0, 0, 0, 0.2)' }}
         >
           &copy; {new Date().getFullYear()} Copyright:{' '}
-          <NavLink className="text-dark" href="http://localhost:3000/">
+          <NavLink className="text-dark" href="http://localhost:3000">
             EZHOME
           </NavLink>
         </div>

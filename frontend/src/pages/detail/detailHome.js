@@ -48,7 +48,6 @@ export default function DetailHome() {
     const [image, setImage] = useState([]);
     const [fetchData, setFetchData] = useState(false);
     const [orders, setOrders] = useState([]);
-    const [value,setValue]= useState();
 
     useEffect(() => {
         const getData = async () => {
@@ -210,38 +209,6 @@ export default function DetailHome() {
                     <br/>
                     <hr/>
                     <br/>
-                    <div className="row">
-                        <div className="col-1">
-                            <Rating
-                                name="simple-controlled"
-                                value={value}
-                                onChange={(event, newValue) => {
-                                    setValue(newValue);
-                                }}
-                            />
-                        </div>
-                        <div className="col-11">
-                            <h3 style={{marginLeft:"1%"}}>32 comments</h3>
-                        </div>
-                    </div>
-                    <div className="row">
-                        <div className="col-12">
-                            <TextField id="standard-basic" style={{width:"100%"}} label="Comment.." variant="standard" />
-                        </div>
-                        <br/>
-                        <br/>
-                        <br/>
-                        <div>
-                            <div className="row">
-                                <div className="col-11">
-                                    <Button variant="light" type="submit" style={{ borderRadius:"20px", border:"1px solid black ",marginLeft:"95%"}}>Cancel </Button>
-                                </div>
-                                <div className="col-1">
-                                    <Button variant="light" type="submit" style={{ borderRadius:"20px", border:"1px solid black ",marginLeft:"10%"}}>Comment </Button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                    <Review  idHome={idHome.id}/>
                 </div>
             </div>

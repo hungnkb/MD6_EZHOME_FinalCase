@@ -203,7 +203,6 @@ export default function DetailHome() {
                         </div>
                         <div className="col-5" style={{ marginTop: '65px' }}>
                             <FormPay price={price} setFetchData={setFetchData} fetchData={fetchData} orders={orders} idHome={idHome.id} address={detail.address} />
-
                         </div>
                     </div>
                     <br/>

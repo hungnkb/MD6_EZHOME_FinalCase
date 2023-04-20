@@ -8,12 +8,35 @@ import Button from "react-bootstrap/Button";
 
   export default function Review(props){
     const [value,setValue]=useState()
-    const [review,setReview]=useState([])
+    const [review,setReview]=useState([]);
+    const [newReview, setNewReview]= useState({
+        rate_stars: 3,
+        content: '',
+        idHome: props.idHome,
+        idUser: localStorage.getItem('idUser')
+    })
       useEffect(()=>{
           axios.get(`http://localhost:3002/api/v1/reviews?idHome=${props.idHome}`).then((res)=>{
               setReview(res.data)
           })
-      },[])
+      },[newReview])
+      const handleChange = (event) =>{
+        setNewReview({
+            ...newReview,[event.target.name]: event.target.value
+        })
+      };
+      const handleSubmit = (event) =>{
+          event.preventDefault();
+          axios.post(`http://localhost:3002/api/v1/reviews`, {
+              rate_stars: newReview.rate_stars,
+              contents: newReview.content,
+              idHome: newReview.idHome,
+              idUser: newReview.idUser
+          }).then((response) => {
+              console.log(response.data)
+          })
+      }
+      console.log(newReview)
     return (
         <>
             <div className="row">
@@ -30,9 +53,10 @@ import Button from "react-bootstrap/Button";
                     <h3 style={{marginLeft:"1%"}}>{review.length} comment</h3>
                 </div>
             </div>
+            <form onSubmit={handleSubmit}>
             <div className="row">
                 <div className="col-12">
-                    <TextField id="standard-basic" style={{width:"100%"}} label="Comment.." variant="standard" />
+                    <TextField id="standard-basic" style={{width:"100%"}} label="Comment.." variant="standard" name="content" onChange={handleChange} />
                 </div>
                 <br/>
                 <br/>
@@ -48,6 +72,7 @@ import Button from "react-bootstrap/Button";
                     </div>
                 </div>
             </div>
+            </form>
             <div className="row">
                 <div className="col-12">
                     <div className="row">
@@ -61,14 +86,13 @@ import Button from "react-bootstrap/Button";
                                                     return (
                                                         <div className="d-flex justify-content-between mb-4">
                                                             <div className="row">
-                                                                <div className='group'>
                                                                     <div className="col-9">
                                                                         <div className="row">
                                                                             <div className="col-2">
                                                                                 <img
                                                                                     src="https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg"
                                                                                     alt="avatar"
-                                                                                    style={{width: "100%", borderRadius: "50%"}}
+                                                                                    style={{width: "100%"}}
                                                                                 />
                                                                             </div>
                                                                             <div className="col-10">
@@ -80,7 +104,6 @@ import Button from "react-bootstrap/Button";
                                                                         </div>
 
                                                                     </div>
-                                                                </div>
                                                                 <p>
                                                                     {data?.contents}
                                                                 </p>

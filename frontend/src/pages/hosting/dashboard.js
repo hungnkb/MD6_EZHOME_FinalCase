@@ -8,7 +8,7 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import axios from '../../api/axios';
 import {useSelector} from 'react-redux';
-import {Button, Switch} from '@mui/material';
+import {Button, ButtonGroup, Switch} from '@mui/material';
 import Form from 'react-bootstrap/Form';
 import {useNavigate} from 'react-router-dom';
 import ReactHtmlParser, {processNodes, convertNodeToElement, htmlparser2} from 'react-html-parser';
@@ -76,26 +76,33 @@ function DashboardHosting() {
                 <br/>
                 <div className="row">
                     <div className="col-12">
-                        <Button
-                            onClick={() => {
-                                navigate('/create-home');
-                            }}
-                            style={{background: '#f7a800', marginLeft: '70%'}}
+                        <ButtonGroup sx={{marginLeft:"80%",borderRadius:"20px",backgroundColor: 'white' }}
+                            color="warning"
+                            disableElevation
                             variant="contained"
+                            aria-label="Disabled elevation buttons"
                         >
-                            {' '}
-                            +Add homee
-                        </Button>
-                        <Button
-                            onClick={() => {
-                                navigate('/create-home');
-                            }}
-                            style={{background: '#f7a800', marginLeft: '90%'}}
-                            variant="contained"
-                        >
-                            {' '}
-                            +Add home
-                        </Button>
+                            <Button
+                                onClick={() => {
+                                    navigate('/create-home');
+                                }}
+                                sx={{background:"#f7a800"}}
+                                variant="contained"
+                            >
+                                {' '}
+                               Views order
+                            </Button>
+                            <Button
+                                onClick={() => {
+                                    navigate('/create-home');
+                                }}
+                                sx={{background:"#f7a800"}}
+                                variant="contained"
+                            >
+                                {' '}
+                                +Add home
+                            </Button>
+                        </ButtonGroup>
                     </div>
                 </div>
 

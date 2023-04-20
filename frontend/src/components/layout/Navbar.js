@@ -64,17 +64,12 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-const handleSearch = (e) => {
-  console.log(e.target.value);
-};
-
 export default function Navbar() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
   const [message, setMessage] = useState('');
-  const [openSearch, setOpenSearch] = useState(false);
   const currentState = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const navigate = useNavigate();

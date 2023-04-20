@@ -19,8 +19,6 @@ import DashboardHosting from './pages/hosting/dashboard';
 import UpdateUser from './components/user/UpdateUser';
 import ResetPassword from './components/user/ResetPassword';
 import HomeRenting from "./pages/hosting/homeRenting";
-import HistoryRent from "./components/user/HistoryRent";
-
 function App() {
   const currentAuth = useSelector((state) => state.auth);
   const [token, setToken] = useState(null);
@@ -67,7 +65,7 @@ function App() {
           <Route path="/detail-home/:id" element={<DetailHome />} />
           <Route path="/reset-password" element={<ResetPassword />} />
           <Route path="/user/hosting" element={<DashboardHosting />} />
-        <Route path="/user/profile" element={<UpdateUser />} />
+          <Route path="/user/profile" element={<UpdateUser />} />
           <Route path="/user/home" element={<HomeRenting />}></Route>
           <Route path='/homes' element={<CardHome />}></Route>
         </Route >

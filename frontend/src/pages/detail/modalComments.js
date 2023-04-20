@@ -203,7 +203,8 @@ import {Rating} from "@mui/material";
 // }
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-function ModalComments() {
+function ModalComments(props) {
+    console.log(props.comments)
     const [showModal, setShowModal] = useState(false);
     const [value,setValue]=useState()
     const handleCloseModal = () => setShowModal(false);
@@ -225,128 +226,44 @@ function ModalComments() {
                 </Modal.Header>
                 <Modal.Body>
                     {/* Nội dung của modal */}
+                    {props.comments.map((data,index)=>(
                     <div className="d-flex flex-start mb-4">
 
                         <MDBCard className="w-100">
                             <MDBCardBody className="p-4">
                                 <div>
-                                    <div className="row">
-                                        <div className="col-1">
-                                            <img
-                                                src="https://bountycdn.azureedge.net/~/media/b9bedc08353044c5b7e354858f0c4db1.ashx?la=en&rv=26a2b311-b7b5-49bf-8949-d05b6ab5f712"
-                                                alt="avatar"
-                                                style={{width:"150%",height:"60%", borderRadius:"50%"}}
-                                            />
-                                        </div>
-                                        <div className="col-8">
-                                            <MDBTypography tag="h5">Johny Cash</MDBTypography>
-                                            <p className="small">3 hours ago</p>
-                                        </div>
-                                        <div className="col-3">
-                                            <Rating
-                                                name="simple-controlled"
-                                                value={value}
-                                                onChange={(event, newValue) => {
-                                                    setValue(newValue);
-                                                }}
-                                            />
-                                        </div>
-                                    </div>
 
+                                        <div className="row">
+                                            <div className="col-1">
+                                                <img
+                                                    src="https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg"
+                                                    alt="avatar"
+                                                    style={{width:"150%",height:"60%", borderRadius:"50%"}}
+                                                />
+                                            </div>
+                                            <div className="col-8">
+                                                <MDBTypography tag="h5"> {data?.idUser.email}</MDBTypography>
+                                                <p className="small">{data?.createdAt.split("T")[0]}</p>
+                                            </div>
+                                            <div className="col-3">
+                                                <Rating
+                                                    name="simple-controlled"
+                                                    value={value}
+                                                    onChange={(event, newValue) => {
+                                                        setValue(newValue);
+                                                    }}
+                                                />
+                                            </div>
+                                        </div>
                                     <p>
-                                        Cras sit amet nibh libero, in gravida nulla. Nulla vel
-                                        metus scelerisque ante sollicitudin. Cras purus odio,
-                                        vestibulum in vulputate at, tempus viverra turpis. Fusce
-                                        condimentum nunc ac nisi vulputate fringilla. Donec
-                                        lacinia congue felis in faucibus ras purus odio,
-                                        vestibulum in vulputate at, tempus viverra turpis.
+                                        {data?.contents}
                                     </p>
 
                                 </div>
                             </MDBCardBody>
                         </MDBCard>
                     </div>
-                    <div className="d-flex flex-start mb-4">
-
-                        <MDBCard className="w-100">
-                            <MDBCardBody className="p-4">
-                                <div>
-                                    <div className="row">
-                                        <div className="col-1">
-                                            <img
-                                                src="https://bountycdn.azureedge.net/~/media/b9bedc08353044c5b7e354858f0c4db1.ashx?la=en&rv=26a2b311-b7b5-49bf-8949-d05b6ab5f712"
-                                                alt="avatar"
-                                                style={{width:"150%",height:"60%", borderRadius:"50%"}}
-                                            />
-                                        </div>
-                                        <div className="col-8">
-                                            <MDBTypography tag="h5">Johny Cash</MDBTypography>
-                                            <p className="small">3 hours ago</p>
-                                        </div>
-                                        <div className="col-3">
-                                            <Rating
-                                                name="simple-controlled"
-                                                value={value}
-                                                onChange={(event, newValue) => {
-                                                    setValue(newValue);
-                                                }}
-                                            />
-                                        </div>
-                                    </div>
-
-                                    <p>
-                                        Cras sit amet nibh libero, in gravida nulla. Nulla vel
-                                        metus scelerisque ante sollicitudin. Cras purus odio,
-                                        vestibulum in vulputate at, tempus viverra turpis. Fusce
-                                        condimentum nunc ac nisi vulputate fringilla. Donec
-                                        lacinia congue felis in faucibus ras purus odio,
-                                        vestibulum in vulputate at, tempus viverra turpis.
-                                    </p>
-
-                                </div>
-                            </MDBCardBody>
-                        </MDBCard>
-                    </div> <div className="d-flex flex-start mb-4">
-
-                    <MDBCard className="w-100">
-                        <MDBCardBody className="p-4">
-                            <div>
-                                <div className="row">
-                                    <div className="col-1">
-                                        <img
-                                            src="https://bountycdn.azureedge.net/~/media/b9bedc08353044c5b7e354858f0c4db1.ashx?la=en&rv=26a2b311-b7b5-49bf-8949-d05b6ab5f712"
-                                            alt="avatar"
-                                            style={{width:"150%",height:"60%", borderRadius:"50%"}}
-                                        />
-                                    </div>
-                                    <div className="col-8">
-                                        <MDBTypography tag="h5">Johny Cash</MDBTypography>
-                                        <p className="small">3 hours ago</p>
-                                    </div>
-                                    <div className="col-3">
-                                        <Rating
-                                            name="simple-controlled"
-                                            value={value}
-                                            onChange={(event, newValue) => {
-                                                setValue(newValue);
-                                            }}
-                                        />
-                                    </div>
-                                </div>
-
-                                <p>
-                                    Cras sit amet nibh libero, in gravida nulla. Nulla vel
-                                    metus scelerisque ante sollicitudin. Cras purus odio,
-                                    vestibulum in vulputate at, tempus viverra turpis. Fusce
-                                    condimentum nunc ac nisi vulputate fringilla. Donec
-                                    lacinia congue felis in faucibus ras purus odio,
-                                    vestibulum in vulputate at, tempus viverra turpis.
-                                </p>
-
-                            </div>
-                        </MDBCardBody>
-                    </MDBCard>
-                </div>
+                    ))}
                 </Modal.Body>
                 <Modal.Footer>
                     {/*<Button variant="secondary" onClick={handleCloseModal}>*/}

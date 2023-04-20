@@ -6,9 +6,9 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useDropzone } from 'react-dropzone';
 import { setFiles } from '../../../redux/features/homeSlice';
-import ImageUploading from "react-images-uploading";
+import ImageUploading from 'react-images-uploading';
 import './style.css';
-import ProgressBar from "react-bootstrap/ProgressBar";
+import ProgressBar from 'react-bootstrap/ProgressBar';
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
   ...theme.typography.body2,
@@ -23,22 +23,23 @@ export default function CreateHome23() {
   const dispatch = useDispatch();
   const currentState = useSelector((state) => state.createHome);
   const [check, setCheck] = useState(false);
-  const currentAuth = useSelector(state => state.auth);
+  const currentAuth = useSelector((state) => state.auth);
   const maxNumber = 5;
 
   useEffect(() => {
     if (!currentAuth.isLogined) {
-      navigate('/')
+      navigate('/');
     }
   }, []);
 
   const onImageRemove = (index) => {
     const newImages = [...images];
-    if(newImages.length === 1) {
+    if (newImages.length === 1) {
       return onImageRemoveAll();
     }
-    setImages(newImages.splice(index, 1))
-  }
+    newImages.splice(index, 1);
+    setImages(newImages);
+  };
 
   const onImageRemoveAll = () => {
     setImages([]);
@@ -48,7 +49,7 @@ export default function CreateHome23() {
   const onChange = (imageList, addUpdateIndex) => {
     console.log(imageList);
     setImages(imageList);
-  }
+  };
 
   useEffect(() => {
     if (images.length > 0) {
@@ -62,88 +63,113 @@ export default function CreateHome23() {
   return (
     <>
       <div className="row">
-        <div className="col-3">
-        </div>
-        <div className="col-6" style={{marginBottom:"20%"}}>
+        <div className="col-3"></div>
+        <div className="col-6" style={{ marginBottom: '20%' }}>
           <h2>Add some photos of your dammuso-category accommodation </h2>
-          <p>You will need 5 photos to get started. You can still post more or change photos later. </p>
+          <p>
+            You will need 5 photos to get started. You can still post more or
+            change photos later.{' '}
+          </p>
           <ImageUploading
-              multiple
-              value={images}
-              onChange={onChange}
-              maxNumber={maxNumber}
-              dataURLKey="data_url"
-              acceptType={["jpg", "jpeg", "png", "webp"]}
+            multiple
+            value={images}
+            onChange={onChange}
+            maxNumber={maxNumber}
+            dataURLKey="data_url"
+            acceptType={['jpg', 'jpeg', 'png', 'webp']}
           >
             {({
-                imageList,
-                onImageUpload,
-                onImageUpdate,
-                isDragging,
-                dragProps
-              }) => (
-                // write your building UI
-                <div className="upload__image-wrapper">
-                  <Button
-                      style={isDragging ? { color: "red", marginRight: '10px' } : null}
-                      onClick={onImageUpload}
-                      {...dragProps}
-                  >
+              imageList,
+              onImageUpload,
+              onImageUpdate,
+              isDragging,
+              dragProps,
+            }) => (
+              // write your building UI
+              <div className="upload__image-wrapper">
+                <Button
+                  style={
+                    isDragging ? { color: 'red', marginRight: '10px' } : null
+                  }
+                  onClick={onImageUpload}
+                  {...dragProps}
+                >
                   Add image...
-                  </Button>
-                  &nbsp;
-                  <Button variant="light" color="error" onClick={onImageRemoveAll}>Remove all images</Button>
-                  {imageList.map((image, index) => (
-                      <div >
-                      <br/>
-                        <div key={index} className="image-item" style={{borderStyle:"dotted"}}>
-                          <div className="image-item__btn-wrapper">
-                            <Button sx={{marginLeft: '70%'}} variant="light" onClick={() => onImageUpdate(index)}><i
-                                className="fa-solid fa-pen"></i></Button>
-                            <Button variant="light" color="error" onClick={() => onImageRemove(index)}><i
-                                className="fa-regular fa-delete-left"></i></Button>
-                          </div>
-                          <img src={image.data_url} alt="image" style={{width:"100%"}}/>
-                        </div>
+                </Button>
+                &nbsp;
+                <Button
+                  variant="light"
+                  color="error"
+                  onClick={onImageRemoveAll}
+                >
+                  Remove all images
+                </Button>
+                {imageList.map((image, index) => (
+                  <div>
+                    <br />
+                    <div
+                      key={index}
+                      className="image-item"
+                      style={{ borderStyle: 'dotted' }}
+                    >
+                      <div className="image-item__btn-wrapper">
+                        <Button
+                          sx={{ marginLeft: '70%' }}
+                          variant="light"
+                          onClick={() => onImageUpdate(index)}
+                        >
+                          <i className="fa-solid fa-pen"></i>
+                        </Button>
+                        <Button
+                          variant="light"
+                          color="error"
+                          onClick={() => onImageRemove(index)}
+                        >
+                          <i className="fa-regular fa-delete-left"></i>
+                        </Button>
                       </div>
-
-                  ))}
-                </div>
+                      <img
+                        src={image.data_url}
+                        alt="image"
+                        style={{ width: '100%' }}
+                      />
+                    </div>
+                  </div>
+                ))}
+              </div>
             )}
           </ImageUploading>
         </div>
-        <div className="col-3">
-        </div>
+        <div className="col-3"></div>
       </div>
       <div className="footer-end">
-        <ProgressBar variant="dark" now={75}/>
-        <br/>
+        <ProgressBar variant="dark" now={75} />
+        <br />
         <div className="row" id="btn-create">
           <div className="col-12">
             <Button
-                id="btn-back"
-                onClick={() => navigate('/create-home/2')}
-                variant="contained"
+              id="btn-back"
+              onClick={() => navigate('/create-home/2')}
+              variant="contained"
             >
               Back
             </Button>
             {check ? (
-                <Button
-                    id="btn-next1"
-                    onClick={() => navigate('/create-home/4')}
-                    variant="contained"
-                >
-                  Next
-                </Button>
+              <Button
+                id="btn-next1"
+                onClick={() => navigate('/create-home/4')}
+                variant="contained"
+              >
+                Next
+              </Button>
             ) : (
-                <Button id="btn-next2" Button variant="contained" type="button">
-                  Next
-                </Button>
+              <Button id="btn-next2" Button variant="contained" type="button">
+                Next
+              </Button>
             )}
           </div>
         </div>
       </div>
-
     </>
   );
 }

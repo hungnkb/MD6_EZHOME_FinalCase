@@ -11,7 +11,6 @@ import { useSelector } from 'react-redux';
 import Swal from 'sweetalert2';
 import HtmlParser from 'react-html-parser';
 
-
 const getBookings = (date, callback) => {
   const invalid = [];
   const labels = [];
@@ -32,43 +31,46 @@ export default function FormPay(props) {
     // numberOfInfants: 0,
   });
 
-  const currentAuth = useSelector(state => state.auth)
+  const currentAuth = useSelector((state) => state.auth);
   useEffect(() => {
     let newOrderList = [];
     for (let i of props.orders) {
-      newOrderList.push({ start: i.checkin, end: i.checkout })
+      newOrderList.push({ start: i.checkin, end: i.checkout });
     }
-    setOrders(newOrderList)
-  }, [props.orders])
+    setOrders(newOrderList);
+  }, [props.orders]);
 
   const onPageLoadingMultiple = useCallback((event) => {
     getBookings(event.firstDay, (bookings) => {
       setMultipleInvalid([bookings.invalid]);
     });
   }, []);
-  const handleChange = useCallback((ev) => {
-    if (ev.value[0] && ev.value[1]) {
-      setOrderTime({ checkin: ev.value[0], checkout: ev.value[1] });
-      let dayDiff = Math.round(
+  const handleChange = useCallback(
+    (ev) => {
+      if (ev.value[0] && ev.value[1]) {
+        setOrderTime({ checkin: ev.value[0], checkout: ev.value[1] });
+        let dayDiff = Math.round(
           Math.abs(ev.value[0] - ev.value[1]) / (1000 * 60 * 60 * 24),
-      );
+        );
 
-      let charged = parseInt(dayDiff * Number(props.price));
-      setTotal(charged);
-      // setTotal({ ...total, totalDay: dayDiff });
-      // setOpenDate(false);
-    } else if (ev.value[0] || ev.value[1]) {
-      setTotal(0)
-    } else {
-      return
-    }
-    setDate([ev.value[0], ev.value[1]]);
-    setData({
-      ...data,
-      checkin: format(new Date(ev.value[0]), 'yyyy-MM-dd'),
-      checkout: format(new Date(ev.value[1]), 'yyyy-MM-dd'),
-    });
-  }, [props.price]);
+        let charged = parseInt(dayDiff * Number(props.price));
+        setTotal(charged);
+        // setTotal({ ...total, totalDay: dayDiff });
+        // setOpenDate(false);
+      } else if (ev.value[0] || ev.value[1]) {
+        setTotal(0);
+      } else {
+        return;
+      }
+      setDate([ev.value[0], ev.value[1]]);
+      setData({
+        ...data,
+        checkin: format(new Date(ev.value[0]), 'yyyy-MM-dd'),
+        checkout: format(new Date(ev.value[1]), 'yyyy-MM-dd'),
+      });
+    },
+    [props.price],
+  );
 
   const handleBook = async () => {
     axios({
@@ -79,113 +81,143 @@ export default function FormPay(props) {
         checkout: data.checkout,
         idUser: currentAuth.userLogin.sub,
         idHome: props.idHome,
-        charged: total
-      }
-    }).then((res) => 
-      {
+        charged: total,
+      },
+    })
+      .then((res) => {
         console.log(res);
         Swal.fire({
-        position: 'center',
-        icon: 'success',
-        title: 'Oops...',
-        text: `${HtmlParser(
-          <div>
-            <h3>Order details:</h3>
-            <p>Checkin: ${orderTime.checkin}</p>
-            <p>Checkout: ${orderTime.checkout}</p>
-            <p>Address: ${props.address}</p>
-            <p>Total charged: ${total.toLocaleString('en-EN')}</p>
-          </div>
-        )}`,
-      })})
-  }
+          position: 'center',
+          icon: 'success',
+          title: 'Oops...',
+          text: `${HtmlParser(
+            <div>
+              <h3>Order details:</h3>
+              <p>Checkin: ${orderTime.checkin}</p>
+              <p>Checkout: ${orderTime.checkout}</p>
+              <p>Address: ${props.address}</p>
+              <p>Total charged: ${total.toLocaleString('en-EN')}</p>
+            </div>,
+          )}`,
+        });
+      })
+      .catch((error) => {
+        console.log(error, 111);
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'You can not order your own home!',
+        });
+      });
+  };
 
   return (
-      <MDBContainer>
-        <MDBRow>
-          <MDBCol>
-            <div className="p-3" style={{ border: '1px solid gray', display: 'flex', justifyContent: 'center', flexDirection: 'column' }}>
+    <MDBContainer>
+      <MDBRow>
+        <MDBCol>
+          <div
+            className="p-3"
+            style={{
+              border: '1px solid gray',
+              display: 'flex',
+              justifyContent: 'center',
+              flexDirection: 'column',
+            }}
+          >
             <span className="fw-bold">
               {' '}
               <b>{props.price?.toLocaleString('en-EN')}đ </b>
               /night
             </span>
-              <hr />
+            <hr />
+            <div style={{ display: 'flex', justifyContent: 'center' }}>
               <div
-                  style={{ display: 'flex', justifyContent: 'center' }}
+                onClick={() => setOpenDate(!openDate)}
+                className="calendar_check_in_out flex mr-10 cursor-pointer"
+                style={{
+                  width: '100%',
+                  display: 'flex',
+                  justifyContent: 'center',
+                  flexDirection: 'column',
+                }}
               >
-                <div
-                    onClick={() => setOpenDate(!openDate)}
-                    className="calendar_check_in_out flex mr-10 cursor-pointer"
-                    style={{ width: '100%', display: 'flex', justifyContent: 'center', flexDirection: 'column', }}
-                >
-                  <div className="row">
-                    <div className="col-6">
-                      <div className="home-booking-checkinout flex items-center" style={{ display: 'flex', justifyContent: 'center' }}>
-                        <div className="home-booking-content cursor-pointer">
-                          <label htmlFor="check-in">
-                            <b>Nhận phòng</b>
-                          </label>
-                          <div className="home-booking-info">
-                            {date[0]
-                                ? format(new Date(date[0]), 'dd/MM/yyyy')
-                                : 'Chọn ngày'}
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="col-6">
-                      <div className="home-booking-checkinout flex items-center" style={{ display: 'flex', justifyContent: 'center' }}>
-                        <div className="home-booking-content cursor-pointer">
-                          <label htmlFor="check-out">
-                            {' '}
-                            <b> Trả phòng</b>{' '}
-                          </label>
-                          <div className="home-booking-info">
-                            {date[1]
-                                ? format(new Date(date[1]), 'dd/MM/yyyy')
-                                : 'Chọn ngày'}
-                          </div>
+                <div className="row">
+                  <div className="col-6">
+                    <div
+                      className="home-booking-checkinout flex items-center"
+                      style={{ display: 'flex', justifyContent: 'center' }}
+                    >
+                      <div className="home-booking-content cursor-pointer">
+                        <label htmlFor="check-in">
+                          <b>Nhận phòng</b>
+                        </label>
+                        <div className="home-booking-info">
+                          {date[0]
+                            ? format(new Date(date[0]), 'dd/MM/yyyy')
+                            : 'Chọn ngày'}
                         </div>
                       </div>
                     </div>
                   </div>
-
-                  <div
-                      onClick={(event) => event.stopPropagation()}
-                      className={`calendar-range ${openDate ? '' : 'hidden'}`}
+                  <div className="col-6">
+                    <div
+                      className="home-booking-checkinout flex items-center"
                       style={{ display: 'flex', justifyContent: 'center' }}
-                  >
-                    <Datepicker
-                        theme="ios"
-                        themeVariant="light"
-                        dateFormat="DD-MM-YYYY"
-                        select="range"
-                        display="inline"
-                        touchUi={false}
-                        value={date}
-                        onChange={handleChange}
-                        rangeStartLabel="Ngày đến"
-                        rangeEndLabel="Ngày trả"
-                        locale={localeVi}
-                        minRange={1}
-                        min={Date.now() + 24 * 60 * 60 * 1000}
-                        maxRange={100}
-                        width={`200px`}
-                        rangeHighlight={true}
-                        showRangeLabels={true}
-                        controls={['calendar']}
-                        invalid={[
-                          multipleInvalid,
-                          ...orders
-                        ]}
-                        onPageLoading={onPageLoadingMultiple}
-                    />
+                    >
+                      <div className="home-booking-content cursor-pointer">
+                        <label htmlFor="check-out">
+                          {' '}
+                          <b> Trả phòng</b>{' '}
+                        </label>
+                        <div className="home-booking-info">
+                          {date[1]
+                            ? format(new Date(date[1]), 'dd/MM/yyyy')
+                            : 'Chọn ngày'}
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
+
+                <div
+                  onClick={(event) => event.stopPropagation()}
+                  className={`calendar-range ${openDate ? '' : 'hidden'}`}
+                  style={{ display: 'flex', justifyContent: 'center' }}
+                >
+                  <Datepicker
+                    theme="ios"
+                    themeVariant="light"
+                    dateFormat="DD-MM-YYYY"
+                    select="range"
+                    display="inline"
+                    touchUi={false}
+                    value={date}
+                    onChange={handleChange}
+                    rangeStartLabel="Ngày đến"
+                    rangeEndLabel="Ngày trả"
+                    locale={localeVi}
+                    minRange={1}
+                    min={Date.now() + 24 * 60 * 60 * 1000}
+                    maxRange={100}
+                    width={`200px`}
+                    rangeHighlight={true}
+                    showRangeLabels={true}
+                    controls={['calendar']}
+                    invalid={[multipleInvalid, ...orders]}
+                    onPageLoading={onPageLoadingMultiple}
+                  />
+                </div>
               </div>
+            </div>
             <div style={{ display: 'flex', justifyContent: 'center' }}>
-              <Button onClick={() => { setOpenDate(!openDate); handleBook() }} variant="warning" style={{ width: 400, marginTop: '10px' }}>
+              <Button
+                onClick={() => {
+                  setOpenDate(!openDate);
+                  handleBook();
+                }}
+                variant="warning"
+                style={{ width: 400, marginTop: '10px' }}
+              >
                 Book now
               </Button>
             </div>
@@ -196,15 +228,15 @@ export default function FormPay(props) {
                   {' '}
                   <b> Total</b>{' '}
                 </span>{' '}
-                    <span className="text-success">
+                <span className="text-success">
                   {' '}
-                      <b> đ{total?.toLocaleString('en-EN')}</b>{' '}
+                  <b> đ{total?.toLocaleString('en-EN')}</b>{' '}
                 </span>
-                  </div>
-              ) : null}
-            </div>
-          </MDBCol>
-        </MDBRow>
-      </MDBContainer>
+              </div>
+            ) : null}
+          </div>
+        </MDBCol>
+      </MDBRow>
+    </MDBContainer>
   );
 }

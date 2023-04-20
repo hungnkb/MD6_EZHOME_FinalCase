@@ -44,7 +44,7 @@ export default function Register(props) {
 
   const REGEX = {
     email: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
-    password: /^\w{6,8}$/
+    password: /^\w{6,8}$/,
   };
   const [form, setForm] = useState({});
   const handleClose = () => {
@@ -60,31 +60,31 @@ export default function Register(props) {
     event.preventDefault();
     setFlag(true);
     axios
-        .post('http://localhost:3002/api/v1/users', {
-          email: emailTokenPassword.email,
-          password: emailTokenPassword.password,
-        })
-        .then(
-            (response) => {
-              console.log(response)
-              setOpen(false);
-              setTimeout(() => {
-                Swal.fire({
-                  icon: 'success',
-                  title: 'Register Success, please check your Email to Active',
-                });
-              }, 0);
-            },
-            (error) => {
-              console.log(error);
-              Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: 'Something went wrong!',
-                footer: '<a href="">Why do I have this issue?</a>'
-              })
-            },
-        );
+      .post('http://localhost:3002/api/v1/users', {
+        email: emailTokenPassword.email,
+        password: emailTokenPassword.password,
+      })
+      .then(
+        (response) => {
+          console.log(response);
+          setOpen(false);
+          setTimeout(() => {
+            Swal.fire({
+              icon: 'success',
+              title: 'Register Success, please check your Email to Active',
+            });
+          }, 0);
+        },
+        (error) => {
+          console.log(error);
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Something went wrong!',
+            footer: '<a href="">Why do I have this issue?</a>',
+          });
+        },
+      );
   };
 
   const handleChange = (event) => {
@@ -92,23 +92,23 @@ export default function Register(props) {
     if (event.target.name === 'password') {
       if (form.confirmPassword && form.confirmPassword.value) {
         error =
-            event.target.value === form.confirmPassword.value
-                ? ''
-                : MESSAGE_ERROR[event.target.name];
-      } else {
-        error = REGEX[event.target.name].test(event.target.value)
+          event.target.value === form.confirmPassword.value
             ? ''
             : MESSAGE_ERROR[event.target.name];
+      } else {
+        error = REGEX[event.target.name].test(event.target.value)
+          ? ''
+          : MESSAGE_ERROR[event.target.name];
       }
     } else if (event.target.name === 'confirmPassword') {
       error =
-          event.target.value === form.password.value
-              ? ''
-              : MESSAGE_ERROR[event.target.name];
-    } else {
-      error = REGEX[event.target.name].test(event.target.value)
+        event.target.value === form.password.value
           ? ''
           : MESSAGE_ERROR[event.target.name];
+    } else {
+      error = REGEX[event.target.name].test(event.target.value)
+        ? ''
+        : MESSAGE_ERROR[event.target.name];
     }
     setForm({
       ...form,
@@ -121,145 +121,145 @@ export default function Register(props) {
   };
   console.log(emailTokenPassword);
   return (
-      <div>
-        {open && (
-            <Modal open={open} onClose={handleClose}>
-              <Box
-                  sx={{
-                    position: 'absolute',
-                    width: 500,
-                    top: '40%',
-                    left: '50%',
-                    transform: 'translate(-50%, -50%)',
-                    borderRadius: '10px',
-                    boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.25)',
-                  }}
+    <div>
+      {open && (
+        <Modal open={open} onClose={handleClose}>
+          <Box
+            sx={{
+              position: 'absolute',
+              width: 500,
+              top: '40%',
+              left: '50%',
+              transform: 'translate(-50%, -50%)',
+              borderRadius: '10px',
+              boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.25)',
+            }}
+          >
+            <div
+              className="bg-white border flex flex-col p-4 pt-10"
+              style={{
+                marginBlockStart: '50px',
+                textAlign: 'center',
+              }}
+            >
+              <h4
+                style={{
+                  fontWeight: 'bold',
+                  marginBottom: '10px',
+                }}
               >
+                Register
+              </h4>
+              <br></br>
+              <form
+                onSubmit={handleSubmit}
+                className="flex flex-col justify-center items-center"
+              >
+                <input
+                  onChange={handleChange}
+                  value={email}
+                  name="email"
+                  placeholder="Email"
+                  style={{
+                    marginBottom: '10px',
+                    padding: '10px',
+                    width: '100%',
+                    borderRadius: '5px',
+                    fontSize: '16px',
+                    backgroundColor: '#f2f2f2',
+                    border: '1px solid #ccc',
+                  }}
+                ></input>
+                <br />
+                <br />
                 <div
-                    className="bg-white border flex flex-col p-4 pt-10"
-                    style={{
-                      marginBlockStart: '50px',
-                      textAlign: 'center',
-                    }}
+                  className={`custom-input ${
+                    form.password && form.password.error && 'custom-input-error'
+                  }`}
                 >
-                  <h4
-                      style={{
-                        fontWeight: 'bold',
-                        marginBottom: '10px',
-                      }}
-                  >
-                    Register
-                  </h4>
-                  <br></br>
-                  <form
-                      onSubmit={handleSubmit}
-                      className="flex flex-col justify-center items-center"
-                  >
-                    <input
-                        onChange={handleChange}
-                        value={email}
-                        name="email"
-                        placeholder="Email"
-                        style={{
-                          marginBottom: '10px',
-                          padding: '10px',
-                          width: '100%',
-                          borderRadius: '5px',
-                          fontSize: '16px',
-                          backgroundColor: '#f2f2f2',
-                          border: '1px solid #ccc',
-                        }}
-                    ></input>
-                    <br />
-                    <br />
-                    <div
-                        className={`custom-input ${
-                            form.password && form.password.error && 'custom-input-error'
-                        }`}
-                    >
-                      <input
-                          name="password"
-                          value={(form.password && form.password.value) || ''}
-                          onChange={handleChange}
-                          placeholder="New Password"
-                          style={{
-                            marginBottom: '10px',
-                            padding: '10px',
-                            width: '100%',
-                            borderRadius: '5px',
-                            fontSize: '16px',
-                            backgroundColor: '#f2f2f2',
-                            border: '1px solid #ccc',
-                          }}
-                          type={'password'}
-                      ></input>
-                      {form.password && form.password.error && (
-                          <p className="error">{form.password.error}</p>
-                      )}
-                    </div>
-                    <br />
-                    <div
-                        className={`custom-input ${
-                            form.confirmPassword &&
-                            form.confirmPassword.error &&
-                            'custom-input-error'
-                        }`}
-                    >
-                      <input
-                          name="confirmPassword"
-                          onChange={handleChange}
-                          placeholder="Re New Password"
-                          style={{
-                            marginBottom: '10px',
-                            padding: '10px',
-                            width: '100%',
-                            borderRadius: '5px',
-                            fontSize: '16px',
-                            backgroundColor: '#f2f2f2',
-                            border: '1px solid #ccc',
-                          }}
-                          type={'password'}
-                      ></input>
-                      {form.confirmPassword && form.confirmPassword.error && (
-                          <p className="error">{form.confirmPassword.error}</p>
-                      )}
-                    </div>
-                    <br />
-                    <div className="flex justify-center">
-                      <Button
-                          style={{
-                            background: '#f7a800',
-                            color: '#fff',
-                            fontWeight: 'bold',
-                            padding: '10px',
-                            borderRadius: '5px',
-                            width:"100%"
-                          }}
-                          type="submit"
-                          className="w-full"
-                      >
-                        Submit
-                      </Button>
-                    </div>
-                  </form>
+                  <input
+                    name="password"
+                    value={(form.password && form.password.value) || ''}
+                    onChange={handleChange}
+                    placeholder="New Password"
+                    style={{
+                      marginBottom: '10px',
+                      padding: '10px',
+                      width: '100%',
+                      borderRadius: '5px',
+                      fontSize: '16px',
+                      backgroundColor: '#f2f2f2',
+                      border: '1px solid #ccc',
+                    }}
+                    type={'password'}
+                  ></input>
+                  {form.password && form.password.error && (
+                    <p className="error">{form.password.error}</p>
+                  )}
                 </div>
-                <div className="bg-white border p-5 text-center drop-shadow-md">
+                <br />
+                <div
+                  className={`custom-input ${
+                    form.confirmPassword &&
+                    form.confirmPassword.error &&
+                    'custom-input-error'
+                  }`}
+                >
+                  <input
+                    name="confirmPassword"
+                    onChange={handleChange}
+                    placeholder="Re New Password"
+                    style={{
+                      marginBottom: '10px',
+                      padding: '10px',
+                      width: '100%',
+                      borderRadius: '5px',
+                      fontSize: '16px',
+                      backgroundColor: '#f2f2f2',
+                      border: '1px solid #ccc',
+                    }}
+                    type={'password'}
+                  ></input>
+                  {form.confirmPassword && form.confirmPassword.error && (
+                    <p className="error">{form.confirmPassword.error}</p>
+                  )}
+                </div>
+                <br />
+                <div className="flex justify-center">
+                  <Button
+                    style={{
+                      background: '#f7a800',
+                      color: '#fff',
+                      fontWeight: 'bold',
+                      padding: '10px',
+                      borderRadius: '5px',
+                      width: '100%',
+                    }}
+                    type="submit"
+                    className="w-full"
+                  >
+                    Submit
+                  </Button>
+                </div>
+              </form>
+            </div>
+            <div className="bg-white border p-5 text-center drop-shadow-md">
               <span>
                 You already have an account?{' '}
                 <Link
-                    onClick={() => {
-                      props.setIsLogin(1);
-                    }}
-                    className="text-primary-blue"
-                    style={{ color: '#e85710' }}
+                  onClick={() => {
+                    props.setIsLogin(1);
+                  }}
+                  className="text-primary-blue"
+                  style={{ color: '#e85710' }}
                 >
                   Login
                 </Link>
               </span>
-                </div>
-              </Box>
-            </Modal>
-        )}
-      </div>
+            </div>
+          </Box>
+        </Modal>
+      )}
+    </div>
   );
 }

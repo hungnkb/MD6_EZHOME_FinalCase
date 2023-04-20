@@ -9,7 +9,7 @@ const initialState = {
   description: null,
   idCategory: null,
   files: null,
-}
+};
 
 export const homeSlice = createSlice({
   name: 'homeCreate',
@@ -50,7 +50,7 @@ export const homeSlice = createSlice({
     },
     setDefault: (state, action) => {
       return { ...initialState };
-    }
+    },
   },
 });
 
@@ -63,6 +63,6 @@ export const {
   setDesc,
   setCategory,
   setFiles,
-  setDefault
+  setDefault,
 } = homeSlice.actions;
 export default homeSlice.reducer;

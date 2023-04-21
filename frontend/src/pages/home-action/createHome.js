@@ -23,7 +23,7 @@
 //     setImages((images) => [...images, ...acceptedFiles]);
 //   }, []);
 
-//   console.log(222, images);
+//   (222, images);
 
 //   const { getRootProps, getInputProps, isDragActive } = useDropzone({
 //     onDrop,
@@ -50,7 +50,7 @@
 //       idCategory,
 //       file,
 //     })``;
-//     console.log(newHome);
+//     (newHome);
 
 //     if (form.checkValidity() === false) {
 //       event.preventDefault();

@@ -4,12 +4,9 @@ import { format } from 'date-fns';
 import { Datepicker, localeVi } from '@mobiscroll/react';
 import Button from 'react-bootstrap/Button';
 import { useEffect } from 'react';
-import { number } from 'yup';
-import { loginUser } from '../../service/userAction';
 import axios from '../../api/axios';
 import { useSelector } from 'react-redux';
 import Swal from 'sweetalert2';
-import HtmlParser from 'react-html-parser';
 
 const getBookings = (date, callback) => {
   const invalid = [];
@@ -85,20 +82,11 @@ export default function FormPay(props) {
       },
     })
       .then((res) => {
-        console.log(res);
         Swal.fire({
           position: 'center',
           icon: 'success',
           title: 'Oops...',
-          text: `${HtmlParser(
-            <div>
-              <h3>Order details:</h3>
-              <p>Checkin: ${orderTime.checkin}</p>
-              <p>Checkout: ${orderTime.checkout}</p>
-              <p>Address: ${props.address}</p>
-              <p>Total charged: ${total.toLocaleString('en-EN')}</p>
-            </div>,
-          )}`,
+          text: `Done`,
         });
       })
       .catch((error) => {
@@ -178,7 +166,6 @@ export default function FormPay(props) {
                     </div>
                   </div>
                 </div>
-
                 <div
                   onClick={(event) => event.stopPropagation()}
                   className={`calendar-range ${openDate ? '' : 'hidden'}`}
@@ -213,7 +200,16 @@ export default function FormPay(props) {
               <Button
                 onClick={() => {
                   setOpenDate(!openDate);
-                  handleBook();
+                  if (!currentAuth.isLogined) {
+                    Swal.fire({
+                      icon: 'error',
+                      title: 'Oops...',
+                      text: 'Login needed!',
+                      footer: '<a href="">Why do I have this issue?</a>'
+                    })
+                  } else {
+                    handleBook();
+                  }
                 }}
                 variant="warning"
                 style={{ width: 400, marginTop: '10px' }}

@@ -248,7 +248,6 @@ function ModalComments(props) {
                                             <div className="col-3">
                                                 <Rating
                                                     name="simple-controlled"
-                                                    name="simple-controlled"
                                                     readOnly
                                                     defaultValue={data?.rate_stars}
                                                 />

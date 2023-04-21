@@ -55,14 +55,9 @@ function App() {
       }
     };
     verifyToken();
-  }, [
-    token,
-    fetchUserData,
-    currentAuth.isFetchDataUser,
-  ]);
+  }, [token, fetchUserData, currentAuth.isFetchDataUser]);
 
   return (
-
     <BrowserRouter>
       <Routes>
         <Route path="" element={<Home />}>

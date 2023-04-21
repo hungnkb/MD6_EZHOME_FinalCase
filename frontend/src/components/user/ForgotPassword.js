@@ -156,7 +156,7 @@ export default function ForgotPassword(props) {
                 <br />
                 <br />
                 <Button
-                  style={{ background: '#f7a800',width:"100%" }}
+                  style={{ background: '#f7a800', width: '100%' }}
                   type="submit"
                   className="bg-primary-blue font-medium py-2 rounded text-white w-full"
                 >

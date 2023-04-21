@@ -43,9 +43,7 @@ function HistoryRent() {
   useEffect(() => {
     axios
       .get(
-        `http://localhost:3002/api/v1/orders?idUser=${localStorage.getItem(
-          'idUser',
-        )}`,
+        `http://localhost:3002/api/v1/orders?idUser=${localStorage.getItem('idUser')}`
       )
       .then((res) => {
         console.log(historyRent);

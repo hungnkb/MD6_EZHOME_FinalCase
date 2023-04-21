@@ -14,7 +14,6 @@ export default function UpdatePassword(props) {
     oldPassword: '',
     newPassword: '',
   });
-  (props.dataFromParentt, 777);
   const MESSAGE_ERROR = {
     newPassword: 'Password error',
     confirmPassword: 'Password must be the same',
@@ -40,7 +39,6 @@ export default function UpdatePassword(props) {
       })
       .then(
         (response) => {
-          (response);
           handleClose();
           Swal.fire({
             position: 'center',
@@ -51,7 +49,6 @@ export default function UpdatePassword(props) {
           });
         },
         (error) => {
-          (error);
           handleClose();
           Swal.fire({
             icon: 'error',
@@ -99,7 +96,6 @@ export default function UpdatePassword(props) {
       [event.target.name]: event.target.value,
     });
   };
-  (userLogin.userLogin, 999);
   return (
     <>
       <Modal open={open} onClose={handleClose}>
@@ -116,10 +112,6 @@ export default function UpdatePassword(props) {
         >
           <div
             className="bg-white border flex flex-col p-4 pt-10"
-            style={{
-              marginBlockStart: '50px',
-              textAlign: 'center',
-            }}
           >
             <h4
               style={{

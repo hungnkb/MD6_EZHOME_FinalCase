@@ -149,16 +149,16 @@ export default function Navbar() {
         >
           Logout
         </MenuItem>
+          <MenuItem>
+            <Link style={{ textDecoration: 'none', color: 'Black' }} to="/profile">
+              My account
+            </Link>
+          </MenuItem>
       ) : (
         <MenuItem onClick={handleMenuClose}>
           <Login />
         </MenuItem>
       )}
-      <MenuItem>
-        <Link style={{ textDecoration: 'none', color: 'Black' }} to="/profile">
-          My account
-        </Link>
-      </MenuItem>
     </Menu>
   );
   const mobileMenuId = 'primary-search-account-menu-mobile';

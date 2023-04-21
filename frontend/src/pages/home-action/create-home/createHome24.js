@@ -17,7 +17,7 @@ import './style.css';
 import InputGroup from 'react-bootstrap/InputGroup';
 import Form from 'react-bootstrap/Form';
 import Swal from 'sweetalert2';
-import ProgressBar from "react-bootstrap/ProgressBar";
+import ProgressBar from 'react-bootstrap/ProgressBar';
 export default function CreateHome24() {
   const [descriptions, setDescriptions] = useState(null);
   const [bathrooms, setBathrooms] = useState(1);
@@ -31,9 +31,9 @@ export default function CreateHome24() {
 
   useEffect(() => {
     if (!currentAuth.isLogined) {
-      navigate('/')
+      navigate('/');
     }
-  }, [])
+  }, []);
 
   useEffect(() => {
     if (bathrooms && bedrooms && descriptions) {
@@ -64,18 +64,17 @@ export default function CreateHome24() {
   };
 
   useEffect(() => {
-    console.log(bedrooms, bathrooms);
     dispatch(setBed(bedrooms));
     dispatch(setBath(bathrooms));
   }, [bedrooms, bathrooms]);
 
   const handleFinish = async () => {
-    const title = currentState.title;
-    const price = currentState.price;
+    const title = titles;
+    const price = prices;
     const address = currentState.address;
-    const bathrooms = currentState.bathrooms;
-    const bedrooms = currentState.bedrooms;
-    const description = currentState.description;
+    const bathrooms = bathrooms;
+    const bedrooms = bedrooms;
+    const description = descriptions;
     const email = currentAuth.userLogin.email;
     const idCategory = currentState.idCategory;
     const files = currentState.files;
@@ -87,7 +86,7 @@ export default function CreateHome24() {
     <div></div>
     <div></div>
     </div>
-    `
+    `;
 
     let urlList = [];
 
@@ -131,7 +130,7 @@ export default function CreateHome24() {
             timer: 1500,
           }).then(() => {
             dispatch(setDefault());
-            navigate('/user/hosting')
+            navigate('/user/hosting');
           });
         })
         .catch((err) => {
@@ -147,46 +146,46 @@ export default function CreateHome24() {
   return (
     <>
       <center>
-        <h2 >Some more information about your home</h2>
+        <h2>Some more information about your home</h2>
       </center>
-      <div className="row" style={{marginBottom:"20%"}}>
+      <div className="row" style={{ marginBottom: '20%' }}>
         <div className="col-5">
           {/*<h1 style={{ fontSize: '300%' }}>*/}
           {/*  It’s easy to get started on{' '}*/}
           {/*  <b style={{ color: '#f7a800' }}> EZHOME </b>*/}
           {/*</h1>*/}
-          <br/>
+          <br />
           <InputGroup className="mb-3">
             <InputGroup.Text id="inputGroup-sizing-default">
               Title
             </InputGroup.Text>
             <Form.Control
-                as="input"
-                aria-label="Default"
-                aria-describedby="inputGroup-sizing-default"
-                onChange={(e) => {
-                  dispatch(setTitle(e.target.value));
-                  setTitles(e.target.value);
-                }}
-                defaultValue={currentState.title}
+              as="input"
+              aria-label="Default"
+              aria-describedby="inputGroup-sizing-default"
+              onChange={(e) => {
+                dispatch(setTitle(e.target.value));
+                setTitles(e.target.value);
+              }}
+              defaultValue={currentState.title}
             />
           </InputGroup>
 
           <InputGroup className="mb-3">
             <InputGroup.Text>Price</InputGroup.Text>
             <Form.Control
-                as="input"
-                type="number"
-                min="1"
-                onChange={(e) => {
-                  dispatch(setPrice(e.target.value));
-                  setPrices(e.target.value);
-                  if (e.target.value <= 0) {
-                    e.target.value = 1;
-                  }
-                }}
-                defaultValue={currentState.price}
-                aria-label="Amount (to the nearest dollar)"
+              as="input"
+              type="number"
+              min="1"
+              onChange={(e) => {
+                dispatch(setPrice(e.target.value));
+                setPrices(e.target.value);
+                if (e.target.value <= 0) {
+                  e.target.value = 1;
+                }
+              }}
+              defaultValue={currentState.price}
+              aria-label="Amount (to the nearest dollar)"
             />
             <InputGroup.Text>đ</InputGroup.Text>
           </InputGroup>
@@ -194,27 +193,27 @@ export default function CreateHome24() {
             <b>Bathrooms:</b>
 
             <Button
-                type="button"
-                variant="warning"
-                style={{
-                  marginLeft: '10%',
-                  marginRight: '10%',
-                  background: '#e9ecef',
-                }}
-                onClick={() => handleBathroomsDescrease()}
+              type="button"
+              variant="warning"
+              style={{
+                marginLeft: '10%',
+                marginRight: '10%',
+                background: '#e9ecef',
+              }}
+              onClick={() => handleBathroomsDescrease()}
             >
               {' '}
               -
             </Button>
             {bathrooms}
             <Button
-                type="button"
-                variant="warning"
-                style={{
-                  marginLeft: '10%',
-                  background: '#e9ecef',
-                }}
-                onClick={() => handleBathroomsInscrease()}
+              type="button"
+              variant="warning"
+              style={{
+                marginLeft: '10%',
+                background: '#e9ecef',
+              }}
+              onClick={() => handleBathroomsInscrease()}
             >
               +
             </Button>
@@ -223,27 +222,27 @@ export default function CreateHome24() {
           <div>
             <b>Bedrooms: </b>
             <Button
-                type="button"
-                variant="warning"
-                style={{
-                  marginLeft: '10%',
-                  marginRight: '10%',
-                  background: '#e9ecef',
-                }}
-                onClick={() => handleBedroomsDescrease()}
+              type="button"
+              variant="warning"
+              style={{
+                marginLeft: '10%',
+                marginRight: '10%',
+                background: '#e9ecef',
+              }}
+              onClick={() => handleBedroomsDescrease()}
             >
               {' '}
               -
             </Button>
             {bedrooms}
             <Button
-                type="button"
-                variant="warning"
-                style={{
-                  marginLeft: '10%',
-                  background: '#e9ecef',
-                }}
-                onClick={() => handleBedroomsInscrease()}
+              type="button"
+              variant="warning"
+              style={{
+                marginLeft: '10%',
+                background: '#e9ecef',
+              }}
+              onClick={() => handleBedroomsInscrease()}
             >
               +
             </Button>
@@ -255,53 +254,53 @@ export default function CreateHome24() {
             <CKEditor
               editor={ClassicEditor}
               data={currentState.description}
-              onReady={editor => {
+              onReady={(editor) => {
                 // You can store the "editor" and use when it is needed.
-                console.log('Editor is ready to use!', editor);
               }}
               onChange={(event, editor) => {
                 const data = editor.getData();
                 setDesc(data);
                 setDescriptions(data);
-                console.log({ event, editor, data });
               }}
-              onBlur={(event, editor) => {
-                console.log('Blur.', editor);
-              }}
-              onFocus={(event, editor) => {
-                console.log('Focus.', editor);
-              }}
+              onBlur={(event, editor) => {}}
+              onFocus={(event, editor) => {}}
             />
           </div>
         </div>
       </div>
       <div className="footer-end">
-        <ProgressBar variant="dark" now={100}/>
-        <br/>
+        <ProgressBar variant="dark" now={100} />
+        <br />
         <div className="row">
           <div className="col-12">
             <Button
-                id="btn-back"
-                onClick={() => navigate('/create-home/3')}
-                variant="contained"
+              id="btn-back"
+              onClick={() => navigate('/create-home/3')}
+              variant="contained"
             >
               Back
             </Button>
             {currentState.description &&
             currentState.title &&
             currentState.price ? (
-                <Button className='finish-create-home' variant="contained" id="btn-finish1" onClick={e => { handleFinish(e) }}>
-                  Finish
-                </Button>
+              <Button
+                className="finish-create-home"
+                variant="contained"
+                id="btn-finish1"
+                onClick={(e) => {
+                  handleFinish(e);
+                }}
+              >
+                Finish
+              </Button>
             ) : (
-                <Button type="button" id="btn-finish2" variant="contained">
-                  Finish
-                </Button>
+              <Button type="button" id="btn-finish2" variant="contained">
+                Finish
+              </Button>
             )}
           </div>
         </div>
       </div>
-
     </>
   );
 }

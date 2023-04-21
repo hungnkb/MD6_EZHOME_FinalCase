@@ -137,12 +137,12 @@ export default function FormPay(props) {
                     >
                       <div className="home-booking-content cursor-pointer">
                         <label htmlFor="check-in">
-                          <b>Nhận phòng</b>
+                          <b>Checkin</b>
                         </label>
                         <div className="home-booking-info">
                           {date[0]
                             ? format(new Date(date[0]), 'dd/MM/yyyy')
-                            : 'Chọn ngày'}
+                            : 'Choose date'}
                         </div>
                       </div>
                     </div>
@@ -155,12 +155,12 @@ export default function FormPay(props) {
                       <div className="home-booking-content cursor-pointer">
                         <label htmlFor="check-out">
                           {' '}
-                          <b> Trả phòng</b>{' '}
+                          <b> Checkout</b>{' '}
                         </label>
                         <div className="home-booking-info">
                           {date[1]
                             ? format(new Date(date[1]), 'dd/MM/yyyy')
-                            : 'Chọn ngày'}
+                            : 'Choose date'}
                         </div>
                       </div>
                     </div>
@@ -180,8 +180,8 @@ export default function FormPay(props) {
                     touchUi={false}
                     value={date}
                     onChange={handleChange}
-                    rangeStartLabel="Ngày đến"
-                    rangeEndLabel="Ngày trả"
+                    rangeStartLabel="Arrival date"
+                    rangeEndLabel="Pay date"
                     locale={localeVi}
                     minRange={1}
                     min={Date.now() + 24 * 60 * 60 * 1000}

@@ -118,55 +118,54 @@ export default function Review(props) {
               <section>
                 <MDBContainer className="py-5" style={{ width: '100%' }}>
                   <MDBCol md="11" lg="12" xl="12">
-                    {review.map((data, index) => {
-                      if (index < 4) {
-                        return (
-                          <div className="d-flex justify-content-between mb-4">
-                            <div className="row">
-                              <div className="col-9">
-                                <div className="row">
-                                  <div className="col-2">
-                                    <img
-                                      src="https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg"
-                                      alt="avatar"
-                                      style={{ width: '100%' }}
-                                    />
-                                  </div>
-                                  <div className="col-10">
-                                    <MDBTypography tag="h5">
-                                      {' '}
-                                      {data?.idUser.email}
-                                    </MDBTypography>
-                                    <p
-                                      className="small"
-                                      style={{ marginLeft: '10%' }}
-                                    >
-                                      {data?.createdAt.split('T')[0]}
-                                    </p>
-                                  </div>
-                                </div>
-                              </div>
-                              <p>{data?.contents}</p>
-                            </div>
-                            <div
-                              className="col-3"
-                              style={{ textAlign: 'right' }}
-                            >
-                              <Rating
-                                name="simple-controlled"
-                                value={value}
-                                onChange={(event, newValue) => {
-                                  setValue(newValue);
-                                }}
-                              />
-                            </div>
-                          </div>
-                        );
-                      } else {
-                        return '';
-                      }
-                    })}
-                    {review.length >= 5 ? (
+                    {/*{review.map((data, index) => {*/}
+                    {/*  if (index < 4) {*/}
+                    {/*    return (*/}
+                    {/*      <div className="d-flex justify-content-between mb-4">*/}
+                    {/*        <div className="row">*/}
+                    {/*          <div className="col-9">*/}
+                    {/*            <div className="row">*/}
+                    {/*              <div className="col-2">*/}
+                    {/*                <img*/}
+                    {/*                  src="https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg"*/}
+                    {/*                  alt="avatar"*/}
+                    {/*                  style={{ width: '100%' }}*/}
+                    {/*                />*/}
+                    {/*              </div>*/}
+                    {/*              <div className="col-10">*/}
+                    {/*                <MDBTypography tag="h5">*/}
+                    {/*                  {' '}*/}
+                    {/*                  {data?.idUser.email}*/}
+                    {/*                </MDBTypography>*/}
+                    {/*                <p*/}
+                    {/*                  className="small"*/}
+                    {/*                  style={{ marginLeft: '10%' }}*/}
+                    {/*                >*/}
+                    {/*                  {data?.createdAt.split('T')[0]}*/}
+                    {/*                </p>*/}
+                    {/*              </div>*/}
+                    {/*            </div>*/}
+                    {/*          </div>*/}
+                    {/*          <p>{data?.contents}</p>*/}
+                    {/*        </div>*/}
+                    {/*        <div*/}
+                    {/*          className="col-3"*/}
+                    {/*          style={{ textAlign: 'right' }}*/}
+                    {/*        >*/}
+                    {/*          <Rating*/}
+                    {/*            name="simple-controlled"*/}
+                    {/*            value={value}*/}
+                    {/*            onChange={(event, newValue) => {*/}
+                    {/*              setValue(newValue);*/}
+                    {/*            }}*/}
+                    {/*          />*/}
+                    {/*        </div>*/}
+                    {/*      </div>*/}
+                    {/*    );*/}
+                    {/*  } else {*/}
+                    {/*    return '';*/}
+                    {/*  }*/}
+                    {/*})}*/}
                       <div className="row">
                         <div className="col-12">
                             <section>
@@ -224,9 +223,6 @@ export default function Review(props) {
                             </section>
                         </div>
                       </div>
-                    ) : (
-                      ''
-                    )}
                   </MDBCol>
                 </MDBContainer>
               </section>

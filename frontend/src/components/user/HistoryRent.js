@@ -95,22 +95,26 @@ function HistoryRent() {
               <TableHead>
                 <TableRow>
                   <TableCell style={{ fontWeight: 'bold' }}>#</TableCell>
-                  <TableCell align="right" style={{ fontWeight: 'bold' }}>
+
+                  <TableCell align="center" style={{ fontWeight: 'bold' }}>
                     Home 
                   </TableCell>
 
-                  <TableCell align="right" style={{ fontWeight: 'bold' }}>
+                  <TableCell align="center" style={{ fontWeight: 'bold' }}>
                     Check In
                   </TableCell>
 
-                  <TableCell align="right" style={{ fontWeight: 'bold' }}>
+                  <TableCell align="center" style={{ fontWeight: 'bold' }}>
                     Check Out
                   </TableCell>
 
-                  <TableCell align="right" style={{ fontWeight: 'bold' }}>
+                  <TableCell align="center" style={{ fontWeight: 'bold' }}>
                     Charged
                   </TableCell>
-                  <TableCell style={{ fontWeight: 'bold' }}>Status</TableCell>
+
+                  <TableCell style={{ fontWeight: 'bold' }}>
+                    Status
+                  </TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -120,10 +124,10 @@ function HistoryRent() {
                     sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                   >
                     <TableCell align="left">{index + 1}</TableCell>
-                    <TableCell align="right">{value.idHome.title}</TableCell>
-                    <TableCell align="right">{value.checkin}</TableCell>
-                    <TableCell align="right">{value.checkout}</TableCell>
-                    <TableCell align="right">{value.charged}</TableCell>
+                    <TableCell align="center">{value.idHome.title}</TableCell>
+                    <TableCell align="center">{value.checkin}</TableCell>
+                    <TableCell align="center">{value.checkout}</TableCell>
+                    <TableCell align="center">{value.charged}</TableCell>
                     <TableCell>{value.status}</TableCell>
                   </TableRow>
                 ))}

@@ -1,18 +1,20 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Link, useNavigate, useParams } from 'react-router-dom';
-import 'react-toastify/dist/ReactToastify.css';
+
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
 import axios from '../../api/axios';
 import {
   Button,
-  Dialog,
-  DialogTitle,
-  DialogActions,
+  TextField,
   Modal,
   Box,
-  DialogContent,
+  Typography,
+  IconButton,
+  InputAdornment,
 } from '@mui/material';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
 import Swal from 'sweetalert2';
+
 const Toast = Swal.mixin({
   toast: true,
   position: 'top-end',
@@ -26,240 +28,247 @@ const Toast = Swal.mixin({
 });
 
 export default function Register(props) {
-  const searchParams = new URLSearchParams(window.location.search);
-  const email = searchParams.get('email');
-  const token = searchParams.get('token');
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [open, setOpen] = useState(true);
-  const [flag, setFlag] = useState(false);
   const [emailTokenPassword, setEmailTokenPassword] = useState({
     email: '',
     password: '',
   });
-  const MESSAGE_ERROR = {
-    username: 'Username error',
-    email: 'Email error',
-    password: 'Password error',
-    confirmPassword: 'Password must be the same',
-  };
+  const [formErrors, setFormErrors] = useState({
+    email: '',
+    password: '',
+    confirmPassword: '',
+  });
 
   const REGEX = {
     email: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
-    password: /^\w{6,8}$/
+    password: /^\w{6,8}$/,
   };
-  const [form, setForm] = useState({});
+
+  const dispatch = useDispatch();
   const handleClose = () => {
     setOpen(false);
   };
-  useEffect(() => {
-    if (flag) {
-      console.log('flagggggggggg');
-      setOpen(false);
-    }
-  }, [flag]);
-  const handleSubmit = (event) => {
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    setFlag(true);
-    axios
-        .post('http://localhost:3002/api/v1/users', {
-          email: emailTokenPassword.email,
-          password: emailTokenPassword.password,
-        })
-        .then(
-            (response) => {
-              console.log(response)
-              setOpen(false);
-              setTimeout(() => {
-                Swal.fire({
-                  icon: 'success',
-                  title: 'Register Success, please check your Email to Active',
-                });
-              }, 0);
-            },
-            (error) => {
-              console.log(error);
-              Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: 'Something went wrong!',
-                footer: '<a href="">Why do I have this issue?</a>'
-              })
-            },
-        );
+    try {
+      const response = await axios.post('http://localhost:3002/api/v1/users', {
+        email: emailTokenPassword.email,
+        password: emailTokenPassword.password,
+      });
+      console.log(response);
+      setOpen(false);
+      setTimeout(() => {
+        Swal.fire({
+          icon: 'success',
+          title: 'Register Success, please check your Email to Active',
+        });
+      }, 0);
+    } catch (error) {
+      console.log(error);
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Something went wrong!',
+        footer: '<a href="">Why do I have this issue?</a>',
+      });
+    }
   };
 
-  const handleChange = (event) => {
-    let error = '';
-    if (event.target.name === 'password') {
-      if (form.confirmPassword && form.confirmPassword.value) {
-        error =
-            event.target.value === form.confirmPassword.value
-                ? ''
-                : MESSAGE_ERROR[event.target.name];
-      } else {
-        error = REGEX[event.target.name].test(event.target.value)
-            ? ''
-            : MESSAGE_ERROR[event.target.name];
-      }
-    } else if (event.target.name === 'confirmPassword') {
-      error =
-          event.target.value === form.password.value
-              ? ''
-              : MESSAGE_ERROR[event.target.name];
-    } else {
-      error = REGEX[event.target.name].test(event.target.value)
-          ? ''
-          : MESSAGE_ERROR[event.target.name];
-    }
-    setForm({
-      ...form,
-      [event.target.name]: { value: event.target.value, error: error },
-    });
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    const error = validateFormField(name, value);
+
     setEmailTokenPassword({
       ...emailTokenPassword,
-      [event.target.name]: event.target.value,
+      [name]: value,
+    });
+
+    setFormErrors({
+      ...formErrors,
+      [name]: error,
     });
   };
-  console.log(emailTokenPassword);
+
+  const validateFormField = (fieldName, fieldValue) => {
+    let errorMessage = '';
+    switch (fieldName) {
+      case 'email':
+        if (!REGEX.email.test(fieldValue)) {
+          errorMessage = 'Invalid email address';
+        }
+        break;
+      case 'password':
+        if (!REGEX.password.test(fieldValue)) {
+          errorMessage = 'Password must be 6-8 characters long';
+        }
+        break;
+      case 'confirmPassword':
+        if (fieldValue !== emailTokenPassword.password) {
+          errorMessage = 'Passwords do not match';
+        }
+        break;
+      default:
+        break;
+    }
+    return errorMessage;
+  };
+
+  const isFormValid = () => {
+    return !Object.keys(formErrors).some((fieldName) => formErrors[fieldName]);
+  };
+
+  const handleClickShowPassword = () => {
+    setShowPassword((show) => !show);
+  };
+  const handleClickShowConfirmPassword = () => {
+    setShowConfirmPassword((show) => !show);
+  };
+
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
+  };
+  const handleMouseDownConfirmPassword = (event) => {
+    event.preventDefault();
+  };
+
   return (
-      <div>
-        {open && (
-            <Modal open={open} onClose={handleClose}>
-              <Box
-                  sx={{
-                    position: 'absolute',
-                    width: 500,
-                    top: '40%',
-                    left: '50%',
-                    transform: 'translate(-50%, -50%)',
-                    borderRadius: '10px',
-                    boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.25)',
-                  }}
+    <div>
+      {open && (
+        <Modal open={open} onClose={handleClose}>
+          <Box
+            sx={{
+              position: 'absolute',
+              width: 500,
+              top: '50%',
+              left: '50%',
+              transform: 'translate(-50%, -50%)',
+              borderRadius: '10px',
+              boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.25)',
+            }}
+          >
+            <div
+              className="bg-white border flex flex-col p-4 pt-10"
+              
+            >
+              <Typography
+                id="keep-mounted-modal-title"
+                variant="h4"
+                component="h2"
+                style={{
+                  textAlign: 'center',
+                  marginBottom: '20px',
+                }}
               >
-                <div
-                    className="bg-white border flex flex-col p-4 pt-10"
+                Register
+              </Typography>
+              <br></br>
+              <form
+                onSubmit={handleSubmit}
+                className="flex flex-col justify-center items-center"
+              >
+                <TextField
+                  fullWidth
+                  label="Email"
+                  name="email"
+                  value={emailTokenPassword.email}
+                  onChange={handleInputChange}
+                  error={!!formErrors.email}
+                  helperText={formErrors.email}
+                  required
+                  size="small"
+                  style={{ marginBottom: '10px' }}
+                />
+                <TextField
+                  fullWidth
+                  label="Password"
+                  name="password"
+                  value={emailTokenPassword.password}
+                  onChange={handleInputChange}
+                  error={!!formErrors.password}
+                  helperText={formErrors.password}
+                  required
+                  size="small"
+                  type={showPassword ? 'text' : 'password'}
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <IconButton
+                          aria-label="toggle password visibility"
+                          onClick={handleClickShowPassword}
+                          onMouseDown={handleMouseDownPassword}
+                        >
+                          {showPassword ? <VisibilityOff /> : <Visibility />}
+                        </IconButton>
+                      </InputAdornment>
+                    ),
+                  }}
+                  style={{ marginBottom: '10px' }}
+                />
+                <TextField
+                  fullWidth
+                  label="Confirm Password"
+                  name="confirmPassword"
+                  value={emailTokenPassword.confirmPassword}
+                  onChange={handleInputChange}
+                  error={!!formErrors.confirmPassword}
+                  helperText={formErrors.confirmPassword}
+                  required
+                  size="small"
+                  type={showConfirmPassword ? 'text' : 'password'}
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <IconButton
+                          aria-label="toggle password visibility"
+                          onClick={handleClickShowConfirmPassword}
+                          onMouseDown={handleMouseDownConfirmPassword}
+                        >
+                          {showConfirmPassword ? <VisibilityOff /> : <Visibility />}
+                        </IconButton>
+                      </InputAdornment>
+                    ),
+                  }}
+                  style={{ marginBottom: '20px' }}
+                />
+                <div className="flex justify-center">
+                  <Button
                     style={{
-                      marginBlockStart: '50px',
-                      textAlign: 'center',
+                      background: '#f7a800',
+                      color: '#fff',
+                      fontWeight: 'bold',
+                      padding: '10px',
+                      borderRadius: '5px',
+                      width: '100%',
+                      textTransform: 'none',
                     }}
-                >
-                  <h4
-                      style={{
-                        fontWeight: 'bold',
-                        marginBottom: '10px',
-                      }}
+                    type="submit"
+                    disabled={!isFormValid()}
                   >
                     Register
-                  </h4>
-                  <br></br>
-                  <form
-                      onSubmit={handleSubmit}
-                      className="flex flex-col justify-center items-center"
-                  >
-                    <input
-                        onChange={handleChange}
-                        value={email}
-                        name="email"
-                        placeholder="Email"
-                        style={{
-                          marginBottom: '10px',
-                          padding: '10px',
-                          width: '100%',
-                          borderRadius: '5px',
-                          fontSize: '16px',
-                          backgroundColor: '#f2f2f2',
-                          border: '1px solid #ccc',
-                        }}
-                    ></input>
-                    <br />
-                    <br />
-                    <div
-                        className={`custom-input ${
-                            form.password && form.password.error && 'custom-input-error'
-                        }`}
-                    >
-                      <input
-                          name="password"
-                          value={(form.password && form.password.value) || ''}
-                          onChange={handleChange}
-                          placeholder="New Password"
-                          style={{
-                            marginBottom: '10px',
-                            padding: '10px',
-                            width: '100%',
-                            borderRadius: '5px',
-                            fontSize: '16px',
-                            backgroundColor: '#f2f2f2',
-                            border: '1px solid #ccc',
-                          }}
-                          type={'password'}
-                      ></input>
-                      {form.password && form.password.error && (
-                          <p className="error">{form.password.error}</p>
-                      )}
-                    </div>
-                    <br />
-                    <div
-                        className={`custom-input ${
-                            form.confirmPassword &&
-                            form.confirmPassword.error &&
-                            'custom-input-error'
-                        }`}
-                    >
-                      <input
-                          name="confirmPassword"
-                          onChange={handleChange}
-                          placeholder="Re New Password"
-                          style={{
-                            marginBottom: '10px',
-                            padding: '10px',
-                            width: '100%',
-                            borderRadius: '5px',
-                            fontSize: '16px',
-                            backgroundColor: '#f2f2f2',
-                            border: '1px solid #ccc',
-                          }}
-                          type={'password'}
-                      ></input>
-                      {form.confirmPassword && form.confirmPassword.error && (
-                          <p className="error">{form.confirmPassword.error}</p>
-                      )}
-                    </div>
-                    <br />
-                    <div className="flex justify-center">
-                      <Button
-                          style={{
-                            background: '#f7a800',
-                            color: '#fff',
-                            fontWeight: 'bold',
-                            padding: '10px',
-                            borderRadius: '5px',
-                            width:"100%"
-                          }}
-                          type="submit"
-                          className="w-full"
-                      >
-                        Submit
-                      </Button>
-                    </div>
-                  </form>
+                  </Button>
                 </div>
-                <div className="bg-white border p-5 text-center drop-shadow-md">
+              </form>
+            </div>
+            <div className="bg-white border p-5 text-center drop-shadow-md">
               <span>
-                You already have an account?{' '}
+                Already have an account?{' '}
                 <Link
-                    onClick={() => {
-                      props.setIsLogin(1);
-                    }}
-                    className="text-primary-blue"
-                    style={{ color: '#e85710' }}
+                  onClick={() => {
+                    props.setIsLogin(1);
+                  }}
+                  className="text-primary-blue"
+                  style={{ color: '#e85710' }}
                 >
                   Login
                 </Link>
               </span>
-                </div>
-              </Box>
-            </Modal>
-        )}
-      </div>
+            </div>
+          </Box>
+        </Modal>
+      )}
+    </div>
   );
 }

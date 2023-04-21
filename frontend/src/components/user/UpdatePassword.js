@@ -107,11 +107,11 @@ export default function UpdatePassword(props){
                     sx={{
                         position: 'absolute',
                         width: 400,
-                        top: '50%',
+                        top: '40%',
                         left: '50%',
                         transform: 'translate(-50%, -50%)',
                         borderRadius: '10px',
-                        boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.25)',
+                        // boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.25)',
                     }}
                 >
                     <div

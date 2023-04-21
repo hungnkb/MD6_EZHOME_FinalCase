@@ -21,7 +21,6 @@ export default function CardHome(props) {
 
   useEffect(() => {
     if (location.state?.data.length > 0) {
-      console.log(location.state?.data);
       setHome(location.state.data);
     } else {
       setHome([])

@@ -14,7 +14,7 @@ export default function UpdatePassword(props) {
     oldPassword: '',
     newPassword: '',
   });
-  console.log(props.dataFromParentt, 777);
+  (props.dataFromParentt, 777);
   const MESSAGE_ERROR = {
     newPassword: 'Password error',
     confirmPassword: 'Password must be the same',
@@ -40,7 +40,7 @@ export default function UpdatePassword(props) {
       })
       .then(
         (response) => {
-          console.log(response);
+          (response);
           handleClose();
           Swal.fire({
             position: 'center',
@@ -51,7 +51,7 @@ export default function UpdatePassword(props) {
           });
         },
         (error) => {
-          console.log(error);
+          (error);
           handleClose();
           Swal.fire({
             icon: 'error',
@@ -99,7 +99,7 @@ export default function UpdatePassword(props) {
       [event.target.name]: event.target.value,
     });
   };
-  console.log(userLogin.userLogin, 999);
+  (userLogin.userLogin, 999);
   return (
     <>
       <Modal open={open} onClose={handleClose}>
@@ -156,9 +156,8 @@ export default function UpdatePassword(props) {
               <br />
               <br />
               <div
-                className={`custom-input ${
-                  form.password && form.password.error && 'custom-input-error'
-                }`}
+                className={`custom-input ${form.password && form.password.error && 'custom-input-error'
+                  }`}
               >
                 <input
                   name="newPassword"
@@ -182,11 +181,10 @@ export default function UpdatePassword(props) {
               </div>
               <br />
               <div
-                className={`custom-input ${
-                  form.confirmPassword &&
+                className={`custom-input ${form.confirmPassword &&
                   form.confirmPassword.error &&
                   'custom-input-error'
-                }`}
+                  }`}
               >
                 <input
                   name="confirmPassword"

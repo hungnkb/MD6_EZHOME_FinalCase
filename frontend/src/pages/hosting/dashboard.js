@@ -73,7 +73,6 @@ function DashboardHosting() {
     };
     getDataHome();
   }, [currentAuth.isLogined, flag]);
-  console.log(homeList, 0);
   return (
     <>
       <div className="container">

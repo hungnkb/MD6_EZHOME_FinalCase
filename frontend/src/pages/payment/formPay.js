@@ -85,7 +85,6 @@ export default function FormPay(props) {
       },
     })
       .then((res) => {
-        console.log(res);
         Swal.fire({
           position: 'center',
           icon: 'success',

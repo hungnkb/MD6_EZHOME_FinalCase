@@ -61,7 +61,7 @@ export default function ForgotPassword(props) {
         .required('Không được để trống')
         .matches(
           /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,8}$/,
-          'Tối thiểu 6 và tối đa 8 ký tự, ít nhất một chữ hoa, một chữ thường, một số và một ký tự đặc biệt',
+          '6-8 words, at least 1 upper, 1 lower, 1 number and 1 special symbol',
         ),
     }),
     onSubmit: (values) => {
@@ -79,7 +79,6 @@ export default function ForgotPassword(props) {
       .then(
         (response) => {
           handleClose();
-          console.log(response, 222);
           Swal.fire({
             position: 'center',
             icon: 'success',
@@ -104,7 +103,6 @@ export default function ForgotPassword(props) {
       ...userForgotPassword,
       [event.target.name]: event.target.value,
     });
-  console.log(userForgotPassword.email);
 
   return (
     <>

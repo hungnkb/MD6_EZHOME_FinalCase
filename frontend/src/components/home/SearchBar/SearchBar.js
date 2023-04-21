@@ -78,8 +78,6 @@ function SearchBar() {
     const navigate = useNavigate();
 
     const handleSearch = async () => {
-        console.log(dataFilter);
-        console.log(value2);
         let response = await axios.get(`${process.env.REACT_APP_BASE_URL}/homes`, {
             params: {
                 checkin: dataFilter.checkin || '',
@@ -143,7 +141,6 @@ function SearchBar() {
     };
 
     const handleInput = (e, keyword) => {
-        console.log(keyword);
         const value = e.target.value;
         setDataFilter({
             ...dataFilter,

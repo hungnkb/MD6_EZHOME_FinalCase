@@ -28,7 +28,7 @@ export default function UpdateUser() {
     axios
       .get(`http://localhost:3002/api/v1/users?email=${email}`)
       .then((response) => {
-        console.log(response.data, 2222);
+        (response.data, 2222);
         const { fullName, phone, address } = response.data;
         setDataUser({ fullName, phone, address });
         setDataPassword(response.data.password);
@@ -52,7 +52,7 @@ export default function UpdateUser() {
       })
       .then(
         (response) => {
-          console.log(response);
+          (response);
           Swal.fire({
             position: 'center',
             icon: 'success',
@@ -70,7 +70,7 @@ export default function UpdateUser() {
         },
       );
   };
-  console.log(email);
+  (email);
   const handleChange = (event) => {
     setDataUser({
       ...dataUser,

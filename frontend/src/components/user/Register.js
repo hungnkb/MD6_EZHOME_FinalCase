@@ -52,7 +52,7 @@ export default function Register(props) {
   };
   useEffect(() => {
     if (flag) {
-      console.log('flagggggggggg');
+      ('flagggggggggg');
       setOpen(false);
     }
   }, [flag]);
@@ -66,7 +66,7 @@ export default function Register(props) {
       })
       .then(
         (response) => {
-          console.log(response);
+          (response);
           setOpen(false);
           setTimeout(() => {
             Swal.fire({
@@ -76,7 +76,7 @@ export default function Register(props) {
           }, 0);
         },
         (error) => {
-          console.log(error);
+          (error);
           Swal.fire({
             icon: 'error',
             title: 'Oops...',
@@ -119,7 +119,7 @@ export default function Register(props) {
       [event.target.name]: event.target.value,
     });
   };
-  console.log(emailTokenPassword);
+  (emailTokenPassword);
   return (
     <div>
       {open && (
@@ -173,9 +173,8 @@ export default function Register(props) {
                 <br />
                 <br />
                 <div
-                  className={`custom-input ${
-                    form.password && form.password.error && 'custom-input-error'
-                  }`}
+                  className={`custom-input ${form.password && form.password.error && 'custom-input-error'
+                    }`}
                 >
                   <input
                     name="password"
@@ -199,11 +198,10 @@ export default function Register(props) {
                 </div>
                 <br />
                 <div
-                  className={`custom-input ${
-                    form.confirmPassword &&
+                  className={`custom-input ${form.confirmPassword &&
                     form.confirmPassword.error &&
                     'custom-input-error'
-                  }`}
+                    }`}
                 >
                   <input
                     name="confirmPassword"

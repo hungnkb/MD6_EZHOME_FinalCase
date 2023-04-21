@@ -114,11 +114,6 @@ export default function UpdateUser() {
         >
           <Box sx={{ padding: 5 }}>
             <form onSubmit={handleSubmit}>
-
-              <Grid style={{ marginLeft: '850px' }}>
-                <Link><HistoryRent/></Link>
-              </Grid>
-
               <Typography variant="h6" gutterBottom sx={{ paddingBottom: 5 }}>
                 My Proflie
               </Typography>

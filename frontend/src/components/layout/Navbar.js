@@ -1,19 +1,15 @@
 import * as React from 'react';
 import { styled, alpha } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
 import InputBase from '@mui/material/InputBase';
 import Badge from '@mui/material/Badge';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
-import SearchIcon from '@mui/icons-material/Search';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import MailIcon from '@mui/icons-material/Mail';
-import MoreIcon from '@mui/icons-material/MoreVert';
 import { Button } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
@@ -22,6 +18,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { logout, setUserLogin } from '../../redux/features/authSlice';
 import Swal from 'sweetalert2';
 import AddPhone from '../auth/addPhone';
+import SearchBar from '../home/SearchBar/SearchBar';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -63,20 +60,18 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
+
 export default function Navbar() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
   const [message, setMessage] = useState('');
+  const [openSearch, setOpenSearch] = useState(false);
   const currentState = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [isHost, setIsHost] = useState(true);
-
-  const callbackFunction = (childData) => {
-    setMessage(childData);
-  };
 
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -91,9 +86,6 @@ export default function Navbar() {
     handleMobileMenuClose();
   };
 
-  const handleMobileMenuOpen = (event) => {
-    setMobileMoreAnchorEl(event.currentTarget);
-  };
   const handleLogout = () => {
     dispatch(logout());
   };
@@ -134,10 +126,12 @@ export default function Navbar() {
           }}
           open={isMenuOpen}
           onClose={handleMenuClose}
+          sx={{marginLeft: "1300px",marginTop: "42px"}}
       >
         <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
 
         {currentState.isLogined ? (
+            <>
             <MenuItem
                 onClick={() => {
                   handleLogout();
@@ -147,14 +141,16 @@ export default function Navbar() {
             >
               Logout
             </MenuItem>
+              <MenuItem>
+                <Link style={{ textDecoration: 'none', color: "Black" }} to="user/profile">My account</Link>
+              </MenuItem>
+              </>
         ) : (
             <MenuItem onClick={handleMenuClose}>
               <Login />
             </MenuItem>
         )}
-        <MenuItem>
-          <Link style={{textDecoration: 'none', color: "Black"}} to="/profile">My account</Link>
-        </MenuItem>
+
       </Menu>
   );
   const mobileMenuId = 'primary-search-account-menu-mobile';
@@ -212,102 +208,64 @@ export default function Navbar() {
   return (
       <>
         {!isHost && <AddPhone isHost={isHost} setIsHost={setIsHost} />}
-        <Box sx={{ flexGrow: 1 }}>
-          <AppBar
-              position="static"  sx={{ top: 0 }}
-              style={{ background: 'white', color: 'black' }}
-          >
-            <Toolbar>
-              <IconButton
-                  size="large"
-                  edge="start"
-                  color="inherit"
-                  aria-label="open drawer"
-                  sx={{ mr: 2 }}
-              >
-                {/*<MenuIcon/>*/}
-              </IconButton>
-              <Typography
-                  variant="h6"
-                  noWrap
-                  component="div"
-                  sx={{ display: { xs: 'none', sm: 'block' } }}
-              >
-                <Link to={'/'}>
-                  <img
-                      style={{ width: 100 }}
-                      src="https://cebuhomebuilders.com/wp-content/uploads/2020/10/ez-home-768-x-331-px.jpg"
-                  />
-                </Link>
-              </Typography>
-              <Search
+        <AppBar
+            position="static"
+            style={{ background: 'white', color: 'black', display: 'flex', flexDirection: 'row' }}
+        >
+          <Toolbar firstChild={true} float="left">
+            <Link to={'/'}>
+              <img
+                  style={{ width: 100 }}
+                  src="https://cebuhomebuilders.com/wp-content/uploads/2020/10/ez-home-768-x-331-px.jpg"
+              />
+            </Link>
+          </Toolbar>
+          <Toolbar
+              style={{
+                flexGrow: 1,
+                textAlign: 'center',
+                justifyContent: 'center',
+                display: 'flex'
+              }}>
+            <SearchBar />
+          </Toolbar>
+          <Toolbar lastChild={true} float="right">
+            <IconButton>
+              {currentState.isLogined && (
+                  <div onClick={handleSwitchHosting}>
+                    <p style={{ fontSize: '15px', marginTop: '8px' }}>
+                      {' '}
+                      <b> Switch to hosting</b>{' '}
+                    </p>
+                  </div>
+              )}
+            </IconButton>
+            <IconButton
+                size="large"
+                edge="end"
+                aria-label="account of current user"
+                aria-controls={menuId}
+                aria-haspopup="true"
+                onClick={handleProfileMenuOpen}
+                color="inherit"
+            >
+              <Button
                   style={{
-                    border: '2px solid black',
-                    marginLeft: '30%',
-                    borderRadius: '20px',
-                    width: 400,
+                    borderRadius: '30px',
+                    color: 'black',
+                    border: '1px solid gray',
+                    width: '80px',
                   }}
               >
-                <SearchIconWrapper>
-                  <SearchIcon />
-                </SearchIconWrapper>
-                <StyledInputBase
-                    placeholder="Search…"
-                    inputProps={{ 'aria-label': 'search' }}
-                />
-              </Search>
-              <Box sx={{ flexGrow: 1 }} />
-              <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-                <IconButton>
-                  {currentState.isLogined && (
-                      <div onClick={handleSwitchHosting}>
-                        <p style={{ fontSize: '15px', marginTop: '8px' }}>
-                          {' '}
-                          <b> Switch to hosting</b>{' '}
-                        </p>
-                      </div>
-                  )}
-                </IconButton>
-                <IconButton
-                    size="large"
-                    edge="end"
-                    aria-label="account of current user"
-                    aria-controls={menuId}
-                    aria-haspopup="true"
-                    onClick={handleProfileMenuOpen}
-                    color="inherit"
-                >
-                  <Button
-                      style={{
-                        borderRadius: '30px',
-                        color: 'black',
-                        border: '1px solid gray',
-                        width: '80px',
-                      }}
-                  >
-                    {' '}
-                    <MenuIcon fontSize="small" />{' '}
-                    <AccountCircle fontSize="large" />{' '}
-                  </Button>
-                </IconButton>
-              </Box>
-              <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
-                <IconButton
-                    size="large"
-                    aria-label="show more"
-                    aria-controls={mobileMenuId}
-                    aria-haspopup="true"
-                    onClick={handleMobileMenuOpen}
-                    color="inherit"
-                >
-                  <MoreIcon />
-                </IconButton>
-              </Box>
-            </Toolbar>
-          </AppBar>
-          {renderMobileMenu}
-          {renderMenu}
-        </Box>
+                {' '}
+                <MenuIcon fontSize="small" />{' '}
+                <AccountCircle fontSize="large" />{' '}
+              </Button>
+            </IconButton>
+          </Toolbar>
+        </AppBar>
+        {renderMobileMenu}
+        {renderMenu}
       </>
   );
 }

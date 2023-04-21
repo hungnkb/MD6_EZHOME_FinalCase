@@ -84,7 +84,7 @@ function DashboardHosting() {
                         >
                             <Button
                                 onClick={() => {
-                                    navigate('/create-home');
+                                    navigate('/user/home');
                                 }}
                                 sx={{background:"#f7a800"}}
                                 variant="contained"

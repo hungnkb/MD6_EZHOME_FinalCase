@@ -111,10 +111,8 @@ import Button from "react-bootstrap/Button";
                                                             <div className="col-3" style={{textAlign: 'right'}}>
                                                                 <Rating
                                                                     name="simple-controlled"
-                                                                    value={value}
-                                                                    onChange={(event, newValue) => {
-                                                                        setValue(newValue);
-                                                                    }}
+                                                                    readOnly
+                                                                    defaultValue={data?.rate_stars}
                                                                 />
                                                             </div>
 

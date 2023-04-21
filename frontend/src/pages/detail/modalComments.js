@@ -248,10 +248,9 @@ function ModalComments(props) {
                                             <div className="col-3">
                                                 <Rating
                                                     name="simple-controlled"
-                                                    value={value}
-                                                    onChange={(event, newValue) => {
-                                                        setValue(newValue);
-                                                    }}
+                                                    name="simple-controlled"
+                                                    readOnly
+                                                    defaultValue={data?.rate_stars}
                                                 />
                                             </div>
                                         </div>

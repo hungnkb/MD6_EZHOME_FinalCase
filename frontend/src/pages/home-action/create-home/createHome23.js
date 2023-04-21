@@ -1,7 +1,7 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import { styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
-import { Button } from '@mui/material';
+import {Button, Tooltip} from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useDropzone } from 'react-dropzone';
@@ -98,10 +98,15 @@ export default function CreateHome23() {
                       <br/>
                         <div key={index} className="image-item" style={{borderStyle:"dotted"}}>
                           <div className="image-item__btn-wrapper">
-                            <Button sx={{marginLeft: '70%'}} variant="light" onClick={() => onImageUpdate(index)}><i
-                                className="fa-solid fa-pen"></i></Button>
-                            <Button variant="light" color="error" onClick={() => onImageRemove(index)}><i
-                                className="fa-regular fa-delete-left"></i></Button>
+                            <Tooltip title="Update image ">
+                              <Button sx={{marginLeft: '70%'}} variant="light" onClick={() => onImageUpdate(index)}><i
+                                  className="fa-solid fa-pen"></i></Button>
+                            </Tooltip>
+                            <Tooltip title="Delete">
+                              <Button variant="light" color="error" onClick={() => onImageRemove(index)}><i
+                                  className="fa-regular fa-delete-left"></i></Button>
+                            </Tooltip>
+
                           </div>
                           <img src={image.data_url} alt="image" style={{width:"100%"}}/>
                         </div>

@@ -72,8 +72,6 @@ export default function CreateHome24() {
     const title = titles;
     const price = prices;
     const address = currentState.address;
-    const bathrooms = bathrooms;
-    const bedrooms = bedrooms;
     const description = descriptions;
     const email = currentAuth.userLogin.email;
     const idCategory = currentState.idCategory;
@@ -150,10 +148,6 @@ export default function CreateHome24() {
       </center>
       <div className="row" style={{ marginBottom: '20%' }}>
         <div className="col-5">
-          {/*<h1 style={{ fontSize: '300%' }}>*/}
-          {/*  It’s easy to get started on{' '}*/}
-          {/*  <b style={{ color: '#f7a800' }}> EZHOME </b>*/}
-          {/*</h1>*/}
           <br />
           <InputGroup className="mb-3">
             <InputGroup.Text id="inputGroup-sizing-default">

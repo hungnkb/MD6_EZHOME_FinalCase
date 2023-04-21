@@ -23,7 +23,7 @@ export default function CardHome(props) {
     if (location.state?.data.length > 0) {
       setHome(location.state.data);
     } else {
-      setHome([])
+      setHome([]);
       // setIsNothingFound(true);
       // setIsFetchData(!isFetchData);
     }
@@ -77,7 +77,7 @@ export default function CardHome(props) {
                           height="250%"
                           image={value?.images[0]?.urlHomeImage}
                           alt="green iguana"
-                        //{value?.images[0].urlHomeImage}
+                          //{value?.images[0].urlHomeImage}
                         />
                         <CardContent>
                           <Typography gutterBottom variant="p" component="div">
@@ -98,7 +98,7 @@ export default function CardHome(props) {
                 return '';
               }
             })
-          ) :
+          ) : (
             // (
             //   <>
             //     <Stack direction="row" spacing={5} sx={{ marginTop: '50px' }}>
@@ -133,8 +133,10 @@ export default function CardHome(props) {
             //     </Stack>
             //   </>
             // )
-            <h2 style={{ marginTop: '30px', marginBot: '100px' }}>Not found!</h2>
-          }
+            <h2 style={{ marginTop: '30px', marginBot: '100px' }}>
+              Not found!
+            </h2>
+          )}
         </div>
       </div>
     </>

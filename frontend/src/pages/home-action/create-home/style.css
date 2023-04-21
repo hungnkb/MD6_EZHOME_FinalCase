@@ -10,14 +10,12 @@
   color: black;
   width: 100%;
   height: 40%;
-
 }
-#btn.active{
-  background: #f7a800 ;
+#btn.active {
+  background: #f7a800;
 }
 #btn:hover {
   background: #f7a800;
-
 }
 
 #ggmap {
@@ -51,7 +49,6 @@
   text-decoration: underline;
 }
 
-
 #btn-back {
   background: gray;
 }
@@ -75,7 +72,7 @@
 }
 /*createhome21
  */
-.category-item{
+.category-item {
   cursor: pointer;
   width: 100%;
   background-color: white;
@@ -87,7 +84,7 @@
 .category-input:checked + .category-item {
   background-color: #f7a800;
 }
-.footer-end{
+.footer-end {
   position: fixed;
   left: 0;
   bottom: 0;

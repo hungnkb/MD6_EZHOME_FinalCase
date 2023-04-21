@@ -13,21 +13,23 @@ import Skeleton from '@mui/material/Skeleton';
 import TopFive from './topFive';
 
 export default function CardHome(props) {
-    const [home, setHome] = useState([]);
-    const [isFetchData, setIsFetchData] = useState(false);
-    const [isNothingFound, setIsNothingFound] = useState(false);
-    const { loading = false } = props;
+  const [home, setHome] = useState([]);
+  const [isFetchData, setIsFetchData] = useState(false);
+  const [isNothingFound, setIsNothingFound] = useState(false);
+  const { loading = false } = props;
 
-    let location = useLocation();
+  let location = useLocation();
 
-    useEffect(() => {
-        if (location.state?.data.length > 0) {
-            setHome(location.state.data)
-        } else {
-            setIsNothingFound(true)
-            setIsFetchData(!isFetchData)
-        }
-    }, [location.state?.data])
+  useEffect(() => {
+    if (location.state?.data.length > 0) {
+      console.log(location.state?.data);
+      setHome(location.state.data);
+    } else {
+      setHome([]);
+      // setIsNothingFound(true);
+      // setIsFetchData(!isFetchData);
+    }
+  }, [location.state?.data]);
 
     useEffect(() => {
         setTimeout(() => {

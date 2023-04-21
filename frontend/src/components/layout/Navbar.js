@@ -140,11 +140,11 @@ export default function Navbar() {
       <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
 
       {currentState.isLogined ? (
+          <>
         <MenuItem
           onClick={() => {
             handleLogout();
             handleMenuClose();
-            // removeEmailLocalStorage();
           }}
         >
           Logout
@@ -154,6 +154,7 @@ export default function Navbar() {
               My account
             </Link>
           </MenuItem>
+          </>
       ) : (
         <MenuItem onClick={handleMenuClose}>
           <Login />

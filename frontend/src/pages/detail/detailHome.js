@@ -52,6 +52,7 @@ export default function DetailHome() {
   const [image, setImage] = useState([]);
   const [fetchData, setFetchData] = useState(false);
   const [orders, setOrders] = useState([]);
+  // console.log(detail?.description?.length,111)
 
   useEffect(() => {
     const getData = async () => {
@@ -174,7 +175,10 @@ export default function DetailHome() {
                       <div className="col-12">
                         <p>
                           <b> Description :</b>
-                          <div>{ReactHtmlParser(detail.description)}</div>
+                          <div>
+
+                            {ReactHtmlParser(detail.description)}
+                          </div>
                         </p>
                       </div>
                     </div>

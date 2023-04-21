@@ -137,8 +137,6 @@ export default function Navbar() {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-
       {currentState.isLogined ? (
           <>
         <MenuItem

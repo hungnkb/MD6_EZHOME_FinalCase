@@ -98,7 +98,6 @@ function DashboardHosting() {
                                 sx={{ background: '#f7a800' }}
                                 variant="contained"
                             >
-                                {' '}
                                 Views order
                             </Button>
                             <Button
@@ -108,7 +107,6 @@ function DashboardHosting() {
                                 sx={{ background: '#f7a800' }}
                                 variant="contained"
                             >
-                                {' '}
                                 +Add home
                             </Button>
                         </ButtonGroup>
@@ -145,8 +143,7 @@ function DashboardHosting() {
                                 {/*  <b>Description </b>{' '}*/}
                                 {/*</TableCell>*/}
                                 <TableCell align="center">
-                                    {' '}
-                                    <b>Price (đ) </b>{' '}
+                                    <b>Price (đ) </b>
                                 </TableCell>
                                 {/*<TableCell align="center">*/}
                                 {/*  <b> Rate</b>{' '}*/}
@@ -183,8 +180,8 @@ function DashboardHosting() {
                                         <TableCell align="left">
                                             {data.idCategory.categoryName}
                                         </TableCell>
-                                        <TableCell align="right">{data.bathrooms}</TableCell>
-                                        <TableCell align="right">{data.bedrooms}</TableCell>
+                                        <TableCell align="center">{data.bathrooms}</TableCell>
+                                        <TableCell align="center">{data.bedrooms}</TableCell>
                                         {/*<TableCell align="left">{ReactHtmlParser(data.description)}</TableCell>*/}
                                         <TableCell align="right">
                                             {data.price.toLocaleString('en-EN')}

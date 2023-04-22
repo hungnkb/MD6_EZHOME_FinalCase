@@ -27,9 +27,12 @@ export default function ModalFormPay(props) {
     useEffect(() => {
         setOpen(true);
     }, [props.openBill])
+// console.log(open,111);
+// console.log(props.idOwner,222);
 
     const handleBook = () => {
         setOpen(false)
+        console.log(currentAuth.userLogin.sub, props.idOwner);
         if (currentAuth.userLogin.sub === props.idOwner) {
             Swal.fire({
                 icon: 'error',
@@ -59,6 +62,7 @@ export default function ModalFormPay(props) {
                 });
         }
     };
+    console.log(props.openBill,1);
 
     return (
         <>

@@ -23,76 +23,76 @@ import HistoryRent from './components/user/HistoryRent';
 import * as React from 'react';
 
 function App() {
-  const currentAuth = useSelector((state) => state.auth);
-  const [token, setToken] = useState(null);
-  const dispatch = useDispatch((state) => state.auth);
-  const [fetchUserData, setFetchUserData] = useState(false);
+    const currentAuth = useSelector((state) => state.auth);
+    const [token, setToken] = useState(null);
+    const dispatch = useDispatch((state) => state.auth);
+    const [fetchUserData, setFetchUserData] = useState(false);
 
-  useEffect(() => {
-    setToken(localStorage.getItem('token'));
-  }, [localStorage.getItem('token'), currentAuth.isFetchDataUser]);
-  useEffect(() => {
-    const verifyToken = async () => {
-      if (token) {
-        let response = await axios({
-          method: 'get',
-          url: 'http://localhost:3002/api/v1/auth/profile',
-          headers: {
-            Authorization: JSON.parse(token),
-          },
-        });
-        if (response) {
-          dispatch(
-            setUserLogin({
-              isLogined: true,
-              userLogin: response.data,
-            }),
-          );
-          localStorage.setItem('idUser', response.data.sub);
-        }
-      }
-    };
-    verifyToken();
-  }, [token, fetchUserData, currentAuth.isFetchDataUser]);
+    useEffect(() => {
+        setToken(localStorage.getItem('token'));
+    }, [localStorage.getItem('token'), currentAuth.isFetchDataUser]);
+    useEffect(() => {
+        const verifyToken = async () => {
+            if (token) {
+                let response = await axios({
+                    method: 'get',
+                    url: 'http://localhost:3002/api/v1/auth/profile',
+                    headers: {
+                        Authorization: JSON.parse(token),
+                    },
+                });
+                if (response) {
+                    dispatch(
+                        setUserLogin({
+                            isLogined: true,
+                            userLogin: response.data,
+                        }),
+                    );
+                    localStorage.setItem('idUser', response.data.sub);
+                }
+            }
+        };
+        verifyToken();
+    }, [token, fetchUserData, currentAuth.isFetchDataUser]);
 
-  return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="" element={<Home />}>
-          <Route path="/" element={<CardHome />} />
-          <Route path="/detail-home/:id" element={<DetailHome />} />
-          {currentAuth.isLogined ? (
-            <>
-              <Route path="/reset-password" element={<ResetPassword />} />
-              <Route path="/user/hosting" element={<DashboardHosting />} />
-              <Route path="/user/profile" element={<UpdateUser />} />
-              <Route path="/user/home" element={<HomeRenting />}></Route>
-              <Route path="/user/order" element={<HistoryRent />}></Route>
-            </>
-          ) : (
-            <Route path="/" element={<CardHome />} />
-          )}
-          <Route path="/homes" element={<CardHome />}></Route>
-          <Route path="/reset-password" element={<ResetPassword />}></Route>
-        </Route>
-        <Route
-          path={''}
-          element={
-            <NavbarCreate
-              setFetchUserData={setFetchUserData}
-              fetchUserData={fetchUserData}
-            />
-          }
-        >
-          <Route path="/create-home" element={<CreateHome2 />}></Route>
-          <Route path="/create-home/1" element={<CreateHome21 />}></Route>
-          <Route path="/create-home/2" element={<CreateHome22 />}></Route>
-          <Route path="/create-home/3" element={<CreateHome23 />}></Route>
-          <Route path="/create-home/4" element={<CreateHome24 />}></Route>
-        </Route>
-      </Routes>
-    </BrowserRouter>
-  );
+    return (
+        <BrowserRouter>
+            <Routes>
+                <Route path="" element={<Home />}>
+                    <Route path="/" element={<CardHome />} />
+                    <Route path="/detail-home/:id" element={<DetailHome />} />
+                    {currentAuth.isLogined ? (
+                        <>
+                            <Route path="/reset-password" element={<ResetPassword />} />
+                            <Route path="/user/hosting" element={<DashboardHosting />} />
+                            <Route path="/user/profile" element={<UpdateUser />} />
+                            <Route path="/user/home" element={<HomeRenting />}></Route>
+                            <Route path="/user/order" element={<HistoryRent />}></Route>
+                        </>
+                    ) : (
+                        <Route path="/" element={<CardHome />} />
+                    )}
+                    <Route path="/homes" element={<CardHome />}></Route>
+                    <Route path="/reset-password" element={<ResetPassword />}></Route>
+                </Route>
+                <Route
+                    path={''}
+                    element={
+                        <NavbarCreate
+                            setFetchUserData={setFetchUserData}
+                            fetchUserData={fetchUserData}
+                        />
+                    }
+                >
+                    <Route path="/create-home" element={<CreateHome2 />}></Route>
+                    <Route path="/create-home/1" element={<CreateHome21 />}></Route>
+                    <Route path="/create-home/2" element={<CreateHome22 />}></Route>
+                    <Route path="/create-home/3" element={<CreateHome23 />}></Route>
+                    <Route path="/create-home/4" element={<CreateHome24 />}></Route>
+                </Route>
+            </Routes>
+        </BrowserRouter>
+    );
 }
 
 export default App;

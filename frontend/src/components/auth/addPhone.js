@@ -31,8 +31,16 @@ function AddPhone(props) {
     props.setIsHost(true);
   };
   const navigate = useNavigate();
+  const userLogin = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const currentAuth = useSelector((state) => state.auth);
+  const [email, setEmail] = useState(null);
+  useEffect(() => {
+    if (userLogin.userLogin.email){
+      localStorage.setItem('email', userLogin.userLogin.email);
+      setEmail(localStorage.getItem("email"));
+    }
+  },[userLogin])
   const phoneRegExp =
     /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
 
@@ -51,6 +59,7 @@ function AddPhone(props) {
         method: 'PUT',
         url: 'http://localhost:3002/api/v1/users/',
         data: {
+          email: email,
           phone: values.phone,
           role: 'host',
         },

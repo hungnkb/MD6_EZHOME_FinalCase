@@ -3,7 +3,7 @@ import Slider from 'react-slick';
 export default class CarouselMulti extends Component {
   render() {
     let settings = {
-      dots: true,
+      dots: false,
       infinite: true,
       slidesToShow: 7,
       slidesToScroll: 1,

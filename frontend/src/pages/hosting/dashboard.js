@@ -114,7 +114,6 @@ function DashboardHosting() {
             </ButtonGroup>
           </div>
         </div>
-
         <hr />
         <TableContainer component={Paper}>
           <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -145,8 +144,7 @@ function DashboardHosting() {
                 {/*  <b>Description </b>{' '}*/}
                 {/*</TableCell>*/}
                 <TableCell align="center">
-                  {' '}
-                  <b>Price (đ) </b>{' '}
+                  <b>Price (đ) </b>
                 </TableCell>
                 {/*<TableCell align="center">*/}
                 {/*  <b> Rate</b>{' '}*/}
@@ -162,65 +160,62 @@ function DashboardHosting() {
             <TableBody>
               {homeList
                 ? homeList.map((data, index) => (
-                    <TableRow
-                      key={index}
-                      sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                    >
-                      <TableCell component="th" scope="row">
-                        <Form.Check aria-label="option 1" />
-                      </TableCell>
-                      <TableCell
-                        align="center"
-                        sx={{ width: '10%', padding: '0px 0px' }}
-                      >
-                        <img
-                          style={{ width: '50%', borderRadius: '5px' }}
-                          src={data?.images[0]?.urlHomeImage}
-                          alt="house"
-                        />
-                      </TableCell>
-                      <TableCell align="left" sx={{ width: '30%' }}>
-                        <b> {data.title} </b>
-                      </TableCell>
-                      <TableCell align="left">{data.address}</TableCell>
-                      <TableCell align="left">
-                        {data.idCategory.categoryName}
-                      </TableCell>
-                      <TableCell align="right">{data.bathrooms}</TableCell>
-                      <TableCell align="right">{data.bedrooms}</TableCell>
-                      {/*<TableCell align="left">{ReactHtmlParser(data.description)}</TableCell>*/}
-                      <TableCell align="right">
-                        {data.price.toLocaleString('en-EN')}
-                      </TableCell>
-                      {/*<TableCell align="center">{data.rate_stars}</TableCell>*/}
-                      <TableCell align="center">
-                        <Switch
-                          checked={data.status}
-                          onChange={(e) => handleChange(e, data.idHome)}
-                          inputProps={{ true: 'false' }}
-                          color="warning"
-                        />
-                      </TableCell>
-                      {/*<TableCell align="center">*/}
-                      {/*  <Button variant="light" onClick={() => getData(data)}> <i*/}
-                      {/*      className="fa-solid fa-pen-to-square"*/}
-                      {/*      style={{*/}
-                      {/*        color: 'green',*/}
-                      {/*        fontSize: '130%',*/}
-                      {/*      }}*/}
-                      {/*  ></i></Button>*/}
-                      {/*</TableCell>*/}
-                      {/*<TableCell align="center">*/}
-                      {/*  <i*/}
-                      {/*      className="fa-solid fa-trash"*/}
-                      {/*      style={{*/}
-                      {/*        color: 'red',*/}
-                      {/*        fontSize: '130%',*/}
-                      {/*      }}*/}
-                      {/*  ></i>*/}
-                      {/*</TableCell>*/}
-                    </TableRow>
-                  ))
+                  <TableRow
+                    key={index}
+                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                  >
+                    <TableCell component="th" scope="row">
+                      <Form.Check aria-label="option 1" />
+                    </TableCell>
+                    <TableCell align="center" sx={{ width: '10%', padding: '0px 0px' }}>
+                      <img
+                        style={{ width: '50%', borderRadius: '5px' }}
+                        src={data?.images[0]?.urlHomeImage}
+                        alt="house"
+                      />
+                    </TableCell>
+                    <TableCell align="left" sx={{ width: '30%' }}>
+                      <b> {data.title} </b>
+                    </TableCell>
+                    <TableCell align="left">{data.address}</TableCell>
+                    <TableCell align="left">
+                      {data.idCategory.categoryName}
+                    </TableCell>
+                    <TableCell align="center">{data.bathrooms}</TableCell>
+                    <TableCell align="center">{data.bedrooms}</TableCell>
+                    {/*<TableCell align="left">{ReactHtmlParser(data.description)}</TableCell>*/}
+                    <TableCell align="right">
+                      {data.price.toLocaleString('en-EN')}
+                    </TableCell>
+                    {/*<TableCell align="center">{data.rate_stars}</TableCell>*/}
+                    <TableCell align="center">
+                      <Switch
+                        checked={data.status}
+                        onChange={(e) => handleChange(e, data.idHome)}
+                        inputProps={{ true: 'false' }}
+                        color="warning"
+                      />
+                    </TableCell>
+                    {/*<TableCell align="center">*/}
+                    {/*  <Button variant="light" onClick={() => getData(data)}> <i*/}
+                    {/*      className="fa-solid fa-pen-to-square"*/}
+                    {/*      style={{*/}
+                    {/*        color: 'green',*/}
+                    {/*        fontSize: '130%',*/}
+                    {/*      }}*/}
+                    {/*  ></i></Button>*/}
+                    {/*</TableCell>*/}
+                    {/*<TableCell align="center">*/}
+                    {/*  <i*/}
+                    {/*      className="fa-solid fa-trash"*/}
+                    {/*      style={{*/}
+                    {/*        color: 'red',*/}
+                    {/*        fontSize: '130%',*/}
+                    {/*      }}*/}
+                    {/*  ></i>*/}
+                    {/*</TableCell>*/}
+                  </TableRow>
+                ))
                 : null}
             </TableBody>
           </Table>

@@ -89,11 +89,13 @@ export default function FormPay(props) {
     } else {
       setOpenLogin(true);
     }
-  }
+  };
   return (
     <>
       <LoginModal openLogin={openLogin} setOpenLogin={setOpenLogin} />
-      {isFormPayOpen && <ModalFormPay dataForm={dataForm} openBill={openBill} />}
+      {isFormPayOpen && (
+        <ModalFormPay dataForm={dataForm} openBill={openBill} />
+      )}
       <MDBContainer>
         <MDBRow>
           <MDBCol>
@@ -194,7 +196,7 @@ export default function FormPay(props) {
                 <Button
                   onClick={() => {
                     setOpenDate(!openDate);
-                    handleBook()
+                    handleBook();
                   }}
                   variant="warning"
                   style={{ width: 400, marginTop: '10px' }}

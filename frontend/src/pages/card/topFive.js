@@ -1,5 +1,4 @@
-import { Card, CardContent, CardMedia, Typography } from "@mui/material";
-
+import { Card, CardContent, CardMedia, Typography } from '@mui/material';
 
 //  export default  function TopFive() {
 //     return (
@@ -128,8 +127,8 @@ import { Card, CardContent, CardMedia, Typography } from "@mui/material";
 //     );
 // };
 
-import React, { Component } from "react";
-import Slider from "react-slick";
+import React, { Component } from 'react';
+import Slider from 'react-slick';
 
 export default class TopFive extends Component {
   render() {
@@ -140,7 +139,7 @@ export default class TopFive extends Component {
       slidesToScroll: 1,
       autoplay: true,
       autoplaySpeed: 2000,
-      pauseOnHover: true
+      pauseOnHover: true,
     };
     return (
       <div>
@@ -157,7 +156,7 @@ export default class TopFive extends Component {
                 }}
               >
                 <CardMedia
-                  sx={{ height: '250px', borderRadius: '7%', }}
+                  sx={{ height: '250px', borderRadius: '7%' }}
                   image="https://smarthome.worldtech.vn/wp-content/uploads/2017/10/hinh-ngoi-nha.jpg"
                   title="green iguana"
                 />
@@ -180,7 +179,7 @@ export default class TopFive extends Component {
                 }}
               >
                 <CardMedia
-                  sx={{ height: '250px', borderRadius: '7%', }}
+                  sx={{ height: '250px', borderRadius: '7%' }}
                   image="https://nhaachau.com/wp-content/uploads/2018/11/bietthumaitahi1328.jpg"
                   title="green iguana"
                 />
@@ -203,7 +202,7 @@ export default class TopFive extends Component {
                 }}
               >
                 <CardMedia
-                  sx={{ height: '250px', borderRadius: '7%', }}
+                  sx={{ height: '250px', borderRadius: '7%' }}
                   image="https://noithattrevietnam.com/uploaded/Kien-thuc-nha-dep/hinh-anh-nha-2-tang-mai-thai/1-hinh-anh-nha-2-tang-mai-thai.jpg"
                   title="green iguana"
                 />
@@ -226,7 +225,7 @@ export default class TopFive extends Component {
                 }}
               >
                 <CardMedia
-                  sx={{ height: '250px', borderRadius: '7%', }}
+                  sx={{ height: '250px', borderRadius: '7%' }}
                   image="https://smarthome.worldtech.vn/wp-content/uploads/2017/10/hinh-ngoi-nha.jpg"
                   title="green iguana"
                 />
@@ -242,7 +241,6 @@ export default class TopFive extends Component {
             <div>
               <Card
                 style={{
-
                   height: '400px',
                   width: '300px',
                   float: 'left',
@@ -250,7 +248,7 @@ export default class TopFive extends Component {
                 }}
               >
                 <CardMedia
-                  sx={{ height: '250px', borderRadius: '7%', }}
+                  sx={{ height: '250px', borderRadius: '7%' }}
                   image="https://phunugioi.com/wp-content/uploads/2020/11/hinh-anh-ngoi-nha-dep-1.jpg"
                   title="green iguana"
                 />
@@ -265,7 +263,6 @@ export default class TopFive extends Component {
             </div>
           </Slider>
         </center>
-
       </div>
     );
   }

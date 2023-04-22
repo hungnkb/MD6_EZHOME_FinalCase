@@ -194,7 +194,7 @@ export default function Navbar() {
                         </Link>
                     </MenuItem>
                     <MenuItem>
-                        <Link style={{textDecoration: 'none', color: 'Black'}} to="/user/orders">
+                        <Link style={{textDecoration: 'none', color: 'Black'}} to="/user/order">
                             My Orders
                         </Link>
                     </MenuItem>

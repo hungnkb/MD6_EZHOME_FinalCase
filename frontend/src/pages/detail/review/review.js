@@ -28,7 +28,7 @@ export default function Review(props) {
       .then((res) => {
         setReview(res.data);
       });
-  }, [newReview]);
+  }, []);
   const handleChange = (event) => {
     setNewReview({
       ...newReview,

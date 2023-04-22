@@ -72,26 +72,26 @@ function App() {
           ) : (
             <Route path="/" element={<CardHome />} />
           )}
-          <Route path='/homes' element={<CardHome />}></Route>
-          <Route path='/reset-password' element={<ResetPassword />}></Route>
-        </Route >
-    <Route
-      path={''}
-      element={
-        <NavbarCreate
-          setFetchUserData={setFetchUserData}
-          fetchUserData={fetchUserData}
-        />
-      }
-    >
-      <Route path="/create-home" element={<CreateHome2 />}></Route>
-      <Route path="/create-home/1" element={<CreateHome21 />}></Route>
-      <Route path="/create-home/2" element={<CreateHome22 />}></Route>
-      <Route path="/create-home/3" element={<CreateHome23 />}></Route>
-      <Route path="/create-home/4" element={<CreateHome24 />}></Route>
-    </Route>
-      </Routes >
-    </BrowserRouter >
+          <Route path="/homes" element={<CardHome />}></Route>
+          <Route path="/reset-password" element={<ResetPassword />}></Route>
+        </Route>
+        <Route
+          path={''}
+          element={
+            <NavbarCreate
+              setFetchUserData={setFetchUserData}
+              fetchUserData={fetchUserData}
+            />
+          }
+        >
+          <Route path="/create-home" element={<CreateHome2 />}></Route>
+          <Route path="/create-home/1" element={<CreateHome21 />}></Route>
+          <Route path="/create-home/2" element={<CreateHome22 />}></Route>
+          <Route path="/create-home/3" element={<CreateHome23 />}></Route>
+          <Route path="/create-home/4" element={<CreateHome24 />}></Route>
+        </Route>
+      </Routes>
+    </BrowserRouter>
   );
 }
 

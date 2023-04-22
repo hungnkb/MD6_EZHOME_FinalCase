@@ -88,7 +88,6 @@ export default function Navbar() {
                 }
             })
     }, [email])
-    console.log(currentState,444)
     const callbackFunction = (childData) => {
         setMessage(childData);
     };

@@ -77,25 +77,32 @@ export default function FormPay(props) {
 
   const handleBook = () => {
     if (currentAuth.isLogined) {
-      setDataForm({
-        checkin: data.checkin,
-        checkout: data.checkout,
-        idUser: currentAuth.userLogin.sub,
-        idHome: props.idHome,
-        charged: total,
-      });
-      setOpenBill(true);
-      setIsFormPayOpen(true);
+      if (data.checkin && data.checkout) {
+        setDataForm({
+          checkin: data.checkin,
+          checkout: data.checkout,
+          idUser: currentAuth.userLogin.sub,
+          idHome: props.idHome,
+          charged: total,
+        });
+        setOpenBill(true);
+        setIsFormPayOpen(true)
+      } else {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Please pick date!',
+          timer: 1500
+        });
+      }
     } else {
       setOpenLogin(true);
     }
-  };
+  }
   return (
     <>
       <LoginModal openLogin={openLogin} setOpenLogin={setOpenLogin} />
-      {isFormPayOpen && (
-        <ModalFormPay dataForm={dataForm} openBill={openBill} />
-      )}
+      {isFormPayOpen && <ModalFormPay dataForm={dataForm} openBill={openBill} setOpenBill={setOpenBill} idOwner={props.idOwner} />}
       <MDBContainer>
         <MDBRow>
           <MDBCol>
@@ -196,7 +203,7 @@ export default function FormPay(props) {
                 <Button
                   onClick={() => {
                     setOpenDate(!openDate);
-                    handleBook();
+                    handleBook()
                   }}
                   variant="warning"
                   style={{ width: 400, marginTop: '10px' }}

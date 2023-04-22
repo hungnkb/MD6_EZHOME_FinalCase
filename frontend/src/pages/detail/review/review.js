@@ -139,7 +139,7 @@ export default function Review(props) {
                             style={{ width: '100%' }}
                           >
                             <MDBCol md="11" lg="12" xl="12">
-                              {review.map((data, index) => {
+                              {review.reverse().map((data, index) => {
                                 if (index < 4) {
                                   return (
                                     <div className="d-flex justify-content-between mb-4">

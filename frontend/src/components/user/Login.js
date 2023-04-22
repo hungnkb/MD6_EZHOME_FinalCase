@@ -13,7 +13,7 @@ import {
 } from '@mui/material';
 import FormHelperText from '@mui/material/FormHelperText';
 import { useFormik } from 'formik';
-import React, { useState } from 'react';
+import React, { createContext, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import 'react-toastify/dist/ReactToastify.css';
@@ -28,12 +28,11 @@ import Swal from 'sweetalert2';
 function Login() {
   const dispatch = useDispatch();
   const [isLogin, setIsLogin] = useState(0);
-  const [items, setItems] = useState(null);
+  const [open, setOpen] = React.useState(false);
   const [userLogins, setUserLogins] = useState({
     email: '',
     password: '',
   });
-  const currentState = useSelector((state) => state.auth);
   const formik = useFormik({
     initialValues: {
       email: '',
@@ -96,7 +95,6 @@ function Login() {
     event.preventDefault();
   };
 
-  const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -163,7 +161,7 @@ function Login() {
                       size="small"
                     />
                   </div>
-                  
+
                   <div style={{ marginTop: '10px' }}>
                     <FormControl
                       error={

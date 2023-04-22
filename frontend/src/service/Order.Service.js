@@ -1,5 +1,3 @@
 class OrderService {
-    static async getOrderOfUser(){
-
-    }
+  static async getOrderOfUser() {}
 }

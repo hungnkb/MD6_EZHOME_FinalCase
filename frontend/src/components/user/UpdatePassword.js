@@ -110,9 +110,7 @@ export default function UpdatePassword(props) {
             boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.25)',
           }}
         >
-          <div
-            className="bg-white border flex flex-col p-4 pt-10"
-          >
+          <div className="bg-white border flex flex-col p-4 pt-10">
             <h4
               style={{
                 color: 'Black',
@@ -148,8 +146,9 @@ export default function UpdatePassword(props) {
               <br />
               <br />
               <div
-                className={`custom-input ${form.password && form.password.error && 'custom-input-error'
-                  }`}
+                className={`custom-input ${
+                  form.password && form.password.error && 'custom-input-error'
+                }`}
               >
                 <input
                   name="newPassword"
@@ -173,10 +172,11 @@ export default function UpdatePassword(props) {
               </div>
               <br />
               <div
-                className={`custom-input ${form.confirmPassword &&
+                className={`custom-input ${
+                  form.confirmPassword &&
                   form.confirmPassword.error &&
                   'custom-input-error'
-                  }`}
+                }`}
               >
                 <input
                   name="confirmPassword"

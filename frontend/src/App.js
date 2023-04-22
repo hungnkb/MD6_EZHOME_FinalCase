@@ -1,6 +1,6 @@
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {BrowserRouter, Routes, Route, Link} from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import Home from './components/home/Home';
 import CardHome from './pages/card/cardHome';
 import DetailHome from './pages/detail/detailHome';
@@ -18,11 +18,9 @@ import { setUserLogin } from './redux/features/authSlice';
 import DashboardHosting from './pages/hosting/dashboard';
 import UpdateUser from './components/user/UpdateUser';
 import ResetPassword from './components/user/ResetPassword';
-import HomeRenting from "./pages/hosting/homeRenting";
-import HistoryRent from "./components/user/HistoryRent";
-import MenuItem from "@mui/material/MenuItem";
-import Login from "./components/user/Login";
-import * as React from "react";
+import HomeRenting from './pages/hosting/homeRenting';
+import HistoryRent from './components/user/HistoryRent';
+import * as React from 'react';
 
 function App() {
   const currentAuth = useSelector((state) => state.auth);
@@ -64,15 +62,15 @@ function App() {
           <Route path="/" element={<CardHome />} />
           <Route path="/detail-home/:id" element={<DetailHome />} />
           {currentAuth.isLogined ? (
-              <>
-                <Route path="/reset-password" element={<ResetPassword />} />
-                <Route path="/user/hosting" element={<DashboardHosting />} />
-                <Route path="/user/profile" element={<UpdateUser />} />
-                <Route path="/user/home" element={<HomeRenting />}></Route>
-                <Route path="/user/order" element={<HistoryRent />}></Route>
-              </>
+            <>
+              <Route path="/reset-password" element={<ResetPassword />} />
+              <Route path="/user/hosting" element={<DashboardHosting />} />
+              <Route path="/user/profile" element={<UpdateUser />} />
+              <Route path="/user/home" element={<HomeRenting />}></Route>
+              <Route path="/user/order" element={<HistoryRent />}></Route>
+            </>
           ) : (
-              <Route path="/" element={<CardHome />} />
+            <Route path="/" element={<CardHome />} />
           )}
           <Route path='/homes' element={<CardHome />}></Route>
           <Route path='/reset-password' element={<ResetPassword />}></Route>

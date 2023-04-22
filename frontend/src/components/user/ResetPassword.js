@@ -52,7 +52,6 @@ export default function ResetPassword() {
   };
   useEffect(() => {
     if (flag) {
-      ('flagggggggggg');
       setOpen(false);
     }
   }, [flag]);
@@ -76,7 +75,6 @@ export default function ResetPassword() {
           }, 0);
         },
         (error) => {
-          (error);
           Toast.fire({
             icon: 'error',
             title: 'Token Incorrect!',
@@ -117,7 +115,7 @@ export default function ResetPassword() {
       [event.target.name]: event.target.value,
     });
   };
-  (open);
+
   return (
     <div>
       {open && (
@@ -172,8 +170,9 @@ export default function ResetPassword() {
                 <br />
                 <br />
                 <div
-                  className={`custom-input ${form.password && form.password.error && 'custom-input-error'
-                    }`}
+                  className={`custom-input ${
+                    form.password && form.password.error && 'custom-input-error'
+                  }`}
                 >
                   <input
                     name="password"
@@ -197,10 +196,11 @@ export default function ResetPassword() {
                 </div>
                 <br />
                 <div
-                  className={`custom-input ${form.confirmPassword &&
+                  className={`custom-input ${
+                    form.confirmPassword &&
                     form.confirmPassword.error &&
                     'custom-input-error'
-                    }`}
+                  }`}
                 >
                   <input
                     name="confirmPassword"

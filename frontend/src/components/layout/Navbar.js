@@ -97,7 +97,7 @@ export default function Navbar() {
   };
   const handleLogout = () => {
     dispatch(logout());
-    navigate('/')
+    navigate('/');
   };
 
   const handleSwitchHosting = () => {
@@ -138,21 +138,21 @@ export default function Navbar() {
       onClose={handleMenuClose}
     >
       {currentState.isLogined ? (
-          <>
-        <MenuItem
-          onClick={() => {
-            handleLogout();
-            handleMenuClose();
-          }}
-        >
-          Logout
-        </MenuItem>
+        <>
+          <MenuItem
+            onClick={() => {
+              handleLogout();
+              handleMenuClose();
+            }}
+          >
+            Logout
+          </MenuItem>
           <MenuItem>
             <Link style={{ textDecoration: 'none', color: 'Black' }} to="/user/profile">
               My account
             </Link>
           </MenuItem>
-          </>
+        </>
       ) : (
         <MenuItem onClick={handleMenuClose}>
           <Login />

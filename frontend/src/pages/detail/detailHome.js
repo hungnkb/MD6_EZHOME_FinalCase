@@ -175,10 +175,7 @@ export default function DetailHome() {
                       <div className="col-12">
                         <p>
                           <b> Description :</b>
-                          <div>
-
-                            {ReactHtmlParser(detail.description)}
-                          </div>
+                          <div>{ReactHtmlParser(detail.description)}</div>
                         </p>
                       </div>
                     </div>

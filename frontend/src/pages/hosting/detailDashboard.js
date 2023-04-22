@@ -36,15 +36,15 @@ export default function DetailDashboard(props) {
                 type="text"
                 value={props?.dashboard?.idCategory.categoryName}
               />
-            </Form.Group>{' '}
+            </Form.Group>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
               <Form.Label>bathrooms</Form.Label>
               <Form.Control type="text" value={props?.dashboard?.bathrooms} />
-            </Form.Group>{' '}
+            </Form.Group>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
               <Form.Label>bedrooms</Form.Label>
               <Form.Control type="text" value={props?.dashboard?.bedrooms} />
-            </Form.Group>{' '}
+            </Form.Group>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
               <Form.Label>Price</Form.Label>
               <Form.Control

@@ -51,6 +51,7 @@ function App() {
             }),
           );
           localStorage.setItem('idUser', response.data.sub);
+          localStorage.setItem('email', response.data.email);
         }
       }
     };
@@ -69,7 +70,7 @@ function App() {
                 <Route path="/user/hosting" element={<DashboardHosting />} />
                 <Route path="/user/profile" element={<UpdateUser />} />
                 <Route path="/user/home" element={<HomeRenting />}></Route>
-                <Route path="/user/order" element={<HistoryRent />}></Route>
+                <Route path="/user/orders" element={<HistoryRent />}></Route>
               </>
           ) : (
               <Route path="/" element={<CardHome />} />

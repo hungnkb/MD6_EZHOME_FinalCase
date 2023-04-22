@@ -84,37 +84,43 @@ function HistoryRent() {
     doSomethingWithId(id);
   };
   const doSomethingWithId = async (idOrder) => {
-    console.log(idOrder,333)
-    axios.patch(`http://localhost:3002/api/v1/orders/${idOrder}`).then(
-        (response) => {
-          console.log(response)
-          Swal.fire({
-            position: 'center',
-            icon: 'success',
-            title: 'Success Cancel',
-            showConfirmButton: false,
-            timer: 2000,
-          })
-          setCount(count+1);
-          axios
-              .get(
-                  `http://localhost:3002/api/v1/orders?idUser=${localStorage.getItem(
-                      'idUser',
-                  )}`,
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "Do you want to cancel this reservation?",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, I wan to cancel!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios.patch(`http://localhost:3002/api/v1/orders/${idOrder}`).then(
+            (response) => {
+              console.log(response)
+              Swal.fire(
+                  'Deleted!',
+                  'Your Order has been cancel.',
+                  'success'
               )
-              .then((res) => {
-                setList(res.data);
+              axios
+                  .get(
+                      `http://localhost:3002/api/v1/orders?idUser=${localStorage.getItem(
+                          'idUser',
+                      )}`,
+                  )
+                  .then((res) => {
+                    setList(res.data);
+                  });
+            },
+            (error) => {
+              Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Cannot Cancel!',
               });
-        },
-        (error) => {
-          Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            text: 'Cannot Cancel!',
-          });
-        },);
-
-
+            },);
+      }
+    })
   };
   console.log(status)
     console.log(count)

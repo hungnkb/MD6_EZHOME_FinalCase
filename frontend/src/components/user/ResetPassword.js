@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import {useNavigate} from "react-router-dom";
 import 'react-toastify/dist/ReactToastify.css';
 import axios from '../../api/axios';
 import {
@@ -31,6 +30,7 @@ export default function ResetPassword() {
   const token = searchParams.get('token');
   const [open, setOpen] = useState(true);
   const [flag, setFlag] = useState(false);
+  const navigate = useNavigate();
   const [emailTokenPassword, setEmailTokenPassword] = useState({
     email: email,
     token: token,
@@ -52,7 +52,6 @@ export default function ResetPassword() {
   };
   useEffect(() => {
     if (flag) {
-      ('flagggggggggg');
       setOpen(false);
     }
   }, [flag]);
@@ -74,9 +73,9 @@ export default function ResetPassword() {
               title: 'Change Password Successfull',
             });
           }, 0);
+          navigate('/');
         },
         (error) => {
-          (error);
           Toast.fire({
             icon: 'error',
             title: 'Token Incorrect!',
@@ -117,7 +116,6 @@ export default function ResetPassword() {
       [event.target.name]: event.target.value,
     });
   };
-  (open);
   return (
     <div>
       {open && (

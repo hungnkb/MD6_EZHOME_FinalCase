@@ -7,12 +7,13 @@ import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import InputLabel from '@mui/material/InputLabel';
 import * as yup from "yup";
-import { useSelector } from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import {Link} from "react-router-dom";
 import UpdatePassword from "./UpdatePassword";
 import HistoryRent from './HistoryRent';
+import {setNewPhone} from "../../redux/features/authSlice";
 
 
 export default function UpdateUser() {
@@ -24,7 +25,7 @@ export default function UpdateUser() {
     const [phone, setPhone] = useState("");
     const [phoneError, setPhoneError] = useState(false);
     const [email, setEmail] = useState(null);
-
+    const dispatch = useDispatch((state) => state.auth);
 
     useEffect(() => {
         axios.get(`http://localhost:3002/api/v1/users?email=${email}`)
@@ -52,6 +53,7 @@ export default function UpdateUser() {
                 address: dataUser.address
             }).then(
             (response) => {
+                console.log(response,34343)
                 console.log(response)
                 Swal.fire({
                     position: 'center',
@@ -60,6 +62,11 @@ export default function UpdateUser() {
                     showConfirmButton: false,
                     timer: 2000,
                 })
+                dispatch(
+                    setNewPhone({
+                        newPhone: dataUser.phone
+                    }),
+                )
             },
             (error) => {
                 Swal.fire({
@@ -94,13 +101,9 @@ export default function UpdateUser() {
             [event.target.name]: event.target.value,
         });
     }
-
-
-
     const handleOpenComponentChild = (event) => {
         setData(!data)
     }
-
     return (
       <React.Fragment>
         <Paper
@@ -117,7 +120,6 @@ export default function UpdateUser() {
               <Typography variant="h6" gutterBottom sx={{ paddingBottom: 5 }}>
                 My Proflie
               </Typography>
-
               <Grid container spacing={3}>
                 <Grid item xs={12} sm={2}>
                   <InputLabel
@@ -167,7 +169,17 @@ export default function UpdateUser() {
                     value={`${dataUser?.address ? dataUser.address : ''}`}
                   />
                 </Grid>
-                <Grid item xs={12} sm={2}></Grid>
+                <Grid item xs={12} sm={2}>
+                    <InputLabel
+                        sx={{
+                            display: 'flex',
+                            justifyContent: 'center',
+                            fontWeight: 700,
+                        }}
+                    >
+                        Phone
+                    </InputLabel>
+                </Grid>
                 <Grid item xs={12} sm={4}>
                   <TextField
                     type="text"

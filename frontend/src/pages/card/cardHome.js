@@ -47,8 +47,8 @@ export default function CardHome(props) {
         <br />
 
         <TopFive />
+        <div style={{marginTop: '70px'}} className="d-flex flex-wrap justify-content-center">
 
-        <div className="d-flex flex-wrap justify-content-center">
           {home.length > 0 ? (
             home.map((value, index) => {
               if (value.status) {

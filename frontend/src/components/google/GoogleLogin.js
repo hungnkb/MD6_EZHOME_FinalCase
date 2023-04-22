@@ -21,24 +21,38 @@ const GoogleButton = (props) => {
         email: userObject.email,
       })
       .then((response) => {
-        localStorage.setItem(
-          'token',
-          JSON.stringify(response.data.accessToken),
-        );
-        dispatch(setIsFetDataUser(!currentAuth.isFetDataUser));
+        if (response.data.accessToken){
+          localStorage.setItem(
+              'token',
+              JSON.stringify(response.data.accessToken),
+          );
+          dispatch(setIsFetDataUser(!currentAuth.isFetDataUser));
+          props.handleClose();
+          Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'Register Success',
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        }
+        else {
+          localStorage.setItem(
+              'token',
+              JSON.stringify(response.data.accessTokenWithNewUser),
+          );
+          dispatch(setIsFetDataUser(!currentAuth.isFetDataUser));
+          props.handleClose();
+          Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'Register Success, please check your Email to Active',
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        }
       })
-      .then(() => {
-        props.handleClose();
-        Swal.fire({
-          position: 'center',
-          icon: 'success',
-          title: 'Register Success, please check your Email to Active',
-          showConfirmButton: false,
-          timer: 1500,
-        });
-      });
   }
-
   useEffect(() => {
     /* global google */
     google.accounts.id.initialize({

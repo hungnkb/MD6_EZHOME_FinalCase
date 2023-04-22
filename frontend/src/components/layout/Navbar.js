@@ -97,6 +97,7 @@ export default function Navbar() {
   };
   const handleLogout = () => {
     dispatch(logout());
+    navigate('/')
   };
 
   const handleSwitchHosting = () => {
@@ -136,28 +137,27 @@ export default function Navbar() {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-
       {currentState.isLogined ? (
+          <>
         <MenuItem
           onClick={() => {
             handleLogout();
             handleMenuClose();
-            // removeEmailLocalStorage();
           }}
         >
           Logout
         </MenuItem>
+          <MenuItem>
+            <Link style={{ textDecoration: 'none', color: 'Black' }} to="/user/profile">
+              My account
+            </Link>
+          </MenuItem>
+          </>
       ) : (
         <MenuItem onClick={handleMenuClose}>
           <Login />
         </MenuItem>
       )}
-      <MenuItem>
-        <Link style={{ textDecoration: 'none', color: 'Black' }} to="/profile">
-          My account
-        </Link>
-      </MenuItem>
     </Menu>
   );
   const mobileMenuId = 'primary-search-account-menu-mobile';

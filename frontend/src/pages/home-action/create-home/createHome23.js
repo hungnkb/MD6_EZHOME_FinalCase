@@ -47,7 +47,6 @@ export default function CreateHome23() {
   };
 
   const onChange = (imageList, addUpdateIndex) => {
-    console.log(imageList);
     setImages(imageList);
   };
 

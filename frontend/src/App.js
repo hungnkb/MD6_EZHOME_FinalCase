@@ -75,6 +75,7 @@ function App() {
               <Route path="/" element={<CardHome />} />
           )}
           <Route path='/homes' element={<CardHome />}></Route>
+          <Route path='/reset-password' element={<ResetPassword />}></Route>
         </Route >
     <Route
       path={''}

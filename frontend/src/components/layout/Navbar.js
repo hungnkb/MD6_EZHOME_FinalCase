@@ -148,7 +148,10 @@ export default function Navbar() {
             Logout
           </MenuItem>
           <MenuItem>
-            <Link style={{ textDecoration: 'none', color: 'Black' }} to="/user/profile">
+            <Link
+              style={{ textDecoration: 'none', color: 'Black' }}
+              to="/user/profile"
+            >
               My account
             </Link>
           </MenuItem>

@@ -89,7 +89,7 @@ export default function Review(props) {
               <div className="col-11">
                 <Button
                   variant="light"
-                  type="submit"
+                  type="button"
                   style={{
                     borderRadius: '20px',
                     border: '1px solid black ',

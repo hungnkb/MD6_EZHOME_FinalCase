@@ -86,26 +86,26 @@ export default function DetailHome() {
               <ModalImg image={image} />
               {detail?.images?.length > 0 ? (
                 <img
-                  style={{ width: 500, height: 400 }}
+                  style={{ width: 620, height: 400 }}
                   src={detail?.images[0]?.urlHomeImage}
                 />
               ) : (
                 <Skeleton
                   animation="wave"
-                  style={{ width: 500, height: 400 }}
+                  style={{ width: 600, height: 500 }}
                 />
               )}
             </div>
-            <div style={{ marginLeft: '5%' }}>
+            <div style={{ marginLeft: '1%' }}>
               {detail?.images?.length > 0 ? (
                 <img
-                  style={{ width: 500, height: 400 }}
+                  style={{ width: 620, height: 400 }}
                   src={detail?.images[1]?.urlHomeImage}
                 />
               ) : (
                 <Skeleton
                   animation="wave"
-                  style={{ width: 500, height: 400 }}
+                  style={{ width: 600, height: 500 }}
                 />
               )}
             </div>

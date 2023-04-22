@@ -4,7 +4,6 @@ import { format } from 'date-fns';
 import { Datepicker, localeVi } from '@mobiscroll/react';
 import Button from 'react-bootstrap/Button';
 import { useEffect } from 'react';
-import axios from '../../api/axios';
 import { useSelector } from 'react-redux';
 import Swal from 'sweetalert2';
 import LoginModal from '../../components/user/LoginModal';

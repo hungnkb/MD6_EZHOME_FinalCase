@@ -16,7 +16,6 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import { Box, Chip, Modal, Typography } from '@mui/material';
 import Swal from 'sweetalert2';
-import { useSelector } from 'react-redux';
 
 function HistoryRent() {
     const style = {

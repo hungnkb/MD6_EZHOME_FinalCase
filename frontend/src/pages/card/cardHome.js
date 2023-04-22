@@ -31,11 +31,9 @@ export default function CardHome(props) {
   }, [location.state?.data]);
 
   useEffect(() => {
-    setTimeout(() => {
       axios.get('http://localhost:3002/api/v1/homes').then((res) => {
         setHome(res.data);
       });
-    }, 1500);
   }, [isFetchData]);
   return (
     <>

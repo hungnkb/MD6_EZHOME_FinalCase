@@ -52,7 +52,7 @@ export default function DetailHome() {
   const [image, setImage] = useState([]);
   const [fetchData, setFetchData] = useState(false);
   const [orders, setOrders] = useState([]);
-  // console.log(detail?.description?.length,111)
+  const [idOwner, setIdOwner] = useState(null)
 
   useEffect(() => {
     const getData = async () => {
@@ -63,10 +63,12 @@ export default function DetailHome() {
           setDetail(response.data[0]);
           setPrice(response.data[0].price);
           setOrders(response.data[0].orders);
+          setIdOwner(response.data[0].idUser.idUser);
         });
     };
     getData();
   }, []);
+
   return (
     <>
       <div>
@@ -227,6 +229,7 @@ export default function DetailHome() {
                 orders={orders}
                 idHome={idHome.id}
                 address={detail.address}
+                idOwner={idOwner}
               />
             </div>
           </div>

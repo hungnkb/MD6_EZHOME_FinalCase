@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -149,10 +148,7 @@ export default function Register(props) {
               boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.25)',
             }}
           >
-            <div
-              className="bg-white border flex flex-col p-4 pt-10"
-              
-            >
+            <div className="bg-white border flex flex-col p-4 pt-10">
               <Typography
                 id="keep-mounted-modal-title"
                 variant="h4"
@@ -226,7 +222,11 @@ export default function Register(props) {
                           onClick={handleClickShowConfirmPassword}
                           onMouseDown={handleMouseDownConfirmPassword}
                         >
-                          {showConfirmPassword ? <VisibilityOff /> : <Visibility />}
+                          {showConfirmPassword ? (
+                            <VisibilityOff />
+                          ) : (
+                            <Visibility />
+                          )}
                         </IconButton>
                       </InputAdornment>
                     ),

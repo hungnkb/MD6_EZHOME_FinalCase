@@ -104,29 +104,29 @@ export default function HomeRenting() {
           <TableHead>
             <TableRow>
               <TableCell>
-                <b> # </b>{' '}
+                <b> # </b>
               </TableCell>
               <TableCell align="center">
-                <b> Email </b>{' '}
+                <b> Email </b>
               </TableCell>
               {/*<TableCell align="center">*/}
-              {/*    {' '}*/}
-              {/*    <b> Total Price</b>{' '}*/}
+              {/*   */}
+              {/*    <b> Total Price</b>*/}
               {/*</TableCell>*/}
               <TableCell align="center">
-                <b> Phone</b>{' '}
+                <b> Phone</b>
               </TableCell>
               <TableCell align="center">
-                <b> Home </b>{' '}
+                <b> Home </b>
               </TableCell>
               <TableCell align="center">
-                <b>Checkin </b>{' '}
+                <b>Checkin </b>
               </TableCell>
               <TableCell align="center">
-                <b> Checkout</b>{' '}
+                <b> Checkout</b>
               </TableCell>
               <TableCell align="center">
-                <b>Status </b>{' '}
+                <b>Status </b>
               </TableCell>
             </TableRow>
           </TableHead>

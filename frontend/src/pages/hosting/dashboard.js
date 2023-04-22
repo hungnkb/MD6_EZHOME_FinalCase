@@ -1,4 +1,4 @@
-import React, {useState, useEffect, setState} from 'react';
+import React, { useState, useEffect, setState } from 'react';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -7,17 +7,21 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import axios from '../../api/axios';
-import {useSelector} from 'react-redux';
-import {Button, ButtonGroup, Switch} from '@mui/material';
+import { useSelector } from 'react-redux';
+import { Button, ButtonGroup, Switch } from '@mui/material';
 import Form from 'react-bootstrap/Form';
-import {useNavigate} from 'react-router-dom';
-import ReactHtmlParser, {processNodes, convertNodeToElement, htmlparser2} from 'react-html-parser';
-import detailDashboard from "./detailDashboard";
-import DetailDashboard from "./detailDashboard";
-import InputLabel from "@mui/material/InputLabel";
-import Select from "@mui/material/Select";
-import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
+import { useNavigate } from 'react-router-dom';
+import ReactHtmlParser, {
+    processNodes,
+    convertNodeToElement,
+    htmlparser2,
+} from 'react-html-parser';
+import detailDashboard from './detailDashboard';
+import DetailDashboard from './detailDashboard';
+import InputLabel from '@mui/material/InputLabel';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
 
 function DashboardHosting() {
     const [homeList, setHomeList] = useState([]);
@@ -26,7 +30,7 @@ function DashboardHosting() {
     const [checked, setChecked] = useState(null);
     const [flag, setFlag] = useState(false);
 
-    const label = {inputProps: {true: 'false'}};
+    const label = { inputProps: { true: 'false' } };
     const navigate = useNavigate();
     const [item, setItem] = useState();
     const [lgShow, setLgShow] = useState(false);
@@ -48,35 +52,40 @@ function DashboardHosting() {
 
     const getData = (data) => {
         setItem(data);
-        setLgShow(true)
-    }
+        setLgShow(true);
+    };
 
     useEffect(() => {
         if (!currentAuth.isLogined) {
-            navigate('/')
+            navigate('/');
         }
-    }, [])
+    }, []);
 
     useEffect(() => {
         const getDataHome = async () => {
             const dataList = await axios.get(
                 `http://localhost:3002/api/v1/homes?idUser=${currentAuth.userLogin.sub}`,
                 {
-                    headers: {Authorization: JSON.parse(localStorage.getItem('token'))},
+                    headers: { Authorization: JSON.parse(localStorage.getItem('token')) },
                 },
             );
             setHomeList(dataList.data);
         };
         getDataHome();
     }, [currentAuth.isLogined, flag]);
-    console.log(homeList, 0)
+    console.log(homeList, 0);
     return (
         <>
             <div className="container">
-                <br/>
+                <br />
                 <div className="row">
                     <div className="col-12">
-                        <ButtonGroup sx={{marginLeft:"80%",borderRadius:"20px",backgroundColor: 'white' }}
+                        <ButtonGroup
+                            sx={{
+                                marginLeft: '80%',
+                                borderRadius: '20px',
+                                backgroundColor: 'white',
+                            }}
                             color="warning"
                             disableElevation
                             variant="contained"
@@ -86,62 +95,61 @@ function DashboardHosting() {
                                 onClick={() => {
                                     navigate('/user/home');
                                 }}
-                                sx={{background:"#f7a800"}}
+                                sx={{ background: '#f7a800' }}
                                 variant="contained"
                             >
-                                {' '}
-                               Views order
+                                Views order
                             </Button>
                             <Button
                                 onClick={() => {
                                     navigate('/create-home');
                                 }}
-                                sx={{background:"#f7a800"}}
+                                sx={{ background: '#f7a800' }}
                                 variant="contained"
                             >
-                                {' '}
                                 +Add home
                             </Button>
                         </ButtonGroup>
                     </div>
                 </div>
 
-                <hr/>
+                <hr />
                 <TableContainer component={Paper}>
-                    <Table sx={{minWidth: 650}} aria-label="simple table">
+                    <Table sx={{ minWidth: 650 }} aria-label="simple table">
                         <TableHead>
                             <TableRow>
                                 <TableCell>
-                                    <b> Order </b>{' '}
+                                    <b> Order </b>
                                 </TableCell>
                                 <TableCell align="center">
-                                    <b> Title </b>{' '}
+                                <b> Image </b>
                                 </TableCell>
                                 <TableCell align="center">
-                                    {' '}
-                                    <b> Address</b>{' '}
+                                    <b> Title </b>
                                 </TableCell>
                                 <TableCell align="center">
-                                    <b> Category</b>{' '}
+                                    <b> Address</b>
                                 </TableCell>
                                 <TableCell align="center">
-                                    <b>Bathrooms </b>{' '}
+                                    <b> Category</b>
                                 </TableCell>
                                 <TableCell align="center">
-                                    <b> Bedrooms</b>{' '}
+                                    <b>Bathrooms </b>
+                                </TableCell>
+                                <TableCell align="center">
+                                    <b> Bedrooms</b>
                                 </TableCell>
                                 {/*<TableCell align="center">*/}
                                 {/*  <b>Description </b>{' '}*/}
                                 {/*</TableCell>*/}
                                 <TableCell align="center">
-                                    {' '}
-                                    <b>Price (đ) </b>{' '}
+                                    <b>Price (đ) </b>
                                 </TableCell>
                                 {/*<TableCell align="center">*/}
                                 {/*  <b> Rate</b>{' '}*/}
                                 {/*</TableCell>*/}
                                 <TableCell align="center">
-                                    <b>Status </b>{' '}
+                                    <b>Status </b>
                                 </TableCell>
                                 {/*<TableCell align="center" colSpan={2}>*/}
                                 {/*  <b>Action </b>{' '}*/}
@@ -153,21 +161,27 @@ function DashboardHosting() {
                                 ? homeList.map((data, index) => (
                                     <TableRow
                                         key={index}
-                                        sx={{'&:last-child td, &:last-child th': {border: 0}}}
+                                        sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                                     >
                                         <TableCell component="th" scope="row">
-                                            <Form.Check aria-label="option 1"/>
+                                            <Form.Check aria-label="option 1" />
                                         </TableCell>
-                                        <TableCell align="left" sx={{width: "30%"}}> <img
-                                            style={{width: "20%", borderRadius: "5px"}}
-                                            src={data?.images[0]?.urlHomeImage} alt="house"/> <b style={{marginLeft:"20px"}}> {data.title} </b>
+                                        <TableCell align="center" sx={{ width: '10%', padding: '0px 0px' }}>
+                                            <img
+                                                style={{ width: '50%', borderRadius: '5px' }}
+                                                src={data?.images[0]?.urlHomeImage}
+                                                alt="house"
+                                            />
+                                        </TableCell>
+                                        <TableCell align="left" sx={{ width: '30%' }}>
+                                            <b> {data.title} </b>
                                         </TableCell>
                                         <TableCell align="left">{data.address}</TableCell>
                                         <TableCell align="left">
                                             {data.idCategory.categoryName}
                                         </TableCell>
-                                        <TableCell align="right">{data.bathrooms}</TableCell>
-                                        <TableCell align="right">{data.bedrooms}</TableCell>
+                                        <TableCell align="center">{data.bathrooms}</TableCell>
+                                        <TableCell align="center">{data.bedrooms}</TableCell>
                                         {/*<TableCell align="left">{ReactHtmlParser(data.description)}</TableCell>*/}
                                         <TableCell align="right">
                                             {data.price.toLocaleString('en-EN')}
@@ -177,7 +191,7 @@ function DashboardHosting() {
                                             <Switch
                                                 checked={data.status}
                                                 onChange={(e) => handleChange(e, data.idHome)}
-                                                inputProps={{true: 'false'}}
+                                                inputProps={{ true: 'false' }}
                                                 color="warning"
                                             />
                                         </TableCell>
@@ -205,8 +219,11 @@ function DashboardHosting() {
                         </TableBody>
                     </Table>
                 </TableContainer>
-                <DetailDashboard dashboard={item} setLgShow={setLgShow} lgShow={lgShow}/>
-
+                <DetailDashboard
+                    dashboard={item}
+                    setLgShow={setLgShow}
+                    lgShow={lgShow}
+                />
             </div>
         </>
     );

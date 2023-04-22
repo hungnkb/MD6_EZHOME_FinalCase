@@ -100,12 +100,10 @@ export default function Navbar() {
     const handleMobileMenuClose = () => {
         setMobileMoreAnchorEl(null);
     };
-
     const handleMenuClose = () => {
         setAnchorEl(null);
         handleMobileMenuClose();
     };
-
     const handleMobileMenuOpen = (event) => {
         setMobileMoreAnchorEl(event.currentTarget);
     };
@@ -163,7 +161,6 @@ export default function Navbar() {
             });
         }
     };
-
     const menuId = 'primary-search-account-menu';
     const renderMenu = (
         <Menu
@@ -347,3 +344,4 @@ export default function Navbar() {
         </>
     );
 }
+

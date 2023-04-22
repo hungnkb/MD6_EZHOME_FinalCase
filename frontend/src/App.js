@@ -1,6 +1,6 @@
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {BrowserRouter, Routes, Route, Link} from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import Home from './components/home/Home';
 import CardHome from './pages/card/cardHome';
 import DetailHome from './pages/detail/detailHome';
@@ -18,11 +18,9 @@ import { setUserLogin } from './redux/features/authSlice';
 import DashboardHosting from './pages/hosting/dashboard';
 import UpdateUser from './components/user/UpdateUser';
 import ResetPassword from './components/user/ResetPassword';
-import HomeRenting from "./pages/hosting/homeRenting";
-import HistoryRent from "./components/user/HistoryRent";
-import MenuItem from "@mui/material/MenuItem";
-import Login from "./components/user/Login";
-import * as React from "react";
+import HomeRenting from './pages/hosting/homeRenting';
+import HistoryRent from './components/user/HistoryRent';
+import * as React from 'react';
 
 function App() {
   const currentAuth = useSelector((state) => state.auth);
@@ -45,13 +43,12 @@ function App() {
         });
         if (response) {
           dispatch(
-            setUserLogin({
-              isLogined: true,
-              userLogin: response.data,
-            }),
+              setUserLogin({
+                isLogined: true,
+                userLogin: response.data,
+              }),
           );
           localStorage.setItem('idUser', response.data.sub);
-          localStorage.setItem('email', response.data.email);
         }
       }
     };
@@ -59,42 +56,42 @@ function App() {
   }, [token, fetchUserData, currentAuth.isFetchDataUser]);
 
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="" element={<Home />}>
-          <Route path="/" element={<CardHome />} />
-          <Route path="/detail-home/:id" element={<DetailHome />} />
-          {currentAuth.isLogined ? (
-              <>
-                <Route path="/reset-password" element={<ResetPassword />} />
-                <Route path="/user/hosting" element={<DashboardHosting />} />
-                <Route path="/user/profile" element={<UpdateUser />} />
-                <Route path="/user/home" element={<HomeRenting />}></Route>
-                <Route path="/user/orders" element={<HistoryRent />}></Route>
-              </>
-          ) : (
-              <Route path="/" element={<CardHome />} />
-          )}
-          <Route path='/homes' element={<CardHome />}></Route>
-          <Route path='/reset-password' element={<ResetPassword />}></Route>
-        </Route >
-    <Route
-      path={''}
-      element={
-        <NavbarCreate
-          setFetchUserData={setFetchUserData}
-          fetchUserData={fetchUserData}
-        />
-      }
-    >
-      <Route path="/create-home" element={<CreateHome2 />}></Route>
-      <Route path="/create-home/1" element={<CreateHome21 />}></Route>
-      <Route path="/create-home/2" element={<CreateHome22 />}></Route>
-      <Route path="/create-home/3" element={<CreateHome23 />}></Route>
-      <Route path="/create-home/4" element={<CreateHome24 />}></Route>
-    </Route>
-      </Routes >
-    </BrowserRouter >
+      <BrowserRouter>
+        <Routes>
+          <Route path="" element={<Home />}>
+            <Route path="/" element={<CardHome />} />
+            <Route path="/detail-home/:id" element={<DetailHome />} />
+            {currentAuth.isLogined ? (
+                <>
+                  <Route path="/reset-password" element={<ResetPassword />} />
+                  <Route path="/user/hosting" element={<DashboardHosting />} />
+                  <Route path="/user/profile" element={<UpdateUser />} />
+                  <Route path="/user/home" element={<HomeRenting />}></Route>
+                  <Route path="/user/order" element={<HistoryRent />}></Route>
+                </>
+            ) : (
+                <Route path="/" element={<CardHome />} />
+            )}
+            <Route path="/homes" element={<CardHome />}></Route>
+            <Route path="/reset-password" element={<ResetPassword />}></Route>
+          </Route>
+          <Route
+              path={''}
+              element={
+                <NavbarCreate
+                    setFetchUserData={setFetchUserData}
+                    fetchUserData={fetchUserData}
+                />
+              }
+          >
+            <Route path="/create-home" element={<CreateHome2 />}></Route>
+            <Route path="/create-home/1" element={<CreateHome21 />}></Route>
+            <Route path="/create-home/2" element={<CreateHome22 />}></Route>
+            <Route path="/create-home/3" element={<CreateHome23 />}></Route>
+            <Route path="/create-home/4" element={<CreateHome24 />}></Route>
+          </Route>
+        </Routes>
+      </BrowserRouter>
   );
 }
 

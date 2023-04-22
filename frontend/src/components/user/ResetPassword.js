@@ -170,8 +170,9 @@ export default function ResetPassword() {
                 <br />
                 <br />
                 <div
-                  className={`custom-input ${form.password && form.password.error && 'custom-input-error'
-                    }`}
+                  className={`custom-input ${
+                    form.password && form.password.error && 'custom-input-error'
+                  }`}
                 >
                   <input
                     name="password"
@@ -195,10 +196,11 @@ export default function ResetPassword() {
                 </div>
                 <br />
                 <div
-                  className={`custom-input ${form.confirmPassword &&
+                  className={`custom-input ${
+                    form.confirmPassword &&
                     form.confirmPassword.error &&
                     'custom-input-error'
-                    }`}
+                  }`}
                 >
                   <input
                     name="confirmPassword"

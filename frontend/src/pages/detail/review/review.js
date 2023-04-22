@@ -53,16 +53,14 @@ export default function Review(props) {
         setReview(res.data);
       });
   };
+  
   return (
     <>
       <div className="row">
         <div className="col-1">
           <Rating
             name="simple-controlled"
-            value={value}
-            onChange={(event, newValue) => {
-              setValue(newValue);
-            }}
+            value={4}
           />
         </div>
         <div className="col-11">
@@ -71,7 +69,7 @@ export default function Review(props) {
       </div>
       <form onSubmit={handleSubmit}>
         <div className="row">
-          <div className="col-12">
+          <div className="col-10">
             <TextField
               id="standard-basic"
               style={{ width: '100%' }}
@@ -80,10 +78,20 @@ export default function Review(props) {
               name="content"
               onChange={handleChange}
             />
+          
           </div>
           <br />
           <br />
           <br />
+          <div className='col-2'>
+          <Rating
+            name="simple-controlled"
+            value={value}
+            onChange={(event, newValue) => {
+              setValue(newValue);
+            }}
+          />
+          </div>
           <div>
             <div className="row">
               <div className="col-11">
@@ -96,10 +104,10 @@ export default function Review(props) {
                     marginLeft: '95%',
                   }}
                 >
-                  Cancel{' '}
+                  Cancel
                 </Button>
               </div>
-              <div className="col-1">
+              <div className="col-1">  
                 <Button
                   variant="light"
                   type="submit"
@@ -109,7 +117,7 @@ export default function Review(props) {
                     marginLeft: '10%',
                   }}
                 >
-                  Comment{' '}
+                  Comment
                 </Button>
               </div>
             </div>
@@ -147,7 +155,7 @@ export default function Review(props) {
                                             </div>
                                             <div className="col-10">
                                               <MDBTypography tag="h5">
-                                                {' '}
+                                              
                                                 {data?.idUser.email}
                                               </MDBTypography>
                                               <p

@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import Slider from 'react-slick';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import style from './style.css'
 
 const settings = {
   dots: true,
@@ -28,15 +29,17 @@ export default function defaultTopFive() {
     };
     getData();
   }, []);
-  console.log(dataList[0]);
   return (
     <>
-      <h3 style={{ textAlign: 'center' }}>Top 5 most rented houses</h3>
+      <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'center'}}>
+        <h3 style={{ textAlign: 'center', marginBottom: '50px', color: '#f7a800', marginRight: '0.4rem' }}>TOP 5</h3><h3>TO DISCOVER</h3>
+      </div>
+
       <center>
-        {dataList.length > 0 ? (<div>
+        {dataList.length > 0 ? (<div id='topfife-slider'>
           <Slider {...settings}>
             {dataList.map((data, index) => {
-              return (<div key={index} onClick={() => {navigate(`/detail-home/${data.idHome}`)}}>
+              return (<div key={index}>
                 <Card
                   style={{
                     height: '400px',
@@ -51,7 +54,7 @@ export default function defaultTopFive() {
                     title="green iguana"
                   />
                   <CardContent>
-                    <Typography gutterBottom variant="h5" component="div">
+                    <Typography onClick={() => { navigate(`/detail-home/${data.idHome}`) }} gutterBottom variant="h5" component="div">
                       <h5>
                         <b>{data.title}</b>
                       </h5>

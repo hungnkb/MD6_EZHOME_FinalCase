@@ -8,6 +8,7 @@ import BathtubIcon from '@mui/icons-material/Bathtub';
 import BedIcon from '@mui/icons-material/Bed';
 import FormPay from '../payment/formPay';
 import ModalImg from './modalImg';
+// import ModalComments from './modalComments';
 import Skeleton from '@mui/material/Skeleton';
 import ModalGgmap from './ggmap/modalGgmap'
 import ReactHtmlParser, {
@@ -16,6 +17,7 @@ import ReactHtmlParser, {
   htmlparser2,
 } from 'react-html-parser';
 import Review from './review/review';
+import { Modal } from '@mui/material';
 // Thông tin nhà bao gồm:
 //     - Tên của căn nhà
 // - Loại phòng
@@ -67,6 +69,7 @@ export default function DetailHome() {
           <div className="row">
             <div className="col-12">
               <h3> {detail.title} </h3>
+              {/* <ModalComments/> */}
                 <ModalGgmap address={address}/>
             </div>
           </div>

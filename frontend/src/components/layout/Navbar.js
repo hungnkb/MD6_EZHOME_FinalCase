@@ -1,19 +1,15 @@
 import * as React from 'react';
 import { styled, alpha } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
 import InputBase from '@mui/material/InputBase';
 import Badge from '@mui/material/Badge';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
-import SearchIcon from '@mui/icons-material/Search';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import MailIcon from '@mui/icons-material/Mail';
-import MoreIcon from '@mui/icons-material/MoreVert';
 import { Button } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
@@ -24,6 +20,9 @@ import Swal from 'sweetalert2';
 import AddPhone from '../auth/addPhone';
 import SearchBar from '../home/SearchBar/SearchBar';
 import axios from 'axios';
+import { io } from 'socket.io-client';
+import NotificationsIcon from '@mui/icons-material/Notifications';
+import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -70,13 +69,38 @@ export default function Navbar() {
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+  const [anchorElNotifications, setAnchorElNotifications] =
+    React.useState(null);
   const [message, setMessage] = useState('');
   const currentState = useSelector((state) => state.auth);
+  const [id, setId] = useState(null);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [isHost, setIsHost] = useState(true);
   const [email, setEmail] = useState(localStorage.getItem('email'));
   const [phoneOfUserExist, setPhoneOfUserExist] = useState(true);
+  const [notifications, setNotifications] = useState([]);
+  const socket = io.connect('http://localhost:3002/notifications');
+  const open = Boolean(anchorElNotifications);
+
+  useEffect(() => {
+    setId(currentState.userLogin.sub);
+  }, [currentState]);
+
+  useEffect(() => {
+    socket.on('getNotification', (res) => {
+      if (id && res.idReciever == id) {
+        const newNotifications = [
+          ...notifications,
+          {
+            message: 'You have a new comment on your home',
+            url: `/detail-home/${res.data}`,
+          },
+        ];
+        setNotifications(newNotifications);
+      }
+    });
+  }, [socket]);
 
   useEffect(() => {
     axios
@@ -90,6 +114,17 @@ export default function Navbar() {
   }, [email]);
   const callbackFunction = (childData) => {
     setMessage(childData);
+  };
+
+  const handleClickNotifications = (event) => {
+    setAnchorElNotifications(event.currentTarget);
+  };
+  const handleCloseNotifications = (url) => {
+    setAnchorElNotifications(null);
+    if (typeof url === 'string') {
+      console.log(123);
+      navigate(`${url}`);
+    }
   };
 
   const handleProfileMenuOpen = (event) => {
@@ -244,11 +279,7 @@ export default function Navbar() {
           size="large"
           aria-label="show 17 new notifications"
           color="inherit"
-        >
-          {/*<Badge badgeContent={17} color="error">*/}
-          {/*  <NotificationsIcon />*/}
-          {/*</Badge>*/}
-        </IconButton>
+        ></IconButton>
         <p>Notifications</p>
       </MenuItem>
       <MenuItem onClick={handleProfileMenuOpen}>
@@ -304,6 +335,44 @@ export default function Navbar() {
                   {' '}
                   <b> Switch to hosting</b>{' '}
                 </p>
+              </div>
+            )}
+          </IconButton>
+          <IconButton>
+            {notifications.length === 0 ? (
+              <NotificationsNoneIcon />
+            ) : (
+              <div>
+                <NotificationsIcon
+                  id="basic-button"
+                  aria-controls={open ? 'basic-menu' : undefined}
+                  aria-haspopup="true"
+                  aria-expanded={open ? 'true' : undefined}
+                  onClick={handleClickNotifications}
+                  style={{ color: 'black' }}
+                />
+                <div id="noti">
+                  <Menu
+                    id="noti-menu"
+                    anchorEl={anchorElNotifications}
+                    open={open}
+                    onClose={handleCloseNotifications}
+                    MenuListProps={{
+                      'aria-labelledby': 'basic-button',
+                    }}
+                  >
+                    {notifications.map((noti, index) => (
+                      <MenuItem
+                        key={`${index}-${noti}`}
+                        onClick={() => {
+                          handleCloseNotifications(noti.url);
+                        }}
+                      >
+                        {noti.message}
+                      </MenuItem>
+                    ))}
+                  </Menu>
+                </div>
               </div>
             )}
           </IconButton>

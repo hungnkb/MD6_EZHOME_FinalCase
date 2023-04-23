@@ -202,6 +202,7 @@ function SearchBar() {
             }}
           >
             <div
+              className="search-bar-list"
               id="search-bar-list"
               style={{
                 display: 'flex',

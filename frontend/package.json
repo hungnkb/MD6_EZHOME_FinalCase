@@ -50,6 +50,7 @@
         "react-slick-styles": "^1.8.2",
         "react-toastify": "^9.1.2",
         "redux-thunk": "^2.4.2",
+        "socket.io-client": "^4.6.1",
         "source-map-loader": "^4.0.1",
         "styled-components": "^5.3.9",
         "sweetalert2": "^11.7.3",

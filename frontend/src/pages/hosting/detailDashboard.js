@@ -38,7 +38,7 @@ export default function DetailDashboard() {
           <div>
            <div className='row'>
             <div className='col-10'>
-              <h5>Image</h5>
+              <h5>Photos</h5>
             </div>
             <div className='col-2'> <Button variant='light'>  <b><u> Edit </u></b> </Button></div>
           </div>

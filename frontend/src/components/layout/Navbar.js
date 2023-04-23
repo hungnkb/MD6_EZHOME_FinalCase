@@ -71,7 +71,6 @@ export default function Navbar() {
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
   const [anchorElNotifications, setAnchorElNotifications] =
     React.useState(null);
-  const [message, setMessage] = useState('');
   const currentState = useSelector((state) => state.auth);
   const [id, setId] = useState(null);
   const dispatch = useDispatch();
@@ -112,9 +111,6 @@ export default function Navbar() {
         }
       });
   }, [email]);
-  const callbackFunction = (childData) => {
-    setMessage(childData);
-  };
 
   const handleClickNotifications = (event) => {
     setAnchorElNotifications(event.currentTarget);

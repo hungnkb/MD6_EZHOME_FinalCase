@@ -10,13 +10,12 @@ import axios from '../../api/axios';
 import { useSelector } from 'react-redux';
 import { Button, ButtonGroup, Switch } from '@mui/material';
 import Form from 'react-bootstrap/Form';
-import { useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import ReactHtmlParser, {
   processNodes,
   convertNodeToElement,
   htmlparser2,
 } from 'react-html-parser';
-import detailDashboard from './detailDashboard';
 import DetailDashboard from './detailDashboard';
 import InputLabel from '@mui/material/InputLabel';
 import Select from '@mui/material/Select';
@@ -73,7 +72,6 @@ function DashboardHosting() {
     };
     getDataHome();
   }, [currentAuth.isLogined, flag]);
-  console.log(homeList, 0);
   return (
     <>
       <div className="container">
@@ -160,12 +158,12 @@ function DashboardHosting() {
             <TableBody>
               {homeList
                 ? homeList.map((data, index) => (
-                  <TableRow
+                    <TableRow
                     key={index}
                     sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                   >
                     <TableCell component="th" scope="row">
-                      <Form.Check aria-label="option 1" />
+                      {index+1}
                     </TableCell>
                     <TableCell align="center" sx={{ width: '10%', padding: '0px 0px' }}>
                       <img
@@ -175,7 +173,10 @@ function DashboardHosting() {
                       />
                     </TableCell>
                     <TableCell align="left" sx={{ width: '30%' }}>
+                    <NavLink to={`/detail-dashboard/${data.idHome}`}>
                       <b> {data.title} </b>
+                    </NavLink>
+                      
                     </TableCell>
                     <TableCell align="left">{data.address}</TableCell>
                     <TableCell align="left">
@@ -215,16 +216,12 @@ function DashboardHosting() {
                     {/*  ></i>*/}
                     {/*</TableCell>*/}
                   </TableRow>
+                  
                 ))
                 : null}
             </TableBody>
           </Table>
         </TableContainer>
-        <DetailDashboard
-          dashboard={item}
-          setLgShow={setLgShow}
-          lgShow={lgShow}
-        />
       </div>
     </>
   );

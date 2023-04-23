@@ -211,7 +211,6 @@ import { Rating } from '@mui/material';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function ModalComments(props) {
-  console.log(props.comments);
   const [showModal, setShowModal] = useState(false);
   const [value, setValue] = useState();
   const handleCloseModal = () => setShowModal(false);

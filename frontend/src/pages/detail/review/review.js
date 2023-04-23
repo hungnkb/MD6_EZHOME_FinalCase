@@ -17,7 +17,7 @@ export default function Review(props) {
   const [value, setValue] = useState();
   const [review, setReview] = useState([]);
   const [newReview, setNewReview] = useState({
-    rate_stars: 3,
+    rate_stars: 0,
     content: '',
     idHome: props.idHome,
     idUser: localStorage.getItem('idUser'),
@@ -60,7 +60,7 @@ export default function Review(props) {
         <div className="col-1">
           <Rating
             name="simple-controlled"
-            value={4}
+            value={5}
           />
         </div>
         <div className="col-11">
@@ -69,7 +69,7 @@ export default function Review(props) {
       </div>
       <form onSubmit={handleSubmit}>
         <div className="row">
-          <div className="col-10">
+          <div className="col-11">
             <TextField
               id="standard-basic"
               style={{ width: '100%' }}
@@ -83,7 +83,7 @@ export default function Review(props) {
           <br />
           <br />
           <br />
-          <div className='col-2'>
+          <div className='col-1'>
           <Rating
             name="simple-controlled"
             value={value}

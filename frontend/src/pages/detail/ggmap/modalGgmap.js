@@ -90,7 +90,7 @@ function ModalGgmap(props) {
                 <GoogleMap
                   id="marker-example"
                   mapContainerStyle={mapContainerStyle}
-                  zoom={2}
+                  zoom={15}
                   center={location}
                 >
                   <Marker onLoad={onLoad} position={location} />

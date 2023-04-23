@@ -9,18 +9,7 @@ import Paper from '@mui/material/Paper';
 import axios from '../../api/axios';
 import { useSelector } from 'react-redux';
 import { Button, ButtonGroup, Switch } from '@mui/material';
-import Form from 'react-bootstrap/Form';
 import { NavLink, useNavigate } from 'react-router-dom';
-import ReactHtmlParser, {
-  processNodes,
-  convertNodeToElement,
-  htmlparser2,
-} from 'react-html-parser';
-import DetailDashboard from './detailDashboard';
-import InputLabel from '@mui/material/InputLabel';
-import Select from '@mui/material/Select';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
 
 function DashboardHosting() {
   const [homeList, setHomeList] = useState([]);
@@ -173,8 +162,8 @@ function DashboardHosting() {
                       />
                     </TableCell>
                     <TableCell align="left" sx={{ width: '30%' }}>
-                    <NavLink to={`/detail-dashboard/${data.idHome}`}>
-                      <b> {data.title} </b>
+                    <NavLink style={{color:"black"}} to={`/detail-dashboard/${data.idHome}`}>
+                      <b style={{color:"black"}}> {data.title} </b>
                     </NavLink>
                       
                     </TableCell>

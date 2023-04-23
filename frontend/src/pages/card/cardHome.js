@@ -26,7 +26,7 @@ export default function CardHome(props) {
     } else {
       setHome([]);
       // setIsNothingFound(true);
-      // setIsFetchData(!isFetchData);
+      setIsFetchData(!isFetchData);
     }
   }, [location.state?.data]);
 

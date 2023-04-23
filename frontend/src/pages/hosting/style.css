@@ -1,0 +1,6 @@
+.no-hover:hover {
+    pointer-events: none;
+  }
+  #nav{
+    background: black;
+  }

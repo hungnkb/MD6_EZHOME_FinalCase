@@ -39,7 +39,7 @@ import "./style.css"
                     <div className='col-3'>
                         
                                <h2 style={{marginTop:"10%"}}>Where you will go</h2>
-                               <a style={{color:"black"}}><u>Show the guidebook to the host</u> <i class="fa-regular fa-chevron-right"></i></a>
+                               <a style={{color:"black"}}><u>Show the guidebook to the host</u> <i  class="fa-regular fa-chevron-right"></i></a>
                         
                      
 

@@ -85,19 +85,11 @@ export default function CreateHome21() {
                             htmlFor={`category-${values.idCategory}`}
                             className="category-item"
                           >
-                            {/*<Button*/}
-                            {/*    id="btn"*/}
-                            {/*    onClick={() => {*/}
-                            {/*        dispatch(setCategory(1));*/}
-                            {/*        setCheck(true);*/}
-                            {/*    }}*/}
-                            {/*>*/}
                             <b>
                               {' '}
                               <i className={values.icon}></i>{' '}
                               {values.categoryName}
                             </b>{' '}
-                            {/*</Button>*/}
                           </label>
                         </center>
                       </Card>

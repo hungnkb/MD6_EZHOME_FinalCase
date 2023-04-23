@@ -150,17 +150,17 @@ export default function Review(props) {
                                               <img
                                                 src="https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg"
                                                 alt="avatar"
-                                                style={{ width: '100%' }}
+                                                style={{ width: '60px', marginTop:"-10px" }}
                                               />
                                             </div>
                                             <div className="col-10">
-                                              <MDBTypography tag="h5">
+                                              <MDBTypography tag="p">
                                               
-                                                {data?.idUser.email}
+                                               <b> {data?.idUser.email} </b> 
                                               </MDBTypography>
                                               <p
                                                 className="small"
-                                                style={{ marginLeft: '10%' }}
+                                                style={{ marginLeft: '10px' }}
                                               >
                                                 {data?.createdAt.split('T')[0]}
                                               </p>

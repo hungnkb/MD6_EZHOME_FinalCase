@@ -245,20 +245,20 @@ export default function CreateHome24() {
         <div className="col-7">
           <div style={{ width: 500, marginLeft: '10%' }}>
             <br />
-            <CKEditor
-              editor={ClassicEditor}
-              data={currentState.description}
-              onReady={(editor) => {
-                // You can store the "editor" and use when it is needed.
-              }}
-              onChange={(event, editor) => {
-                const data = editor.getData();
-                setDesc(data);
-                setDescriptions(data);
-              }}
-              onBlur={(event, editor) => {}}
-              onFocus={(event, editor) => {}}
-            />
+              <CKEditor
+                editor={ClassicEditor}
+                data={currentState.description || ' '}
+                onReady={(editor) => {
+                  // You can store the "editor" and use when it is needed.
+                }}
+                onChange={(event, editor) => {
+                  const data = editor.getData();
+                  setDesc(data);
+                  setDescriptions(data);
+                }}
+                onBlur={(event, editor) => { }}
+                onFocus={(event, editor) => { }}
+              />
           </div>
         </div>
       </div>
@@ -275,8 +275,8 @@ export default function CreateHome24() {
               Back
             </Button>
             {currentState.description &&
-            currentState.title &&
-            currentState.price ? (
+              currentState.title &&
+              currentState.price ? (
               <Button
                 className="finish-create-home"
                 variant="contained"

@@ -28,7 +28,7 @@ function ModalGgmap(props) {
   };
 
   const { isLoaded } = useJsApiLoader({
-    googleMapsApiKey: 'AIzaSyDzzi_VBcf2Oef6LTViLU767UPNHlnIze4',
+    googleMapsApiKey: process.env.REACT_APP_GG_API_LIB_KEY,
     libraries,
   });
 
@@ -41,7 +41,7 @@ function ModalGgmap(props) {
     const getData = async () => {
       axios
         .get(
-          `https://maps.googleapis.com/maps/api/geocode/json?address=${props.address}&key=AIzaSyD7Xnp5PGDmOsHRtVxIV435Qi27uWmUKlU`,
+          `https://maps.googleapis.com/maps/api/geocode/json?address=${props.address}&key=${process.env.REACT_APP_GG_API_KEY}`,
         )
         .then((res) => {
           console.log(res.data.results[0].geometry.location);

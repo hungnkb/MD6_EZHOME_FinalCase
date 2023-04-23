@@ -22,7 +22,6 @@ import HomeRenting from './pages/hosting/homeRenting';
 import HistoryRent from './components/user/HistoryRent';
 import * as React from 'react';
 import DetailDashboard from './pages/hosting/detailDashboard';
-
 function App() {
     const currentAuth = useSelector((state) => state.auth);
     const [token, setToken] = useState(null);
@@ -57,7 +56,7 @@ function App() {
     }, [token, fetchUserData, currentAuth.isFetchDataUser]);
 
     return (
-        <BrowserRouter>
+          <BrowserRouter>
             <Routes>
                 <Route path="" element={<Home />}>
                     <Route path="/" element={<CardHome />} />
@@ -93,7 +92,8 @@ function App() {
                     <Route path="/create-home/4" element={<CreateHome24 />}></Route>
                 </Route>
             </Routes>
-        </BrowserRouter>
+        </BrowserRouter>  
+        
     );
 }
 

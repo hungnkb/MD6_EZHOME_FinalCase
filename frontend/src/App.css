@@ -3,8 +3,13 @@
 }
 
 .App-logo {
-  height: 40vmin;
-  pointer-events: none;
+  
+    background-image: url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRPSBSULfg_trpQvjJl5z9PC-icJ_NEJNBDPw&usqp=CAU);
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 100px; /* Điều chỉnh kích thước tùy ý */
+    height: 100px; /* Điều chỉnh kích thước tùy ý */
+  
 }
 
 @media (prefers-reduced-motion: no-preference) {

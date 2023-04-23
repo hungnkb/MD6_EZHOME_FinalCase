@@ -224,7 +224,7 @@ export default function DetailHome() {
           <br />
           <hr />
           <br />
-          <Review idHome={idHome.id} />
+          <Review idHome={idHome.id} idOwner={idOwner} />
         </div>
       </div>
     </>

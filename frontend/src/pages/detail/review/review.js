@@ -1,11 +1,3 @@
-import {
-  MDBCard,
-  MDBCardBody,
-  MDBCol,
-  MDBContainer,
-  MDBRow,
-  MDBTypography,
-} from 'mdb-react-ui-kit';
 import { Rating, TextField } from '@mui/material';
 import ModalComments from '../modalComments';
 import * as React from 'react';
@@ -13,6 +5,17 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import Button from 'react-bootstrap/Button';
 import io from 'socket.io-client';
+import {
+  MDBCard,
+  MDBCardBody,
+  MDBCardImage,
+  MDBCol,
+  MDBContainer,
+  MDBIcon,
+  MDBRow,
+  MDBTypography,
+} from "mdb-react-ui-kit";
+
 const socket = io.connect(
   `${process.env.REACT_APP_BASE_URL_SERVER}/notifications`,
 );
@@ -39,28 +42,28 @@ export default function Review(props) {
       [event.target.name]: event.target.value,
     });
   };
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    await axios
-      .post(`${process.env.REACT_APP_BASE_URL}/reviews`, {
-        rate_stars: value,
-        contents: newReview.content,
-        idHome: newReview.idHome,
-        idUser: newReview.idUser,
-      })
-      .then((response) => {
-        console.log(response.data);
-      });
-    await axios
-      .get(`${process.env.REACT_APP_BASE_URL}/reviews?idHome=${props.idHome}`)
-      .then((res) => {
-        setReview(res.data);
-      });
-    socket.emit('send', {
-      data: `${props.idHome}`,
-      idReciever: props.idOwner,
-    });
-  };
+  // const handleSubmit = async (event) => {
+  //   event.preventDefault();
+  //   await axios
+  //     .post(`${process.env.REACT_APP_BASE_URL}/reviews`, {
+  //       rate_stars: value,
+  //       contents: newReview.content,
+  //       idHome: newReview.idHome,
+  //       idUser: newReview.idUser,
+  //     })
+  //     .then((response) => {
+  //       console.log(response.data);
+  //     });
+  //   await axios
+  //     .get(`${process.env.REACT_APP_BASE_URL}/reviews?idHome=${props.idHome}`)
+  //     .then((res) => {
+  //       setReview(res.data);
+  //     });
+  //   socket.emit('send', {
+  //     data: `${props.idHome}`,
+  //     idReciever: props.idOwner,
+  //   });
+  // };
 
   return (
     <>
@@ -72,7 +75,7 @@ export default function Review(props) {
           <h3 style={{ marginLeft: '1%' }}>{review.length} comment</h3>
         </div>
       </div>
-      <form onSubmit={handleSubmit}>
+      {/* <form onSubmit={handleSubmit}>
         <div className="row">
           <div className="col-11">
             <TextField
@@ -127,8 +130,9 @@ export default function Review(props) {
             </div>
           </div>
         </div>
-      </form>
-      <div className="row">
+      </form> */}
+
+      {/* <div className="row">
         <div className="col-12">
           <div className="row">
             <div className="col-12">
@@ -140,7 +144,7 @@ export default function Review(props) {
                         <section>
                           <MDBContainer
                             className="py-5"
-                            style={{ width: '100%' }}
+                            style={{ width: '1400px' }}
                           >
                             <MDBCol md="11" lg="12" xl="12">
                               {review.reverse().map((data, index) => {
@@ -211,7 +215,116 @@ export default function Review(props) {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
+        <section>
+      <MDBContainer className="py-5" style={{ maxWidth: "1000px" }}>
+        <MDBRow className="justify-content-center">
+          <MDBCol md="12" lg="10">
+            <MDBCard className="text-dark">
+               <MDBCardBody className="p-4">
+                <div className="d-flex flex-start">
+                  <MDBCardImage
+                    className="rounded-circle shadow-1-strong me-3"
+                    src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(26).webp"
+                    alt="avatar"
+                    width="60"
+                    height="60"
+                  />
+                  <div>
+                    <MDBTypography tag="h6" className="fw-bold mb-1">
+                      Lara Stewart
+                    </MDBTypography>
+                    <div className="d-flex align-items-center mb-3">
+                      <p className="mb-0">
+                        March 15, 2021
+                        <span className="badge bg-success">Approved</span>
+                      </p>
+                      <a href="#!" className="link-muted">
+                        <MDBIcon fas icon="pencil-alt ms-2" />
+                      </a>
+                      <a href="#!" className="text-success">
+                        <MDBIcon fas icon="redo-alt ms-2" />
+                      </a>
+                      <a href="#!" className="link-danger">
+                        <MDBIcon fas icon="heart ms-2" />
+                      </a>
+                    </div>
+                    <p className="mb-0">
+                      Contrary to popular belief, Lorem Ipsum is not simply
+                      random text. It has roots in a piece of classical Latin
+                      literature from 45 BC, making it over 2000 years old.
+                      Richard McClintock, a Latin professor at Hampden-Sydney
+                      College in Virginia, looked up one of the more obscure
+                      Latin words, consectetur, from a Lorem Ipsum passage, and
+                      going through the cites.
+                    </p>
+                  </div>
+                </div>
+              </MDBCardBody>
+
+              <hr className="my-0" />
+            </MDBCard>
+          </MDBCol>
+        </MDBRow>
+      </MDBContainer>
+    </section>
     </>
   );
 }
+
+// export default function RecentComments() {
+//   return (
+//     <section style={{ backgroundColor: "#ad655f" }}>
+//       <MDBContainer className="py-5" style={{ maxWidth: "1000px" }}>
+//         <MDBRow className="justify-content-center">
+//           <MDBCol md="12" lg="10">
+//             <MDBCard className="text-dark">
+//                <MDBCardBody className="p-4">
+//                 <div className="d-flex flex-start">
+//                   <MDBCardImage
+//                     className="rounded-circle shadow-1-strong me-3"
+//                     src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(26).webp"
+//                     alt="avatar"
+//                     width="60"
+//                     height="60"
+//                   />
+//                   <div>
+//                     <MDBTypography tag="h6" className="fw-bold mb-1">
+//                       Lara Stewart
+//                     </MDBTypography>
+//                     <div className="d-flex align-items-center mb-3">
+//                       <p className="mb-0">
+//                         March 15, 2021
+//                         <span className="badge bg-success">Approved</span>
+//                       </p>
+//                       <a href="#!" className="link-muted">
+//                         <MDBIcon fas icon="pencil-alt ms-2" />
+//                       </a>
+//                       <a href="#!" className="text-success">
+//                         <MDBIcon fas icon="redo-alt ms-2" />
+//                       </a>
+//                       <a href="#!" className="link-danger">
+//                         <MDBIcon fas icon="heart ms-2" />
+//                       </a>
+//                     </div>
+//                     <p className="mb-0">
+//                       Contrary to popular belief, Lorem Ipsum is not simply
+//                       random text. It has roots in a piece of classical Latin
+//                       literature from 45 BC, making it over 2000 years old.
+//                       Richard McClintock, a Latin professor at Hampden-Sydney
+//                       College in Virginia, looked up one of the more obscure
+//                       Latin words, consectetur, from a Lorem Ipsum passage, and
+//                       going through the cites.
+//                     </p>
+//                   </div>
+//                 </div>
+//               </MDBCardBody>
+
+//               <hr className="my-0" />
+//             </MDBCard>
+//           </MDBCol>
+//         </MDBRow>
+//       </MDBContainer>
+//     </section>
+//   );
+// }

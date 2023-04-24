@@ -154,15 +154,15 @@ function HistoryRent() {
     const timeStampToDate = 3600 * 24 * 7 * 4 * 30;
     const now = Date.now();
     const checkoutDate = new Date(checkout).getTime();
-    const diff = (checkoutDate - now) / timeStampToDate;
+    const diff = (now - checkoutDate) / timeStampToDate;
     let isCheckined;
     now - new Date(checkin).getTime() > 0
       ? (isCheckined = true)
       : (isCheckined = false);
     setDataOrder(list[index]);
-    if (Math.floor(diff) <= 0) {
+    if (Math.floor(diff) <= 0 && isCheckined) {
       setOpenBill(true);
-    } else if (Math.floor(diff) > 0) {
+    } else if (Math.floor(diff) > 0 && isCheckined) {
       setOpenBill(true);
       setAddCharge(list[index].idHome.price * Math.floor(diff));
     } else {

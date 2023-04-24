@@ -34,8 +34,7 @@ export default function Review(props) {
       .then((res) => {
         setReview(res.data);
       });
-    
-  }, []);
+  }, [socket]);
   const handleChange = (event) => {
     setNewReview({
       ...newReview,
@@ -46,30 +45,6 @@ export default function Review(props) {
     props.parentCallback(review.length);
   }
   sendData()
-  
-  // const handleSubmit = async (event) => {
-  //   event.preventDefault();
-  //   await axios
-  //     .post(`${process.env.REACT_APP_BASE_URL}/reviews`, {
-  //       rate_stars: value,
-  //       contents: newReview.content,
-  //       idHome: newReview.idHome,
-  //       idUser: newReview.idUser,
-  //     })
-  //     .then((response) => {
-  //       console.log(response.data);
-  //     });
-  //   await axios
-  //     .get(`${process.env.REACT_APP_BASE_URL}/reviews?idHome=${props.idHome}`)
-  //     .then((res) => {
-  //       setReview(res.data);
-  //     });
-  //   socket.emit('send', {
-  //     data: `${props.idHome}`,
-  //     idReciever: props.idOwner,
-  //   });
-  // };
-
   return (
     <>
       <div className="row">
@@ -80,62 +55,6 @@ export default function Review(props) {
           <h3 style={{ marginLeft: '1%' }}>{review.length} comment</h3>
         </div>
       </div>
-      {/* <form onSubmit={handleSubmit}>
-        <div className="row">
-          <div className="col-11">
-            <TextField
-              id="standard-basic"
-              style={{ width: '100%' }}
-              label="Comment.."
-              variant="standard"
-              name="content"
-              onChange={handleChange}
-            />
-          </div>
-          <br />
-          <br />
-          <br />
-          <div className="col-1">
-            <Rating
-              name="simple-controlled"
-              value={value}
-              onChange={(event, newValue) => {
-                setValue(newValue);
-              }}
-            />
-          </div>
-          <div>
-            <div className="row">
-              <div className="col-11">
-                <Button
-                  variant="light"
-                  type="button"
-                  style={{
-                    borderRadius: '20px',
-                    border: '1px solid black ',
-                    marginLeft: '95%',
-                  }}
-                >
-                  Cancel
-                </Button>
-              </div>
-              <div className="col-1">
-                <Button
-                  variant="light"
-                  type="submit"
-                  style={{
-                    borderRadius: '20px',
-                    border: '1px solid black ',
-                    marginLeft: '10%',
-                  }}
-                >
-                  Comment
-                </Button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </form> */}
         <section>
       <MDBContainer className="py-5">
         <MDBRow className="justify-content-center">

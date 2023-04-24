@@ -23,7 +23,6 @@ export default function DetailDashboard() {
   getData();
   },[])
   console.log(image,22);
-  console.log(dashboard);
   return (
     <>
     <div className='container' style={{marginTop:"3%"}}>
@@ -45,10 +44,12 @@ export default function DetailDashboard() {
           <div className='row'>
             <div className='col-12'>
               <div className='container'>
-                {/* { image.map((image,index)=>{ */}
-                  <img style={{width:"30%"}} src={image[0]?.urlHomeImage} alt="image"/>
+                {/* {  image>0  && (image.map((value,index)=>{ */}
+                  <img style={{width:"30%",marginLeft:"12px"}} src={image[0]?.urlHomeImage} alt="image"/>
+                  <img style={{width:"30%",marginLeft:"12px"}} src={image[1]?.urlHomeImage} alt="image"/>
+                  <img style={{width:"30%",marginLeft:"12px"}} src={image[2]?.urlHomeImage} alt="image"/>
 
-                   {/* })}  */}
+                    {/* }))}   */}
               </div>
 
             </div>

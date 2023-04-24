@@ -42,8 +42,6 @@ function HistoryRent() {
   const [status, setStatus] = React.useState('');
   const [historyRent, setHistoryRent] = useState([]);
   const [list, setList] = useState([]);
-  const [filterValue, setFilterValue] = useState('');
-  const [count, setCount] = useState(0);
   const [openBill, setOpenBill] = useState(false);
   const handleOpen = () => setOpenBill(true);
   const handleClose = () => setOpenBill(false);
@@ -90,38 +88,48 @@ function HistoryRent() {
   };
   const handleButtonClick = (event) => {
     const id = event.target.getAttribute('data-id');
-    setCount(count + 1);
     doSomethingWithId(id);
   };
   const doSomethingWithId = async (idOrder) => {
-    axios.patch(`http://localhost:3002/api/v1/orders/${idOrder}`).then(
-      (response) => {
-        Swal.fire({
-          position: 'center',
-          icon: 'success',
-          title: 'Success Cancel',
-          showConfirmButton: false,
-          timer: 2000,
-        });
-        setCount(count + 1);
-        axios
-          .get(
-            `http://localhost:3002/api/v1/orders?idUser=${localStorage.getItem(
-              'idUser',
-            )}`,
-          )
-          .then((res) => {
-            setList(res.data);
-          });
-      },
-      (error) => {
-        Swal.fire({
-          icon: 'error',
-          title: 'Oops...',
-          text: 'Cannot Cancel!',
-        });
-      },
-    );
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "Are you sure you want to cancel this booking?",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios.patch(`http://localhost:3002/api/v1/orders/${idOrder}`).then(
+            (response) => {
+              Swal.fire({
+                position: 'center',
+                icon: 'success',
+                title: 'Success Cancel',
+                showConfirmButton: false,
+                timer: 2000,
+              });
+              axios
+                  .get(
+                      `http://localhost:3002/api/v1/orders?idUser=${localStorage.getItem(
+                          'idUser',
+                      )}`,
+                  )
+                  .then((res) => {
+                    setList(res.data);
+                  });
+            },
+            (error) => {
+              Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Cannot Cancel!',
+              });
+            },
+        );
+      }
+    });
   };
 
   const handleCheckout = (checkout, index) => {

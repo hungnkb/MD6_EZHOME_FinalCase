@@ -34,35 +34,13 @@ export default function Review(props) {
       .then((res) => {
         setReview(res.data);
       });
-  }, []);
+  }, [socket]);
   const handleChange = (event) => {
     setNewReview({
       ...newReview,
       [event.target.name]: event.target.value,
     });
   };
-  // const handleSubmit = async (event) => {
-  //   event.preventDefault();
-  //   await axios
-  //     .post(`${process.env.REACT_APP_BASE_URL}/reviews`, {
-  //       rate_stars: value,
-  //       contents: newReview.content,
-  //       idHome: newReview.idHome,
-  //       idUser: newReview.idUser,
-  //     })
-  //     .then((response) => {
-  //       console.log(response.data);
-  //     });
-  //   await axios
-  //     .get(`${process.env.REACT_APP_BASE_URL}/reviews?idHome=${props.idHome}`)
-  //     .then((res) => {
-  //       setReview(res.data);
-  //     });
-  //   socket.emit('send', {
-  //     data: `${props.idHome}`,
-  //     idReciever: props.idOwner,
-  //   });
-  // };
 
   return (
     <>

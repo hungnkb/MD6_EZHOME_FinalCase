@@ -44,12 +44,10 @@ export default function DetailDashboard() {
           <div className='row'>
             <div className='col-12'>
               <div className='container'>
-                {/* {  image>0  && (image.map((value,index)=>{ */}
-                  <img style={{width:"30%",marginLeft:"12px"}} src={image[0]?.urlHomeImage} alt="image"/>
-                  <img style={{width:"30%",marginLeft:"12px"}} src={image[1]?.urlHomeImage} alt="image"/>
-                  <img style={{width:"30%",marginLeft:"12px"}} src={image[2]?.urlHomeImage} alt="image"/>
-
-                    {/* }))}   */}
+                { (image.map((value,index)=>(
+                  <img style={{width:"30%",marginLeft:"12px"}} src={value.urlHomeImage} alt="image"/>
+                )  
+                ))}  
               </div>
 
             </div>

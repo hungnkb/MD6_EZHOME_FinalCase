@@ -44,9 +44,7 @@ function ModalGgmap(props) {
           `https://maps.googleapis.com/maps/api/geocode/json?address=${props.address}&key=${process.env.REACT_APP_GG_API_KEY}`,
         )
         .then((res) => {
-          console.log(res.data.results[0].geometry.location);
           const newLocation = { ...location };
-          console.log(res.data.results[0].geometry.location.lat, 1111);
           newLocation.lat = res.data.results[0].geometry.location.lat;
           newLocation.lng = res.data.results[0].geometry.location.lng;
           setLocation(newLocation);
@@ -87,7 +85,7 @@ function ModalGgmap(props) {
             </div>
             <div className="col-9">
               {isLoaded && location.lat > 0 && (
-                <GoogleMap
+                <GoogleMap 
                   id="marker-example"
                   mapContainerStyle={mapContainerStyle}
                   zoom={15}

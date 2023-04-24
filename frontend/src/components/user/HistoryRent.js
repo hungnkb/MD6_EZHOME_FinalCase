@@ -61,6 +61,7 @@ function HistoryRent() {
   const [value, setValue] = useState(2);
   const handleOpenReview = () => setOpenReview(true);
   const handleCloseReview = () => setOpenReview(false);
+  const [fetchData, setFetchData] = useState(false);
   const socket = io.connect(
     `${process.env.REACT_APP_BASE_URL_SERVER}/notifications`,
   );
@@ -76,7 +77,7 @@ function HistoryRent() {
         setHistoryRent(res.data);
         setList(res.data);
       });
-  }, []);
+  }, [fetchData]);
   useEffect(() => {
     if (status === 'all') {
       const getDataRent = async () => {
@@ -204,6 +205,7 @@ function HistoryRent() {
           data: `${dataOrder.idHome.idHome}`,
           idReciever: dataOrder.idHome.idUser.idUser,
         });
+        handleClose();
         handleCloseReview();
       })
       .then((res) => {
@@ -213,6 +215,8 @@ function HistoryRent() {
           title: 'Done. See you!',
           showConfirmButton: false,
           timer: 1500,
+        }).then((res) => {
+          setFetchData(!fetchData);
         });
       });
   };

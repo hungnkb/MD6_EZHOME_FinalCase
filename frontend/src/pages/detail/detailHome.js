@@ -10,7 +10,7 @@ import FormPay from '../payment/formPay';
 import ModalImg from './modalImg';
 // import ModalComments from './modalComments';
 import Skeleton from '@mui/material/Skeleton';
-import ModalGgmap from './ggmap/modalGgmap'
+import ModalGgmap from './ggmap/modalGgmap';
 import ReactHtmlParser, {
   processNodes,
   convertNodeToElement,
@@ -44,7 +44,7 @@ export default function DetailHome() {
   const [fetchData, setFetchData] = useState(false);
   const [orders, setOrders] = useState([]);
   const [idOwner, setIdOwner] = useState(null);
-  const[address,setAddress] = useState(null)
+  const [address, setAddress] = useState(null);
 
   useEffect(() => {
     const getData = async () => {
@@ -55,13 +55,12 @@ export default function DetailHome() {
           setDetail(response.data[0]);
           setPrice(response.data[0].price);
           setOrders(response.data[0].orders);
-          setAddress(response.data[0].address)
+          setAddress(response.data[0].address);
           setIdOwner(response.data[0].idUser.idUser);
         });
     };
     getData();
   }, []);
-
   return (
     <>
       <div>
@@ -69,8 +68,7 @@ export default function DetailHome() {
           <div className="row">
             <div className="col-12">
               <h3> {detail.title} </h3>
-              {/* <ModalComments/> */}
-                <ModalGgmap address={address}/>
+              {address && <ModalGgmap address={address} />}
             </div>
           </div>
           <br />
@@ -226,7 +224,7 @@ export default function DetailHome() {
           <br />
           <hr />
           <br />
-          <Review idHome={idHome.id} />
+          <Review idHome={idHome.id} idOwner={idOwner} />
         </div>
       </div>
     </>

@@ -73,7 +73,6 @@ function SearchBar() {
     bathrooms: null,
     bedrooms: null,
   });
-
   const navigate = useNavigate();
 
   const handleSearch = async () => {
@@ -202,6 +201,7 @@ function SearchBar() {
             }}
           >
             <div
+              className="search-bar-list"
               id="search-bar-list"
               style={{
                 display: 'flex',
@@ -266,7 +266,8 @@ function SearchBar() {
                 flexDirection: 'column',
               }}
             >
-              <Box sx={{ width: 300, display: 'flex', alignItems: 'center' }}>
+              <div style={{marginTop: '30px'}}>From: đ{value2[0].toLocaleString('en-EN') || 0} - To: đ{value2[1].toLocaleString('en-EN') || 0} </div>
+              <Box sx={{ width: 300, display: 'flex', alignItems: 'center', marginTop: '30px' }}>
                 <Slider
                   id="price-slider"
                   sx={{ width: '300px' }}

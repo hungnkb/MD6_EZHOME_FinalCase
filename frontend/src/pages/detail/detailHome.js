@@ -3,6 +3,7 @@ import { Link, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import Box from '@mui/material/Box';
+import ModalComments2 from './modalComments2'
 import * as React from 'react';
 import BathtubIcon from '@mui/icons-material/Bathtub';
 import BedIcon from '@mui/icons-material/Bed';
@@ -72,7 +73,7 @@ export default function DetailHome() {
           <div className="row">
             <div className="col-12">
               <h3> {detail.title} </h3>
-              {address && <ModalGgmap address={address} />}
+            <ModalComments2/>  {address && <ModalGgmap address={address} />}
             </div>
           </div>
           <br />

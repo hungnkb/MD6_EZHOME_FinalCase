@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { Bar } from 'react-chartjs-2';
-import Chart from 'chart.js/auto';
 import axios from "axios";
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -10,11 +9,13 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import {Button} from "@mui/material";
+import Chart from 'chart.js/auto';
 const RevenueChart = () => {
     const [monthYearFillter, setMonthYearFillter] = useState({
         month: '',
-        year: ''
+        year: '2023'
     })
+    const [revenueOfMonth, setrevenueOfMonth] = useState('')
     const [chartData, setChartData] = useState({
         labels: [],
         datasets: [{
@@ -43,13 +44,19 @@ const RevenueChart = () => {
                     }],
                 });
             });
+        axios.get(`http://localhost:3002/api/v1/orders/total-revenue-of-month?idUser=${localStorage.getItem('idUser')}`)
+            .then(response => {
+                setrevenueOfMonth(response.data.total_revenue)
+            });
     }, []);
+    console.log(revenueOfMonth,55)
     const handleChange = (event) => {
         setMonthYearFillter({
             ...monthYearFillter,
             [event.target.name]: event.target.value,
         })
     }
+    console.log(monthYearFillter)
     const handleSubmitFillter = () => {
         axios.get(`http://localhost:3002/api/v1/homes/revenue?idUser=${localStorage.getItem('idUser')}&&month=${monthYearFillter.month}&&year=${monthYearFillter.year}`)
             .then(response => {
@@ -67,6 +74,14 @@ const RevenueChart = () => {
                     }],
                 });
             });
+        handleSubmitFillterTotal();
+    }
+
+    const handleSubmitFillterTotal = () => {
+        axios.get(`http://localhost:3002/api/v1/orders/total-revenue-of-month?idUser=${localStorage.getItem('idUser')}&&month=${monthYearFillter.month}&&year=${monthYearFillter.year}`)
+            .then(response => {
+                setrevenueOfMonth(response.data.total_revenue)
+            });
     }
 
     return (
@@ -81,6 +96,7 @@ const RevenueChart = () => {
                     <div style={{marginLeft: "40%"}}>
                         <h3 >Profit Report</h3>
                     </div>
+                    <div style={{marginLeft: "40px"}}>
                     <Row style={{marginTop: "30px"}}>
                         <Col sm={4}>
                             <h5 style={{margin: 0}}>Year:</h5>
@@ -111,6 +127,13 @@ const RevenueChart = () => {
                             <Button onClick={handleSubmitFillter} style={{marginTop: "13px", background: '#f7a800'}} variant="contained">Select</Button>
                         </Col>
                     </Row>
+                    <Row style={{marginTop: "50px"}}>
+                        <h5>Total revenue for April 2023: {revenueOfMonth} VNĐ</h5>
+                    </Row>
+                        <Row style={{marginTop: "50px"}}>
+                            <h5>Total revenue of 2023: </h5>
+                        </Row>
+                    </div>
                 </Col>
             </Row>
         </div>

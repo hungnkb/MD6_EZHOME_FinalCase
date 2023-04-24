@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
+import { Link, useParams } from 'react-router-dom';
+import axios from 'axios';
 import {
   MDBCard,
   MDBCardBody,
@@ -11,26 +13,39 @@ import {
 } from 'mdb-react-ui-kit';
 import { Rating } from '@mui/material';
 import 'bootstrap/dist/css/bootstrap.min.css';
-
-function ModalComments(props) {
+import io from 'socket.io-client';
+const socket = io.connect(
+    `${process.env.REACT_APP_BASE_URL_SERVER}/notifications`,
+  );
+  
+function ModalComments2(props) {
   const [showModal, setShowModal] = useState(false);
   const [value, setValue] = useState();
   const handleCloseModal = () => setShowModal(false);
   const handleShowModal = () => setShowModal(true);
+  const idHome = useParams();
+  const [review, setReview] = useState([]);
   const handleSaveChanges = () => {
     // Xử lý lưu thay đổi
     handleCloseModal();
   };
 
+  useEffect(() => {
+    axios
+      .get(`http://localhost:3002/api/v1/reviews?idHome=${idHome.id}`)
+      .then((res) => {
+        console.log(res,0);
+        setReview(res.data);
+      });
+  }, [socket]);
   return (
     <>
-      <Button
+      <u style={{cursor:"pointer"}}
         onClick={handleShowModal}
         variant="light"
-        style={{ border: '1px solid black' }}
       >
-        <b> Show all comment..</b>
-      </Button>
+        <b> {review.length} comments </b>
+      </u>
 
       <Modal
         show={showModal}
@@ -43,7 +58,7 @@ function ModalComments(props) {
         </Modal.Header>
         <Modal.Body>
           {/* Nội dung của modal */}
-          {props.comments.map((data, index) => (
+          {review.map((data, index) => (
             <div className="d-flex flex-start mb-4">
               <MDBCard className="w-100">
                 <MDBCardBody className="p-4">
@@ -89,4 +104,4 @@ function ModalComments(props) {
   );
 }
 
-export default ModalComments;
+export default ModalComments2;

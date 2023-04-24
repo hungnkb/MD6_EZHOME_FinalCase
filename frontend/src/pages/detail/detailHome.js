@@ -3,6 +3,7 @@ import { Link, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import Box from '@mui/material/Box';
+import ModalComments2 from './modalComments2'
 import * as React from 'react';
 import BathtubIcon from '@mui/icons-material/Bathtub';
 import BedIcon from '@mui/icons-material/Bed';
@@ -45,7 +46,11 @@ export default function DetailHome() {
   const [orders, setOrders] = useState([]);
   const [idOwner, setIdOwner] = useState(null);
   const [address, setAddress] = useState(null);
-
+  const [message, setMessage] = useState('')
+  const  callbackFunction = (childData) => {
+    setMessage(childData)
+  }
+  console.log(message);
   useEffect(() => {
     const getData = async () => {
       axios
@@ -68,7 +73,7 @@ export default function DetailHome() {
           <div className="row">
             <div className="col-12">
               <h3> {detail.title} </h3>
-              {address && <ModalGgmap address={address} />}
+            <ModalComments2/>  {address && <ModalGgmap address={address} />}
             </div>
           </div>
           <br />
@@ -224,7 +229,7 @@ export default function DetailHome() {
           <br />
           <hr />
           <br />
-          <Review idHome={idHome.id} idOwner={idOwner} />
+          <Review idHome={idHome.id} idOwner={idOwner} parentCallback={callbackFunction} />
         </div>
       </div>
     </>

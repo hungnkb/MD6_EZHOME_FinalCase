@@ -3,7 +3,8 @@
 }
 
 .App-logo {
-  height: 40vmin;
+  height: 100%;
+  width: 100%;
   pointer-events: none;
 }
 
@@ -39,9 +40,9 @@
 .hidden {
   display: none;
 }
-img {
+/* img {
   width: 100%;
-}
+} */
 
 .MuiStack-root.css-1k95pcq-MuiStack-root {
   display: flex;

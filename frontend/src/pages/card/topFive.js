@@ -51,10 +51,10 @@ export default function defaultTopFive() {
                   <CardMedia
                     sx={{ height: '250px', borderRadius: '7%' }}
                     image={data.images[0].urlHomeImage}
-                    title="green iguana"
+                    title="top 5 house "
                   />
                   <CardContent>
-                    <Typography onClick={() => { navigate(`/detail-home/${data.idHome}`) }} gutterBottom variant="h5" component="div">
+                    <Typography style={{ cursor :"pointer"}} onClick={() => { navigate(`/detail-home/${data.idHome}`) }} gutterBottom variant="h5" component="div">
                       <h5>
                         <b>{data.title}</b>
                       </h5>

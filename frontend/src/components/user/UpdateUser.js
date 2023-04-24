@@ -14,7 +14,7 @@ import {Link} from "react-router-dom";
 import UpdatePassword from "./UpdatePassword";
 import HistoryRent from './HistoryRent';
 import {setNewPhone} from "../../redux/features/authSlice";
-
+import { Button } from 'react-bootstrap';
 
 export default function UpdateUser() {
     const [age, setAge] = React.useState("");
@@ -26,6 +26,10 @@ export default function UpdateUser() {
     const [phoneError, setPhoneError] = useState(false);
     const [email, setEmail] = useState(null);
     const dispatch = useDispatch((state) => state.auth);
+    const [keyword, setKeyWord] = useState({
+      fullname: false,
+      phone: false,
+    })
 
     useEffect(() => {
         axios.get(`http://localhost:3002/api/v1/users?email=${email}`)
@@ -104,61 +108,80 @@ export default function UpdateUser() {
     const handleOpenComponentChild = (event) => {
         setData(!data)
     }
+
+    const handleOpenEdit = (keywordInput) => {
+      let kw = {...keyword}
+      if (keywordInput == 'fullname' && keyword.fullname == false ) {
+        kw.fullname = true;
+        setKeyWord(kw);
+      } else if (keywordInput == 'phone' && keyword.phone == false) {
+        kw.phone = true;
+        setKeyWord(kw);
+      } else {
+        kw.fullname = false;
+        kw.phone = false;
+        setKeyWord(kw);
+      }
+    }
+
     return (
-      <React.Fragment>
-        <Paper
-          elevation={3}
-          sx={{
-            marginRight: '15%',
-            marginLeft: '15%',
-            marginTop: '20px',
-            marginBottom: '20px',
-          }}
-        >
-          <Box sx={{ padding: 5 }}>
-            <form onSubmit={handleSubmit}>
-              <Typography variant="h6" gutterBottom sx={{ paddingBottom: 5 }}>
-                My Proflie
-              </Typography>
-              <Grid container spacing={3}>
-                <Grid item xs={12} sm={2}>
-                  <InputLabel
-                    sx={{
-                      display: 'flex',
-                      justifyContent: 'center',
-                      fontWeight: 700,
-                    }}
-                  >
-                    Full Name
-                  </InputLabel>
+      <>
+      <br/>
+      <br/>
+      <div className='container'>
+        <div className='row'>
+          <div className='col-12'>
+            <h2>
+            Personal information
+            </h2>
+          </div>
+        </div>
+        <br/>
+        <div className='row'>
+          <div className='col-8' >
+          <form onSubmit={handleSubmit}>
+          <div>
+           <div className='row'>
+            <div className='col-10'>
+              <p>Fullname </p>
+            </div>
+            {keyword && keyword.fullname ? (<div className='col-2'><Button onClick={() => handleOpenEdit('fullname')} variant='light'>  <b><u> Save </u></b> </Button></div>) : (<div className='col-2'><Button onClick={() => handleOpenEdit('fullname')} variant='light'>  <b><u> Edit </u></b> </Button></div>)}
+          </div>
+          <div className='row'>
+            <div className='col-12'>
+            
+            <Grid item xs={12} sm={10}>
+                 {keyword && keyword.fullname ? (
+                   <TextField
+                   required
+                   id="title"
+                   name="fullName"
+                   fullWidth
+                   size="small"
+                   autoComplete="off"
+                   variant="outlined"
+                   onChange={handleChange}
+                   // placeholder={dataUser.fullName}
+                   // defaultvalue={dataUser.fullName}
+                   value={`${dataUser?.fullName ? dataUser.fullName : ''}`}
+                 />
+                 ):  <p style={{color:"gray"}}>{`${dataUser?.fullName ? dataUser.fullName : ''}`} </p> }
                 </Grid>
-                <Grid item xs={12} sm={10}>
-                  <TextField
-                    required
-                    id="title"
-                    name="fullName"
-                    fullWidth
-                    size="small"
-                    autoComplete="off"
-                    variant="outlined"
-                    onChange={handleChange}
-                    // placeholder={dataUser.fullName}
-                    // defaultvalue={dataUser.fullName}
-                    value={`${dataUser?.fullName ? dataUser.fullName : ''}`}
-                  />
-                </Grid>
-                <Grid item xs={12} sm={2}>
-                  <InputLabel
-                    sx={{
-                      display: 'flex',
-                      justifyContent: 'center',
-                      fontWeight: 700,
-                    }}
-                  >
-                    Address
-                  </InputLabel>
-                </Grid>
-                <Grid item xs={12} sm={10}>
+            </div>
+          </div>
+          </div>
+          <hr/>
+          <br/>
+          <div>
+           <div className='row'>
+            <div className='col-10'>
+              <p>Address </p>
+            </div>
+            <div className='col-2'><Button variant='light'>  <b><u> Edit </u></b> </Button></div>
+          </div>
+          <div className='row'>
+            <div className='col-12'>
+            <Grid item xs={12} sm={10}>
                   <TextField
                     id="outlined-multiline-static"
                     name="address"
@@ -169,17 +192,20 @@ export default function UpdateUser() {
                     value={`${dataUser?.address ? dataUser.address : ''}`}
                   />
                 </Grid>
-                <Grid item xs={12} sm={2}>
-                    <InputLabel
-                        sx={{
-                            display: 'flex',
-                            justifyContent: 'center',
-                            fontWeight: 700,
-                        }}
-                    >
-                        Phone
-                    </InputLabel>
-                </Grid>
+            </div>
+          </div>
+          </div>
+          <hr/>
+          <br/>
+          <div>
+           <div className='row'>
+            <div className='col-10'>
+              <p>Phone number </p>
+            </div>
+            <div className='col-2'><Button variant='light'>  <b><u> Edit </u></b> </Button></div>
+          </div>
+          <div className='row'>
+            <div className='col-12'>
                 <Grid item xs={12} sm={4}>
                   <TextField
                     type="text"
@@ -198,6 +224,11 @@ export default function UpdateUser() {
                     onChange={handleChangePhone}
                   />
                 </Grid>
+            </div>
+          </div>
+          </div>
+          <hr/>
+              <Grid container spacing={3}>
                 <Grid
                   item
                   xs={12}
@@ -207,14 +238,11 @@ export default function UpdateUser() {
                   }}
                 >
                   <Link
-                    style={{ marginLeft: '295px' }}
                     onClick={handleOpenComponentChild}
                   >
                     Change Password
                   </Link>
                 </Grid>
-                <Grid item xs={12} sm={6} />
-                <Grid item xs={12} sm={5} />
                 <Grid item xs={12} sm={4}>
                   <button
                     style={{
@@ -238,8 +266,15 @@ export default function UpdateUser() {
               dataFromParent={data}
               dataFromParentt={dataPassword}
             />
-          </Box>
-        </Paper>
-      </React.Fragment>
+
+          </div>
+          <div className='col-4' >
+
+          </div> 
+
+        </div>
+
+      </div>
+      </>
     );
 }

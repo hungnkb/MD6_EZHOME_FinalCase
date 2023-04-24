@@ -12,12 +12,16 @@ import * as React from 'react';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import Button from 'react-bootstrap/Button';
+import io from 'socket.io-client';
+const socket = io.connect(
+  `${process.env.REACT_APP_BASE_URL_SERVER}/notifications`,
+);
 
 export default function Review(props) {
   const [value, setValue] = useState();
   const [review, setReview] = useState([]);
   const [newReview, setNewReview] = useState({
-    rate_stars: 3,
+    rate_stars: 0,
     content: '',
     idHome: props.idHome,
     idUser: localStorage.getItem('idUser'),
@@ -38,7 +42,7 @@ export default function Review(props) {
   const handleSubmit = async (event) => {
     event.preventDefault();
     await axios
-      .post(`http://localhost:3002/api/v1/reviews`, {
+      .post(`${process.env.REACT_APP_BASE_URL}/reviews`, {
         rate_stars: value,
         contents: newReview.content,
         idHome: newReview.idHome,
@@ -48,20 +52,21 @@ export default function Review(props) {
         console.log(response.data);
       });
     await axios
-      .get(`http://localhost:3002/api/v1/reviews?idHome=${props.idHome}`)
+      .get(`${process.env.REACT_APP_BASE_URL}/reviews?idHome=${props.idHome}`)
       .then((res) => {
         setReview(res.data);
       });
+    socket.emit('send', {
+      data: `${props.idHome}`,
+      idReciever: props.idOwner,
+    });
   };
-  
+
   return (
     <>
       <div className="row">
         <div className="col-1">
-          <Rating
-            name="simple-controlled"
-            value={4}
-          />
+          <Rating name="simple-controlled" value={5} />
         </div>
         <div className="col-11">
           <h3 style={{ marginLeft: '1%' }}>{review.length} comment</h3>
@@ -69,7 +74,7 @@ export default function Review(props) {
       </div>
       <form onSubmit={handleSubmit}>
         <div className="row">
-          <div className="col-10">
+          <div className="col-11">
             <TextField
               id="standard-basic"
               style={{ width: '100%' }}
@@ -78,19 +83,18 @@ export default function Review(props) {
               name="content"
               onChange={handleChange}
             />
-          
           </div>
           <br />
           <br />
           <br />
-          <div className='col-2'>
-          <Rating
-            name="simple-controlled"
-            value={value}
-            onChange={(event, newValue) => {
-              setValue(newValue);
-            }}
-          />
+          <div className="col-1">
+            <Rating
+              name="simple-controlled"
+              value={value}
+              onChange={(event, newValue) => {
+                setValue(newValue);
+              }}
+            />
           </div>
           <div>
             <div className="row">
@@ -107,7 +111,7 @@ export default function Review(props) {
                   Cancel
                 </Button>
               </div>
-              <div className="col-1">  
+              <div className="col-1">
                 <Button
                   variant="light"
                   type="submit"
@@ -150,17 +154,19 @@ export default function Review(props) {
                                               <img
                                                 src="https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg"
                                                 alt="avatar"
-                                                style={{ width: '100%' }}
+                                                style={{
+                                                  width: '60px',
+                                                  marginTop: '-10px',
+                                                }}
                                               />
                                             </div>
                                             <div className="col-10">
-                                              <MDBTypography tag="h5">
-                                              
-                                                {data?.idUser.email}
+                                              <MDBTypography tag="p">
+                                                <b> {data?.idUser.email} </b>
                                               </MDBTypography>
                                               <p
                                                 className="small"
-                                                style={{ marginLeft: '10%' }}
+                                                style={{ marginLeft: '10px' }}
                                               >
                                                 {data?.createdAt.split('T')[0]}
                                               </p>

@@ -26,16 +26,14 @@ export default function CardHome(props) {
     } else {
       setHome([]);
       // setIsNothingFound(true);
-      // setIsFetchData(!isFetchData);
+      setIsFetchData(!isFetchData);
     }
   }, [location.state?.data]);
 
   useEffect(() => {
-    setTimeout(() => {
       axios.get('http://localhost:3002/api/v1/homes').then((res) => {
         setHome(res.data);
       });
-    }, 1500);
   }, [isFetchData]);
   return (
     <>
@@ -49,8 +47,8 @@ export default function CardHome(props) {
         <br />
 
         <TopFive />
+        <div style={{marginTop: '70px'}} className="d-flex flex-wrap justify-content-center">
 
-        <div className="d-flex flex-wrap justify-content-center">
           {home.length > 0 ? (
             home.map((value, index) => {
               if (value.status) {

@@ -8,25 +8,16 @@ import BathtubIcon from '@mui/icons-material/Bathtub';
 import BedIcon from '@mui/icons-material/Bed';
 import FormPay from '../payment/formPay';
 import ModalImg from './modalImg';
+// import ModalComments from './modalComments';
 import Skeleton from '@mui/material/Skeleton';
-import Form from 'react-bootstrap/Form';
-import {
-  MDBCard,
-  MDBCardBody,
-  MDBCol,
-  MDBContainer,
-  MDBIcon,
-  MDBRow,
-  MDBTypography,
-} from 'mdb-react-ui-kit';
+import ModalGgmap from './ggmap/modalGgmap';
 import ReactHtmlParser, {
   processNodes,
   convertNodeToElement,
   htmlparser2,
 } from 'react-html-parser';
-import { Rating, TextField, Typography } from '@mui/material';
-import Button from 'react-bootstrap/Button';
 import Review from './review/review';
+import { Modal } from '@mui/material';
 // Thông tin nhà bao gồm:
 //     - Tên của căn nhà
 // - Loại phòng
@@ -52,7 +43,8 @@ export default function DetailHome() {
   const [image, setImage] = useState([]);
   const [fetchData, setFetchData] = useState(false);
   const [orders, setOrders] = useState([]);
-  // console.log(detail?.description?.length,111)
+  const [idOwner, setIdOwner] = useState(null);
+  const [address, setAddress] = useState(null);
 
   useEffect(() => {
     const getData = async () => {
@@ -63,6 +55,8 @@ export default function DetailHome() {
           setDetail(response.data[0]);
           setPrice(response.data[0].price);
           setOrders(response.data[0].orders);
+          setAddress(response.data[0].address);
+          setIdOwner(response.data[0].idUser.idUser);
         });
     };
     getData();
@@ -74,10 +68,7 @@ export default function DetailHome() {
           <div className="row">
             <div className="col-12">
               <h3> {detail.title} </h3>
-              <Link to={'#!'} style={{ color: 'black' }}>
-                {' '}
-                {detail.address}{' '}
-              </Link>
+              {address && <ModalGgmap address={address} />}
             </div>
           </div>
           <br />
@@ -159,15 +150,14 @@ export default function DetailHome() {
                     <div className="row">
                       <div className="col-12">
                         <p>
-                          <b>Category :</b>{' '}
+                          <b>Category :</b>
                           <b
                             style={{
                               color: 'green',
                             }}
                           >
-                            {' '}
-                            {detail.idCategory?.categoryName}{' '}
-                          </b>{' '}
+                            {detail.idCategory?.categoryName}
+                          </b>
                         </p>
                       </div>
                     </div>
@@ -190,29 +180,29 @@ export default function DetailHome() {
                   <div className="row">
                     <div className="col-6">
                       <p>
-                        <i className="fa-solid fa-wifi"></i> Wifi{' '}
+                        <i className="fa-solid fa-wifi"></i> Wifi
                       </p>
                       <br />
                       <p>
-                        <i className="fa-solid fa-tv"></i> TV{' '}
+                        <i className="fa-solid fa-tv"></i> TV
                       </p>
                       <br />
                       <p>
                         <i className="fa-regular fa-snowflake"></i> Air
-                        conditioning{' '}
+                        conditioning
                       </p>
                     </div>
                     <div className="col-6">
                       <p>
-                        <i className="fa-solid fa-bed-front"></i> Bed{' '}
+                        <i className="fa-solid fa-bed-front"></i> Bed
                       </p>
                       <br />
                       <p>
-                        <i className="fa-solid fa-clothes-hanger"></i> Hanger{' '}
+                        <i className="fa-solid fa-clothes-hanger"></i> Hanger
                       </p>
                       <br />
                       <p>
-                        <i className="fa-regular fa-kitchen-set"></i> Kitchen{' '}
+                        <i className="fa-regular fa-kitchen-set"></i> Kitchen
                       </p>
                     </div>
                   </div>
@@ -227,13 +217,14 @@ export default function DetailHome() {
                 orders={orders}
                 idHome={idHome.id}
                 address={detail.address}
+                idOwner={idOwner}
               />
             </div>
           </div>
           <br />
           <hr />
           <br />
-          <Review idHome={idHome.id} />
+          <Review idHome={idHome.id} idOwner={idOwner} />
         </div>
       </div>
     </>

@@ -14,8 +14,17 @@ import InputLabel from '@mui/material/InputLabel';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
-import { Box, Chip, Modal, Typography } from '@mui/material';
+import { TextareaAutosize } from '@mui/base';
+import {
+  Box,
+  Chip,
+  Modal,
+  OutlinedInput,
+  Rating,
+  Typography,
+} from '@mui/material';
 import Swal from 'sweetalert2';
+import io from 'socket.io-client';
 
 function HistoryRent() {
   const style = {
@@ -47,6 +56,15 @@ function HistoryRent() {
   const handleClose = () => setOpenBill(false);
   const [addCharge, setAddCharge] = useState(0);
   const [dataOrder, setDataOrder] = useState({});
+  const [openReview, setOpenReview] = useState(false);
+  const [review, setReview] = useState('');
+  const [value, setValue] = useState(2);
+  const handleOpenReview = () => setOpenReview(true);
+  const handleCloseReview = () => setOpenReview(false);
+  const [fetchData, setFetchData] = useState(false);
+  const socket = io.connect(
+    `${process.env.REACT_APP_BASE_URL_SERVER}/notifications`,
+  );
 
   useEffect(() => {
     axios
@@ -59,7 +77,7 @@ function HistoryRent() {
         setHistoryRent(res.data);
         setList(res.data);
       });
-  }, []);
+  }, [fetchData]);
   useEffect(() => {
     if (status === 'all') {
       const getDataRent = async () => {
@@ -93,52 +111,56 @@ function HistoryRent() {
   const doSomethingWithId = async (idOrder) => {
     Swal.fire({
       title: 'Are you sure?',
-      text: "Are you sure you want to cancel this booking?",
+      text: 'Are you sure you want to cancel this booking?',
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes!'
+      confirmButtonText: 'Yes!',
     }).then((result) => {
       if (result.isConfirmed) {
         axios.patch(`http://localhost:3002/api/v1/orders/${idOrder}`).then(
-            (response) => {
-              Swal.fire({
-                position: 'center',
-                icon: 'success',
-                title: 'Success Cancel',
-                showConfirmButton: false,
-                timer: 2000,
+          (response) => {
+            Swal.fire({
+              position: 'center',
+              icon: 'success',
+              title: 'Success Cancel',
+              showConfirmButton: false,
+              timer: 2000,
+            });
+            axios
+              .get(
+                `http://localhost:3002/api/v1/orders?idUser=${localStorage.getItem(
+                  'idUser',
+                )}`,
+              )
+              .then((res) => {
+                setList(res.data);
               });
-              axios
-                  .get(
-                      `http://localhost:3002/api/v1/orders?idUser=${localStorage.getItem(
-                          'idUser',
-                      )}`,
-                  )
-                  .then((res) => {
-                    setList(res.data);
-                  });
-            },
-            (error) => {
-              Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: 'Cannot Cancel!',
-              });
-            },
+          },
+          (error) => {
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: 'Cannot Cancel!',
+            });
+          },
         );
       }
     });
   };
 
-  const handleCheckout = (checkout, index) => {
+  const handleCheckout = (checkout, checkin, index) => {
     const timeStampToDate = 3600 * 24 * 7 * 4 * 30;
     const now = Date.now();
     const checkoutDate = new Date(checkout).getTime();
-    const diff = (now - checkoutDate) / timeStampToDate;
+    const diff = (checkoutDate - now) / timeStampToDate;
+    let isCheckined;
+    now - new Date(checkin).getTime() > 0
+      ? (isCheckined = true)
+      : (isCheckined = false);
     setDataOrder(list[index]);
-    if (Math.floor(diff) === 0) {
+    if (Math.floor(diff) <= 0) {
       setOpenBill(true);
     } else if (Math.floor(diff) > 0) {
       setOpenBill(true);
@@ -165,15 +187,38 @@ function HistoryRent() {
       },
     })
       .then((res) => {
+        setOpenReview(true);
+      })
+      .catch((err) => {});
+  };
+
+  const handleSubmitReview = async () => {
+    await axios
+      .post(`${process.env.REACT_APP_BASE_URL}/reviews`, {
+        rate_stars: value,
+        contents: review,
+        idHome: dataOrder.idHome.idHome,
+        idUser: dataOrder.idUser.idUser,
+      })
+      .then((res) => {
+        socket.emit('send', {
+          data: `${dataOrder.idHome.idHome}`,
+          idReciever: dataOrder.idHome.idUser.idUser,
+        });
+        handleClose();
+        handleCloseReview();
+      })
+      .then((res) => {
         Swal.fire({
           position: 'center',
           icon: 'success',
-          title: 'Checkout success. Thank you!',
+          title: 'Done. See you!',
           showConfirmButton: false,
-          timer: 2000,
+          timer: 1500,
+        }).then((res) => {
+          setFetchData(!fetchData);
         });
-      })
-      .catch((err) => {});
+      });
   };
 
   return (
@@ -266,7 +311,9 @@ function HistoryRent() {
                           <Button
                             variant="outlined"
                             color="success"
-                            onClick={() => handleCheckout(data.checkout, index)}
+                            onClick={() =>
+                              handleCheckout(data.checkout, data.checkin, index)
+                            }
                             data-id={data.idOrder}
                           >
                             Checkout
@@ -321,6 +368,58 @@ function HistoryRent() {
                 Checkout
               </Button>
             </div>
+          </Box>
+        </Modal>
+      </div>
+      <div>
+        <Modal
+          open={openReview}
+          onClose={handleCloseReview}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <Box sx={styleBill}>
+            <Typography id="modal-modal-title" variant="h6" component="h2">
+              Rate us
+            </Typography>
+            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+              <Box component="form" noValidate autoComplete="off">
+                <FormControl sx={{ width: '25ch' }}>
+                  <Rating
+                    name="simple-controlled"
+                    value={value}
+                    onChange={(event, newValue) => {
+                      setValue(newValue);
+                    }}
+                  />
+                  <textarea
+                    name="textarea"
+                    style={{ marginTop: '20px', width: 'auto' }}
+                    rows="10"
+                    cols="10"
+                    placeholder="Give us your feedback"
+                    onChange={(e) => setReview(e.target.value)}
+                  />
+                </FormControl>
+              </Box>
+              <div
+                style={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  width: '100%',
+                  marginTop: '20px',
+                }}
+              >
+                <Button
+                  type="button"
+                  variant="contained"
+                  color="warning"
+                  onClick={handleSubmitReview}
+                >
+                  Done
+                </Button>
+              </div>
+            </Typography>
           </Box>
         </Modal>
       </div>

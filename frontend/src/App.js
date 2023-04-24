@@ -21,6 +21,7 @@ import ResetPassword from './components/user/ResetPassword';
 import HomeRenting from './pages/hosting/homeRenting';
 import HistoryRent from './components/user/HistoryRent';
 import * as React from 'react';
+import RevenueChart from "./components/user/revenue";
 
 function App() {
     const currentAuth = useSelector((state) => state.auth);
@@ -68,6 +69,7 @@ function App() {
                             <Route path="/user/profile" element={<UpdateUser />} />
                             <Route path="/user/home" element={<HomeRenting />}></Route>
                             <Route path="/user/order" element={<HistoryRent />}></Route>
+                            <Route path="/user/test" element={<RevenueChart />}></Route>
                         </>
                     ) : (
                         <Route path="/" element={<CardHome />} />

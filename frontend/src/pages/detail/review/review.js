@@ -140,7 +140,7 @@ export default function Review(props) {
                         <section>
                           <MDBContainer
                             className="py-5"
-                            style={{ width: '100%' }}
+                            style={{ width: '1400px' }}
                           >
                             <MDBCol md="11" lg="12" xl="12">
                               {review.reverse().map((data, index) => {

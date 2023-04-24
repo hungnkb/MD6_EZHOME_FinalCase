@@ -266,9 +266,9 @@ function SearchBar() {
                 flexDirection: 'column',
               }}
             >
-              <div style={{marginTop: '30px'}}>From: đ{value2[0].toLocaleString('en-EN') || 0} - To: đ{value2[1].toLocaleString('en-EN') || 0} </div>
+              <div style={{marginTop: '30px'}}> <b style={{color:'gray'}}> From: đ </b><b> {value2[0].toLocaleString('en-EN') || 0} </b>  -  <b style={{color:'gray'}}> To: đ </b> <b>  {value2[1].toLocaleString('en-EN') || 0} </b></div>
               <Box sx={{ width: 300, display: 'flex', alignItems: 'center', marginTop: '30px' }}>
-                <Slider
+                <Slider style={{color:"rgb(189, 189, 189)"}}
                   id="price-slider"
                   sx={{ width: '300px' }}
                   min={100000}

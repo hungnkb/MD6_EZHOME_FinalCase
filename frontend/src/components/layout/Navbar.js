@@ -89,6 +89,7 @@ export default function Navbar() {
   useEffect(() => {
     socket.on('getNotification', (res) => {
       if (id && res.idReciever == id) {
+        console.log(res.data);
         const newNotifications = [
           ...notifications,
           {

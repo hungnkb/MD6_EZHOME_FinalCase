@@ -45,7 +45,11 @@ export default function DetailHome() {
   const [orders, setOrders] = useState([]);
   const [idOwner, setIdOwner] = useState(null);
   const [address, setAddress] = useState(null);
-
+  const [message, setMessage] = useState('')
+  const  callbackFunction = (childData) => {
+    setMessage(childData)
+  }
+  console.log(message);
   useEffect(() => {
     const getData = async () => {
       axios
@@ -224,7 +228,7 @@ export default function DetailHome() {
           <br />
           <hr />
           <br />
-          <Review idHome={idHome.id} idOwner={idOwner} />
+          <Review idHome={idHome.id} idOwner={idOwner} parentCallback={callbackFunction} />
         </div>
       </div>
     </>

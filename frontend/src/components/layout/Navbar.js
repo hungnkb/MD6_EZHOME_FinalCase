@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState, useEffect } from 'react';
 import { styled, alpha } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
@@ -11,7 +11,6 @@ import MenuIcon from '@mui/icons-material/Menu';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import MailIcon from '@mui/icons-material/Mail';
 import { Button } from '@mui/material';
-import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Login from '../user/Login';
 import { useDispatch, useSelector } from 'react-redux';
@@ -23,62 +22,22 @@ import axios from 'axios';
 import { io } from 'socket.io-client';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
-
-const Search = styled('div')(({ theme }) => ({
-  position: 'relative',
-  borderRadius: theme.shape.borderRadius,
-  backgroundColor: alpha(theme.palette.common.white, 0.15),
-  '&:hover': {
-    backgroundColor: alpha(theme.palette.common.white, 0.25),
-  },
-  marginRight: theme.spacing(2),
-  marginLeft: 0,
-  width: '100%',
-  [theme.breakpoints.up('sm')]: {
-    marginLeft: theme.spacing(3),
-    width: 'auto',
-  },
-}));
-
-const SearchIconWrapper = styled('div')(({ theme }) => ({
-  padding: theme.spacing(0, 2),
-  height: '100%',
-  position: 'absolute',
-  pointerEvents: 'none',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-}));
-
-const StyledInputBase = styled(InputBase)(({ theme }) => ({
-  color: 'inherit',
-  '& .MuiInputBase-input': {
-    padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
-    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-    transition: theme.transitions.create('width'),
-    width: '100%',
-    [theme.breakpoints.up('md')]: {
-      width: '20ch',
-    },
-  },
-}));
+import CircleIcon from '@mui/icons-material/Circle';
 
 export default function Navbar() {
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
-  const [anchorElNotifications, setAnchorElNotifications] =
-    React.useState(null);
+  const [anchorElNotifications, setAnchorElNotifications] = useState(null);
   const currentState = useSelector((state) => state.auth);
   const [id, setId] = useState(null);
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
   const [isHost, setIsHost] = useState(true);
   const [email, setEmail] = useState(localStorage.getItem('email'));
   const [phoneOfUserExist, setPhoneOfUserExist] = useState(true);
   const [notifications, setNotifications] = useState([]);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const socket = io.connect('http://localhost:3002/notifications');
   const open = Boolean(anchorElNotifications);
 
@@ -348,6 +307,7 @@ export default function Navbar() {
                   onClick={handleClickNotifications}
                   style={{ color: 'black' }}
                 />
+                <CircleIcon>{notifications.length}</CircleIcon>
                 <div id="noti">
                   <Menu
                     id="noti-menu"

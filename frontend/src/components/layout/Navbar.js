@@ -93,8 +93,8 @@ export default function Navbar() {
         const newNotifications = [
           ...notifications,
           {
-            message: 'You have a new comment on your home',
-            url: `/detail-home/${res.data}`,
+            message: res.message,
+            url: `${res.data}`,
           },
         ];
         setNotifications(newNotifications);

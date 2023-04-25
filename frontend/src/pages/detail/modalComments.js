@@ -42,7 +42,7 @@ function ModalComments(props) {
           <Modal.Title>All comment...</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          {/* Nội dung của modal */}
+           Nội dung của modal
           {props.comments.map((data, index) => (
             <div className="d-flex flex-start mb-4">
               <MDBCard className="w-100">
@@ -81,6 +81,7 @@ function ModalComments(props) {
               </MDBCard>
             </div>
           ))}
+
         </Modal.Body>
         <Modal.Footer>
         </Modal.Footer>

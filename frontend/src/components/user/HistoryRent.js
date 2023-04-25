@@ -160,7 +160,7 @@ export default function HistoryRent() {
             })
             .then((res) => {
                 socket.emit('send', {
-                    data: '/user/home',
+                    dataUrl: '/user/home',
                     idReciever: idOwner,
                     message: 'You have a new cancel order',
                 });
@@ -220,7 +220,7 @@ export default function HistoryRent() {
             })
             .then((res) => {
                 socket.emit('send', {
-                    data: `/detail-home/${dataOrder.idHome.idHome}`,
+                    dataUrl: `/detail-home/${dataOrder.idHome.idHome}`,
                     idReciever: dataOrder.idHome.idUser.idUser,
                     message: 'You have new checkout and review',
                 });

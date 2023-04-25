@@ -51,7 +51,7 @@ export default function Navbar() {
       console.log(currentState.userLogin.sub);
       if (pageNoti && currentState.userLogin.sub) {
         const method = 'get';
-        const url = `${process.env.REACT_APP_BASE_URL}/notifications?idUser=${localStorage.userLogin.sub}&page=${pageNoti}`;
+        const url = `${process.env.REACT_APP_BASE_URL}/notifications?idUser=${currentState.userLogin.sub}&page=${pageNoti}`;
         const token = localStorage.getItem('token');
         const response = await axios({
           method,

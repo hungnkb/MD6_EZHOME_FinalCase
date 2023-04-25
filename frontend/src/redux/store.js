@@ -7,5 +7,8 @@ const store = configureStore({
     auth: authReducer,
     createHome: homeSlice,
   },
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware({
+    serializableCheck: false,
+  }),
 });
 export default store;

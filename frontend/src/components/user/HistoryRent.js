@@ -66,6 +66,8 @@ function HistoryRent() {
     `${process.env.REACT_APP_BASE_URL_SERVER}/notifications`,
   );
 
+  console.log(list,111);
+
   useEffect(() => {
     axios
       .get(
@@ -104,11 +106,11 @@ function HistoryRent() {
   const handleChange = (event) => {
     setStatus(event.target.value);
   };
-  const handleButtonClick = (event) => {
+  const handleButtonClick = (event, idOwner) => {
     const id = event.target.getAttribute('data-id');
-    doSomethingWithId(id);
+    doSomethingWithId(id, idOwner);
   };
-  const doSomethingWithId = async (idOrder) => {
+  const doSomethingWithId = async (idOrder, idOwner) => {
     Swal.fire({
       title: 'Are you sure?',
       text: 'Are you sure you want to cancel this booking?',
@@ -117,37 +119,45 @@ function HistoryRent() {
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
       confirmButtonText: 'Yes!',
-    }).then((result) => {
-      if (result.isConfirmed) {
-        axios.patch(`http://localhost:3002/api/v1/orders/${idOrder}`).then(
-          (response) => {
-            Swal.fire({
-              position: 'center',
-              icon: 'success',
-              title: 'Success Cancel',
-              showConfirmButton: false,
-              timer: 2000,
-            });
-            axios
-              .get(
-                `http://localhost:3002/api/v1/orders?idUser=${localStorage.getItem(
-                  'idUser',
-                )}`,
-              )
-              .then((res) => {
-                setList(res.data);
+    })
+      .then((result) => {
+        if (result.isConfirmed) {
+          axios.patch(`http://localhost:3002/api/v1/orders/${idOrder}`).then(
+            (response) => {
+              Swal.fire({
+                position: 'center',
+                icon: 'success',
+                title: 'Success Cancel',
+                showConfirmButton: false,
+                timer: 2000,
               });
-          },
-          (error) => {
-            Swal.fire({
-              icon: 'error',
-              title: 'Oops...',
-              text: 'Cannot Cancel!',
-            });
-          },
-        );
-      }
-    });
+              axios
+                .get(
+                  `http://localhost:3002/api/v1/orders?idUser=${localStorage.getItem(
+                    'idUser',
+                  )}`,
+                )
+                .then((res) => {
+                  setList(res.data);
+                });
+            },
+            (error) => {
+              Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Cannot Cancel!',
+              });
+            },
+          );
+        }
+      })
+      .then((res) => {
+        socket.emit('send', {
+          data: '/user/home',
+          idReciever: idOwner,
+          message: 'You have a new cancel order',
+        });
+      });
   };
 
   const handleCheckout = (checkout, checkin, index) => {
@@ -202,8 +212,9 @@ function HistoryRent() {
       })
       .then((res) => {
         socket.emit('send', {
-          data: `${dataOrder.idHome.idHome}`,
+          data: `/detail-home/${dataOrder.idHome.idHome}`,
           idReciever: dataOrder.idHome.idUser.idUser,
+          message: 'You have new checkout and review',
         });
         handleClose();
         handleCloseReview();
@@ -301,7 +312,7 @@ function HistoryRent() {
                           <Button
                             variant="outlined"
                             color="error"
-                            onClick={handleButtonClick}
+                            onClick={() => handleButtonClick(data.idHome.idUser)}
                             data-id={data.idOrder}
                           >
                             Cancel

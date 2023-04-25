@@ -133,10 +133,10 @@ const RevenueChart = () => {
                         </Col>
                     </Row>
                     <Row style={{marginTop: "70px"}}>
-                        <h5>Total revenue in the month: {revenueOfMonth != null ? revenueOfMonth.toLocaleString() + " VNĐ" : "0 VNĐ"}</h5>
+                        <h5>Total revenue in the month: {revenueOfMonth != null ? Number(revenueOfMonth).toLocaleString('en-EN') + " VNĐ" : "0 VNĐ"}</h5>
                     </Row>
                         <Row style={{marginTop: "70px"}}>
-                            <h5>Total revenue of year: {revenueOfYear != null ? revenueOfYear.toLocaleString() + " VNĐ" : "0 VNĐ"}</h5>
+                            <h5>Total revenue of year: {revenueOfYear != null ? Number(revenueOfYear).toLocaleString() + " VNĐ" : "0 VNĐ"}</h5>
                         </Row>
                     </div>
                 </Col>

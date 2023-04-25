@@ -62,7 +62,7 @@ export default function HomeRenting() {
         email: order.idUser.email,
         phone: order.idUser.phone,
         checkin: order.checkin,
-        checkout: order.checkin,
+        checkout: order.checkout,
         status: order.status,
       }),
     );

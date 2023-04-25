@@ -33,7 +33,8 @@ export default function Navbar() {
   const [phoneOfUserExist, setPhoneOfUserExist] = useState(true);
   const [notifications, setNotifications] = useState([]);
   const [pageNoti, setPageNoti] = useState(1);
-  const [endNoti, setEndNoti] = useState(true);
+  const [endNoti, setEndNoti] = useState(false);
+  const [isFetchNoti, setIsFetchNoti] = useState(false);
   const currentState = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -47,6 +48,7 @@ export default function Navbar() {
 
   useEffect(() => {
     const getData = async () => {
+      console.log(currentState.userLogin.sub);
       if (pageNoti && currentState.userLogin.sub) {
         const method = 'get';
         const url = `${process.env.REACT_APP_BASE_URL}/notifications?idUser=${currentState.userLogin.sub}&page=${pageNoti}`;
@@ -59,12 +61,16 @@ export default function Navbar() {
           },
         });
         console.log(response, 'notiiii');
-        setNotifications([...notifications, ...response.data]);
+        if (response.data.length == 0) {
+          setEndNoti(true);
+        } else {
+          setEndNoti(false);
+          setNotifications([...notifications, ...response.data]);
+        }
       }
     };
     getData();
-  }, [pageNoti, currentState.userLogin.sub]);
-console.log(notifications);
+  }, [pageNoti, currentState.userLogin.sub, isFetchNoti]);
   const handleMoreNoti = () => {
     setPageNoti(pageNoti + 1);
   };
@@ -73,14 +79,15 @@ console.log(notifications);
     socket.on('getNotification', (res) => {
       console.log(id, res.idReciever);
       if (id && res.idReciever == id) {
-        const newNotifications = [
-          ...notifications,
-          {
-            message: res.message,
-            dataUrl: `${res.dataUrl}`,
-          },
-        ];
-        setNotifications(newNotifications);
+        //   const newNotifications = [
+        //     ...notifications,
+        //     {
+        //       message: res.message,
+        //       dataUrl: `${res.dataUrl}`,
+        //     },
+        //   ];
+        //   setNotifications(newNotifications);
+        setIsFetchNoti(!isFetchNoti);
       }
     });
   }, [socket]);
@@ -131,13 +138,11 @@ console.log(notifications);
       currentState.userLogin.role === 'host'
     ) {
       navigate('/user/hosting');
-      console.log(1);
     } else if (
       currentState.userLogin.active &&
       currentState.userLogin.role == 'user' &&
       phoneOfUserExist === true
     ) {
-      console.log(2);
       axios({
         method: 'PUT',
         url: 'http://localhost:3002/api/v1/users/',
@@ -155,7 +160,6 @@ console.log(notifications);
       currentState.userLogin.role == 'user' &&
       currentState.newPhone
     ) {
-      console.log(3);
       axios({
         method: 'PUT',
         url: 'http://localhost:3002/api/v1/users/',
@@ -172,7 +176,6 @@ console.log(notifications);
       currentState.userLogin.active &&
       currentState.userLogin.role == 'user'
     ) {
-      console.log(4);
       setIsHost(false);
     } else {
       Swal.fire({
@@ -357,7 +360,14 @@ console.log(notifications);
                         {noti.message}
                       </MenuItem>
                     ))}
-                    {!endNoti && <div onClick={handleMoreNoti}>See more</div>}
+                    {!endNoti && (
+                      <div
+                        style={{ display: 'flex', justifyContent: 'center' }}
+                        onClick={handleMoreNoti}
+                      >
+                        See more
+                      </div>
+                    )}
                   </Menu>
                 </div>
               </div>

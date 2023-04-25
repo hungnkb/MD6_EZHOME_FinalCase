@@ -1,18 +1,12 @@
 import * as React from 'react';
 import { useEffect, useState } from 'react';
 import Grid from '@mui/material/Grid';
-import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
-import Box from '@mui/material/Box';
-import Paper from '@mui/material/Paper';
-import InputLabel from '@mui/material/InputLabel';
-import * as yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import { Link } from 'react-router-dom';
 import UpdatePassword from './UpdatePassword';
-import HistoryRent from './HistoryRent';
 import { setNewPhone } from '../../redux/features/authSlice';
 import { Button } from 'react-bootstrap';
 import { MDBCol, MDBContainer, MDBRow, MDBCard, MDBCardText, MDBCardBody, MDBCardImage, MDBBtn, MDBTypography, MDBIcon } from 'mdb-react-ui-kit';
@@ -27,6 +21,7 @@ export default function UpdateUser() {
   const [phoneError, setPhoneError] = useState(false);
   const [email, setEmail] = useState(null);
   const dispatch = useDispatch((state) => state.auth);
+  const [image, setImage] = useState();
   const [keyword, setKeyWord] = useState({
     fullname: false,
     phone: false,
@@ -85,7 +80,7 @@ export default function UpdateUser() {
         },
       );
   };
-  console.log(email);
+  console.log(dataUser);
   const handleChange = (event) => {
     setDataUser({
       ...dataUser,
@@ -131,6 +126,45 @@ export default function UpdateUser() {
       setKeyWord(kw);
     }
   };
+
+    const preset_key = 'k4beq9j3';
+    const cloud_name = 'djwjkwrjz';
+  const handleUploadAvatar = (event) => {
+      const file = event.target.files[0];
+      const formData = new FormData();
+      formData.append('file', file);
+      formData.append("upload_preset", preset_key);
+      axios.post(`https://api.cloudinary.com/v1_1/${cloud_name}/image/upload`, formData)
+          .then(res => {
+              setImage(res.data.secure_url);
+              axios
+                  .put('http://localhost:3002/api/v1/users', {
+                      email: email,
+                      image: res.data.secure_url
+                  })
+                  .then(
+                      (response) => {
+                          console.log(response, 34343);
+                          console.log(response);
+                          Swal.fire({
+                              position: 'center',
+                              icon: 'success',
+                              title: 'Change Profile Success',
+                              showConfirmButton: false,
+                              timer: 2000,
+                          });
+                      },
+                      (error) => {
+                          Swal.fire({
+                              icon: 'error',
+                              title: 'Oops...',
+                              text: 'Some thing went wrong!',
+                          });
+                      },
+                  )
+          })
+          .catch(err => console.log(err))
+  }
 
   return (
     <>
@@ -329,8 +363,9 @@ export default function UpdateUser() {
             <MDBCard style={{ borderRadius: '15px' }}>
               <MDBCardBody className="text-center">
                 <div className="mt-3 mb-4">
-                  <MDBCardImage src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava2-bg.webp"
+                  <MDBCardImage src={dataUser.image}
                     className="rounded-circle" fluid style={{ width: '100px' }} />
+                    <input type="file" name="image" onChange={handleUploadAvatar}></input>
                 </div>
                 <MDBTypography tag="h4">{dataUser.fullName}</MDBTypography>
                 <MDBCardText className="text-muted mb-4">

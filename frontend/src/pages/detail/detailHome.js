@@ -109,7 +109,6 @@ export default function DetailHome() {
                     <br/>
                     <div className="row">
                         <div className="col-7">
-                            <h4> What is there where you are staying?</h4>
                             <br/>
                             <Box sx={{minWidth: 275}}>
                                 <Card>

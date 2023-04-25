@@ -44,12 +44,20 @@ export default function Review(props) {
   const sendData = () => {
     props.parentCallback(review.length);
   }
-  sendData()
+  sendData();
+  const sum=()=>{
+    let all = 0;
+    for (let i = 0; i < review.length; i++) {
+
+      all+=Number(review[i].rate_stars)
+    }
+    return Math.round((all*2)/review.length)/2
+  }
   return (
     <>
       <div className="row">
         <div className="col-1">
-          <Rating name="simple-controlled" value={5} />
+          <Rating name="simple-controlled"   precision={0.5} readOnly value={sum()} />
         </div>
         <div className="col-11">
           <h3 style={{ marginLeft: '1%' }}>{review.length} comment</h3>

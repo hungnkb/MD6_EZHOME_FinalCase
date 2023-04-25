@@ -50,7 +50,6 @@ export default function DetailHome() {
   const  callbackFunction = (childData) => {
     setMessage(childData)
   }
-  console.log(message);
   useEffect(() => {
     const getData = async () => {
       axios

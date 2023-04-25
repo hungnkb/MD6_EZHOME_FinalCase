@@ -6,6 +6,7 @@ import axios from 'axios';
 import { Button } from '@mui/material';
 import Swal from 'sweetalert2';
 import { useSelector } from 'react-redux';
+import io from 'socket.io-client';
 
 const style = {
     position: 'absolute',
@@ -23,6 +24,9 @@ export default function ModalFormPay(props) {
     const handleOpen = () => setOpen(true);
     const handleClose = () => {setOpen(false); props.setOpenBill(false)};
     const currentAuth = useSelector(state => state.auth);
+    const socket = io.connect(
+        `${process.env.REACT_APP_BASE_URL_SERVER}/notifications`,
+      );
 
     useEffect(() => {
         setOpen(true);
@@ -49,6 +53,13 @@ export default function ModalFormPay(props) {
                         icon: 'success',
                         title: 'Success!',
                     });
+                })
+                .then((res) => {
+                    socket.emit('send', {
+                        data: '/user/home',
+                        idReciever: props.idOwner,
+                        message: 'You have a new order'
+                    })
                 })
                 .catch((error) => {
                     Swal.fire({

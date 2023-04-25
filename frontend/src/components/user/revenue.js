@@ -16,6 +16,7 @@ const RevenueChart = () => {
         year: '2023'
     })
     const [revenueOfMonth, setrevenueOfMonth] = useState('')
+    const [revenueOfYear, setrevenueOfYear] = useState('')
     const [chartData, setChartData] = useState({
         labels: [],
         datasets: [{
@@ -48,6 +49,10 @@ const RevenueChart = () => {
             .then(response => {
                 setrevenueOfMonth(response.data.total_revenue)
             });
+        axios.get(`http://localhost:3002/api/v1/orders/total-revenue-of-year?idUser=${localStorage.getItem('idUser')}`)
+            .then(response => {
+                setrevenueOfYear(response.data.total_revenue)
+            });
     }, []);
     console.log(revenueOfMonth,55)
     const handleChange = (event) => {
@@ -71,7 +76,7 @@ const RevenueChart = () => {
                         backgroundColor: 'rgba(54, 162, 235, 0.2)',
                         borderColor: 'rgba(54, 162, 235, 1)',
                         borderWidth: 1
-                    }],
+                    }]
                 });
             });
         handleSubmitFillterTotal();
@@ -82,22 +87,27 @@ const RevenueChart = () => {
             .then(response => {
                 setrevenueOfMonth(response.data.total_revenue)
             });
+        axios.get(`http://localhost:3002/api/v1/orders/total-revenue-of-year?idUser=${localStorage.getItem('idUser')}&&year=${monthYearFillter.year}`)
+            .then(response => {
+                setrevenueOfYear(response.data.total_revenue)
+            });
     }
+    console.log(typeof (revenueOfMonth))
 
     return (
         <div style={{marginTop: 50}}>
             <Row>
                 <Col sm={8}>
-                    <div style={{height: "700px", width: "100%", marginLeft: "1%"}}>
-                        <Bar options={{ maintainAspectRatio: false, responsive: true}} data={chartData}/>
+                    <div style={{height: "600px", width: "90%", marginLeft: "1%"}}>
+                        <Bar options={{ maintainAspectRatio: false, responsive: true, barThickness: 110 }} data={chartData}/>
                     </div>
                 </Col>
                 <Col sm={4}>
                     <div style={{marginLeft: "40%"}}>
-                        <h3 >Profit Report</h3>
+                        <h3 >Revenue Report</h3>
                     </div>
                     <div style={{marginLeft: "40px"}}>
-                    <Row style={{marginTop: "30px"}}>
+                    <Row style={{marginTop: "40px"}}>
                         <Col sm={4}>
                             <h5 style={{margin: 0}}>Year:</h5>
                             <select name="year" onChange={handleChange}>
@@ -127,17 +137,16 @@ const RevenueChart = () => {
                             <Button onClick={handleSubmitFillter} style={{marginTop: "13px", background: '#f7a800'}} variant="contained">Select</Button>
                         </Col>
                     </Row>
-                    <Row style={{marginTop: "50px"}}>
-                        <h5>Total revenue for April 2023: {revenueOfMonth} VNĐ</h5>
+                    <Row style={{marginTop: "70px"}}>
+                        <h5>Total revenue in the month: {revenueOfMonth != null ? revenueOfMonth.toLocaleString() + " VNĐ" : "0 VNĐ"}</h5>
                     </Row>
-                        <Row style={{marginTop: "50px"}}>
-                            <h5>Total revenue of 2023: </h5>
+                        <Row style={{marginTop: "70px"}}>
+                            <h5>Total revenue of year: {revenueOfYear != null ? revenueOfYear.toLocaleString() + " VNĐ" : "0 VNĐ"}</h5>
                         </Row>
                     </div>
                 </Col>
             </Row>
         </div>
-
     );
 };
 

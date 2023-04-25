@@ -69,15 +69,27 @@ function DashboardHosting() {
           <div className="col-12">
             <ButtonGroup
               sx={{
-                marginLeft: '80%',
+                marginLeft: '77%',
                 borderRadius: '20px',
                 backgroundColor: 'white',
+                height: "50px",
+                width: "300px"
               }}
               color="warning"
               disableElevation
               variant="contained"
               aria-label="Disabled elevation buttons"
             >
+              <Button
+                  onClick={() => {
+                    navigate('/create-home');
+                  }}
+                  sx={{ background: '#f7a800' }}
+                  variant="contained"
+              >
+                {' '}
+                +Add home
+              </Button>
               <Button
                 onClick={() => {
                   navigate('/user/home');
@@ -89,14 +101,14 @@ function DashboardHosting() {
                 Views order
               </Button>
               <Button
-                onClick={() => {
-                  navigate('/create-home');
-                }}
-                sx={{ background: '#f7a800' }}
-                variant="contained"
+                  onClick={() => {
+                    navigate('/user/revenue');
+                  }}
+                  sx={{ background: '#f7a800' }}
+                  variant="contained"
               >
                 {' '}
-                +Add home
+                Revenue
               </Button>
             </ButtonGroup>
           </div>

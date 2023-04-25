@@ -71,7 +71,7 @@ function App() {
                             <Route path="/user/profile" element={<UpdateUser />} />
                             <Route path="/user/home" element={<HomeRenting />}></Route>
                             <Route path="/user/order" element={<HistoryRent />}></Route>
-                            <Route path="/user/test" element={<RevenueChart />}></Route>
+                            <Route path="/user/revenue" element={<RevenueChart />}></Route>
                         </>
                     ) : (
                         <Route path="/" element={<CardHome />} />

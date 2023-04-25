@@ -308,7 +308,7 @@ export default function UpdateUser() {
                         variant="outlined"
                         error={phoneError}
                         helperText={
-                          phoneError ? 'Vui lòng nhập số điện thoại hợp lệ' : ''
+                          phoneError ? 'Please enter a valid phone number' : ''
                         }
                         onChange={handleChangePhone}
                       />

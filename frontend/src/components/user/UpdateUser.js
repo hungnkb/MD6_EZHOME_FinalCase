@@ -33,8 +33,8 @@ export default function UpdateUser() {
       .get(`http://localhost:3002/api/v1/users?email=${email}`)
       .then((response) => {
         console.log(response.data, 2222);
-        const { fullName, phone, address } = response.data;
-        setDataUser({ fullName, phone, address });
+        const { fullName, phone, address, image } = response.data;
+        setDataUser({ fullName, phone, address, image });
         setDataPassword(response.data.password);
       });
   }, [email]);
@@ -129,12 +129,12 @@ export default function UpdateUser() {
 
     const preset_key = 'k4beq9j3';
     const cloud_name = 'djwjkwrjz';
-  const handleUploadAvatar = (event) => {
+  const handleUploadAvatar = async (event) => {
       const file = event.target.files[0];
       const formData = new FormData();
       formData.append('file', file);
       formData.append("upload_preset", preset_key);
-      axios.post(`https://api.cloudinary.com/v1_1/${cloud_name}/image/upload`, formData)
+        axios.post(`https://api.cloudinary.com/v1_1/${cloud_name}/image/upload`, formData)
           .then(res => {
               setImage(res.data.secure_url);
               axios
@@ -149,10 +149,18 @@ export default function UpdateUser() {
                           Swal.fire({
                               position: 'center',
                               icon: 'success',
-                              title: 'Change Profile Success',
+                              title: 'Change Avatar Success',
                               showConfirmButton: false,
                               timer: 2000,
                           });
+                          axios
+                              .get(`http://localhost:3002/api/v1/users?email=${email}`)
+                              .then((response) => {
+                                  console.log(response.data, 2222);
+                                  const { fullName, phone, address, image } = response.data;
+                                  setDataUser({ fullName, phone, address, image });
+                                  setDataPassword(response.data.password);
+                              });
                       },
                       (error) => {
                           Swal.fire({
@@ -165,6 +173,7 @@ export default function UpdateUser() {
           })
           .catch(err => console.log(err))
   }
+    console.log(dataUser.image,44)
 
   return (
     <>

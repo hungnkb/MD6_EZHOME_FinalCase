@@ -51,6 +51,7 @@ function App() {
                         }),
                     );
                     localStorage.setItem('idUser', response.data.sub);
+                    localStorage.setItem('email', response.data.email);
                 }
             }
         };

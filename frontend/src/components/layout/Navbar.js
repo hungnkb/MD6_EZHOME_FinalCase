@@ -76,7 +76,7 @@ export default function Navbar() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [isHost, setIsHost] = useState(true);
-  const [email, setEmail] = useState(localStorage.getItem('email'));
+  const email = localStorage.getItem('email')
   const [phoneOfUserExist, setPhoneOfUserExist] = useState(true);
   const [notifications, setNotifications] = useState([]);
   const socket = io.connect('http://localhost:3002/notifications');
@@ -148,11 +148,13 @@ export default function Navbar() {
       currentState.userLogin.role === 'host'
     ) {
       navigate('/user/hosting');
+      console.log(1)
     } else if (
       currentState.userLogin.active &&
       currentState.userLogin.role == 'user' &&
       phoneOfUserExist === true
     ) {
+      console.log(2)
       axios({
         method: 'PUT',
         url: 'http://localhost:3002/api/v1/users/',
@@ -170,6 +172,7 @@ export default function Navbar() {
       currentState.userLogin.role == 'user' &&
       currentState.newPhone
     ) {
+      console.log(3)
       axios({
         method: 'PUT',
         url: 'http://localhost:3002/api/v1/users/',
@@ -185,7 +188,8 @@ export default function Navbar() {
     } else if (
       currentState.userLogin.active &&
       currentState.userLogin.role == 'user'
-    ) {
+    ){
+      console.log(4)
       setIsHost(false);
     } else {
       Swal.fire({

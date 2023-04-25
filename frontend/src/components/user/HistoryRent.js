@@ -31,7 +31,7 @@ import {
 } from '@mui/material';
 import Swal from 'sweetalert2';
 import io from 'socket.io-client';
-
+import {NavLink, useParams} from "react-router-dom";
 export default function HistoryRent() {
     const style = {
         position: 'absolute',
@@ -108,22 +108,21 @@ export default function HistoryRent() {
         }
     }, [status]);
     const handleChange = (value) => {
-        console.log(value, 'handleChange')
+
         setStatus(value);
     };
-    console.log(status, '1112')
+
     const handleButtonClick = (event, idOwner) => {
         const id = event.target.getAttribute('data-id');
         doSomethingWithId(id, idOwner);
     };
     const doSomethingWithId = async (idOrder, idOwner) => {
-        console.log(idOrder,55)
         Swal.fire({
             title: 'Are you sure?',
             text: 'Are you sure you want to cancel this booking?',
             icon: 'warning',
             showCancelButton: true,
-            confirmButtonColor: '#3085d6',
+            confirmButtonColor: '#f7a800',
             cancelButtonColor: '#d33',
             confirmButtonText: 'Yes!',
         })
@@ -252,7 +251,6 @@ export default function HistoryRent() {
                     variant="standard"
                     sx={{m: 1, minWidth: 120, marginLeft: '8%'}}
                 >
-                    <InputLabel id="demo-simple-select-standard-label">Status</InputLabel>
                 </FormControl>
                 <TableContainer
                     component={Paper}
@@ -266,7 +264,7 @@ export default function HistoryRent() {
                         <TableHead>
                             <TableRow>
                                 <TableCell>
-                                    <b> # </b>{' '}
+                                    <b> Number </b>{' '}
                                 </TableCell>
                                 <TableCell align="center">
                                     <b> Home </b>{' '}
@@ -297,51 +295,46 @@ export default function HistoryRent() {
                                         <TableCell component="th" scope="row">
                                             <b> {index + 1} </b>
                                         </TableCell>
-                                        <TableCell align="center">{data.idHome.title}</TableCell>
-                                        <TableCell align="center">{data.checkin}</TableCell>
-                                        <TableCell align="center">{data.checkout}</TableCell>
-                                        <TableCell align="center">
+                                        <TableCell align="left"><NavLink to={`/detail-home/${data.idHome.idHome}`} style={{color:"black"}}> {data.idHome.title}</NavLink> </TableCell>
+                                        <TableCell align="left">{data.checkin}</TableCell>
+                                        <TableCell align="left">{data.checkout}</TableCell>
+                                        <TableCell align="left">
                                             {data.charged.toLocaleString('en-EN')}VNĐ
                                         </TableCell>
                                         {data.status === 'ongoing' ? (
                                             <>
-                                                <TableCell align="center">
-                                                    <Chip label="On Going" color="primary"/>
+                                                <TableCell align="left">
+                                                    <p style={{color:"#f7a800"}}><i className="fa-solid fa-circle"></i> On going</p>
                                                 </TableCell>
                                                 <TableCell>
-                                                    <Button
-                                                        variant="outlined"
-                                                        color="error"
+                                                    <p
                                                         onClick={(event) => handleButtonClick(event,data.idHome.idUser)}
-                                                        data-id={data.idOrder}
+                                                        data-id={data.idOrder} style={{cursor:"pointer", color:"red"}}
                                                     >
-                                                        Cancel
-                                                    </Button>
+                                                        <i className="fa-solid fa-circle-xmark" ></i> Cancel
+                                                    </p>
                                                 </TableCell>
                                                 <TableCell>
-                                                    <Button
-                                                        variant="outlined"
-                                                        color="success"
+                                                    <p style={{cursor:"pointer"}}
                                                         onClick={() =>
                                                             handleCheckout(data.checkout, data.checkin, index)
                                                         }
                                                         data-id={data.idOrder}
                                                     >
-                                                        Checkout
-                                                    </Button>
+                                                        <i className="fa-solid fa-money-check-dollar-pen"></i>  Checkout
+                                                    </p>
                                                 </TableCell>
                                             </>
                                         ) : data.status === 'done' ? (
-                                            <TableCell align="center">
-                                                <Chip
-                                                    label="Rented"
-                                                    color="success"
-                                                    sx={{width: '80px'}}
-                                                />
+                                            <TableCell align="left">
+                                                <p style={{color:"green"}}><i className="fa-solid fa-circle"></i> Done</p>
                                             </TableCell>
                                         ) : (
-                                            <TableCell align="center">
-                                                <Chip label="Cancel" color="warning"/>
+                                            <TableCell align="left">
+                                                <p style={{color:"red"}}
+                                                >
+                                                    <i className="fa-solid fa-circle"></i> Cancel
+                                                </p>
                                             </TableCell>
                                         )}
                                     </TableRow>

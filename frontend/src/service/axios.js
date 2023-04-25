@@ -1,12 +1,12 @@
-import axios from "axios"
+import axios from 'axios';
 
-export const axiosCuston = (method, url, data, token) => {
-    axios({
-        method,
-        url,
-        data: data || {},
-        headers: {
-            Authorization: JSON.parse(token),
-        }
-    })
-}
+export const axiosCustom = async (method, url, token, data) => {
+  await axios({
+    method,
+    url,
+    data: data || {},
+    headers: {
+      Authorization: JSON.parse(token),
+    },
+  });
+};

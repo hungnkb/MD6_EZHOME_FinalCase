@@ -66,7 +66,7 @@ function HistoryRent() {
     `${process.env.REACT_APP_BASE_URL_SERVER}/notifications`,
   );
 
-  console.log(list,111);
+  console.log(list, 111);
 
   useEffect(() => {
     axios
@@ -312,7 +312,9 @@ function HistoryRent() {
                           <Button
                             variant="outlined"
                             color="error"
-                            onClick={() => handleButtonClick(data.idHome.idUser)}
+                            onClick={() =>
+                              handleButtonClick(data.idHome.idUser)
+                            }
                             data-id={data.idOrder}
                           >
                             Cancel

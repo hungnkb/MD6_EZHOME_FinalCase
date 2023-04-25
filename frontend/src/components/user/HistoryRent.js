@@ -117,6 +117,7 @@ export default function HistoryRent() {
         doSomethingWithId(id, idOwner);
     };
     const doSomethingWithId = async (idOrder, idOwner) => {
+        console.log(idOrder,55)
         Swal.fire({
             title: 'Are you sure?',
             text: 'Are you sure you want to cancel this booking?',
@@ -311,7 +312,7 @@ export default function HistoryRent() {
                                                     <Button
                                                         variant="outlined"
                                                         color="error"
-                                                        onClick={() => handleButtonClick(data.idHome.idUser)}
+                                                        onClick={(event) => handleButtonClick(event,data.idHome.idUser)}
                                                         data-id={data.idOrder}
                                                     >
                                                         Cancel

@@ -24,6 +24,7 @@ export default function CreateHome24() {
   const [bedrooms, setBedrooms] = useState(1);
   const [titles, setTitles] = useState(null);
   const [prices, setPrices] = useState(1);
+  const [formatPrice, setFormatValue] = useState(1);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const currentState = useSelector((state) => state.createHome);
@@ -141,6 +142,13 @@ export default function CreateHome24() {
     }
   };
 
+  const handleFormatPrice = (e) => {
+    // let valueFormat = parseInt(e.target.value);
+    // let newValue = parseInt(valueFormat.toLocaleString('en-EN'));
+    // console.log(newValue);
+    // setFormatValue(newValue);
+  };
+
   return (
     <>
       <center>
@@ -172,6 +180,7 @@ export default function CreateHome24() {
               type="number"
               min="1"
               onChange={(e) => {
+                handleFormatPrice(e);
                 dispatch(setPrice(e.target.value));
                 setPrices(e.target.value);
                 if (e.target.value <= 0) {
@@ -179,6 +188,7 @@ export default function CreateHome24() {
                 }
               }}
               defaultValue={currentState.price}
+              // value={formatPrice}
               aria-label="Amount (to the nearest dollar)"
             />
             <InputGroup.Text>đ</InputGroup.Text>
@@ -245,20 +255,20 @@ export default function CreateHome24() {
         <div className="col-7">
           <div style={{ width: 500, marginLeft: '10%' }}>
             <br />
-              <CKEditor
-                editor={ClassicEditor}
-                data={currentState.description || ' '}
-                onReady={(editor) => {
-                  // You can store the "editor" and use when it is needed.
-                }}
-                onChange={(event, editor) => {
-                  const data = editor.getData();
-                  setDesc(data);
-                  setDescriptions(data);
-                }}
-                onBlur={(event, editor) => { }}
-                onFocus={(event, editor) => { }}
-              />
+            <CKEditor
+              editor={ClassicEditor}
+              data={currentState.description || ' '}
+              onReady={(editor) => {
+                // You can store the "editor" and use when it is needed.
+              }}
+              onChange={(event, editor) => {
+                const data = editor.getData();
+                setDesc(data);
+                setDescriptions(data);
+              }}
+              onBlur={(event, editor) => {}}
+              onFocus={(event, editor) => {}}
+            />
           </div>
         </div>
       </div>
@@ -275,8 +285,8 @@ export default function CreateHome24() {
               Back
             </Button>
             {currentState.description &&
-              currentState.title &&
-              currentState.price ? (
+            currentState.title &&
+            currentState.price ? (
               <Button
                 className="finish-create-home"
                 variant="contained"

@@ -187,7 +187,7 @@ export default function DetailHome() {
                               style={{ cursor: 'pointer' }}
                               onClick={() => setOpenDescription(true)}
                             >
-                              See more . . .
+                             <b> See more . . . </b> 
                             </div>
                           )}
                         </p>

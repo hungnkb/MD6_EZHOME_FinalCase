@@ -380,7 +380,7 @@ export default function UpdateUser() {
             <MDBCard style={{ borderRadius: '15px' }}>
               <MDBCardBody className="text-center">
                 <div className="mt-3 mb-4">
-                    {image && <img style={{width: "30%",height:"100px"}}
+                    {image && <img style={{width: "30%",height:"110px"}}
                         src={dataUser.image}
                         className="rounded-circle"
                         alt="Avatar"

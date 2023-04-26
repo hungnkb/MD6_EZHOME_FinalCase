@@ -9,7 +9,6 @@ import BathtubIcon from '@mui/icons-material/Bathtub';
 import BedIcon from '@mui/icons-material/Bed';
 import FormPay from '../payment/formPay';
 import ModalImg from './modalImg';
-// import ModalComments from './modalComments';
 import Skeleton from '@mui/material/Skeleton';
 import ModalGgmap from './ggmap/modalGgmap';
 import ReactHtmlParser, {

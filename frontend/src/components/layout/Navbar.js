@@ -59,7 +59,6 @@ export default function Navbar() {
             Authorization: JSON.parse(token),
           },
         });
-        console.log(response, 'notiiii');
         if (response.data.length == 0) {
           setEndNoti(true);
         } else {
@@ -76,7 +75,6 @@ export default function Navbar() {
 
   useEffect(() => {
     socket.on('getNotification', (res) => {
-      console.log(id, res.idReciever);
       if (id && res.idReciever == id) {
         //   const newNotifications = [
         //     ...notifications,
@@ -108,7 +106,6 @@ export default function Navbar() {
   const handleCloseNotifications = (url) => {
     setAnchorElNotifications(null);
     if (typeof url === 'string') {
-      console.log(123);
       navigate(`${url}`);
     }
   };

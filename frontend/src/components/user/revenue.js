@@ -49,14 +49,12 @@ const RevenueChart = () => {
                 setrevenueOfYear(response.data.total_revenue)
             });
     }, []);
-    console.log(revenueOfMonth,55)
     const handleChange = (event) => {
         setMonthYearFillter({
             ...monthYearFillter,
             [event.target.name]: event.target.value,
         })
     }
-    console.log(monthYearFillter)
     const handleSubmitFillter = () => {
         axios.get(`http://localhost:3002/api/v1/homes/revenue?idUser=${localStorage.getItem('idUser')}&&month=${monthYearFillter.month}&&year=${monthYearFillter.year}`)
             .then(response => {
@@ -87,7 +85,6 @@ const RevenueChart = () => {
                 setrevenueOfYear(response.data.total_revenue)
             });
     }
-    console.log(typeof (revenueOfMonth))
 
     return (
         <div style={{marginTop: 50}}>

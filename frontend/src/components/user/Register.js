@@ -57,7 +57,6 @@ export default function Register(props) {
         email: emailTokenPassword.email,
         password: emailTokenPassword.password,
       });
-      console.log(response);
       setOpen(false);
       setTimeout(() => {
         Swal.fire({
@@ -66,7 +65,6 @@ export default function Register(props) {
         });
       }, 0);
     } catch (error) {
-      console.log(error);
       Swal.fire({
         icon: 'error',
         title: 'Oops...',

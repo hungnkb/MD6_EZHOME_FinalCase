@@ -20,15 +20,11 @@ export default function FormPay(props) {
   const [orders, setOrders] = useState([]);
   const [total, setTotal] = useState(null);
   const [orderTime, setOrderTime] = useState({});
-  // const [price, setPrice] = useState(null);
   const [openLogin, setOpenLogin] = useState(false);
   const [isFormPayOpen, setIsFormPayOpen] = useState(false);
   const [dataForm, setDataForm] = useState({
     checkin: null,
     checkout: null,
-    // numberOfAdults: 1,
-    // numberOfChildrens: 0,
-    // numberOfInfants: 0,
   });
   const [openBill, setOpenBill] = useState(false);
   const [data, setData] = useState({});
@@ -85,23 +81,30 @@ export default function FormPay(props) {
           charged: total,
         });
         setOpenBill(true);
-        setIsFormPayOpen(true)
+        setIsFormPayOpen(true);
       } else {
         Swal.fire({
           icon: 'error',
           title: 'Oops...',
           text: 'Please pick date!',
-          timer: 1500
+          timer: 1500,
         });
       }
     } else {
       setOpenLogin(true);
     }
-  }
+  };
   return (
     <>
       <LoginModal openLogin={openLogin} setOpenLogin={setOpenLogin} />
-      {isFormPayOpen && <ModalFormPay dataForm={dataForm} openBill={openBill} setOpenBill={setOpenBill} idOwner={props.idOwner} />}
+      {isFormPayOpen && (
+        <ModalFormPay
+          dataForm={dataForm}
+          openBill={openBill}
+          setOpenBill={setOpenBill}
+          idOwner={props.idOwner}
+        />
+      )}
       <MDBContainer>
         <MDBRow>
           <MDBCol>
@@ -201,8 +204,13 @@ export default function FormPay(props) {
               <div style={{ display: 'flex', justifyContent: 'center' }}>
                 <Button
                   onClick={() => {
-                    setOpenDate(!openDate);
-                    handleBook()
+                    let checkCheckout = new Date(data.checkout);
+                    if (data.checkout == null || checkCheckout < Date.now()) {
+                      Swal.fire('Checkout date is required!');
+                    } else {
+                      setOpenDate(!openDate);
+                      handleBook();
+                    }
                   }}
                   variant="warning"
                   style={{ width: 400, marginTop: '10px' }}

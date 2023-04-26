@@ -4,9 +4,7 @@ import Modal from 'react-bootstrap/Modal';
 import {
   MDBCard,
   MDBCardBody,
-  MDBCol,
-  MDBContainer,
-  MDBRow,
+  MDBCardImage,
   MDBTypography,
 } from 'mdb-react-ui-kit';
 import { Rating } from '@mui/material';
@@ -42,7 +40,6 @@ function ModalComments(props) {
           <Modal.Title>All comment...</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-           Nội dung của modal
           {props.comments.map((data, index) => (
             <div className="d-flex flex-start mb-4">
               <MDBCard className="w-100">
@@ -50,7 +47,8 @@ function ModalComments(props) {
                   <div>
                     <div className="row">
                       <div className="col-1">
-                        <img
+
+                        {/* <img
                           src="https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg"
                           alt="avatar"
                           style={{
@@ -58,7 +56,24 @@ function ModalComments(props) {
                             height: '60%',
                             borderRadius: '50%',
                           }}
-                        />
+                        /> */}
+                           {(data.idUser.image)?(
+                     <MDBCardImage 
+                    className="rounded-circle shadow-1-strong me-3"
+                    src={data.idUser.image}
+                    alt="avatar"
+                    width="50"
+                    height="50"
+                  />
+                  ):(
+                      <MDBCardImage 
+                    className="rounded-circle shadow-1-strong me-3"
+                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTvw1lmPDOJqryVsX3imw1Bj4lnajMh7j-oQQ&usqp=CAU"
+                    alt="avatar"
+                    width="50"
+                    height="50"
+                  />
+                  )}
                       </div>
                       <div className="col-8">
                         <MDBTypography tag="h5">

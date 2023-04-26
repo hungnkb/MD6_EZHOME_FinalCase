@@ -8,11 +8,11 @@ import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import MailIcon from '@mui/icons-material/Mail';
-import { Button } from '@mui/material';
+import { Button, imageListItemClasses } from '@mui/material';
 import { Link, useNavigate } from 'react-router-dom';
 import Login from '../user/Login';
 import { useDispatch, useSelector } from 'react-redux';
-import { logout, setUserLogin } from '../../redux/features/authSlice';
+import { logout } from '../../redux/features/authSlice';
 import Swal from 'sweetalert2';
 import AddPhone from '../auth/addPhone';
 import SearchBar from '../home/SearchBar/SearchBar';
@@ -20,7 +20,6 @@ import axios from 'axios';
 import { io } from 'socket.io-client';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
-import { axiosCustom } from '../../service/axios';
 
 export default function Navbar() {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -41,6 +40,7 @@ export default function Navbar() {
   const socket = io.connect('http://localhost:3002/notifications');
   const open = Boolean(anchorElNotifications);
   const email = localStorage.getItem('email');
+  const [imageUser, setImageUser] = useState('');
 
   useEffect(() => {
     setId(currentState.userLogin.sub);
@@ -90,14 +90,20 @@ export default function Navbar() {
   }, [socket]);
 
   useEffect(() => {
-    axios
-      .get(`http://localhost:3002/api/v1/users?email=${email}`)
-      .then((response) => {
-        const { fullName, phone, address } = response.data;
-        if (!phone) {
-          setPhoneOfUserExist(!phoneOfUserExist);
-        }
-      });
+    if (email) {
+      axios
+        .get(`http://localhost:3002/api/v1/users?email=${email}`)
+        .then((response) => {
+          const { fullName, phone, address, image } = response.data;
+          setImageUser(image);
+          if (!phone) {
+            setPhoneOfUserExist(!phoneOfUserExist);
+          }
+        });
+    } else {
+      setImageUser('');
+      setNotifications([]);
+    }
   }, [email]);
 
   const handleClickNotifications = (event) => {
@@ -126,6 +132,7 @@ export default function Navbar() {
   };
   const handleLogout = () => {
     dispatch(logout());
+
     navigate('/');
   };
   const handleSwitchHosting = () => {
@@ -200,14 +207,6 @@ export default function Navbar() {
     >
       {currentState.isLogined ? (
         <div>
-          <MenuItem
-            onClick={() => {
-              handleLogout();
-              handleMenuClose();
-            }}
-          >
-            Logout
-          </MenuItem>
           <MenuItem>
             <Link
               style={{ textDecoration: 'none', color: 'Black' }}
@@ -223,6 +222,14 @@ export default function Navbar() {
             >
               My Orders
             </Link>
+          </MenuItem>
+          <MenuItem
+            onClick={() => {
+              handleLogout();
+              handleMenuClose();
+            }}
+          >
+            Logout
           </MenuItem>
         </div>
       ) : (
@@ -387,7 +394,19 @@ export default function Navbar() {
               }}
             >
               {' '}
-              <MenuIcon fontSize="small" /> <AccountCircle fontSize="large" />{' '}
+              <MenuIcon fontSize="small" />
+              {imageUser ? (
+                <>
+                  <img
+                    style={{ width: '50%', borderRadius: '50%' }}
+                    src={imageUser}
+                  />
+                </>
+              ) : (
+                <>
+                  <AccountCircle fontSize="large" />
+                </>
+              )}
             </Button>
           </IconButton>
         </Toolbar>

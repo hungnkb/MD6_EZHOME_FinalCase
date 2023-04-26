@@ -104,7 +104,7 @@ export default function HomeRenting() {
           <TableHead>
             <TableRow>
               <TableCell>
-                <b> # </b>
+                <b> Number</b>
               </TableCell>
               <TableCell align="center">
                 <b> Email </b>
@@ -147,19 +147,15 @@ export default function HomeRenting() {
                     <TableCell align="center">{data.checkout}</TableCell>
                     {data.status === 'ongoing' ? (
                       <TableCell align="center">
-                        <Chip label="On Going" color="primary" />
+                           <p style={{color:"#f7a800"}}><i className="fa-solid fa-circle"></i> On going</p>
                       </TableCell>
                     ) : data.status === 'done' ? (
                       <TableCell align="center">
-                        <Chip
-                          label="Done"
-                          color="success"
-                          sx={{ width: '80px' }}
-                        />
+                  <p style={{color:"green"}}><i className="fa-solid fa-circle"></i> Done</p>
                       </TableCell>
                     ) : (
                       <TableCell align="center">
-                        <Chip label="Cancel" color="warning" />
+                   <p style={{color:"red"}}><i className="fa-solid fa-circle"></i> Cancel</p>
                       </TableCell>
                     )}
                   </TableRow>
@@ -171,3 +167,4 @@ export default function HomeRenting() {
     </>
   );
 }
+

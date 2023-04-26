@@ -365,7 +365,7 @@ export default function Navbar() {
                     ))}
                     {!endNoti && (
                       <div
-                        style={{ display: 'flex', justifyContent: 'center' }}
+                        style={{ display: 'flex', justifyContent: 'center', cursor: 'pointer' }}
                         onClick={handleMoreNoti}
                       >
                         See more

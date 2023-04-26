@@ -1,9 +1,7 @@
-import * as React from 'react';
-import { styled, alpha } from '@mui/material/styles';
+import React, { useState, useEffect } from 'react';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
-import InputBase from '@mui/material/InputBase';
 import Badge from '@mui/material/Badge';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
@@ -11,7 +9,6 @@ import MenuIcon from '@mui/icons-material/Menu';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import MailIcon from '@mui/icons-material/Mail';
 import { Button } from '@mui/material';
-import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Login from '../user/Login';
 import { useDispatch, useSelector } from 'react-redux';
@@ -23,81 +20,73 @@ import axios from 'axios';
 import { io } from 'socket.io-client';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
-
-const Search = styled('div')(({ theme }) => ({
-  position: 'relative',
-  borderRadius: theme.shape.borderRadius,
-  backgroundColor: alpha(theme.palette.common.white, 0.15),
-  '&:hover': {
-    backgroundColor: alpha(theme.palette.common.white, 0.25),
-  },
-  marginRight: theme.spacing(2),
-  marginLeft: 0,
-  width: '100%',
-  [theme.breakpoints.up('sm')]: {
-    marginLeft: theme.spacing(3),
-    width: 'auto',
-  },
-}));
-
-const SearchIconWrapper = styled('div')(({ theme }) => ({
-  padding: theme.spacing(0, 2),
-  height: '100%',
-  position: 'absolute',
-  pointerEvents: 'none',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-}));
-
-const StyledInputBase = styled(InputBase)(({ theme }) => ({
-  color: 'inherit',
-  '& .MuiInputBase-input': {
-    padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
-    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-    transition: theme.transitions.create('width'),
-    width: '100%',
-    [theme.breakpoints.up('md')]: {
-      width: '20ch',
-    },
-  },
-}));
+import { axiosCustom } from '../../service/axios';
 
 export default function Navbar() {
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
-  const [anchorElNotifications, setAnchorElNotifications] =
-    React.useState(null);
-  const currentState = useSelector((state) => state.auth);
+  const [anchorElNotifications, setAnchorElNotifications] = useState(null);
   const [id, setId] = useState(null);
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
   const [isHost, setIsHost] = useState(true);
-  const email = localStorage.getItem('email')
   const [phoneOfUserExist, setPhoneOfUserExist] = useState(true);
   const [notifications, setNotifications] = useState([]);
+  const [pageNoti, setPageNoti] = useState(1);
+  const [endNoti, setEndNoti] = useState(false);
+  const [isFetchNoti, setIsFetchNoti] = useState(false);
+  const currentState = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const socket = io.connect('http://localhost:3002/notifications');
   const open = Boolean(anchorElNotifications);
+  const email = localStorage.getItem('email');
 
   useEffect(() => {
     setId(currentState.userLogin.sub);
   }, [currentState]);
 
   useEffect(() => {
+    const getData = async () => {
+      if (pageNoti && currentState.userLogin.sub) {
+        const method = 'get';
+        const url = `${process.env.REACT_APP_BASE_URL}/notifications?idUser=${currentState.userLogin.sub}&page=${pageNoti}`;
+        const token = localStorage.getItem('token');
+        const response = await axios({
+          method,
+          url,
+          headers: {
+            Authorization: JSON.parse(token),
+          },
+        });
+        console.log(response, 'notiiii');
+        if (response.data.length == 0) {
+          setEndNoti(true);
+        } else {
+          setEndNoti(false);
+          setNotifications([...notifications, ...response.data]);
+        }
+      }
+    };
+    getData();
+  }, [pageNoti, currentState.userLogin.sub, isFetchNoti]);
+  const handleMoreNoti = () => {
+    setPageNoti(pageNoti + 1);
+  };
+
+  useEffect(() => {
     socket.on('getNotification', (res) => {
       console.log(id, res.idReciever);
       if (id && res.idReciever == id) {
-        const newNotifications = [
-          ...notifications,
-          {
-            message: res.message,
-            url: `${res.data}`,
-          },
-        ];
-        setNotifications(newNotifications);
+        //   const newNotifications = [
+        //     ...notifications,
+        //     {
+        //       message: res.message,
+        //       dataUrl: `${res.dataUrl}`,
+        //     },
+        //   ];
+        //   setNotifications(newNotifications);
+        setIsFetchNoti(!isFetchNoti);
       }
     });
   }, [socket]);
@@ -148,13 +137,11 @@ export default function Navbar() {
       currentState.userLogin.role === 'host'
     ) {
       navigate('/user/hosting');
-      console.log(1)
     } else if (
       currentState.userLogin.active &&
       currentState.userLogin.role == 'user' &&
       phoneOfUserExist === true
     ) {
-      console.log(2)
       axios({
         method: 'PUT',
         url: 'http://localhost:3002/api/v1/users/',
@@ -172,7 +159,6 @@ export default function Navbar() {
       currentState.userLogin.role == 'user' &&
       currentState.newPhone
     ) {
-      console.log(3)
       axios({
         method: 'PUT',
         url: 'http://localhost:3002/api/v1/users/',
@@ -188,8 +174,7 @@ export default function Navbar() {
     } else if (
       currentState.userLogin.active &&
       currentState.userLogin.role == 'user'
-    ){
-      console.log(4)
+    ) {
       setIsHost(false);
     } else {
       Swal.fire({
@@ -344,14 +329,16 @@ export default function Navbar() {
               <NotificationsNoneIcon />
             ) : (
               <div>
-                <NotificationsIcon
-                  id="basic-button"
-                  aria-controls={open ? 'basic-menu' : undefined}
-                  aria-haspopup="true"
-                  aria-expanded={open ? 'true' : undefined}
-                  onClick={handleClickNotifications}
-                  style={{ color: 'black' }}
-                />
+                <Badge badgeContent={notifications.length} color="warning">
+                  <NotificationsIcon
+                    id="basic-button"
+                    aria-controls={open ? 'basic-menu' : undefined}
+                    aria-haspopup="true"
+                    aria-expanded={open ? 'true' : undefined}
+                    onClick={handleClickNotifications}
+                    style={{ color: 'black' }}
+                  />
+                </Badge>
                 <div id="noti">
                   <Menu
                     id="noti-menu"
@@ -366,12 +353,20 @@ export default function Navbar() {
                       <MenuItem
                         key={`${index}-${noti}`}
                         onClick={() => {
-                          handleCloseNotifications(noti.url);
+                          handleCloseNotifications(noti.dataUrl);
                         }}
                       >
                         {noti.message}
                       </MenuItem>
                     ))}
+                    {!endNoti && (
+                      <div
+                        style={{ display: 'flex', justifyContent: 'center' }}
+                        onClick={handleMoreNoti}
+                      >
+                        See more
+                      </div>
+                    )}
                   </Menu>
                 </div>
               </div>

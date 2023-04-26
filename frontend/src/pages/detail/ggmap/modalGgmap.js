@@ -45,7 +45,6 @@ function ModalGgmap(props) {
         )
         .then((res) => {
           const newLocation = { ...location };
-          console.log(res, '00000');
           newLocation.lat = res.data.results[0].geometry.location.lat;
           newLocation.lng = res.data.results[0].geometry.location.lng;
           setLocation(newLocation);

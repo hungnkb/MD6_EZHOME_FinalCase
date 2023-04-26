@@ -34,7 +34,6 @@ export default function UpdateUser() {
     axios
       .get(`http://localhost:3002/api/v1/users?email=${email}`)
       .then((response) => {
-        console.log(response.data, 2222);
         const { fullName, phone, address, image } = response.data;
         setDataUser({ fullName, phone, address, image });
         setDataPassword(response.data.password);
@@ -58,8 +57,6 @@ export default function UpdateUser() {
       })
       .then(
         (response) => {
-          console.log(response, 34343);
-          console.log(response);
           Swal.fire({
             position: 'center',
             icon: 'success',
@@ -82,7 +79,6 @@ export default function UpdateUser() {
         },
       );
   };
-  console.log(dataUser);
   const handleChange = (event) => {
     setDataUser({
       ...dataUser,
@@ -149,8 +145,6 @@ export default function UpdateUser() {
                       })
                       .then(
                           (response) => {
-                              console.log(response, 34343);
-                              console.log(response);
                               Swal.fire({
                                   position: 'center',
                                   icon: 'success',
@@ -161,7 +155,6 @@ export default function UpdateUser() {
                               axios
                                   .get(`http://localhost:3002/api/v1/users?email=${email}`)
                                   .then((response) => {
-                                      console.log(response.data, 2222);
                                       const { fullName, phone, address, image } = response.data;
                                       setDataUser({ fullName, phone, address, image });
                                       setDataPassword(response.data.password);
@@ -181,7 +174,6 @@ export default function UpdateUser() {
           setLoading(false);
       }
   }
-    console.log(dataUser.image,44)
 
   return (
     <>

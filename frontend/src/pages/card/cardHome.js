@@ -16,7 +16,6 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 export default function CardHome(props) {
   const [home, setHome] = useState([]);
   const [isFetchData, setIsFetchData] = useState(false);
-  const [isNothingFound, setIsNothingFound] = useState(false);
   const [pageHome, setPageHome] = useState(0);
   const { loading = false } = props;
 
@@ -28,7 +27,7 @@ export default function CardHome(props) {
       setIsFetchData(false);
     } else {
       setHome([]);
-      // setIsNothingFound(true);
+      setPageHome(0);
       setIsFetchData(true);
     }
   }, [location.state?.data]);
@@ -37,6 +36,7 @@ export default function CardHome(props) {
     if (isFetchData) {
       let page = pageHome + 1;
       let option = { params: { page } };
+      console.log(page);
       axios.get('http://localhost:3002/api/v1/homes', option).then((res) => {
         setHome([...home, ...res.data]);
         setIsFetchData(false);
@@ -56,14 +56,14 @@ export default function CardHome(props) {
 
         <TopFive />
         <div style={{ marginTop: '70px' }}>
-          <InfiniteScroll
-            className="d-flex flex-wrap justify-content-center"
-            dataLength={1000} //This is important field to render the next data
-            next={() => setIsFetchData(true)}
-            hasMore={true}
-          >
-            {home.length > 0 ? (
-              home.map((value, index) => {
+          {home.length > 0 ? (
+            <InfiniteScroll
+              className="d-flex flex-wrap justify-content-center"
+              dataLength={1000} //This is important field to render the next data
+              next={() => setIsFetchData(true)}
+              hasMore={true}
+            >
+              {home.map((value, index) => {
                 if (value.status) {
                   return (
                     <div>
@@ -128,42 +128,42 @@ export default function CardHome(props) {
                 } else {
                   return '';
                 }
-              })
-            ) : (
-              <>
-                <Stack direction="row" spacing={5} sx={{ marginTop: '50px' }}>
-                  <Skeleton
-                    variant="rectangular"
-                    animation="wave"
-                    width={256}
-                    height={250}
-                    sx={{ borderRadius: '15px' }}
-                  />
-                  <Skeleton
-                    variant="rectangular"
-                    animation="wave"
-                    width={256}
-                    height={250}
-                    sx={{ borderRadius: '15px' }}
-                  />
-                  <Skeleton
-                    variant="rectangular"
-                    animation="wave"
-                    width={256}
-                    height={250}
-                    sx={{ borderRadius: '15px' }}
-                  />
-                  <Skeleton
-                    variant="rectangular"
-                    animation="wave"
-                    width={256}
-                    height={250}
-                    sx={{ borderRadius: '15px' }}
-                  />
-                </Stack>
-              </>
-            )}
-          </InfiniteScroll>
+              })}
+            </InfiniteScroll>
+          ) : (
+            <div>
+              <Stack direction="row" spacing={5} sx={{ marginTop: '50px' }}>
+                <Skeleton
+                  variant="rectangular"
+                  animation="wave"
+                  width={256}
+                  height={250}
+                  sx={{ borderRadius: '15px' }}
+                />
+                <Skeleton
+                  variant="rectangular"
+                  animation="wave"
+                  width={256}
+                  height={250}
+                  sx={{ borderRadius: '15px' }}
+                />
+                <Skeleton
+                  variant="rectangular"
+                  animation="wave"
+                  width={256}
+                  height={250}
+                  sx={{ borderRadius: '15px' }}
+                />
+                <Skeleton
+                  variant="rectangular"
+                  animation="wave"
+                  width={256}
+                  height={250}
+                  sx={{ borderRadius: '15px' }}
+                />
+              </Stack>
+            </div>
+          )}
         </div>
       </div>
     </>

@@ -25,6 +25,7 @@ export default function CreateHome24() {
   const [titles, setTitles] = useState(null);
   const [prices, setPrices] = useState(1);
   const [formatPrice, setFormatValue] = useState(1);
+  const [value, setValue] = useState('');
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const currentState = useSelector((state) => state.createHome);
@@ -143,10 +144,9 @@ export default function CreateHome24() {
   };
 
   const handleFormatPrice = (e) => {
-    // let valueFormat = parseInt(e.target.value);
-    // let newValue = parseInt(valueFormat.toLocaleString('en-EN'));
-    // console.log(newValue);
-    // setFormatValue(newValue);
+    const number = Number(e.target.value.replaceAll(',', ''));
+    const formattedNumber = new Intl.NumberFormat('en-EN').format(number);
+    setValue(formattedNumber);
   };
 
   return (
@@ -177,18 +177,24 @@ export default function CreateHome24() {
             <InputGroup.Text>Price</InputGroup.Text>
             <Form.Control
               as="input"
-              type="number"
+              type="text"
               min="1"
               onChange={(e) => {
-                handleFormatPrice(e);
-                dispatch(setPrice(e.target.value));
-                setPrices(e.target.value);
-                if (e.target.value <= 0) {
+                if (
+                  Number(e.target.value.split(',').join('')) <= 0 ||
+                  isNaN(Number(e.target.value.split(',').join('')))
+                ) {
                   e.target.value = 1;
+                } else {
+                  handleFormatPrice(e);
+                  dispatch(
+                    setPrice(Number(e.target.value.split(',').join(''))),
+                  );
+                  setPrices(Number(e.target.value.split(',').join('')));
                 }
               }}
               defaultValue={currentState.price}
-              // value={formatPrice}
+              value={value}
               aria-label="Amount (to the nearest dollar)"
             />
             <InputGroup.Text>đ</InputGroup.Text>

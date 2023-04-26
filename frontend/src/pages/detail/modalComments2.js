@@ -35,7 +35,6 @@ function ModalComments2(props) {
         axios
             .get(`http://localhost:3002/api/v1/reviews?idHome=${idHome.id}`)
             .then((res) => {
-                console.log(res, 0);
                 setReview(res.data);
             });
     }, [socket]);

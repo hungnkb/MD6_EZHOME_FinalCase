@@ -31,32 +31,34 @@ export default function UpdatePassword(props) {
 
   const handleSubmitChangePassword = (event) => {
     event.preventDefault();
-    axios
-      .post('http://localhost:3002/api/v1/users/change-password', {
-        email: userLogin.userLogin.email,
-        oldPassword: emailOldandNewPassword.oldPassword,
-        newPassword: emailOldandNewPassword.newPassword,
-      })
-      .then(
-        (response) => {
-          handleClose();
-          Swal.fire({
-            position: 'center',
-            icon: 'success',
-            title: 'Change Password Success',
-            showConfirmButton: false,
-            timer: 2000,
-          });
-        },
-        (error) => {
-          handleClose();
-          Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            text: 'Incorrect Password!',
-          });
-        },
-      );
+    if (emailOldandNewPassword.newPassword.length == 10){
+        axios
+            .post('http://localhost:3002/api/v1/users/change-password', {
+                email: userLogin.userLogin.email,
+                oldPassword: emailOldandNewPassword.oldPassword,
+                newPassword: emailOldandNewPassword.newPassword,
+            })
+            .then(
+                (response) => {
+                    handleClose();
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'success',
+                        title: 'Change Password Success',
+                        showConfirmButton: false,
+                        timer: 2000,
+                    });
+                },
+                (error) => {
+                    handleClose();
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Incorrect Password!',
+                    });
+                },
+            );
+    }
   };
   const handleInputChangePassword = (event) =>
     setEmailOldandNewPassword({

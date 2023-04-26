@@ -33,6 +33,7 @@ export default function Review(props) {
       .get(`http://localhost:3002/api/v1/reviews?idHome=${props.idHome}`)
       .then((res) => {
         setReview(res.data);
+        console.log(res);
       });
   }, [socket]);
   const handleChange = (event) => {
@@ -73,13 +74,25 @@ export default function Review(props) {
                   return (
                       <MDBCardBody className="p-4">
                 <div className="d-flex flex-start">
-                  <MDBCardImage 
+                  {(data.idUser.image)?(
+                     <MDBCardImage 
                     className="rounded-circle shadow-1-strong me-3"
-                    src="https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg"
+                    src={data.idUser.image}
                     alt="avatar"
                     width="60"
                     height="60"
                   />
+                  ):(
+                      <MDBCardImage 
+                    className="rounded-circle shadow-1-strong me-3"
+                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTvw1lmPDOJqryVsX3imw1Bj4lnajMh7j-oQQ&usqp=CAU"
+                    alt="avatar"
+                    width="60"
+                    height="60"
+                  />
+                  )}
+               
+                
                   <div>
                     <MDBTypography tag="h6" className="fw-bold mb-1">
                     {data?.idUser.email}

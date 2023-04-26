@@ -65,11 +65,12 @@ export default function Register(props) {
         });
       }, 0);
     } catch (error) {
+      setOpen(false);
+      props.setIsLogin(false);
       Swal.fire({
         icon: 'error',
         title: 'Oops...',
         text: 'Something went wrong!',
-        footer: '<a href="">Why do I have this issue?</a>',
       });
     }
   };

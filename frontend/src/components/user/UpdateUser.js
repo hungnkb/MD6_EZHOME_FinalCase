@@ -1,24 +1,20 @@
 import * as React from 'react';
 import { useEffect, useState } from 'react';
 import Grid from '@mui/material/Grid';
-import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
-import Box from '@mui/material/Box';
-import Paper from '@mui/material/Paper';
-import InputLabel from '@mui/material/InputLabel';
-import * as yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import { Link } from 'react-router-dom';
 import UpdatePassword from './UpdatePassword';
-import HistoryRent from './HistoryRent';
 import { setNewPhone } from '../../redux/features/authSlice';
 import { Button } from 'react-bootstrap';
 import { MDBCol, MDBContainer, MDBRow, MDBCard, MDBCardText, MDBCardBody, MDBCardImage, MDBBtn, MDBTypography, MDBIcon } from 'mdb-react-ui-kit';
+import CircularProgress from '@mui/material/CircularProgress';
+
 
 export default function UpdateUser() {
-  const [age, setAge] = React.useState('');
+    const [loading, setLoading] = useState(false);
   const userLogin = useSelector((state) => state.auth);
   const [dataUser, setDataUser] = useState({});
   const [data, setData] = useState(false);
@@ -27,6 +23,7 @@ export default function UpdateUser() {
   const [phoneError, setPhoneError] = useState(false);
   const [email, setEmail] = useState(null);
   const dispatch = useDispatch((state) => state.auth);
+  const [image, setImage] = useState();
   const [keyword, setKeyWord] = useState({
     fullname: false,
     phone: false,
@@ -38,8 +35,8 @@ export default function UpdateUser() {
       .get(`http://localhost:3002/api/v1/users?email=${email}`)
       .then((response) => {
         console.log(response.data, 2222);
-        const { fullName, phone, address } = response.data;
-        setDataUser({ fullName, phone, address });
+        const { fullName, phone, address, image } = response.data;
+        setDataUser({ fullName, phone, address, image });
         setDataPassword(response.data.password);
       });
   }, [email]);
@@ -85,7 +82,7 @@ export default function UpdateUser() {
         },
       );
   };
-  console.log(email);
+  console.log(dataUser);
   const handleChange = (event) => {
     setDataUser({
       ...dataUser,
@@ -131,6 +128,60 @@ export default function UpdateUser() {
       setKeyWord(kw);
     }
   };
+
+    const preset_key = 'k4beq9j3';
+    const cloud_name = 'djwjkwrjz';
+  const handleUploadAvatar = async (event) => {
+      const file = event.target.files[0];
+      const formData = new FormData();
+      formData.append('file', file);
+      formData.append("upload_preset", preset_key);
+      setLoading(true);
+      try{
+          axios.post(`https://api.cloudinary.com/v1_1/${cloud_name}/image/upload`, formData)
+              .then(res => {
+                  setImage(res.data.secure_url);
+                  setLoading(false);
+                  axios
+                      .put('http://localhost:3002/api/v1/users', {
+                          email: email,
+                          image: res.data.secure_url
+                      })
+                      .then(
+                          (response) => {
+                              console.log(response, 34343);
+                              console.log(response);
+                              Swal.fire({
+                                  position: 'center',
+                                  icon: 'success',
+                                  title: 'Change Avatar Success',
+                                  showConfirmButton: false,
+                                  timer: 2000,
+                              });
+                              axios
+                                  .get(`http://localhost:3002/api/v1/users?email=${email}`)
+                                  .then((response) => {
+                                      console.log(response.data, 2222);
+                                      const { fullName, phone, address, image } = response.data;
+                                      setDataUser({ fullName, phone, address, image });
+                                      setDataPassword(response.data.password);
+                                  });
+                          },
+                          (error) => {
+                              Swal.fire({
+                                  icon: 'error',
+                                  title: 'Oops...',
+                                  text: 'Some thing went wrong!',
+                              });
+                          },
+                      )
+              })
+      } catch (error) {
+          console.error(error);
+          setLoading(false);
+      }
+  }
+    console.log(dataUser.image,44)
 
   return (
     <>
@@ -329,8 +380,13 @@ export default function UpdateUser() {
             <MDBCard style={{ borderRadius: '15px' }}>
               <MDBCardBody className="text-center">
                 <div className="mt-3 mb-4">
-                  <MDBCardImage src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava2-bg.webp"
-                    className="rounded-circle" fluid style={{ width: '100px' }} />
+                    {image && <img style={{width: "30%",height:"110px"}}
+                        src={dataUser.image}
+                        className="rounded-circle"
+                        alt="Avatar"
+                    />}
+                    {loading && <CircularProgress />}
+                    <input type="file" name="image" onChange={handleUploadAvatar}></input>
                 </div>
                 <MDBTypography tag="h4">{dataUser.fullName}</MDBTypography>
                 <MDBCardText className="text-muted mb-4">

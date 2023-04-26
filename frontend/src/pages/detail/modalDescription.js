@@ -39,7 +39,6 @@ function ModalDescription(props) {
         onClick={handleShowModal}
         variant="light"
       >
-        <b> {review.length} comments </b>
       </u>
 
       <Modal

@@ -10,6 +10,7 @@ import axios from '../../../api/axios';
 import { useNavigate } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
+import Swal from 'sweetalert2';
 
 function valuetext(value) {
   return `${value}°C`;
@@ -17,51 +18,7 @@ function valuetext(value) {
 
 const minDistance = 10;
 
-const Search = styled('div')(({ theme }) => ({
-  position: 'relative',
-  borderRadius: theme.shape.borderRadius,
-  backgroundColor: alpha(theme.palette.common.white, 0.15),
-  '&:hover': {
-    backgroundColor: alpha(theme.palette.common.white, 0.25),
-  },
-  marginLeft: 0,
-  width: '100%',
-  [theme.breakpoints.up('sm')]: {
-    marginLeft: theme.spacing(1),
-    width: 'auto',
-  },
-}));
-
-const StyledInputBase = styled(InputBase)(({ theme }) => ({
-  color: 'inherit',
-  '& .MuiInputBase-input': {
-    padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
-    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-    transition: theme.transitions.create('width'),
-    width: '100%',
-    [theme.breakpoints.up('sm')]: {
-      width: '46ch',
-      '&:focus': {
-        width: '46ch',
-      },
-    },
-  },
-}));
-
-const SearchIconWrapper = styled('div')(({ theme }) => ({
-  padding: theme.spacing(0, 2),
-  height: '100%',
-  position: 'absolute',
-  pointerEvents: 'none',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-}));
-
 function SearchBar() {
-  const [date, setDate] = useState([]);
-  const [multipleInvalid, setMultipleInvalid] = useState([]);
   const [openDate, setOpenDate] = useState(false);
   const [value1, setValue1] = useState([100000, 100000000]);
   const [value2, setValue2] = React.useState([100000, 100000000]);
@@ -87,6 +44,13 @@ function SearchBar() {
         maxPrice: value2[1] || '',
       },
     });
+    if (response.data.length == 0) {
+      handleClose();
+      Swal.fire({
+        icon: 'error',
+        title: 'No data found',
+      });
+    }
     navigate('/', { state: { data: response.data } });
   };
 
@@ -266,9 +230,23 @@ function SearchBar() {
                 flexDirection: 'column',
               }}
             >
-              <div style={{marginTop: '30px'}}> <b style={{color:'gray'}}> From: đ </b><b> {value2[0].toLocaleString('en-EN') || 0} </b>  -  <b style={{color:'gray'}}> To: đ </b> <b>  {value2[1].toLocaleString('en-EN') || 0} </b></div>
-              <Box sx={{ width: 300, display: 'flex', alignItems: 'center', marginTop: '30px' }}>
-                <Slider style={{color:"rgb(189, 189, 189)"}}
+              <div style={{ marginTop: '30px' }}>
+                {' '}
+                <b style={{ color: 'gray' }}> From: đ </b>
+                <b> {value2[0].toLocaleString('en-EN') || 0} </b> -{' '}
+                <b style={{ color: 'gray' }}> To: đ </b>{' '}
+                <b> {value2[1].toLocaleString('en-EN') || 0} </b>
+              </div>
+              <Box
+                sx={{
+                  width: 300,
+                  display: 'flex',
+                  alignItems: 'center',
+                  marginTop: '30px',
+                }}
+              >
+                <Slider
+                  style={{ color: 'rgb(189, 189, 189)' }}
                   id="price-slider"
                   sx={{ width: '300px' }}
                   min={100000}

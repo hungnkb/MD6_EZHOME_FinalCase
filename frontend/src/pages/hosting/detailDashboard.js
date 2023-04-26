@@ -23,7 +23,7 @@ export default function DetailDashboard() {
     };
     getData();
   }, []);
-  console.log(image, 22);
+
   return (
     <>
       <div className="container" style={{ marginTop: '3%' }}>

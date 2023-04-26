@@ -145,7 +145,6 @@ export default function CreateHome24() {
   const handleFormatPrice = (e) => {
     // let valueFormat = parseInt(e.target.value);
     // let newValue = parseInt(valueFormat.toLocaleString('en-EN'));
-    // console.log(newValue);
     // setFormatValue(newValue);
   };
 

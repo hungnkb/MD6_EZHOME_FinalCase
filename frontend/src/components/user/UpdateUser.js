@@ -29,7 +29,6 @@ export default function UpdateUser() {
     phone: false,
     address:false
   });
-console.log(image,9);
   useEffect(() => {
     axios
       .get(`http://localhost:3002/api/v1/users?email=${email}`)

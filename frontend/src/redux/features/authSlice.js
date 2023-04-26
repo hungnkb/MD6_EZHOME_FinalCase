@@ -24,6 +24,7 @@ export const authSlice = createSlice({
     logout: (state, action) => {
       state.userLogin = {};
       state.isLogined = false;
+      state.newAvatarImage = null;
       localStorage.removeItem('token');
       localStorage.removeItem('email');
     },

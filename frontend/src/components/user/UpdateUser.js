@@ -7,7 +7,7 @@ import axios from 'axios';
 import Swal from 'sweetalert2';
 import { Link } from 'react-router-dom';
 import UpdatePassword from './UpdatePassword';
-import { setNewPhone } from '../../redux/features/authSlice';
+import {setNewAvatarImage, setNewPhone} from '../../redux/features/authSlice';
 import { Button } from 'react-bootstrap';
 import { MDBCol, MDBContainer, MDBRow, MDBCard, MDBCardText, MDBCardBody, MDBCardImage, MDBBtn, MDBTypography, MDBIcon } from 'mdb-react-ui-kit';
 import CircularProgress from '@mui/material/CircularProgress';
@@ -88,7 +88,7 @@ export default function UpdateUser() {
 
   const handleChangePhone = (event) => {
     const value = event.target.value;
-    const regex = /^\d{10}$/; //định dạng số điện thoại là 10 số
+    const regex = /^\d{10}$/;
 
     if (regex.test(value)) {
       setPhone(value);
@@ -138,6 +138,11 @@ export default function UpdateUser() {
               .then(res => {
                   setImage(res.data.secure_url);
                   setLoading(false);
+                  dispatch(
+                      setNewAvatarImage({
+                          newAvatarImage: res.data.secure_url,
+                      }),
+                  );
                   axios
                       .put('http://localhost:3002/api/v1/users', {
                           email: email,

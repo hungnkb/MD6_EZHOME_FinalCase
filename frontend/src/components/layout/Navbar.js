@@ -48,7 +48,6 @@ export default function Navbar() {
 
   useEffect(() => {
     const getData = async () => {
-      console.log(currentState.userLogin.sub);
       if (pageNoti && currentState.userLogin.sub) {
         const method = 'get';
         const url = `${process.env.REACT_APP_BASE_URL}/notifications?idUser=${currentState.userLogin.sub}&page=${pageNoti}`;

@@ -41,10 +41,11 @@ function ModalGgmap(props) {
     const getData = async () => {
       axios
         .get(
-          `https://maps.googleapis.com/maps/api/geocode/json?address=${props.address}&key=${process.env.REACT_APP_GG_API_KEY}`,
+          `https://maps.googleapis.com/maps/api/geocode/json?address=${props.address}&key=${process.env.REACT_APP_GG_API_LIB_KEY}`,
         )
         .then((res) => {
           const newLocation = { ...location };
+          console.log(res, '00000');
           newLocation.lat = res.data.results[0].geometry.location.lat;
           newLocation.lng = res.data.results[0].geometry.location.lng;
           setLocation(newLocation);
@@ -52,7 +53,6 @@ function ModalGgmap(props) {
     };
     getData();
   }, []);
-
   return (
     <>
       {values.map((v, idx) => (

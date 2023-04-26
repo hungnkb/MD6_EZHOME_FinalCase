@@ -376,19 +376,21 @@ export default function HistoryRent() {
                     </Modal>
                 </div>
                 <div>
-                    <Modal
+                    <Modal 
                         open={openReview}
                         onClose={handleCloseReview}
                         aria-labelledby="modal-modal-title"
                         aria-describedby="modal-modal-description"
+                        size="lg"
                     >
+                    
                         <Box sx={styleBill}>
                             <Typography id="modal-modal-title" variant="h6" component="h2">
                                 Rate us
                             </Typography>
-                            <Typography id="modal-modal-description" sx={{mt: 2}}>
+                            <Typography id="modal-modal-description" >
                                 <Box component="form" noValidate autoComplete="off">
-                                    <FormControl sx={{width: '25ch'}}>
+                                    <FormControl sx={{width: '38ch'}}>
                                         <Rating
                                             name="simple-controlled"
                                             value={value}

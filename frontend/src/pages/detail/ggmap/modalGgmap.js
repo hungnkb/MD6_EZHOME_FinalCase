@@ -19,8 +19,8 @@ function ModalGgmap(props) {
   });
 
   const mapContainerStyle = {
-    height: '400px',
-    width: '800px',
+    height: '800px',
+    width: '100%',
   };
 
   const onLoad = (marker) => {

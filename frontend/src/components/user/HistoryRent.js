@@ -333,7 +333,7 @@ export default function HistoryRent() {
                                             <TableCell align="left">
                                                 <p style={{color:"red"}}
                                                 >
-                                                    <i className="fa-solid fa-circle"></i> Cancel
+                                                    <i className="fa-solid fa-circle"></i>  Cancelled
                                                 </p>
                                             </TableCell>
                                         )}

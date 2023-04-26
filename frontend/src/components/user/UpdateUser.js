@@ -9,12 +9,22 @@ import { Link } from 'react-router-dom';
 import UpdatePassword from './UpdatePassword';
 import { setNewPhone } from '../../redux/features/authSlice';
 import { Button } from 'react-bootstrap';
-import { MDBCol, MDBContainer, MDBRow, MDBCard, MDBCardText, MDBCardBody, MDBCardImage, MDBBtn, MDBTypography, MDBIcon } from 'mdb-react-ui-kit';
+import {
+  MDBCol,
+  MDBContainer,
+  MDBRow,
+  MDBCard,
+  MDBCardText,
+  MDBCardBody,
+  MDBCardImage,
+  MDBBtn,
+  MDBTypography,
+  MDBIcon,
+} from 'mdb-react-ui-kit';
 import CircularProgress from '@mui/material/CircularProgress';
 
-
 export default function UpdateUser() {
-    const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
   const userLogin = useSelector((state) => state.auth);
   const [dataUser, setDataUser] = useState({});
   const [data, setData] = useState(false);
@@ -27,9 +37,9 @@ export default function UpdateUser() {
   const [keyword, setKeyWord] = useState({
     fullname: false,
     phone: false,
-    address:false
+    address: false,
   });
-console.log(image,9);
+  console.log(image, 9);
   useEffect(() => {
     axios
       .get(`http://localhost:3002/api/v1/users?email=${email}`)
@@ -120,75 +130,79 @@ console.log(image,9);
     } else {
       kw.fullname = false;
       kw.phone = false;
-      kw.address = false
+      kw.address = false;
       setKeyWord(kw);
     }
   };
 
-    const preset_key = 'k4beq9j3';
-    const cloud_name = 'djwjkwrjz';
+  const preset_key = 'k4beq9j3';
+  const cloud_name = 'djwjkwrjz';
   const handleUploadAvatar = async (event) => {
-      const file = event.target.files[0];
-      const formData = new FormData();
-      formData.append('file', file);
-      formData.append("upload_preset", preset_key);
-      setLoading(true);
-      try{
-          axios.post(`https://api.cloudinary.com/v1_1/${cloud_name}/image/upload`, formData)
-              .then(res => {
-                  setImage(res.data.secure_url);
-                  setLoading(false);
-                  axios
-                      .put('http://localhost:3002/api/v1/users', {
-                          email: email,
-                          image: res.data.secure_url
-                      })
-                      .then(
-                          (response) => {
-                              Swal.fire({
-                                  position: 'center',
-                                  icon: 'success',
-                                  title: 'Change Avatar Success',
-                                  showConfirmButton: false,
-                                  timer: 2000,
-                              });
-                              axios
-                                  .get(`http://localhost:3002/api/v1/users?email=${email}`)
-                                  .then((response) => {
-                                      const { fullName, phone, address, image } = response.data;
-                                      setDataUser({ fullName, phone, address, image });
-                                      setDataPassword(response.data.password);
-                                  });
-                          },
-                          (error) => {
-                              Swal.fire({
-                                  icon: 'error',
-                                  title: 'Oops...',
-                                  text: 'Some thing went wrong!',
-                              });
-                          },
-                      )
-              })
-      } catch (error) {
-          console.error(error);
+    const file = event.target.files[0];
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('upload_preset', preset_key);
+    setLoading(true);
+    try {
+      axios
+        .post(
+          `https://api.cloudinary.com/v1_1/${cloud_name}/image/upload`,
+          formData,
+        )
+        .then((res) => {
+          setImage(res.data.secure_url);
           setLoading(false);
-      }
-  }
+          axios
+            .put('http://localhost:3002/api/v1/users', {
+              email: email,
+              image: res.data.secure_url,
+            })
+            .then(
+              (response) => {
+                Swal.fire({
+                  position: 'center',
+                  icon: 'success',
+                  title: 'Change Avatar Success',
+                  showConfirmButton: false,
+                  timer: 2000,
+                });
+                axios
+                  .get(`http://localhost:3002/api/v1/users?email=${email}`)
+                  .then((response) => {
+                    const { fullName, phone, address, image } = response.data;
+                    setDataUser({ fullName, phone, address, image });
+                    setDataPassword(response.data.password);
+                  });
+              },
+              (error) => {
+                Swal.fire({
+                  icon: 'error',
+                  title: 'Oops...',
+                  text: 'Some thing went wrong!',
+                });
+              },
+            );
+        });
+    } catch (error) {
+      console.error(error);
+      setLoading(false);
+    }
+  };
 
   return (
     <>
       <br />
       <br />
-      <div className="container" style={{marginBottom:"150px"}}>
+      <div className="container" style={{ marginBottom: '150px' }}>
         <div className="row">
           <div className="col-12">
             <h2>Personal information</h2>
           </div>
         </div>
         <br />
-            <form onSubmit={handleSubmit}>
-               <div className="row">
-          <div className="col-8">
+        <form onSubmit={handleSubmit}>
+          <div className="row">
+            <div className="col-8">
               <div>
                 <div className="row">
                   <div className="col-10">
@@ -278,25 +292,25 @@ console.log(image,9);
                       </Button>
                     </div>
                   )}
-                
                 </div>
                 <div className="row">
                   <div className="col-12">
                     <Grid item xs={12} sm={10}>
-                      {keyword&& keyword.address?(
-                                  <TextField
-                        id="outlined-multiline-static"
-                        name="address"
-                        multiline
-                        fullWidth
-                        rows={4}
-                        onChange={handleChange}
-                        value={`${dataUser?.address ? dataUser.address : ''}`}
-                      />
-                      ):( <p style={{ color: 'gray' }}>
-                      {`${dataUser?.address ? dataUser.address : ''}`}
-                    </p>)}
-            
+                      {keyword && keyword.address ? (
+                        <TextField
+                          id="outlined-multiline-static"
+                          name="address"
+                          multiline
+                          fullWidth
+                          rows={4}
+                          onChange={handleChange}
+                          value={`${dataUser?.address ? dataUser.address : ''}`}
+                        />
+                      ) : (
+                        <p style={{ color: 'gray' }}>
+                          {`${dataUser?.address ? dataUser.address : ''}`}
+                        </p>
+                      )}
                     </Grid>
                   </div>
                 </div>
@@ -308,7 +322,7 @@ console.log(image,9);
                   <div className="col-10">
                     <p>Phone number </p>
                   </div>
-                 
+
                   {keyword && keyword.phone ? (
                     <div className="col-2">
                       <Button
@@ -333,75 +347,103 @@ console.log(image,9);
                       </Button>
                     </div>
                   )}
-                
                 </div>
                 <div className="row">
                   <div className="col-12">
                     <Grid item xs={12} sm={4}>
-                      {keyword&& keyword.phone?(
-                         <TextField
-                        type="text"
-                        required
-                        id="author"
-                        name="phone"
-                        value={`${dataUser?.phone ? dataUser.phone : ''}`}
-                        fullWidth
-                        size="small"
-                        autoComplete="off"
-                        variant="outlined"
-                        error={phoneError}
-                        helperText={
-                          phoneError ? 'Please enter a valid phone number' : ''
-                        }
-                        onChange={handleChangePhone}
-                      />
-                      ):<p style={{color:"gray"}}>{`${dataUser?.phone ? dataUser.phone : ''}`}</p>}
-                     
+                      {keyword && keyword.phone ? (
+                        <TextField
+                          type="text"
+                          required
+                          id="author"
+                          name="phone"
+                          value={`${dataUser?.phone ? dataUser.phone : ''}`}
+                          fullWidth
+                          size="small"
+                          autoComplete="off"
+                          variant="outlined"
+                          error={phoneError}
+                          helperText={
+                            phoneError
+                              ? 'Please enter a valid phone number'
+                              : ''
+                          }
+                          onChange={handleChangePhone}
+                        />
+                      ) : (
+                        <p style={{ color: 'gray' }}>{`${
+                          dataUser?.phone ? dataUser.phone : ''
+                        }`}</p>
+                      )}
                     </Grid>
                   </div>
                 </div>
               </div>
               <hr />
-              
-               </div>
-               <div className="col-4">
-              <div>
-      <MDBContainer className="container py-5 h-100" style={{marginTop:"-50px"}}>
-        <MDBRow className="justify-content-center align-items-center h-100">
-          <MDBCol md="12" xl="12">
-            <MDBCard style={{ borderRadius: '15px' }}>
-              <MDBCardBody className="text-center">
-                <div className="mt-3 mb-4">
-                    <img style={{width: "30%",height:"110px"}}
-                        src={dataUser.image}
-                        className="rounded-circle"
-                        alt="Avatar"
-                    />
-                    {loading && <CircularProgress />}
-                    <input type="file" name="image" onChange={handleUploadAvatar}></input>
-                </div>
-                <MDBTypography tag="h4">{dataUser.fullName}</MDBTypography>
-                <MDBCardText className="text-muted mb-4">
-                 {email}
-                </MDBCardText>
-                  <Link onClick={handleOpenComponentChild}>
-                    Change Password
-                  </Link>
-                <div className="d-flex justify-content-between text-center mt-5 mb-2">
-                </div>
-              </MDBCardBody>
-            </MDBCard>
-          </MDBCol>
-        </MDBRow>
-      </MDBContainer>
-    </div>
-               </div>
             </div>
-            </form>
-            <UpdatePassword
-              dataFromParent={data}
-              dataFromParentt={dataPassword}
-            />
+            <div className="col-4">
+              <div>
+                <MDBContainer
+                  className="container py-5 h-100"
+                  style={{ marginTop: '-50px' }}
+                >
+                  <MDBRow className="justify-content-center align-items-center h-100">
+                    <MDBCol md="12" xl="12">
+                      <MDBCard style={{ borderRadius: '15px' }}>
+                        <MDBCardBody className="text-center">
+                          <div className="mt-3 mb-4">
+                            {dataUser.image?(
+                               <img
+                              style={{ width: '30%', height: '110px' }}
+                              src={dataUser.image}
+                              className="rounded-circle"
+                              alt="Avatar"
+                            />
+                            ):(
+                              <img
+                              style={{ width: '30%', height: '110px' }}
+                              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTvw1lmPDOJqryVsX3imw1Bj4lnajMh7j-oQQ&usqp=CAU"
+                              className="rounded-circle"
+                              alt="Avatar"/>
+                            )}
+                           
+                            {loading && <CircularProgress />}
+                          </div>
+                          <div>
+                            <label htmlFor="upload" style={{cursor:"pointer"}}>
+                             
+                               
+                              <u>  <i class="fa-solid fa-arrow-up-from-bracket"></i>   Upload photos</u>  
+                              
+                            </label>
+                            <input
+                              type="file"
+                              name="image"
+                              id="upload"
+                              onChange={handleUploadAvatar}
+                              style={{ opacity: 0 }}
+                            />
+                          </div>
+                          <MDBTypography tag="h4">
+                            {dataUser.fullName}
+                          </MDBTypography>
+                          <MDBCardText className="text-muted mb-4">
+                            {email}
+                          </MDBCardText>
+                          <Link onClick={handleOpenComponentChild}>
+                            Change Password
+                          </Link>
+                          <div className="d-flex justify-content-between text-center mt-5 mb-2"></div>
+                        </MDBCardBody>
+                      </MDBCard>
+                    </MDBCol>
+                  </MDBRow>
+                </MDBContainer>
+              </div>
+            </div>
+          </div>
+        </form>
+        <UpdatePassword dataFromParent={data} dataFromParentt={dataPassword} />
       </div>
     </>
   );

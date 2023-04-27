@@ -407,7 +407,7 @@ export default function UpdateUser() {
                                                         ):(
                                                             <img
                                                                 style={{ width: '30%', height: '110px' }}
-                                                                src="https://images.fineartamerica.com/images/artworkimages/mediumlarge/3/3-make-tea-not-war-louise-d-stafford.jpg"
+                                                                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTvw1lmPDOJqryVsX3imw1Bj4lnajMh7j-oQQ&usqp=CAU"
                                                                 className="rounded-circle"
                                                                 alt="Avatar"/>
                                                         )}

@@ -460,13 +460,6 @@ export function Tabs(props) {
                     </MDBTabsLink>
                 </MDBTabsItem>
             </MDBTabs>
-
-            {/*<MDBTabsContent>*/}
-            {/*    <MDBTabsPane show={status === 'all'}>All order</MDBTabsPane>*/}
-            {/*    <MDBTabsPane show={status === 'ongoing'}>Tab 2 content</MDBTabsPane>*/}
-            {/*    <MDBTabsPane show={status === 'done'}>Tab 3 content</MDBTabsPane>*/}
-            {/*    <MDBTabsPane show={status === 'cancelled'}>Tab 4 content</MDBTabsPane>*/}
-            {/*</MDBTabsContent>*/}
         </>
     );
 }

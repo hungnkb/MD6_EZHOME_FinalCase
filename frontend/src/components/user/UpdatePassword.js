@@ -31,7 +31,7 @@ export default function UpdatePassword(props) {
 
   const handleSubmitChangePassword = (event) => {
     event.preventDefault();
-    if (emailOldandNewPassword.newPassword.length == 10){
+    if (emailOldandNewPassword.newPassword.length >= 6){
         axios
             .post('http://localhost:3002/api/v1/users/change-password', {
                 email: userLogin.userLogin.email,
@@ -169,7 +169,7 @@ export default function UpdatePassword(props) {
                   type={'password'}
                 ></input>
                 {form.newPassword && form.newPassword.error && (
-                  <p className="error">{form.newPassword.error}</p>
+                  <p style={{color: "red"}} className="error">{form.newPassword.error}</p>
                 )}
               </div>
               <br />
@@ -196,7 +196,7 @@ export default function UpdatePassword(props) {
                   type={'password'}
                 ></input>
                 {form.confirmPassword && form.confirmPassword.error && (
-                  <p className="error">{form.confirmPassword.error}</p>
+                  <p style={{color: "red"}} className="error">{form.confirmPassword.error}</p>
                 )}
               </div>
               <br />

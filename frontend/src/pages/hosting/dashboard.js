@@ -137,7 +137,7 @@ function DashboardHosting() {
                             <TableCell align="center">
                                 <b style={{color:"gray"}}> Address</b>
                             </TableCell>
-                            <TableCell align="center">
+                            {/* <TableCell align="center">
                                 <b style={{color:"gray"}}> Category</b>
                             </TableCell>
                             <TableCell align="center">
@@ -145,7 +145,7 @@ function DashboardHosting() {
                             </TableCell>
                             <TableCell align="center">
                                 <b style={{color:"gray"}}> Bedrooms</b>
-                            </TableCell>
+                            </TableCell> */}
                             <TableCell align="center">
                                 <b style={{color:"gray"}}>Price (đ) </b>
                             </TableCell>
@@ -178,11 +178,11 @@ function DashboardHosting() {
 
                                     </TableCell>
                                     <TableCell align="left">{data.address}</TableCell>
-                                    <TableCell align="left">
+                                    {/* <TableCell align="left">
                                         {data.idCategory.categoryName}
                                     </TableCell>
                                     <TableCell align="center">{data.bathrooms}</TableCell>
-                                    <TableCell align="center">{data.bedrooms}</TableCell>
+                                    <TableCell align="center">{data.bedrooms}</TableCell> */}
                                     {/*<TableCell align="left">{ReactHtmlParser(data.description)}</TableCell>*/}
                                     <TableCell align="right">
                                         {data.price.toLocaleString('en-EN')}

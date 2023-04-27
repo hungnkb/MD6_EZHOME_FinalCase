@@ -14,7 +14,7 @@ export default class CarouselMulti extends Component {
       nextArrow: <style />,
     };
     return (
-      <div>
+      <div className='container'>
         {/* <h2>Pause On Hover</h2> */}
         <center>
           <Slider {...settings}>

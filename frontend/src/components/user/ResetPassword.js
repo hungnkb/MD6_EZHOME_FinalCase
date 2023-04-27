@@ -61,7 +61,7 @@ export default function ResetPassword() {
   const MESSAGE_ERROR = {
     username: 'Username error',
     email: 'Email error',
-    password: 'Password error',
+    password: 'Password must be in 6-8 letters',
     confirmPassword: 'Password must be the same',
   };
 

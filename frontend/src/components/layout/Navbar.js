@@ -395,17 +395,26 @@ export default function Navbar() {
             >
               {' '}
               <MenuIcon fontSize="small" />
-              {imageUser ? (
+              {currentState.newAvatarImage ? (
                 <>
                   <img
                     style={{ width: '50%', borderRadius: '50%' }}
-                    src={imageUser}
+                    src={currentState.newAvatarImage }
                   />
                 </>
               ) : (
-                <>
-                  <AccountCircle fontSize="large" />
-                </>
+                  imageUser ? (
+                      <>
+                        <img
+                            style={{ width: '50%', borderRadius: '50%' }}
+                            src={imageUser}
+                        />
+                      </>
+                  ) : (
+                      <>
+                        <AccountCircle fontSize="large" />
+                      </>
+                  )
               )}
             </Button>
           </IconButton>

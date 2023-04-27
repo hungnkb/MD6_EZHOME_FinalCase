@@ -80,11 +80,13 @@ export default function CardHome(props) {
                         }}
                       >
                         <Card
+                         
                           sx={{
                             width: '100%',
                             boxShadow: 'none',
                             marginTop: '5%',
                             marginLeft: '2%',
+                            textAlign:"left",
                           }}
                         >
                           <CardActionArea>

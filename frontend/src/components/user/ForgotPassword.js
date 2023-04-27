@@ -107,9 +107,6 @@ export default function ForgotPassword(props) {
   return (
     <>
       <div>
-        <Button variant="outlined" onClick={handleClickOpen}>
-          Register
-        </Button>
         <Modal open={open} onClose={handleClose}>
           <Box
             sx={{

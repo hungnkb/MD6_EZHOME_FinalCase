@@ -23,7 +23,11 @@ const Toast = Swal.mixin({
     toast.addEventListener('mouseleave', Swal.resumeTimer);
   },
 });
-
+import IconButton from '@mui/material/IconButton';;
+import OutlinedInput from '@mui/material/OutlinedInput';
+import InputAdornment from '@mui/material/InputAdornment';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
 export default function ResetPassword() {
   const searchParams = new URLSearchParams(window.location.search);
   const email = searchParams.get('email');
@@ -31,6 +35,18 @@ export default function ResetPassword() {
   const [open, setOpen] = useState(true);
   const [flag, setFlag] = useState(false);
   const navigate = useNavigate();
+  const [showPassword, setShowPassword] = React.useState(false);
+  const [showPassword1, setShowPassword1] = React.useState(false);
+
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
+  const handleClickShowPassword1 = () => setShowPassword1((show) => !show);
+
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
+  };
+  const handleMouseDownPassword1 = (event) => {
+    event.preventDefault();
+  };
   const [emailTokenPassword, setEmailTokenPassword] = useState({
     email: email,
     token: token,
@@ -128,19 +144,18 @@ export default function ResetPassword() {
               left: '50%',
               transform: 'translate(-50%, -50%)',
               borderRadius: '10px',
-              boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.25)',
+              // boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.25)',
             }}
           >
             <div
               className="bg-white border flex flex-col p-4 pt-10"
               style={{
-                marginBlockStart: '50px',
+                // marginBlockStart: '50px',
                 textAlign: 'center',
               }}
             >
               <h4
                 style={{
-                  color: '#f7a800',
                   fontWeight: 'bold',
                   marginBottom: '10px',
                 }}
@@ -161,12 +176,12 @@ export default function ResetPassword() {
                     padding: '10px',
                     width: '100%',
                     borderRadius: '5px',
-                    fontSize: '16px',
+                    fontSize: '20px',
                     backgroundColor: '#f2f2f2',
                     border: '1px solid #ccc',
                   }}
                   readOnly
-                ></input>
+                />
                 <br />
                 <br />
                 <div
@@ -174,12 +189,14 @@ export default function ResetPassword() {
                     form.password && form.password.error && 'custom-input-error'
                   }`}
                 >
-                  <input
+                     <OutlinedInput
+
                     name="password"
                     value={(form.password && form.password.value) || ''}
                     onChange={handleChange}
                     placeholder="New Password"
                     style={{
+                      height:"50px",
                       marginBottom: '10px',
                       padding: '10px',
                       width: '100%',
@@ -188,10 +205,22 @@ export default function ResetPassword() {
                       backgroundColor: '#f2f2f2',
                       border: '1px solid #ccc',
                     }}
-                    type={'password'}
-                  ></input>
+                    type={showPassword ? 'text' : 'password'}
+                    endAdornment={
+                      <InputAdornment position="end">
+                        <IconButton
+                          aria-label="toggle password visibility"
+                          onClick={handleClickShowPassword}
+                          onMouseDown={handleMouseDownPassword}
+                          edge="end"
+                        >
+                          {showPassword ? <VisibilityOff /> : <Visibility />}
+                        </IconButton>
+                      </InputAdornment>
+                     } />
+
                   {form.password && form.password.error && (
-                    <p className="error">{form.password.error}</p>
+                    <p style={{color:"red"}} className="error">{form.password.error}</p>
                   )}
                 </div>
                 <br />
@@ -202,11 +231,12 @@ export default function ResetPassword() {
                     'custom-input-error'
                   }`}
                 >
-                  <input
+                  <OutlinedInput
                     name="confirmPassword"
                     onChange={handleChange}
                     placeholder="Re New Password"
                     style={{
+                      height:"50px",
                       marginBottom: '10px',
                       padding: '10px',
                       width: '100%',
@@ -215,27 +245,40 @@ export default function ResetPassword() {
                       backgroundColor: '#f2f2f2',
                       border: '1px solid #ccc',
                     }}
-                    type={'password'}
-                  ></input>
+                    type={showPassword1 ? 'text' : 'password'}
+                    endAdornment={
+                      <InputAdornment position="end">
+                        <IconButton
+                          aria-label="toggle password visibility"
+                          onClick={handleClickShowPassword1}
+                          onMouseDown={handleMouseDownPassword1}
+                          edge="end"
+                        >
+                          {showPassword1 ? <VisibilityOff /> : <Visibility />}
+                        </IconButton>
+                      </InputAdornment>
+                     } 
+                  />
                   {form.confirmPassword && form.confirmPassword.error && (
-                    <p className="error">{form.confirmPassword.error}</p>
+                    <p style={{color:"red"}} className="error">{form.confirmPassword.error}</p>
                   )}
                 </div>
                 <br />
                 <div className="flex justify-center">
-                  <button
+                  <Button
                     style={{
                       background: '#f7a800',
                       color: '#fff',
                       fontWeight: 'bold',
                       padding: '10px',
                       borderRadius: '5px',
+                      width:"100%"
                     }}
                     type="submit"
                     className="w-full"
                   >
                     Submit
-                  </button>
+                  </Button>
                 </div>
               </form>
             </div>

@@ -55,8 +55,7 @@ export default function CardHome(props) {
           </div>
         </div>
         <br />
-
-        <TopFive />
+        {searchHomeList.length === 0 && <TopFive />}
         <div style={{ marginTop: '70px' }}>
           {home.length > 0 ? (
             <InfiniteScroll
@@ -80,13 +79,12 @@ export default function CardHome(props) {
                         }}
                       >
                         <Card
-                         
                           sx={{
                             width: '100%',
                             boxShadow: 'none',
                             marginTop: '5%',
                             marginLeft: '2%',
-                            textAlign:"left",
+                            textAlign: 'left',
                           }}
                         >
                           <CardActionArea>
@@ -242,10 +240,9 @@ export default function CardHome(props) {
                 }
               })}
             </div>
-          ) : (null)}
+          ) : null}
         </div>
       </div>
-
     </>
   );
 }

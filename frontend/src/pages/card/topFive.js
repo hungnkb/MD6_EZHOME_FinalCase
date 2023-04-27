@@ -25,7 +25,7 @@ export default function defaultTopFive() {
         url: process.env.REACT_APP_BASE_URL + '/homes/top?top=5'
       }).then(response => {
         setDataList(response.data)
-      }).catch(err)
+      }).catch(err => {})
     };
     getData();
   }, []);

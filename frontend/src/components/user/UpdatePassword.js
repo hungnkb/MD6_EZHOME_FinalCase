@@ -5,8 +5,27 @@ import Box from '@mui/material/Box';
 import { Modal } from '@mui/material';
 import * as React from 'react';
 import Swal from 'sweetalert2';
-
+import IconButton from '@mui/material/IconButton';;
+import OutlinedInput from '@mui/material/OutlinedInput';
+import InputAdornment from '@mui/material/InputAdornment';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
 export default function UpdatePassword(props) {
+  const [showPassword, setShowPassword] = React.useState(false);
+  const [showPassword1, setShowPassword1] = React.useState(false);
+  const [showPassword2, setShowPassword2] = React.useState(false);
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
+  const handleClickShowPassword1 = () => setShowPassword1((show) => !show);
+  const handleClickShowPassword2 = () => setShowPassword2((show) => !show);
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
+  };
+  const handleMouseDownPassword1 = (event) => {
+    event.preventDefault();
+  };
+  const handleMouseDownPassword2 = (event) => {
+    event.preventDefault();
+  };
   const [open, setOpen] = useState(false);
   const userLogin = useSelector((state) => state.auth);
   const [emailOldandNewPassword, setEmailOldandNewPassword] = useState({
@@ -115,7 +134,7 @@ export default function UpdatePassword(props) {
           <div className="bg-white border flex flex-col p-4 pt-10">
             <h4
               style={{
-                color: 'Black',
+                marginLeft:"40px",
                 fontWeight: 'bold',
                 marginBottom: '10px',
               }}
@@ -128,12 +147,12 @@ export default function UpdatePassword(props) {
               className="flex flex-col justify-center items-center"
             >
               {props.dataFromParentt !== null ? (
-                <input
+                <OutlinedInput
                   onChange={handleInputChangePassword}
-                  // value={email}
                   name="oldPassword"
                   placeholder="Old Password"
                   style={{
+                    height:"50px",
                     marginBottom: '10px',
                     padding: '10px',
                     width: '100%',
@@ -142,8 +161,20 @@ export default function UpdatePassword(props) {
                     backgroundColor: '#f2f2f2',
                     border: '1px solid #ccc',
                   }}
-                  type="password"
-                ></input>
+                  type={showPassword ? 'text' : 'password'}
+                  endAdornment={
+                    <InputAdornment position="end">
+                      <IconButton
+                        aria-label="toggle password visibility"
+                        onClick={handleClickShowPassword}
+                        onMouseDown={handleMouseDownPassword}
+                        edge="end"
+                      >
+                        {showPassword ? <VisibilityOff /> : <Visibility />}
+                      </IconButton>
+                    </InputAdornment>
+                   }
+                />
               ) : null}
               <br />
               <br />
@@ -152,12 +183,13 @@ export default function UpdatePassword(props) {
                   form.password && form.password.error && 'custom-input-error'
                 }`}
               >
-                <input
+                <OutlinedInput
                   name="newPassword"
                   value={(form.newPassword && form.newPassword.value) || ''}
                   onChange={handleChangePassword}
                   placeholder="New Password"
                   style={{
+                    height:"50px",
                     marginBottom: '10px',
                     padding: '10px',
                     width: '100%',
@@ -166,8 +198,20 @@ export default function UpdatePassword(props) {
                     backgroundColor: '#f2f2f2',
                     border: '1px solid #ccc',
                   }}
-                  type={'password'}
-                ></input>
+                  type={showPassword1 ? 'text' : 'password'}
+                  endAdornment={
+                    <InputAdornment position="end">
+                      <IconButton
+                        aria-label="toggle password visibility"
+                        onClick={handleClickShowPassword1}
+                        onMouseDown={handleMouseDownPassword1}
+                        edge="end"
+                      >
+                        {showPassword1 ? <VisibilityOff /> : <Visibility />}
+                      </IconButton>
+                    </InputAdornment>
+                   }
+                />
                 {form.newPassword && form.newPassword.error && (
                   <p style={{color: "red"}} className="error">{form.newPassword.error}</p>
                 )}
@@ -180,11 +224,12 @@ export default function UpdatePassword(props) {
                   'custom-input-error'
                 }`}
               >
-                <input
+                <OutlinedInput
                   name="confirmPassword"
                   onChange={handleChangePassword}
                   placeholder="Re New Password"
                   style={{
+                    height:"50px",
                     marginBottom: '10px',
                     padding: '10px',
                     width: '100%',
@@ -193,8 +238,20 @@ export default function UpdatePassword(props) {
                     backgroundColor: '#f2f2f2',
                     border: '1px solid #ccc',
                   }}
-                  type={'password'}
-                ></input>
+                  type={showPassword2 ? 'text' : 'password'}
+                  endAdornment={
+                    <InputAdornment position="end">
+                      <IconButton
+                        aria-label="toggle password visibility"
+                        onClick={handleClickShowPassword2}
+                        onMouseDown={handleMouseDownPassword2}
+                        edge="end"
+                      >
+                        {showPassword2 ? <VisibilityOff /> : <Visibility />}
+                      </IconButton>
+                    </InputAdornment>
+                   }
+                />
                 {form.confirmPassword && form.confirmPassword.error && (
                   <p style={{color: "red"}} className="error">{form.confirmPassword.error}</p>
                 )}
@@ -203,6 +260,7 @@ export default function UpdatePassword(props) {
               <div className="flex justify-center">
                 <button
                   style={{
+                    width:"100%",
                     background: '#f7a800',
                     color: '#fff',
                     fontWeight: 'bold',

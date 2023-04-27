@@ -72,6 +72,9 @@ export default function HomeRenting() {
   };
   return (
     <>
+    <div style={{marginBottom:"400px"}}>
+
+    
       <br />
       <h2 style={{ marginLeft: '8%' }}>Customer Order List</h2>
       <FormControl
@@ -164,6 +167,7 @@ export default function HomeRenting() {
           </TableBody>
         </Table>
       </TableContainer>
+      </div>
     </>
   );
 }

@@ -35,15 +35,15 @@ export default function defaultTopFive() {
         <h3 style={{ textAlign: 'center', marginBottom: '50px', color: '#f7a800', marginRight: '0.4rem' }}>TOP 5</h3><h3>TO DISCOVER</h3>
       </div>
 
-      <center>
+      <div className='container'>
         {dataList.length > 0 ? (<div id='topfife-slider'>
           <Slider {...settings}>
             {dataList.map((data, index) => {
               return (<div key={index}>
                 <Card
                   style={{
-                    height: '400px',
-                    width: '300px',
+                    height: '100%',
+                    width: '90%',
                     float: 'left',
                     boxShadow: 'none',
                   }}
@@ -67,7 +67,7 @@ export default function defaultTopFive() {
 
         </div>) : null
         }
-      </center>
+      </div>
     </>
   );
 }

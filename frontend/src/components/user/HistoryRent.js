@@ -246,7 +246,7 @@ export default function HistoryRent() {
 
                 <br/>
                 <h2 style={{marginLeft: '8%'}}>My Orders</h2>
-                <Tabs handleChange={handleChange} status={status}/>
+                <Tabs handleChange={handleChange} status={status} list={list}/>
                 <FormControl
                     variant="standard"
                     sx={{m: 1, minWidth: 120, marginLeft: '8%'}}
@@ -296,9 +296,9 @@ export default function HistoryRent() {
                                             <b> {index + 1} </b>
                                         </TableCell>
                                         <TableCell align="left"><NavLink to={`/detail-home/${data.idHome.idHome}`} style={{color:"black"}}> {data.idHome.title}</NavLink> </TableCell>
-                                        <TableCell align="left">{data.checkin}</TableCell>
-                                        <TableCell align="left">{data.checkout}</TableCell>
-                                        <TableCell align="left">
+                                        <TableCell align="center">{data.checkin}</TableCell>
+                                        <TableCell align="center">{data.checkout}</TableCell>
+                                        <TableCell align="center">
                                             {data.charged.toLocaleString('en-EN')}VNĐ
                                         </TableCell>
                                         {data.status === 'ongoing' ? (
@@ -435,6 +435,7 @@ export default function HistoryRent() {
 }
 
 export function Tabs(props) {
+    console.log(props.list,111);
 
     return (
         <>

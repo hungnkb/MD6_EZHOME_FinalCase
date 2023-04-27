@@ -8,8 +8,6 @@ import { NavLink, useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import CarouselMulti from '../../components/layout/carousel-multi';
-import Stack from '@mui/material/Stack';
-import Skeleton from '@mui/material/Skeleton';
 import TopFive from './topFive';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
@@ -47,7 +45,7 @@ export default function CardHome(props) {
   }, [isFetchData]);
   return (
     <>
-      <div className="container">
+      <div  style={{marginLeft:"20px"}}>
         <br />
         <div className="row">
           <div className="col-12">
@@ -56,7 +54,7 @@ export default function CardHome(props) {
         </div>
         <br />
         {searchHomeList.length === 0 && <TopFive />}
-        <div style={{ marginTop: '70px' }}>
+        <div style={{ marginTop: '70px' }} className='container'>
           {home.length > 0 ? (
             <InfiniteScroll
               className="d-flex flex-wrap justify-content-center"
@@ -134,36 +132,6 @@ export default function CardHome(props) {
             </InfiniteScroll>
           ) : (
             <div>
-              {/* <Stack direction="row" spacing={5} sx={{ marginTop: '50px' }}>
-                <Skeleton
-                  variant="rectangular"
-                  animation="wave"
-                  width={256}
-                  height={250}
-                  sx={{ borderRadius: '15px' }}
-                />
-                <Skeleton
-                  variant="rectangular"
-                  animation="wave"
-                  width={256}
-                  height={250}
-                  sx={{ borderRadius: '15px' }}
-                />
-                <Skeleton
-                  variant="rectangular"
-                  animation="wave"
-                  width={256}
-                  height={250}
-                  sx={{ borderRadius: '15px' }}
-                />
-                <Skeleton
-                  variant="rectangular"
-                  animation="wave"
-                  width={256}
-                  height={250}
-                  sx={{ borderRadius: '15px' }}
-                />
-              </Stack> */}
             </div>
           )}
           {searchHomeList.length > 0 ? (

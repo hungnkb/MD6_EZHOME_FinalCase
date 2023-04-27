@@ -121,7 +121,7 @@ function DashboardHosting() {
                 </div>
             </div>
             <br/>
-            <TableContainer component={Paper}>
+            <TableContainer component={Paper} style={{marginBottom:"400px"}}>
                 <Table sx={{minWidth: 650}} aria-label="simple table">
                     <TableHead>
                         <TableRow>

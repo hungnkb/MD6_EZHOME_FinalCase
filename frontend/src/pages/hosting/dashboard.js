@@ -69,62 +69,86 @@ function DashboardHosting() {
   }, [currentAuth.isLogined, flag]);
   return (
     <>
-      <div className="container">
-        <br />
-        <br />
-        <h3>{homeList.length} house for rent</h3>
-        <br />
-        <Button
-          onClick={() => {
-            navigate('/user/revenue');
-          }}
-          sx={{
-            color: 'black',
-            background: 'white',
-            border: '1px solid black',
-            borderRadius: '30px',
-          }}
-          variant="light"
-        >
-          Revenue
-        </Button>
-        <Button
-          onClick={() => {
-            navigate('/user/home');
-          }}
-          sx={{
-            color: 'black',
-            background: 'white',
-            border: '1px solid black',
-            marginLeft: '20px',
-            borderRadius: '30px',
-          }}
-          variant="light"
-        >
-          Views order
-        </Button>
-      </div>
+      <br />
+      <br />
+      <h3 style={{ marginLeft: '3%' }}>{homeList.length} house for rent</h3>
+
       <br />
       <div className="row">
         <div className="col-4">
-          <TextField
-            style={{ border: '1px solid black', marginLeft: '10%' }}
-            placeholder="Search"
+          <input
+            style={{
+              border: '1px solid black',
+              marginLeft: '10%',
+              borderRadius: '30px',
+              width: '90%',
+              height: '110%',
+            }}
+            placeholder="   Search"
             type="search"
             fullWidth
             size="small"
             InputProps={{
               startAdornment: (
-                <InputAdornment position="start">
+                <InputAdornment
+                  style={{ borderRadius: '30px' }}
+                  position="start"
+                >
                   <i className="fa-solid fa-magnifying-glass"></i>
                 </InputAdornment>
               ),
             }}
           />
         </div>
-        <div className="col-4"></div>
         <div className="col-4">
+          {' '}
           <Button
+            onClick={() => {
+              navigate('/user/revenue');
+            }}
+            sx={{
+              color: 'black',
+              background: 'white',
+              border: '1px solid black',
+              borderRadius: '30px',
+            }}
+            variant="light"
+          >
+            Revenue
+          </Button>
+          <Button
+            onClick={() => {
+              navigate('/user/home');
+            }}
+            sx={{
+              color: 'black',
+              background: 'white',
+              border: '1px solid black',
+              marginLeft: '20px',
+              borderRadius: '30px',
+            }}
+            variant="light"
+          >
+            Views order
+          </Button>
+        </div>
+        <div className="col-4">
+          <div className="row">
+            <div className="col-6">
+              <Button
+                sx={{
+                  color: 'black',
+                  background: 'white',
+                  border: '1px solid black',
+                  borderRadius: '30px',
+                }}
+                variant="light"
+              >
+             <i class="fa-solid fa-badge-percent"></i>  Generate discount
+              </Button>
+            </div>
+            <div className='col-6'>
+               <Button
             onClick={() => {
               navigate('/create-home');
             }}
@@ -132,13 +156,17 @@ function DashboardHosting() {
               color: 'black',
               background: 'white',
               border: '1px solid black',
-              marginLeft: '45%',
-              borderRadius:"30px"
+            //   marginLeft: '45%',
+              borderRadius: '30px',
             }}
             variant="light"
           >
-            <i class="fa-light fa-circle-plus"></i>Create a rental item
-          </Button>
+          <i class="fa-solid fa-circle-plus"></i> Create a rental item 
+          </Button> 
+            </div>
+          </div>
+
+          
         </div>
       </div>
       <br />
@@ -146,9 +174,6 @@ function DashboardHosting() {
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
             <TableRow>
-              <TableCell>
-                <b style={{ color: 'gray' }}> Order </b>
-              </TableCell>
               <TableCell align="center">
                 <b style={{ color: 'gray' }}> Image </b>
               </TableCell>
@@ -164,6 +189,7 @@ function DashboardHosting() {
               <TableCell align="center">
                 <b style={{ color: 'gray' }}>Status </b>
               </TableCell>
+              <TableCell align="center"></TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -173,9 +199,6 @@ function DashboardHosting() {
                     key={index}
                     sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                   >
-                    <TableCell component="th" scope="row">
-                      {index + 1}
-                    </TableCell>
                     <TableCell
                       align="center"
                       sx={{ width: '10%', padding: '0px 0px' }}

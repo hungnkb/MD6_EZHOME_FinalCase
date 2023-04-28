@@ -16,6 +16,7 @@ import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { setUserLogin } from './redux/features/authSlice';
 import DashboardHosting from './pages/hosting/dashboard';
+import Coupon from './pages/hosting/coupon';
 import UpdateUser from './components/user/UpdateUser';
 import ResetPassword from './components/user/ResetPassword';
 import HomeRenting from './pages/hosting/homeRenting';
@@ -68,6 +69,7 @@ function App() {
                         <>
                             <Route path="/reset-password" element={<ResetPassword />} />
                             <Route path="/user/hosting" element={<DashboardHosting />} />
+                            <Route path="/user/coupon" element={<Coupon />} />
                             <Route path="/detail-dashboard/:id" element={<DetailDashboard/>}/>
                             <Route path="/user/profile" element={<UpdateUser />} />
                             <Route path="/user/home" element={<HomeRenting />}></Route>

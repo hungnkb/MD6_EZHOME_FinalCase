@@ -10,10 +10,8 @@ import axios from '../../api/axios';
 import { useSelector } from 'react-redux';
 import {
   Button,
-  ButtonGroup,
   InputAdornment,
   Switch,
-  TextField,
 } from '@mui/material';
 import { NavLink, useNavigate } from 'react-router-dom';
 
@@ -135,17 +133,21 @@ function DashboardHosting() {
         <div className="col-4">
           <div className="row">
             <div className="col-6">
-              <Button
+              <NavLink to='/user/coupon'>
+                <Button
                 sx={{
                   color: 'black',
                   background: 'white',
                   border: '1px solid black',
                   borderRadius: '30px',
+                  marginLeft:"50%"
                 }}
                 variant="light"
               >
-             <i class="fa-solid fa-badge-percent"></i>  Generate discount
+             <i class="fa-solid fa-badge-percent"></i>  Voucher
               </Button>
+              </NavLink>
+              
             </div>
             <div className='col-6'>
                <Button

@@ -65,7 +65,7 @@ export default function ModalFormPay(props) {
           });
         })
         .catch((error) => {
-          console.log(error);
+          props.setIsFormPayOpen(false)
           Swal.fire({
             icon: 'error',
             title: 'Oops...',

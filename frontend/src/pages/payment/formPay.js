@@ -103,6 +103,7 @@ export default function FormPay(props) {
           openBill={openBill}
           setOpenBill={setOpenBill}
           idOwner={props.idOwner}
+          setIsFormPayOpen={setIsFormPayOpen}
         />
       )}
       <MDBContainer>
@@ -117,19 +118,18 @@ export default function FormPay(props) {
                 flexDirection: 'column',
               }}
             >
-              <div className='row'>
-                <div className='col-10'>
-                   <span className="fw-bold">
-                <b>{props.price?.toLocaleString('en-EN')}đ </b>
-                /night
-              </span>
+              <div className="row">
+                <div className="col-10">
+                  <span className="fw-bold">
+                    <b>{props.price?.toLocaleString('en-EN')}đ </b>
+                    /night
+                  </span>
                 </div>
-                <div className='col-2'>
-                <b style={{ color: 'red' }}>-30%</b>
+                <div className="col-2">
+                  <b style={{ color: 'red' }}>-30%</b>
                 </div>
-
               </div>
-             
+
               <hr />
               <div style={{ display: 'flex', justifyContent: 'center' }}>
                 <div

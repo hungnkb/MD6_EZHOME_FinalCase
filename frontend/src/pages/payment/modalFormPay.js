@@ -61,7 +61,7 @@ export default function ModalFormPay(props) {
           socket.emit('send', {
             dataUrl: '/user/home',
             idReciever: props.idOwner,
-            message: 'You have a new order',
+            message: `Home ${props.dataForm.idHome} have a new order`,
           });
         })
         .catch((error) => {

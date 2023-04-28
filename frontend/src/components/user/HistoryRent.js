@@ -255,12 +255,6 @@ export default function HistoryRent() {
     }
     return sum1;
   };
-  const actions = [
-    { icon: <FileCopyIcon />, name: 'Copy' },
-    { icon: <SaveIcon />, name: 'Save' },
-    { icon: <PrintIcon />, name: 'Print' },
-    { icon: <ShareIcon />, name: 'Share' },
-  ];
   return (
     <>
       <div style={{ marginBottom: '400px' }}>
@@ -347,7 +341,7 @@ export default function HistoryRent() {
                             >
                               <SpeedDial
                                 ariaLabel="SpeedDial openIcon example"
-                                sx={{ position: 'absolute', bottom: 16, right: 16, '& .MuiFab-primary': { backgroundColor: 'gray', color: 'white', width: 30, height: 30, '& .MuiSpeedDialIcon-icon': { fontSize: 20 }, '&:hover': {backgroundColor: 'black'} } }}
+                                sx={{ position: 'absolute', bottom: 16, right: 16, '& .MuiFab-primary': { backgroundColor: 'gray', color: 'white', width: 35, height: 35, '& .MuiSpeedDialIcon-icon': { fontSize: 20 }, '&:hover': {backgroundColor: 'black'} } }}
                                 icon={<SpeedDialIcon openIcon={<EditIcon/>} />}
                               >
                                 <SpeedDialAction

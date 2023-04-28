@@ -8,8 +8,6 @@ import { NavLink, useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import CarouselMulti from '../../components/layout/carousel-multi';
-import Stack from '@mui/material/Stack';
-import Skeleton from '@mui/material/Skeleton';
 import TopFive from './topFive';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
@@ -19,6 +17,7 @@ export default function CardHome(props) {
   const [isFetchData, setIsFetchData] = useState(false);
   const [pageHome, setPageHome] = useState(0);
   const { loading = false } = props;
+  const [openDescription, setOpenDescription] = useState(false);
 
   let location = useLocation();
 
@@ -48,13 +47,11 @@ export default function CardHome(props) {
   }, [isFetchData]);
   return (
     <>
-      <div className="container">
+      <div style={{ marginLeft: '20px' }}>
         <br />
-        <div className="row">
-          <div className="col-12">
+    
             <CarouselMulti />
-          </div>
-        </div>
+          
         <br />
         {searchHomeList.length === 0 && <TopFive />}
         <div style={{ marginTop: '70px' }}>
@@ -119,8 +116,28 @@ export default function CardHome(props) {
                                 variant="p"
                                 component="div"
                               >
-                                <b>{value.price.toLocaleString('en-EN')}đ</b>{' '}
-                                night
+                              
+                                    <del>
+                                      {value.price.toLocaleString('en-EN')}đ
+                                    </del>
+                                 
+                              </Typography>
+                              <Typography
+                                gutterBottom
+                                variant="p"
+                                component="div"
+                              >
+                                <div className="row">
+                                  <div className="col-8">
+                                    <b>
+                                      {value.price.toLocaleString('en-EN')}đ
+                                    </b>
+                                    night
+                                  </div>
+                                  <div className="col-4">
+                                    <b style={{ color: 'red' }}>-30%</b>
+                                  </div>
+                                </div>
                               </Typography>
                             </CardContent>
                           </CardActionArea>
@@ -134,38 +151,7 @@ export default function CardHome(props) {
               })}
             </InfiniteScroll>
           ) : (
-            <div>
-              {/* <Stack direction="row" spacing={5} sx={{ marginTop: '50px' }}>
-                <Skeleton
-                  variant="rectangular"
-                  animation="wave"
-                  width={256}
-                  height={250}
-                  sx={{ borderRadius: '15px' }}
-                />
-                <Skeleton
-                  variant="rectangular"
-                  animation="wave"
-                  width={256}
-                  height={250}
-                  sx={{ borderRadius: '15px' }}
-                />
-                <Skeleton
-                  variant="rectangular"
-                  animation="wave"
-                  width={256}
-                  height={250}
-                  sx={{ borderRadius: '15px' }}
-                />
-                <Skeleton
-                  variant="rectangular"
-                  animation="wave"
-                  width={256}
-                  height={250}
-                  sx={{ borderRadius: '15px' }}
-                />
-              </Stack> */}
-            </div>
+            <div></div>
           )}
           {searchHomeList.length > 0 ? (
             <div
@@ -214,7 +200,14 @@ export default function CardHome(props) {
                                 variant="p"
                                 component="div"
                               >
-                                <b> {value.title}</b>
+                                <b
+                                // style={{
+                                //   whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis'
+
+                                // }}
+                                >
+                                  {value.title}
+                                </b>
                               </Typography>
                               <Typography
                                 variant="body2"

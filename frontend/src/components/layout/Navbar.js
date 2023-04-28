@@ -38,7 +38,7 @@ export default function Navbar() {
   const currentState = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const socket = io.connect('http://localhost:3002/notifications');
+  const socket = io.connect(`${process.env.REACT_APP_BASE_URL_SERVER}/notifications`);
   const open = Boolean(anchorElNotifications);
   const email = localStorage.getItem('email');
   const [imageUser, setImageUser] = useState('');
@@ -64,7 +64,7 @@ export default function Navbar() {
           setEndNoti(true);
         } else {
           setEndNoti(false);
-          setNotifications([...notifications, ...response.data.result]);
+          setNotifications(response.data.result);
           setUnseenCount(response.data.total);
         }
       }
@@ -78,14 +78,7 @@ export default function Navbar() {
   useEffect(() => {
     socket.on('getNotification', (res) => {
       if (id && res.idReciever == id) {
-        //   const newNotifications = [
-        //     ...notifications,
-        //     {
-        //       message: res.message,
-        //       dataUrl: `${res.dataUrl}`,
-        //     },
-        //   ];
-        //   setNotifications(newNotifications);
+        console.log(id, res.idReciever);
         setIsFetchNoti(!isFetchNoti);
       }
     });
@@ -113,8 +106,6 @@ export default function Navbar() {
   };
   const handleCloseNotifications = (url, index) => {
     if (typeof index == 'number') {
-      console.log(index, 111);
-      console.log(notifications[index], 222);
       handleUpdateNotificationStatus(notifications[index]?.idNotification);
     }
     setAnchorElNotifications(null);

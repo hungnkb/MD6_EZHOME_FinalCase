@@ -34,8 +34,7 @@ export default function defaultTopFive() {
       <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'center'}}>
         <h3 style={{ textAlign: 'center', marginBottom: '50px', color: '#f7a800', marginRight: '0.4rem' }}>TOP 5</h3><h3>TO DISCOVER</h3>
       </div>
-
-      <div className='container'>
+      <div>
         {dataList.length > 0 ? (<div id='topfife-slider'>
           <Slider {...settings}>
             {dataList.map((data, index) => {

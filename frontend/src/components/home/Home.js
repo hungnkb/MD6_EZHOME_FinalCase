@@ -7,23 +7,15 @@ import { Outlet } from 'react-router-dom';
 function Home() {
   return (
     <>
-      <div className="row">
-        <div className="col-12">
           <Navbar />
-        </div>
-        <div className="row">
-          <div className="col-12">
+     
+          
             <Outlet />
-          </div>
-        </div>
-        <div className="container">
-          <div className="row">
-            <div className="col-12">
+       
+      
+     
               <Footer />
-            </div>
-          </div>
-        </div>
-      </div>
+        
       
       
     </>

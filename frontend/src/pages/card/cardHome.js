@@ -17,6 +17,7 @@ export default function CardHome(props) {
   const [isFetchData, setIsFetchData] = useState(false);
   const [pageHome, setPageHome] = useState(0);
   const { loading = false } = props;
+  const [openDescription, setOpenDescription] = useState(false);
 
   let location = useLocation();
 
@@ -45,16 +46,14 @@ export default function CardHome(props) {
   }, [isFetchData]);
   return (
     <>
-      <div  style={{marginLeft:"20px"}}>
+      <div style={{ marginLeft: '20px' }}>
         <br />
-        <div className="row">
-          <div className="col-12">
+    
             <CarouselMulti />
-          </div>
-        </div>
+          
         <br />
         {searchHomeList.length === 0 && <TopFive />}
-        <div style={{ marginTop: '70px' }} className='container'>
+        <div style={{ marginTop: '70px' }}>
           {home.length > 0 ? (
             <InfiniteScroll
               className="d-flex flex-wrap justify-content-center"
@@ -116,8 +115,17 @@ export default function CardHome(props) {
                                 variant="p"
                                 component="div"
                               >
-                                <b>{value.price.toLocaleString('en-EN')}đ</b>{' '}
-                                night
+                                <div className="row">
+                                  <div className="col-8">
+                                    <b>
+                                      {value.price.toLocaleString('en-EN')}đ
+                                    </b>
+                                    night
+                                  </div>
+                                  <div className="col-4">
+                                    <b style={{ color: 'red' }}>-30%</b>
+                                  </div>
+                                </div>
                               </Typography>
                             </CardContent>
                           </CardActionArea>
@@ -131,8 +139,7 @@ export default function CardHome(props) {
               })}
             </InfiniteScroll>
           ) : (
-            <div>
-            </div>
+            <div></div>
           )}
           {searchHomeList.length > 0 ? (
             <div
@@ -181,7 +188,14 @@ export default function CardHome(props) {
                                 variant="p"
                                 component="div"
                               >
-                                <b> {value.title}</b>
+                                <b
+                                // style={{
+                                //   whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis'
+
+                                // }}
+                                >
+                                  {value.title}
+                                </b>
                               </Typography>
                               <Typography
                                 variant="body2"

@@ -80,7 +80,7 @@ export default function DetailHome() {
 
   return (
     <>
-      <div>
+      <div className='container'>
         <div  style={{ marginTop: '5px' }}>
           <div className="row">
             <div className="col-12">

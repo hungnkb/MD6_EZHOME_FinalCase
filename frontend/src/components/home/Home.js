@@ -7,17 +7,11 @@ import { Outlet } from 'react-router-dom';
 function Home() {
   return (
     <>
-          <Navbar />
-     
-          
-            <Outlet />
-       
-      
-     
-              <Footer />
-        
-      
-      
+      <Navbar />
+
+      <Outlet />
+
+      <Footer />
     </>
   );
 }

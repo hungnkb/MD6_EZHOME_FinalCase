@@ -105,6 +105,18 @@ export default function ModalFormPay(props) {
                   </tr>
                   <tr>
                     <td width="245px">
+                      <b>Distcount code:</b>
+                    </td>
+                    <td><b style={{color:"red"}}>- 30%  </b></td>
+                  </tr>
+                  <tr>
+                    <td width="245px">
+                      <b>Old price:</b>
+                    </td>
+                    <td><del>7,302,405đ</del></td>
+                  </tr>
+                  <tr>
+                    <td width="245px">
                       <b>Total:</b>
                     </td>
                     <td>đ{props.dataForm.charged.toLocaleString('en-EN')}</td>

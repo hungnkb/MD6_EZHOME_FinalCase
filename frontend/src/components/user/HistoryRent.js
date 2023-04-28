@@ -161,7 +161,7 @@ export default function HistoryRent() {
                 socket.emit('send', {
                     dataUrl: '/user/home',
                     idReciever: idOwner,
-                    message: 'You have a new cancel order',
+                    message: `Order ${idOrder} has been cancelled`,
                 });
             });
     };
@@ -221,7 +221,7 @@ export default function HistoryRent() {
                 socket.emit('send', {
                     dataUrl: `/detail-home/${dataOrder.idHome.idHome}`,
                     idReciever: dataOrder.idHome.idUser.idUser,
-                    message: 'You have new checkout and review',
+                    message: `Home ${dataOrder.idHome.idHome} has new checkout and review`,
                 });
                 handleClose();
                 handleCloseReview();

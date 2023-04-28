@@ -103,11 +103,11 @@ export default function HistoryRent() {
     setStatus(value);
   };
 
-  const handleButtonClick = (event, idOwner) => {
-    const id = event.target.getAttribute('data-id');
-    doSomethingWithId(id, idOwner);
+  const handleButtonClick =  (idOrder, idOwner) => {
+    doSomethingWithId(idOrder, idOwner);
   };
   const doSomethingWithId = async (idOrder, idOwner) => {
+    console.log(idOrder,33)
     Swal.fire({
       title: 'Are you sure?',
       text: 'Are you sure you want to cancel this booking?',
@@ -255,6 +255,8 @@ export default function HistoryRent() {
     }
     return sum1;
   };
+
+
   return (
     <>
       <div style={{ marginBottom: '400px' }}>
@@ -346,17 +348,16 @@ export default function HistoryRent() {
                               >
                                 <SpeedDialAction
                                   onClick={(event) =>
-                                    handleButtonClick(event, data.idHome.idUser)
+                                    handleButtonClick(data.idOrder, data.idHome.idUser)
                                   }
                                   sx={{color:"red"}}
-                                  data-id={data.idOrder}
+                                  data-id={`${data.idOrder}`}
                                   icon={
                                     <>
                                       <i className="fa-solid fa-circle-xmark"></i>
                                     </>
                                   }
                                   tooltipTitle="Cancel"
-
                                 />
                                   <SpeedDialAction
                                   style={{ cursor: 'pointer' }}
@@ -367,7 +368,7 @@ export default function HistoryRent() {
                                       index,
                                     )
                                   }
-                                  data-id={data.idOrder}
+                                  data-id={`${data.idOrder}`}
                                   sx={{color:"green"}}
                                   icon={
                                     <>

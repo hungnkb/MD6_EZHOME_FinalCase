@@ -276,22 +276,19 @@ export default function HistoryRent() {
         />
         <FormControl
           variant="standard"
-          sx={{ m: 1, minWidth: 120, marginLeft: '8%' }}
+          sx={{ m: 1, minWidth: 120, marginLeft: '2%' }}
         ></FormControl>
         <TableContainer
           component={Paper}
           sx={{
             height: '80%',
             width: '90%',
-            marginLeft: '8%',
+            marginLeft: '4%',
           }}
         >
-          <Table sx={{ minWidth: 650 }} aria-label="simple table">
+          <Table  aria-label="simple table">
             <TableHead>
               <TableRow>
-                <TableCell>
-                  <b> Number </b>{' '}
-                </TableCell>
                 <TableCell align="center">
                   <b> Home </b>{' '}
                 </TableCell>
@@ -319,9 +316,6 @@ export default function HistoryRent() {
                       key={index}
                       sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                     >
-                      <TableCell component="th" scope="row">
-                        <b> {index + 1} </b>
-                      </TableCell>
                       <TableCell align="left">
                         <NavLink
                           to={`/detail-home/${data.idHome.idHome}`}

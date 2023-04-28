@@ -115,6 +115,17 @@ export default function CardHome(props) {
                                 variant="p"
                                 component="div"
                               >
+                              
+                                    <del>
+                                      {value.price.toLocaleString('en-EN')}đ
+                                    </del>
+                                 
+                              </Typography>
+                              <Typography
+                                gutterBottom
+                                variant="p"
+                                component="div"
+                              >
                                 <div className="row">
                                   <div className="col-8">
                                     <b>

@@ -3,6 +3,8 @@ import { styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
 import { Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import { countries } from './country.constant';
+import TextField from '@mui/material/TextField';
 import {
   GoogleMap,
   useJsApiLoader,
@@ -12,6 +14,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setAddress } from '../../../redux/features/homeSlice';
 import './style.css';
 import ProgressBar from 'react-bootstrap/ProgressBar';
+import Box from '@mui/material/Box';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+import Stack from '@mui/material/Stack';
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
   ...theme.typography.body2,
@@ -21,8 +29,8 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 const containerStyle = {
-  width: '400px',
-  height: '400px',
+  width: '700px',
+  height: '454px',
 };
 
 const center = {
@@ -37,6 +45,13 @@ export default function CreateHome22() {
   const [currentPosition, setCurrentPosition] = useState('');
   const [libraries] = useState(['places']);
   const [check, setCheck] = useState(false);
+  const [dataAddress, setDataAddress] = useState({
+    country: 'Viet Nam',
+    addressLine: '',
+    city: '',
+    state: '',
+  });
+  const [addressStr, setAddressStr] = useState('');
   const inputRef = useRef(null);
   const navigate = useNavigate();
   const google = window.google;
@@ -95,9 +110,17 @@ export default function CreateHome22() {
     }
   };
 
+  const handleChangeInput = (event, keyword) => {
+    setDataAddress({ ...dataAddress, [keyword]: event.target.value });
+    let newAddress = (dataAddress.addressLine || '') + ' ,' + (dataAddress.state || '') + ' ,'
+  };
+
+  console.log(dataAddress, 555);
+
   const handleGetPosition = (event) => {
     let { target } = event;
     let { keyCode } = event;
+    console.log(target.value, 113);
     let request = {
       query: target.value,
       fields: ['name', 'geometry'],
@@ -185,8 +208,10 @@ export default function CreateHome22() {
             <br />
             <Autocomplete>
               <div className="search-map">
-                <input
-                  style={{ height: 50, borderRadius: '10px' }}
+                <TextField
+                  label="Full Address"
+                  variant="outlined"
+                  style={{ height: 50, borderRadius: '10px', width: '460px' }}
                   type="text"
                   name="search-map"
                   placeholder="Enter your address.."
@@ -210,6 +235,75 @@ export default function CreateHome22() {
                 </button>
               </div>
             </Autocomplete>
+
+            <Box sx={{ minWidth: 120, maxHeight: 50, marginTop: '50px' }}>
+              <FormControl fullWidth>
+                <InputLabel id="demo-simple-select-label">Country</InputLabel>
+                <Select
+                 
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  defaultValue={countries[235].name}
+                  label="Country"
+                  onChange={(e) => handleChangeInput(e, 'country')}
+                >
+                  {countries.map((country, index) => (
+                    <MenuItem
+                      value={country.name}
+                      key={`${country.name}-${index}`}
+                    >
+                      {country.name}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            </Box>
+            <Box
+              sx={{
+                minWidth: 120,
+                maxWidth: '100%',
+                marginTop: '50px',
+              }}
+            >
+              <TextField
+                sx={{ borderRadius: '10px' }}
+                fullWidth
+                onChange={(e) => handleChangeInput(e, 'addressLine')}
+                label="Address Line"
+                id="fullWidth"
+              />
+            </Box>
+            <Box
+              sx={{
+                minWidth: 120,
+                maxWidth: '100%',
+                marginTop: '50px',
+              }}
+            >
+              <Stack direction="row" spacing={2}>
+                <TextField
+                  sx={{ borderRadius: '10px' }}
+                  fullWidth
+                  label="City"
+                  onChange={(e) => handleChangeInput(e, 'city')}
+                  id="fullWidth"
+                />
+                <TextField
+                  sx={{ borderRadius: '10px' }}
+                  fullWidth
+                  label="State"
+                  id="fullWidth"
+                  onChange={(e) => handleChangeInput(e, 'state')}
+                />
+              </Stack>
+            </Box>
+            <Box
+              sx={{
+                minWidth: 120,
+                maxWidth: '100%',
+                marginTop: '50px',
+              }}
+            ></Box>
           </div>
           <div className="col-6">
             <div>

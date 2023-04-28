@@ -31,6 +31,7 @@ export default function Navbar() {
   const [isHost, setIsHost] = useState(true);
   const [phoneOfUserExist, setPhoneOfUserExist] = useState(true);
   const [notifications, setNotifications] = useState([]);
+  const [unseenCount, setUnseenCount] = useState(0);
   const [pageNoti, setPageNoti] = useState(1);
   const [endNoti, setEndNoti] = useState(false);
   const [isFetchNoti, setIsFetchNoti] = useState(false);
@@ -59,11 +60,12 @@ export default function Navbar() {
             Authorization: JSON.parse(token),
           },
         });
-        if (response.data.length == 0) {
+        if (response.data.result.length == 0) {
           setEndNoti(true);
         } else {
           setEndNoti(false);
-          setNotifications([...notifications, ...response.data]);
+          setNotifications([...notifications, ...response.data.result]);
+          setUnseenCount(response.data.total);
         }
       }
     };
@@ -109,11 +111,28 @@ export default function Navbar() {
   const handleClickNotifications = (event) => {
     setAnchorElNotifications(event.currentTarget);
   };
-  const handleCloseNotifications = (url) => {
+  const handleCloseNotifications = (url, index) => {
+    if (typeof index == 'number') {
+      console.log(index, 111);
+      console.log(notifications[index], 222);
+      handleUpdateNotificationStatus(notifications[index]?.idNotification);
+    }
     setAnchorElNotifications(null);
     if (typeof url === 'string') {
       navigate(`${url}`);
     }
+  };
+
+  const handleUpdateNotificationStatus = (id) => {
+    axios({
+      method: 'PATCH',
+      url: `${process.env.REACT_APP_BASE_URL}/notifications?idNotification=${id}`,
+      headers: {
+        Authorization: JSON.parse(localStorage.getItem('token')),
+      },
+    }).then((res) => {
+      setIsFetchNoti(!isFetchNoti);
+    });
   };
 
   const handleProfileMenuOpen = (event) => {
@@ -333,7 +352,7 @@ export default function Navbar() {
               <NotificationsNoneIcon />
             ) : (
               <div>
-                <Badge badgeContent={notifications.length} color="warning">
+                <Badge badgeContent={unseenCount} color="warning">
                   <NotificationsIcon
                     id="basic-button"
                     aria-controls={open ? 'basic-menu' : undefined}
@@ -353,19 +372,39 @@ export default function Navbar() {
                       'aria-labelledby': 'basic-button',
                     }}
                   >
-                    {notifications.map((noti, index) => (
-                      <MenuItem
-                        key={`${index}-${noti}`}
-                        onClick={() => {
-                          handleCloseNotifications(noti.dataUrl);
-                        }}
-                      >
-                        {noti.message}
-                      </MenuItem>
-                    ))}
+                    {notifications.map((noti, index) => {
+                      if (noti.status == 'seen') {
+                        return (
+                          <MenuItem
+                            key={`${index}-${noti}`}
+                            onClick={() => {
+                              handleCloseNotifications(noti.dataUrl);
+                            }}
+                          >
+                            {noti.message}
+                          </MenuItem>
+                        );
+                      } else {
+                        return (
+                          <MenuItem
+                            key={`${index}-${noti}`}
+                            style={{color: 'blue'}}
+                            onClick={() => {
+                              handleCloseNotifications(noti.dataUrl, index);
+                            }}
+                          >
+                            {noti.message}
+                          </MenuItem>
+                        )
+                      }
+                    })}
                     {!endNoti && (
                       <div
-                        style={{ display: 'flex', justifyContent: 'center', cursor: 'pointer' }}
+                        style={{
+                          display: 'flex',
+                          justifyContent: 'center',
+                          cursor: 'pointer',
+                        }}
                         onClick={handleMoreNoti}
                       >
                         See more
@@ -399,22 +438,20 @@ export default function Navbar() {
                 <>
                   <img
                     style={{ width: '50%', borderRadius: '50%' }}
-                    src={currentState.newAvatarImage }
+                    src={currentState.newAvatarImage}
+                  />
+                </>
+              ) : imageUser ? (
+                <>
+                  <img
+                    style={{ width: '50%', borderRadius: '50%' }}
+                    src={imageUser}
                   />
                 </>
               ) : (
-                  imageUser ? (
-                      <>
-                        <img
-                            style={{ width: '50%', borderRadius: '50%' }}
-                            src={imageUser}
-                        />
-                      </>
-                  ) : (
-                      <>
-                        <AccountCircle fontSize="large" />
-                      </>
-                  )
+                <>
+                  <AccountCircle fontSize="large" />
+                </>
               )}
             </Button>
           </IconButton>

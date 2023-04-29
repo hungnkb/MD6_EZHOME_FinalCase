@@ -53,10 +53,11 @@ function ModalDescription(props) {
           <Modal.Title>Description</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          {/* Nội dung của modal */}
-          {props.description ? (
-            <div>{ReactHtmlParser(props.description)}</div>
-          ) : null}
+          <div className='container'>
+            {/* Nội dung của modal */}
+          {props.description ? <div>{ReactHtmlParser(props.description)}</div> : null}
+          </div>
+          
         </Modal.Body>
         <Modal.Footer></Modal.Footer>
       </Modal>

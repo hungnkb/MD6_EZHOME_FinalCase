@@ -1,17 +1,28 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
 import { Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import { countries } from './country.constant';
+import TextField from '@mui/material/TextField';
 import {
   GoogleMap,
   useJsApiLoader,
   Autocomplete,
+  Marker,
 } from '@react-google-maps/api';
 import { useDispatch, useSelector } from 'react-redux';
 import { setAddress } from '../../../redux/features/homeSlice';
 import './style.css';
 import ProgressBar from 'react-bootstrap/ProgressBar';
+import Box from '@mui/material/Box';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+import Stack from '@mui/material/Stack';
+import { useFormik } from 'formik';
+import axios from 'axios';
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
   ...theme.typography.body2,
@@ -21,8 +32,8 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 const containerStyle = {
-  width: '400px',
-  height: '400px',
+  width: '700px',
+  height: '454px',
 };
 
 const center = {
@@ -37,6 +48,14 @@ export default function CreateHome22() {
   const [currentPosition, setCurrentPosition] = useState('');
   const [libraries] = useState(['places']);
   const [check, setCheck] = useState(false);
+  const [dataAddress, setDataAddress] = useState({
+    addressLine: '',
+    state: '',
+    city: '',
+    country: 'Viet Nam',
+  });
+  const [dataAddressStr, setDataAddressStr] = useState('');
+  const [submitMap, setSubmitMap] = useState(false);
   const inputRef = useRef(null);
   const navigate = useNavigate();
   const google = window.google;
@@ -57,6 +76,10 @@ export default function CreateHome22() {
     libraries,
   });
 
+  const onLoad = (marker) => {
+    console.log('marker: ', marker);
+  };
+
   function createMarker(place) {
     if (!place.geometry || !place.geometry.location) return;
 
@@ -71,14 +94,14 @@ export default function CreateHome22() {
   }
 
   useEffect(() => {
-    if (data) {
+    if (dataAddressStr) {
       setCheck(true);
     }
-  }, [data]);
+  }, [dataAddressStr]);
 
   const handleSetAddress = () => {
-    if (data) {
-      dispatch(setAddress(data.address));
+    if (dataAddressStr) {
+      dispatch(setAddress(dataAddressStr));
     }
   };
 
@@ -95,41 +118,77 @@ export default function CreateHome22() {
     }
   };
 
-  const handleGetPosition = (event) => {
-    let { target } = event;
-    let { keyCode } = event;
-    let request = {
-      query: target.value,
-      fields: ['name', 'geometry'],
-    };
-    if (event.type === 'keydown') {
-      if (keyCode === 13) {
-        let service = new google.maps.places.PlacesService(map);
-        service.findPlaceFromQuery(request, (results, status) => {
-          clearMarker();
-          if (status === google.maps.places.PlacesServiceStatus.OK && results) {
-            setData({
-              ...data,
-              address: target.value,
-            });
-            createMarker(results[0]);
-          }
-        });
-      }
-    } else {
-      let service = new google.maps.places.PlacesService(map);
-      service.findPlaceFromQuery(request, (results, status) => {
-        clearMarker();
-        if (status === google.maps.places.PlacesServiceStatus.OK && results) {
-          setData({
-            ...data,
-            address: target.value,
-          });
-          createMarker(results[0]);
+  const handleChangeInput = (event, keyword) => {
+    setDataAddress({ ...dataAddress, [keyword]: event.target.value });
+    let newAddress = '';
+
+    for (let key in dataAddress) {
+      if (dataAddress[key] != '') {
+        if (key == 'country') {
+          newAddress += dataAddress[key];
+        } else {
+          newAddress += dataAddress[key] + ', ';
         }
-      });
+      }
     }
+    console.log(newAddress);
+    setData({ address: newAddress });
+    setDataAddressStr(newAddress);
   };
+
+  useEffect(() => {
+    const getData = async () => {
+      console.log(process.env.REACT_APP_GG_API_LIB_KEY);
+      axios
+        .get(
+          `https://maps.googleapis.com/maps/api/geocode/json?address=${dataAddressStr}&key=${process.env.REACT_APP_GG_API_LIB_KEY}`,
+        )
+        .then((res) => {
+          const newLocation = { ...location };
+          newLocation.lat = res.data.results[0].geometry.location.lat;
+          newLocation.lng = res.data.results[0].geometry.location.lng;
+          console.log(newLocation, 111);
+          setCurrentPosition(newLocation);
+        });
+    };
+    getData();
+  }, [submitMap]);
+
+  // const handleGetPosition = (event) => {
+  //   let { target } = event;
+  //   let { keyCode } = event;
+  //   let request = {
+  //     query: target.value,
+  //     fields: ['name', 'geometry'],
+  //   };
+  //   if (event.type === 'keydown') {
+  //     if (keyCode === 13) {
+  //       let service = new google.maps.places.PlacesService(map);
+  //       service.findPlaceFromQuery(request, (results, status) => {
+  //         clearMarker();
+  //         if (status === google.maps.places.PlacesServiceStatus.OK && results) {
+  //           setData({
+  //             ...data,
+  //             address: target.value,
+  //           });
+  //           createMarker(results[0]);
+  //         }
+  //       });
+  //     }
+  //   } else {
+  //     let service = new google.maps.places.PlacesService(map);
+  //     service.findPlaceFromQuery(request, (results, status) => {
+  //       clearMarker();
+  //       if (status === google.maps.places.PlacesServiceStatus.OK && results) {
+  //         setData({
+  //           ...data,
+  //           address: target.value,
+  //         });
+  //         createMarker(results[0]);
+  //       }
+  //     });
+  //   }
+  // };
   const handleGetPositionCurrent = () => {
     clearMarker();
     geocoder = new google.maps.Geocoder();
@@ -186,7 +245,9 @@ export default function CreateHome22() {
             <Autocomplete>
               <div className="search-map">
                 <input
-                  style={{ height: 50, borderRadius: '10px' }}
+                  label="Full Address"
+                  variant="outlined"
+                  style={{ height: 50, borderRadius: '10px', width: '522px' }}
                   type="text"
                   name="search-map"
                   placeholder="Enter your address.."
@@ -195,10 +256,13 @@ export default function CreateHome22() {
                   onKeyDown={(event) => handleGetPosition(event)}
                   onChange={handleChange}
                   ref={inputRef}
+                  value={dataAddressStr}
+                  disabled
                 />
                 <button
                   className="current-location"
-                  onClick={handleGetPositionCurrent}
+                  // onClick={handleGetPositionCurrent}
+                  onClick={() => setSubmitMap(!submitMap)}
                   style={{
                     height: 50,
                     borderRadius: '10px',
@@ -206,20 +270,93 @@ export default function CreateHome22() {
                   }}
                 >
                   <i className="fa-solid fa-location-arrow"></i>
-                  Current position
+                  Submit
                 </button>
               </div>
             </Autocomplete>
+
+            <Box sx={{ minWidth: 120, maxHeight: 50, marginTop: '50px' }}>
+              <FormControl fullWidth>
+                <InputLabel id="demo-simple-select-label">Country</InputLabel>
+                <Select
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  defaultValue={countries[235].name}
+                  label="Country"
+                  onChange={(e) => handleChangeInput(e, 'country')}
+                >
+                  {countries.map((country, index) => (
+                    <MenuItem
+                      value={country.name}
+                      key={`${country.name}-${index}`}
+                    >
+                      {country.name}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            </Box>
+            <Box
+              sx={{
+                minWidth: 120,
+                maxWidth: '100%',
+                marginTop: '50px',
+              }}
+            >
+              <TextField
+                sx={{ borderRadius: '10px' }}
+                fullWidth
+                onChange={(e) => handleChangeInput(e, 'addressLine')}
+                onBlur={(e) => handleChangeInput(e, 'addressLine')}
+                label="Address Line"
+                id="fullWidth"
+              />
+            </Box>
+            <Box
+              sx={{
+                minWidth: 120,
+                maxWidth: '100%',
+                marginTop: '50px',
+              }}
+            >
+              <Stack direction="row" spacing={2}>
+                <TextField
+                  sx={{ borderRadius: '10px' }}
+                  fullWidth
+                  label="City"
+                  onChange={(e) => handleChangeInput(e, 'city')}
+                  onBlur={(e) => handleChangeInput(e, 'city')}
+                  id="fullWidth"
+                />
+                <TextField
+                  sx={{ borderRadius: '10px' }}
+                  fullWidth
+                  label="State"
+                  id="fullWidth"
+                  onChange={(e) => handleChangeInput(e, 'state')}
+                  onBlur={(e) => handleChangeInput(e, 'state')}
+                />
+              </Stack>
+            </Box>
+            <Box
+              sx={{
+                minWidth: 120,
+                maxWidth: '100%',
+                marginTop: '50px',
+              }}
+            ></Box>
           </div>
           <div className="col-6">
             <div>
               {isLoaded ? (
                 <GoogleMap
+                  id="marker-example"
                   mapContainerStyle={containerStyle}
-                  center={center}
-                  zoom={10}
-                  onLoad={(map) => setMap(map)}
-                ></GoogleMap>
+                  zoom={15}
+                  center={currentPosition}
+                >
+                  <Marker onLoad={onLoad} position={currentPosition} />
+                </GoogleMap>
               ) : (
                 <></>
               )}

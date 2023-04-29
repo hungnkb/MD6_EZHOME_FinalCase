@@ -10,6 +10,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { Datepicker } from '@mobiscroll/react';
+import TextField from '@mui/material/TextField';
 export default function ModalCoupon() {
   const [open, setOpen] = React.useState(false);
 
@@ -46,15 +47,23 @@ export default function ModalCoupon() {
           {' Create 1 voucher  '}
         </DialogTitle>
         <DialogContent>
-          Contents : <input type='text'/>
-           % : <input type='number'/>
-          <Datepicker
+          <p>
+            {' '}
+            <TextField id="outlined-basic" label="Contents" variant="outlined" />
+          </p>
+
+          <p>
+            {' '}
+            According to % : <input type="number" />{' '}
+          </p>
+          <p> Date : <Datepicker
             controls={['calendar']}
             select="range"
             touchUi={true}
             inputComponent="input"
             inputProps={props}
-          />
+          /> </p>
+          
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Disagree</Button>

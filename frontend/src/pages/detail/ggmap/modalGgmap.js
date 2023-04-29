@@ -84,7 +84,7 @@ function ModalGgmap(props) {
             </div>
             <div className="col-9">
               {isLoaded && location.lat > 0 && (
-                <GoogleMap 
+                <GoogleMap
                   id="marker-example"
                   mapContainerStyle={mapContainerStyle}
                   zoom={15}

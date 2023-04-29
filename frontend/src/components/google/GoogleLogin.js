@@ -17,7 +17,7 @@ const GoogleButton = (props) => {
     const userObject = jwt_decode(response.credential);
     setUser(userObject);
     axios
-      .post('http://localhost:3002/api/v1/auth/login-with-google', {
+      .post(`${process.env.REACT_APP_BASE_URL}/auth/login-with-google`, {
         email: userObject.email,
       })
       .then((response) => {

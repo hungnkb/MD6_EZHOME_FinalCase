@@ -80,8 +80,8 @@ export default function DetailHome() {
 
   return (
     <>
-      <div className='container'>
-        <div  style={{ marginTop: '5px' }}>
+      <div className="container">
+        <div style={{ marginTop: '5px' }}>
           <div className="row">
             <div className="col-12">
               <h3> {detail.title} </h3>
@@ -187,7 +187,7 @@ export default function DetailHome() {
                               style={{ cursor: 'pointer' }}
                               onClick={() => setOpenDescription(true)}
                             >
-                             <b> See more . . . </b> 
+                              <b> See more . . . </b>
                             </div>
                           )}
                         </p>

@@ -5,7 +5,7 @@ import Box from '@mui/material/Box';
 import { Modal } from '@mui/material';
 import * as React from 'react';
 import Swal from 'sweetalert2';
-import IconButton from '@mui/material/IconButton';;
+import IconButton from '@mui/material/IconButton';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import InputAdornment from '@mui/material/InputAdornment';
 import Visibility from '@mui/icons-material/Visibility';
@@ -50,33 +50,33 @@ export default function UpdatePassword(props) {
 
   const handleSubmitChangePassword = (event) => {
     event.preventDefault();
-    if (emailOldandNewPassword.newPassword.length >= 6){
-        axios
-            .post('http://localhost:3002/api/v1/users/change-password', {
-                email: userLogin.userLogin.email,
-                oldPassword: emailOldandNewPassword.oldPassword,
-                newPassword: emailOldandNewPassword.newPassword,
-            })
-            .then(
-                (response) => {
-                    handleClose();
-                    Swal.fire({
-                        position: 'center',
-                        icon: 'success',
-                        title: 'Change Password Success',
-                        showConfirmButton: false,
-                        timer: 2000,
-                    });
-                },
-                (error) => {
-                    handleClose();
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Oops...',
-                        text: 'Incorrect Password!',
-                    });
-                },
-            );
+    if (emailOldandNewPassword.newPassword.length >= 6) {
+      axios
+        .post('http://localhost:3002/api/v1/users/change-password', {
+          email: userLogin.userLogin.email,
+          oldPassword: emailOldandNewPassword.oldPassword,
+          newPassword: emailOldandNewPassword.newPassword,
+        })
+        .then(
+          (response) => {
+            handleClose();
+            Swal.fire({
+              position: 'center',
+              icon: 'success',
+              title: 'Change Password Success',
+              showConfirmButton: false,
+              timer: 2000,
+            });
+          },
+          (error) => {
+            handleClose();
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: 'Incorrect Password!',
+            });
+          },
+        );
     }
   };
   const handleInputChangePassword = (event) =>
@@ -134,7 +134,7 @@ export default function UpdatePassword(props) {
           <div className="bg-white border flex flex-col p-4 pt-10">
             <h4
               style={{
-                marginLeft:"40px",
+                marginLeft: '40px',
                 fontWeight: 'bold',
                 marginBottom: '10px',
               }}
@@ -152,7 +152,7 @@ export default function UpdatePassword(props) {
                   name="oldPassword"
                   placeholder="Old Password"
                   style={{
-                    height:"50px",
+                    height: '50px',
                     marginBottom: '10px',
                     padding: '10px',
                     width: '100%',
@@ -173,7 +173,7 @@ export default function UpdatePassword(props) {
                         {showPassword ? <VisibilityOff /> : <Visibility />}
                       </IconButton>
                     </InputAdornment>
-                   }
+                  }
                 />
               ) : null}
               <br />
@@ -189,7 +189,7 @@ export default function UpdatePassword(props) {
                   onChange={handleChangePassword}
                   placeholder="New Password"
                   style={{
-                    height:"50px",
+                    height: '50px',
                     marginBottom: '10px',
                     padding: '10px',
                     width: '100%',
@@ -210,10 +210,12 @@ export default function UpdatePassword(props) {
                         {showPassword1 ? <VisibilityOff /> : <Visibility />}
                       </IconButton>
                     </InputAdornment>
-                   }
+                  }
                 />
                 {form.newPassword && form.newPassword.error && (
-                  <p style={{color: "red"}} className="error">{form.newPassword.error}</p>
+                  <p style={{ color: 'red' }} className="error">
+                    {form.newPassword.error}
+                  </p>
                 )}
               </div>
               <br />
@@ -229,7 +231,7 @@ export default function UpdatePassword(props) {
                   onChange={handleChangePassword}
                   placeholder="Re New Password"
                   style={{
-                    height:"50px",
+                    height: '50px',
                     marginBottom: '10px',
                     padding: '10px',
                     width: '100%',
@@ -250,17 +252,19 @@ export default function UpdatePassword(props) {
                         {showPassword2 ? <VisibilityOff /> : <Visibility />}
                       </IconButton>
                     </InputAdornment>
-                   }
+                  }
                 />
                 {form.confirmPassword && form.confirmPassword.error && (
-                  <p style={{color: "red"}} className="error">{form.confirmPassword.error}</p>
+                  <p style={{ color: 'red' }} className="error">
+                    {form.confirmPassword.error}
+                  </p>
                 )}
               </div>
               <br />
               <div className="flex justify-center">
                 <button
                   style={{
-                    width:"100%",
+                    width: '100%',
                     background: '#f7a800',
                     color: '#fff',
                     fontWeight: 'bold',

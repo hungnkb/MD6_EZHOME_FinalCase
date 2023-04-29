@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from '../../api/axios';
 import {
@@ -23,7 +23,7 @@ const Toast = Swal.mixin({
     toast.addEventListener('mouseleave', Swal.resumeTimer);
   },
 });
-import IconButton from '@mui/material/IconButton';;
+import IconButton from '@mui/material/IconButton';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import InputAdornment from '@mui/material/InputAdornment';
 import Visibility from '@mui/icons-material/Visibility';
@@ -189,14 +189,13 @@ export default function ResetPassword() {
                     form.password && form.password.error && 'custom-input-error'
                   }`}
                 >
-                     <OutlinedInput
-
+                  <OutlinedInput
                     name="password"
                     value={(form.password && form.password.value) || ''}
                     onChange={handleChange}
                     placeholder="New Password"
                     style={{
-                      height:"50px",
+                      height: '50px',
                       marginBottom: '10px',
                       padding: '10px',
                       width: '100%',
@@ -217,10 +216,13 @@ export default function ResetPassword() {
                           {showPassword ? <VisibilityOff /> : <Visibility />}
                         </IconButton>
                       </InputAdornment>
-                     } />
+                    }
+                  />
 
                   {form.password && form.password.error && (
-                    <p style={{color:"red"}} className="error">{form.password.error}</p>
+                    <p style={{ color: 'red' }} className="error">
+                      {form.password.error}
+                    </p>
                   )}
                 </div>
                 <br />
@@ -236,7 +238,7 @@ export default function ResetPassword() {
                     onChange={handleChange}
                     placeholder="Re New Password"
                     style={{
-                      height:"50px",
+                      height: '50px',
                       marginBottom: '10px',
                       padding: '10px',
                       width: '100%',
@@ -257,10 +259,12 @@ export default function ResetPassword() {
                           {showPassword1 ? <VisibilityOff /> : <Visibility />}
                         </IconButton>
                       </InputAdornment>
-                     } 
+                    }
                   />
                   {form.confirmPassword && form.confirmPassword.error && (
-                    <p style={{color:"red"}} className="error">{form.confirmPassword.error}</p>
+                    <p style={{ color: 'red' }} className="error">
+                      {form.confirmPassword.error}
+                    </p>
                   )}
                 </div>
                 <br />
@@ -272,7 +276,7 @@ export default function ResetPassword() {
                       fontWeight: 'bold',
                       padding: '10px',
                       borderRadius: '5px',
-                      width:"100%"
+                      width: '100%',
                     }}
                     type="submit"
                     className="w-full"

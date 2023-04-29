@@ -103,11 +103,11 @@ export default function HistoryRent() {
     setStatus(value);
   };
 
-  const handleButtonClick =  (idOrder, idOwner) => {
+  const handleButtonClick = (idOrder, idOwner) => {
     doSomethingWithId(idOrder, idOwner);
   };
   const doSomethingWithId = async (idOrder, idOwner) => {
-    console.log(idOrder,33)
+    console.log(idOrder, 33);
     Swal.fire({
       title: 'Are you sure?',
       text: 'Are you sure you want to cancel this booking?',
@@ -256,7 +256,6 @@ export default function HistoryRent() {
     return sum1;
   };
 
-
   return (
     <>
       <div style={{ marginBottom: '400px' }}>
@@ -282,7 +281,7 @@ export default function HistoryRent() {
             marginLeft: '4%',
           }}
         >
-          <Table  aria-label="simple table">
+          <Table aria-label="simple table">
             <TableHead>
               <TableRow>
                 <TableCell align="center">
@@ -343,14 +342,31 @@ export default function HistoryRent() {
                             >
                               <SpeedDial
                                 ariaLabel="SpeedDial openIcon example"
-                                sx={{ position: 'absolute', bottom: 16, right: 16, '& .MuiFab-primary': { backgroundColor: 'gray', color: 'white', width: 35, height: 35, '& .MuiSpeedDialIcon-icon': { fontSize: 20 }, '&:hover': {backgroundColor: 'black'} } }}
-                                icon={<SpeedDialIcon openIcon={<EditIcon/>} />}
+                                sx={{
+                                  position: 'absolute',
+                                  bottom: 16,
+                                  right: 16,
+                                  '& .MuiFab-primary': {
+                                    backgroundColor: 'gray',
+                                    color: 'white',
+                                    width: 35,
+                                    height: 35,
+                                    '& .MuiSpeedDialIcon-icon': {
+                                      fontSize: 20,
+                                    },
+                                    '&:hover': { backgroundColor: 'black' },
+                                  },
+                                }}
+                                icon={<SpeedDialIcon openIcon={<EditIcon />} />}
                               >
                                 <SpeedDialAction
                                   onClick={(event) =>
-                                    handleButtonClick(data.idOrder, data.idHome.idUser)
+                                    handleButtonClick(
+                                      data.idOrder,
+                                      data.idHome.idUser,
+                                    )
                                   }
-                                  sx={{color:"red"}}
+                                  sx={{ color: 'red' }}
                                   data-id={`${data.idOrder}`}
                                   icon={
                                     <>
@@ -359,7 +375,7 @@ export default function HistoryRent() {
                                   }
                                   tooltipTitle="Cancel"
                                 />
-                                  <SpeedDialAction
+                                <SpeedDialAction
                                   style={{ cursor: 'pointer' }}
                                   onClick={() =>
                                     handleCheckout(
@@ -369,16 +385,15 @@ export default function HistoryRent() {
                                     )
                                   }
                                   data-id={`${data.idOrder}`}
-                                  sx={{color:"green"}}
+                                  sx={{ color: 'green' }}
                                   icon={
                                     <>
-                                       <i className="fa-solid fa-money-check-dollar-pen"></i>
+                                      <i className="fa-solid fa-money-check-dollar-pen"></i>
                                     </>
                                   }
                                   tooltipTitle="Checkout"
                                 />
                               </SpeedDial>
-                            
                             </Box>
                           </TableCell>
                           {/* <TableCell>

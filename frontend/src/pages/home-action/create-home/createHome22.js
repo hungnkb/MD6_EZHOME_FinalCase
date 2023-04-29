@@ -133,7 +133,7 @@ export default function CreateHome22() {
     }
     console.log(newAddress);
     setData({ address: newAddress });
-    setDataAddressStr(newAddress)
+    setDataAddressStr(newAddress);
   };
 
   useEffect(() => {
@@ -349,14 +349,14 @@ export default function CreateHome22() {
           <div className="col-6">
             <div>
               {isLoaded ? (
-                <GoogleMap 
-                id="marker-example"
-                mapContainerStyle={containerStyle}
-                zoom={15}
-                center={currentPosition}
-              >
-                <Marker onLoad={onLoad} position={currentPosition} />
-              </GoogleMap>
+                <GoogleMap
+                  id="marker-example"
+                  mapContainerStyle={containerStyle}
+                  zoom={15}
+                  center={currentPosition}
+                >
+                  <Marker onLoad={onLoad} position={currentPosition} />
+                </GoogleMap>
               ) : (
                 <></>
               )}

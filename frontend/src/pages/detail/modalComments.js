@@ -47,7 +47,6 @@ function ModalComments(props) {
                   <div>
                     <div className="row">
                       <div className="col-1">
-
                         {/* <img
                           src="https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg"
                           alt="avatar"
@@ -57,23 +56,23 @@ function ModalComments(props) {
                             borderRadius: '50%',
                           }}
                         /> */}
-                           {(data.idUser.image)?(
-                     <MDBCardImage 
-                    className="rounded-circle shadow-1-strong me-3"
-                    src={data.idUser.image}
-                    alt="avatar"
-                    width="50"
-                    height="50"
-                  />
-                  ):(
-                      <MDBCardImage 
-                    className="rounded-circle shadow-1-strong me-3"
-                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTvw1lmPDOJqryVsX3imw1Bj4lnajMh7j-oQQ&usqp=CAU"
-                    alt="avatar"
-                    width="50"
-                    height="50"
-                  />
-                  )}
+                        {data.idUser.image ? (
+                          <MDBCardImage
+                            className="rounded-circle shadow-1-strong me-3"
+                            src={data.idUser.image}
+                            alt="avatar"
+                            width="50"
+                            height="50"
+                          />
+                        ) : (
+                          <MDBCardImage
+                            className="rounded-circle shadow-1-strong me-3"
+                            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTvw1lmPDOJqryVsX3imw1Bj4lnajMh7j-oQQ&usqp=CAU"
+                            alt="avatar"
+                            width="50"
+                            height="50"
+                          />
+                        )}
                       </div>
                       <div className="col-8">
                         <MDBTypography tag="h5">
@@ -96,10 +95,8 @@ function ModalComments(props) {
               </MDBCard>
             </div>
           ))}
-
         </Modal.Body>
-        <Modal.Footer>
-        </Modal.Footer>
+        <Modal.Footer></Modal.Footer>
       </Modal>
     </>
   );

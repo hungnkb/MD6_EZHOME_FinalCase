@@ -18,7 +18,10 @@ import ReactHtmlParser from 'react-html-parser';
 function ModalDescription(props) {
   const [showModal, setShowModal] = useState(false);
   const [value, setValue] = useState();
-  const handleCloseModal = () => {setShowModal(false); props.setOpenDescription(false)};
+  const handleCloseModal = () => {
+    setShowModal(false);
+    props.setOpenDescription(false);
+  };
   const handleShowModal = () => setShowModal(true);
   const idHome = useParams();
   const [review, setReview] = useState([]);
@@ -38,8 +41,7 @@ function ModalDescription(props) {
         style={{ cursor: 'pointer' }}
         onClick={handleShowModal}
         variant="light"
-      >
-      </u>
+      ></u>
 
       <Modal
         show={showModal}
@@ -52,7 +54,9 @@ function ModalDescription(props) {
         </Modal.Header>
         <Modal.Body>
           {/* Nội dung của modal */}
-          {props.description ? <div>{ReactHtmlParser(props.description)}</div> : null}
+          {props.description ? (
+            <div>{ReactHtmlParser(props.description)}</div>
+          ) : null}
         </Modal.Body>
         <Modal.Footer></Modal.Footer>
       </Modal>

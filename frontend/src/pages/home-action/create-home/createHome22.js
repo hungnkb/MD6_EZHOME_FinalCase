@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
 import { Button } from '@mui/material';
@@ -9,6 +9,7 @@ import {
   GoogleMap,
   useJsApiLoader,
   Autocomplete,
+  Marker,
 } from '@react-google-maps/api';
 import { useDispatch, useSelector } from 'react-redux';
 import { setAddress } from '../../../redux/features/homeSlice';
@@ -20,6 +21,8 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import Stack from '@mui/material/Stack';
+import { useFormik } from 'formik';
+import axios from 'axios';
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
   ...theme.typography.body2,
@@ -46,12 +49,13 @@ export default function CreateHome22() {
   const [libraries] = useState(['places']);
   const [check, setCheck] = useState(false);
   const [dataAddress, setDataAddress] = useState({
-    country: 'Viet Nam',
     addressLine: '',
-    city: '',
     state: '',
+    city: '',
+    country: 'Viet Nam',
   });
-  const [addressStr, setAddressStr] = useState('');
+  const [dataAddressStr, setDataAddressStr] = useState('');
+  const [submitMap, setSubmitMap] = useState(false);
   const inputRef = useRef(null);
   const navigate = useNavigate();
   const google = window.google;
@@ -72,6 +76,10 @@ export default function CreateHome22() {
     libraries,
   });
 
+  const onLoad = (marker) => {
+    console.log('marker: ', marker);
+  };
+
   function createMarker(place) {
     if (!place.geometry || !place.geometry.location) return;
 
@@ -86,14 +94,14 @@ export default function CreateHome22() {
   }
 
   useEffect(() => {
-    if (data) {
+    if (dataAddressStr) {
       setCheck(true);
     }
-  }, [data]);
+  }, [dataAddressStr]);
 
   const handleSetAddress = () => {
-    if (data) {
-      dispatch(setAddress(data.address));
+    if (dataAddressStr) {
+      dispatch(setAddress(dataAddressStr));
     }
   };
 
@@ -112,47 +120,75 @@ export default function CreateHome22() {
 
   const handleChangeInput = (event, keyword) => {
     setDataAddress({ ...dataAddress, [keyword]: event.target.value });
-    let newAddress = (dataAddress.addressLine || '') + ' ,' + (dataAddress.state || '') + ' ,'
-  };
+    let newAddress = '';
 
-  console.log(dataAddress, 555);
-
-  const handleGetPosition = (event) => {
-    let { target } = event;
-    let { keyCode } = event;
-    console.log(target.value, 113);
-    let request = {
-      query: target.value,
-      fields: ['name', 'geometry'],
-    };
-    if (event.type === 'keydown') {
-      if (keyCode === 13) {
-        let service = new google.maps.places.PlacesService(map);
-        service.findPlaceFromQuery(request, (results, status) => {
-          clearMarker();
-          if (status === google.maps.places.PlacesServiceStatus.OK && results) {
-            setData({
-              ...data,
-              address: target.value,
-            });
-            createMarker(results[0]);
-          }
-        });
-      }
-    } else {
-      let service = new google.maps.places.PlacesService(map);
-      service.findPlaceFromQuery(request, (results, status) => {
-        clearMarker();
-        if (status === google.maps.places.PlacesServiceStatus.OK && results) {
-          setData({
-            ...data,
-            address: target.value,
-          });
-          createMarker(results[0]);
+    for (let key in dataAddress) {
+      if (dataAddress[key] != '') {
+        if (key == 'country') {
+          newAddress += dataAddress[key];
+        } else {
+          newAddress += dataAddress[key] + ', ';
         }
-      });
+      }
     }
+    console.log(newAddress);
+    setData({ address: newAddress });
+    setDataAddressStr(newAddress)
   };
+
+  useEffect(() => {
+    const getData = async () => {
+      console.log(process.env.REACT_APP_GG_API_LIB_KEY);
+      axios
+        .get(
+          `https://maps.googleapis.com/maps/api/geocode/json?address=${dataAddressStr}&key=${process.env.REACT_APP_GG_API_LIB_KEY}`,
+        )
+        .then((res) => {
+          const newLocation = { ...location };
+          newLocation.lat = res.data.results[0].geometry.location.lat;
+          newLocation.lng = res.data.results[0].geometry.location.lng;
+          console.log(newLocation, 111);
+          setCurrentPosition(newLocation);
+        });
+    };
+    getData();
+  }, [submitMap]);
+
+  // const handleGetPosition = (event) => {
+  //   let { target } = event;
+  //   let { keyCode } = event;
+  //   let request = {
+  //     query: target.value,
+  //     fields: ['name', 'geometry'],
+  //   };
+  //   if (event.type === 'keydown') {
+  //     if (keyCode === 13) {
+  //       let service = new google.maps.places.PlacesService(map);
+  //       service.findPlaceFromQuery(request, (results, status) => {
+  //         clearMarker();
+  //         if (status === google.maps.places.PlacesServiceStatus.OK && results) {
+  //           setData({
+  //             ...data,
+  //             address: target.value,
+  //           });
+  //           createMarker(results[0]);
+  //         }
+  //       });
+  //     }
+  //   } else {
+  //     let service = new google.maps.places.PlacesService(map);
+  //     service.findPlaceFromQuery(request, (results, status) => {
+  //       clearMarker();
+  //       if (status === google.maps.places.PlacesServiceStatus.OK && results) {
+  //         setData({
+  //           ...data,
+  //           address: target.value,
+  //         });
+  //         createMarker(results[0]);
+  //       }
+  //     });
+  //   }
+  // };
   const handleGetPositionCurrent = () => {
     clearMarker();
     geocoder = new google.maps.Geocoder();
@@ -208,10 +244,10 @@ export default function CreateHome22() {
             <br />
             <Autocomplete>
               <div className="search-map">
-                <TextField
+                <input
                   label="Full Address"
                   variant="outlined"
-                  style={{ height: 50, borderRadius: '10px', width: '460px' }}
+                  style={{ height: 50, borderRadius: '10px', width: '522px' }}
                   type="text"
                   name="search-map"
                   placeholder="Enter your address.."
@@ -220,10 +256,13 @@ export default function CreateHome22() {
                   onKeyDown={(event) => handleGetPosition(event)}
                   onChange={handleChange}
                   ref={inputRef}
+                  value={dataAddressStr}
+                  disabled
                 />
                 <button
                   className="current-location"
-                  onClick={handleGetPositionCurrent}
+                  // onClick={handleGetPositionCurrent}
+                  onClick={() => setSubmitMap(!submitMap)}
                   style={{
                     height: 50,
                     borderRadius: '10px',
@@ -231,7 +270,7 @@ export default function CreateHome22() {
                   }}
                 >
                   <i className="fa-solid fa-location-arrow"></i>
-                  Current position
+                  Submit
                 </button>
               </div>
             </Autocomplete>
@@ -240,7 +279,6 @@ export default function CreateHome22() {
               <FormControl fullWidth>
                 <InputLabel id="demo-simple-select-label">Country</InputLabel>
                 <Select
-                 
                   labelId="demo-simple-select-label"
                   id="demo-simple-select"
                   defaultValue={countries[235].name}
@@ -269,6 +307,7 @@ export default function CreateHome22() {
                 sx={{ borderRadius: '10px' }}
                 fullWidth
                 onChange={(e) => handleChangeInput(e, 'addressLine')}
+                onBlur={(e) => handleChangeInput(e, 'addressLine')}
                 label="Address Line"
                 id="fullWidth"
               />
@@ -286,6 +325,7 @@ export default function CreateHome22() {
                   fullWidth
                   label="City"
                   onChange={(e) => handleChangeInput(e, 'city')}
+                  onBlur={(e) => handleChangeInput(e, 'city')}
                   id="fullWidth"
                 />
                 <TextField
@@ -294,6 +334,7 @@ export default function CreateHome22() {
                   label="State"
                   id="fullWidth"
                   onChange={(e) => handleChangeInput(e, 'state')}
+                  onBlur={(e) => handleChangeInput(e, 'state')}
                 />
               </Stack>
             </Box>
@@ -308,12 +349,14 @@ export default function CreateHome22() {
           <div className="col-6">
             <div>
               {isLoaded ? (
-                <GoogleMap
-                  mapContainerStyle={containerStyle}
-                  center={center}
-                  zoom={10}
-                  onLoad={(map) => setMap(map)}
-                ></GoogleMap>
+                <GoogleMap 
+                id="marker-example"
+                mapContainerStyle={containerStyle}
+                zoom={15}
+                center={currentPosition}
+              >
+                <Marker onLoad={onLoad} position={currentPosition} />
+              </GoogleMap>
               ) : (
                 <></>
               )}

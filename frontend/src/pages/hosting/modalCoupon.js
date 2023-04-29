@@ -5,12 +5,19 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { Datepicker } from '@mobiscroll/react';
 import TextField from '@mui/material/TextField';
+import {
+  MDBBtn,
+  MDBContainer,
+  MDBRow,
+  MDBCol,
+  MDBCard,
+  MDBCardBody,
+  MDBInput,
+  MDBTextArea,
+  MDBFile,
+} from 'mdb-react-ui-kit';
 export default function ModalCoupon() {
   const [open, setOpen] = React.useState(false);
 
@@ -21,7 +28,6 @@ export default function ModalCoupon() {
   const handleClose = () => {
     setOpen(false);
   };
-  const props = { placeholder: 'Please Select Date...' };
   return (
     <div>
       <Button
@@ -44,31 +50,68 @@ export default function ModalCoupon() {
         aria-describedby="alert-dialog-description"
       >
         <DialogTitle id="alert-dialog-title">
-          {' Create 1 voucher  '}
         </DialogTitle>
         <DialogContent>
-          <p>
-            {' '}
-            <TextField id="outlined-basic" label="Contents" variant="outlined" />
-          </p>
+       <center> <h3>    Create  voucher  </h3> </center> 
+          <MDBContainer fluid>
+            <MDBRow className="d-flex justify-content-center align-items-center">
+              <MDBCol lg="12" className="my-5">
+                <MDBCard>
+                  <MDBCardBody className="px-4">
+                    <MDBRow className="align-items-center pt-4 pb-3">
+                      <MDBCol md="5" className="ps-5">
+                        <h6 className="mb-0"><b> Contents</b></h6>
+                      </MDBCol>
 
-          <p>
-            {' '}
-            According to % : <input type="number" />{' '}
-          </p>
-          <p> Date : <Datepicker
-            controls={['calendar']}
-            select="range"
-            touchUi={true}
-            inputComponent="input"
-            inputProps={props}
-          /> </p>
-          
+                      <MDBCol md="7" className="pe-5">
+                        <MDBInput size="lg" id="form1" type="text" />
+                      </MDBCol>
+                    </MDBRow>
+
+                    <hr className="mx-n3" />
+
+                    <MDBRow className="align-items-center pt-4 pb-3">
+                      <MDBCol md="5" className="ps-5">
+                        <h6 className="mb-0"><b>According to % </b> </h6>
+                      </MDBCol>
+
+                      <MDBCol md="7" className="pe-5">
+                        <MDBInput size="lg" id="form2" type="number" />
+                      </MDBCol>
+                    </MDBRow>
+
+                    <hr className="mx-n3" />
+
+                    <MDBRow className="align-items-center pt-4 pb-3">
+                      <MDBCol md="5" className="ps-5">
+                        <h6 className="mb-0"><b> Start date </b></h6>
+                      </MDBCol>
+
+                      <MDBCol md="7" className="pe-5">
+                        <MDBInput size="lg" id="form2" type="date" />
+                      </MDBCol>
+                    </MDBRow>
+                    <hr className="mx-n3" />
+
+                    <MDBRow className="align-items-center pt-4 pb-3">
+                      <MDBCol md="5" className="ps-5">
+                        <h6 className="mb-0"><b> End date</b> </h6>
+                      </MDBCol>
+
+                      <MDBCol md="7" className="pe-5">
+                        <MDBInput size="lg" id="form2" type="date" />
+                      </MDBCol>
+                    </MDBRow>
+                  </MDBCardBody>
+                </MDBCard>
+              </MDBCol>
+            </MDBRow>
+          </MDBContainer>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose}>Disagree</Button>
-          <Button onClick={handleClose} autoFocus>
-            Agree
+          <Button variant='' style={{background:"gray", color:"white", marginRight:"70%"}} onClick={handleClose}>Cancel</Button>
+          <Button variant='warning' style={{background:"#f7a800", color:"white"}} onClick={handleClose} autoFocus>
+            Submit
           </Button>
         </DialogActions>
       </Dialog>

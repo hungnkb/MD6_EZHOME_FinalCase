@@ -65,7 +65,7 @@ export default function ModalFormPay(props) {
           });
         })
         .catch((error) => {
-          props.setIsFormPayOpen(false)
+          props.setIsFormPayOpen(false);
           Swal.fire({
             icon: 'error',
             title: 'Oops...',
@@ -107,13 +107,17 @@ export default function ModalFormPay(props) {
                     <td width="245px">
                       <b>Distcount code:</b>
                     </td>
-                    <td><b style={{color:"red"}}>- 30%  </b></td>
+                    <td>
+                      <b style={{ color: 'red' }}>- 30% </b>
+                    </td>
                   </tr>
                   <tr>
                     <td width="245px">
                       <b>Old price:</b>
                     </td>
-                    <td><del>7,302,405đ</del></td>
+                    <td>
+                      <del>7,302,405đ</del>
+                    </td>
                   </tr>
                   <tr>
                     <td width="245px">

@@ -8,11 +8,7 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import axios from '../../api/axios';
 import { useSelector } from 'react-redux';
-import {
-  Button,
-  InputAdornment,
-  Switch,
-} from '@mui/material';
+import { Button, InputAdornment, Switch } from '@mui/material';
 import { NavLink, useNavigate } from 'react-router-dom';
 
 function DashboardHosting() {
@@ -133,42 +129,39 @@ function DashboardHosting() {
         <div className="col-4">
           <div className="row">
             <div className="col-6">
-              <NavLink to='/user/coupon'>
+              <NavLink to="/user/coupon">
                 <Button
+                  sx={{
+                    color: 'black',
+                    background: 'white',
+                    border: '1px solid black',
+                    borderRadius: '30px',
+                    marginLeft: '50%',
+                  }}
+                  variant="light"
+                >
+                  <i class="fa-solid fa-badge-percent"></i> Voucher
+                </Button>
+              </NavLink>
+            </div>
+            <div className="col-6">
+              <Button
+                onClick={() => {
+                  navigate('/create-home');
+                }}
                 sx={{
                   color: 'black',
                   background: 'white',
                   border: '1px solid black',
+                  //   marginLeft: '45%',
                   borderRadius: '30px',
-                  marginLeft:"50%"
                 }}
                 variant="light"
               >
-             <i class="fa-solid fa-badge-percent"></i>  Voucher
+                <i class="fa-solid fa-circle-plus"></i> Create a rental item
               </Button>
-              </NavLink>
-              
-            </div>
-            <div className='col-6'>
-               <Button
-            onClick={() => {
-              navigate('/create-home');
-            }}
-            sx={{
-              color: 'black',
-              background: 'white',
-              border: '1px solid black',
-            //   marginLeft: '45%',
-              borderRadius: '30px',
-            }}
-            variant="light"
-          >
-          <i class="fa-solid fa-circle-plus"></i> Create a rental item 
-          </Button> 
             </div>
           </div>
-
-          
         </div>
       </div>
       <br />

@@ -16,7 +16,7 @@ export const authSlice = createSlice({
       state.newPhone = action.payload.newPhone;
     },
     setNewAvatarImage: (state, action) => {
-      state.newAvatarImage = action.payload.newAvatarImage
+      state.newAvatarImage = action.payload.newAvatarImage;
     },
     setRole: (state, action) => {
       state.userLogin.role = action.payload.role;
@@ -34,6 +34,12 @@ export const authSlice = createSlice({
   },
 });
 
-export const { setUserLogin, logout, setRole, setIsFetDataUser, setNewPhone, setNewAvatarImage } =
-  authSlice.actions;
+export const {
+  setUserLogin,
+  logout,
+  setRole,
+  setIsFetDataUser,
+  setNewPhone,
+  setNewAvatarImage,
+} = authSlice.actions;
 export default authSlice.reducer;

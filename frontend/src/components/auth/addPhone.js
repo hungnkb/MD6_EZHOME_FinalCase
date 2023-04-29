@@ -36,11 +36,11 @@ function AddPhone(props) {
   const currentAuth = useSelector((state) => state.auth);
   const [email, setEmail] = useState(null);
   useEffect(() => {
-    if (userLogin.userLogin.email){
+    if (userLogin.userLogin.email) {
       localStorage.setItem('email', userLogin.userLogin.email);
-      setEmail(localStorage.getItem("email"));
+      setEmail(localStorage.getItem('email'));
     }
-  },[userLogin])
+  }, [userLogin]);
   const phoneRegExp =
     /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
 

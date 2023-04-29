@@ -24,7 +24,7 @@ export default function CardHome(props) {
   useEffect(() => {
     if (location.state?.data.length > 0) {
       setSearchHomeList(location.state.data);
-      window.history.replaceState({}, document.title)
+      window.history.replaceState({}, document.title);
       setIsFetchData(false);
     } else {
       setHome([]);
@@ -49,9 +49,9 @@ export default function CardHome(props) {
     <>
       <div style={{ marginLeft: '20px' }}>
         <br />
-    
-            <CarouselMulti />
-          
+
+        <CarouselMulti />
+
         <br />
         {searchHomeList.length === 0 && <TopFive />}
         <div style={{ marginTop: '70px' }}>
@@ -116,11 +116,9 @@ export default function CardHome(props) {
                                 variant="p"
                                 component="div"
                               >
-                              
-                                    <del>
-                                      {value.price.toLocaleString('en-EN')}đ
-                                    </del>
-                                 
+                                <del>
+                                  {value.price.toLocaleString('en-EN')}đ
+                                </del>
                               </Typography>
                               <Typography
                                 gutterBottom

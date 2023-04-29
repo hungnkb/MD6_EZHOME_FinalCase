@@ -38,7 +38,9 @@ export default function Navbar() {
   const currentState = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const socket = io.connect(`${process.env.REACT_APP_BASE_URL_SERVER}/notifications`);
+  const socket = io.connect(
+    `${process.env.REACT_APP_BASE_URL_SERVER}/notifications`,
+  );
   const open = Boolean(anchorElNotifications);
   const email = localStorage.getItem('email');
   const [imageUser, setImageUser] = useState('');
@@ -64,7 +66,8 @@ export default function Navbar() {
           setEndNoti(true);
         } else {
           setEndNoti(false);
-          setNotifications(response.data.result);
+          console.log(notifications);
+          setNotifications([...notifications, ...response.data.result]);
           setUnseenCount(response.data.total);
         }
       }
@@ -355,6 +358,7 @@ export default function Navbar() {
                 </Badge>
                 <div id="noti">
                   <Menu
+                    style={{ maxHeight: '500px' }}
                     id="noti-menu"
                     anchorEl={anchorElNotifications}
                     open={open}
@@ -379,14 +383,14 @@ export default function Navbar() {
                         return (
                           <MenuItem
                             key={`${index}-${noti}`}
-                            style={{color: 'blue'}}
+                            style={{ color: 'blue' }}
                             onClick={() => {
                               handleCloseNotifications(noti.dataUrl, index);
                             }}
                           >
                             {noti.message}
                           </MenuItem>
-                        )
+                        );
                       }
                     })}
                     {!endNoti && (

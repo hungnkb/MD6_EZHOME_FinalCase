@@ -89,31 +89,32 @@ export default function ModalCoupon() {
 
   return (
     <div>
-        <Button onClick={handleClickOpen}
-                sx={{
-                  color: 'black',
-                  background: 'white',
-                  border: '1px solid black',
-                  borderRadius: '30px',
-                  marginLeft:"80%"
-                }}
-                variant="light"
-              >
-             <i class="fa-solid fa-circle-plus"></i>  Generate discount code
-              </Button>
-      <Dialog 
+      <Button
+        onClick={handleClickOpen}
+        sx={{
+          color: 'black',
+          background: 'white',
+          border: '1px solid black',
+          borderRadius: '30px',
+          marginLeft: '80%',
+        }}
+        variant="light"
+      >
+        <i class="fa-solid fa-circle-plus"></i> Generate discount code
+      </Button>
+      <Dialog
         open={open}
         onClose={handleClose}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
         <DialogTitle id="alert-dialog-title">
-          {" Create 1 voucher  "}
+          {' Create 1 voucher  '}
         </DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-            <input type='text'/>
-            <input type='text'/>
+            <input type="text" />
+            <input type="text" />
           </DialogContentText>
         </DialogContent>
         <DialogActions>

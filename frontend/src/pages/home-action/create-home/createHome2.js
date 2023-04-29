@@ -45,7 +45,8 @@ export default function CreateHome2() {
                 </h5>
               </div>
               <div className="col-2">
-                <img style={{width:"100%"}}
+                <img
+                  style={{ width: '100%' }}
                   src="https://a0.muscache.com/4ea/air/v2/pictures/da2e1a40-a92b-449e-8575-d8208cc5d409.jpg"
                   alt="create"
                 />
@@ -63,7 +64,8 @@ export default function CreateHome2() {
                 </h5>
               </div>
               <div className="col-2">
-                <img style={{width:"100%"}}
+                <img
+                  style={{ width: '100%' }}
                   src="https://a0.muscache.com/4ea/air/v2/pictures/bfc0bc89-58cb-4525-a26e-7b23b750ee00.jpg"
                   alt="create"
                 />
@@ -81,7 +83,8 @@ export default function CreateHome2() {
                 </h5>
               </div>
               <div className="col-2">
-                <img style={{width:"100%"}}
+                <img
+                  style={{ width: '100%' }}
                   src="https://a0.muscache.com/4ea/air/v2/pictures/c0634c73-9109-4710-8968-3e927df1191c.jpg"
                   alt="create"
                 />

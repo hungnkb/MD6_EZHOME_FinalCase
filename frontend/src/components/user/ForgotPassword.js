@@ -1,33 +1,16 @@
-import Visibility from '@mui/icons-material/Visibility';
-import VisibilityOff from '@mui/icons-material/VisibilityOff';
-import Backdrop from '@mui/material/Backdrop';
-import CircularProgress from '@mui/material/CircularProgress';
-import FormControl from '@mui/material/FormControl';
-import FormHelperText from '@mui/material/FormHelperText';
-import IconButton from '@mui/material/IconButton';
-import InputAdornment from '@mui/material/InputAdornment';
-import InputLabel from '@mui/material/InputLabel';
-import OutlinedInput from '@mui/material/OutlinedInput';
 import TextField from '@mui/material/TextField';
 import { useFormik } from 'formik';
 import React, { useEffect, useState } from 'react';
-import PasswordStrengthBar from 'react-password-strength-bar';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import 'react-toastify/dist/ReactToastify.css';
-import GoogleButton from '../google/GoogleLogin';
 import * as Yup from 'yup';
 import { clearErrors, registerUser } from '../../service/userAction';
-import Auth from '../auth/Auth';
 import axios from '../../api/axios';
 import {
   Button,
-  Dialog,
-  DialogTitle,
-  DialogActions,
   Modal,
-  Box,
-  DialogContent,
+  Box
 } from '@mui/material';
 import Swal from 'sweetalert2';
 

@@ -1,5 +1,4 @@
-import style from './SuccessModal.module.css';
-import React, { useState } from 'react';
+import React from 'react';
 import { MDBModal } from 'mdb-react-ui-kit';
 
 export default function SuccessModal() {

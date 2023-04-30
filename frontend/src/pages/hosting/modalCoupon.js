@@ -76,7 +76,7 @@ export default function ModalCoupon() {
                       </MDBCol>
 
                       <MDBCol md="7" className="pe-5">
-                        <MDBInput size="lg" id="form2" type="number" />
+                        <MDBInput size="lg" min="0" max="100" id="form2" type="number" />
                       </MDBCol>
                     </MDBRow>
 

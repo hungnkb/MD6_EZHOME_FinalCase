@@ -40,7 +40,7 @@ const RevenueChart = () => {
           labels,
           datasets: [
             {
-              label: 'Doanh thu theo phòng',
+              label: 'Revenue by house',
               data: revenues,
               backgroundColor: 'rgba(54, 162, 235, 0.2)',
               borderColor: 'rgba(54, 162, 235, 1)',
@@ -89,7 +89,7 @@ const RevenueChart = () => {
           labels,
           datasets: [
             {
-              label: 'Doanh thu theo phòng',
+              label: 'Revenue by house',
               data: revenues,
               backgroundColor: 'rgba(54, 162, 235, 0.2)',
               borderColor: 'rgba(54, 162, 235, 1)',

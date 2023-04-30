@@ -10,6 +10,36 @@ import axios from '../../api/axios';
 import { useSelector } from 'react-redux';
 import { Button, InputAdornment, Switch } from '@mui/material';
 import { NavLink, useNavigate } from 'react-router-dom';
+import OutlinedInput from '@mui/material/OutlinedInput';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import ListItemText from '@mui/material/ListItemText';
+import Select from '@mui/material/Select';
+import Checkbox from '@mui/material/Checkbox';
+const ITEM_HEIGHT = 48;
+const ITEM_PADDING_TOP = 8;
+const MenuProps = {
+  PaperProps: {
+    style: {
+      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+      width: 250,
+    },
+  },
+};
+
+const names = [
+  'Oliver Hansen',
+  'Van Henry',
+  'April Tucker',
+  'Ralph Hubbard',
+  'Omar Alexander',
+  'Carlos Abbott',
+  'Miriam Wagner',
+  'Bradley Wilkerson',
+  'Virginia Andrews',
+  'Kelly Snyder',
+];
 
 function DashboardHosting() {
   const [homeList, setHomeList] = useState([]);
@@ -22,6 +52,17 @@ function DashboardHosting() {
   const navigate = useNavigate();
   const [item, setItem] = useState();
   const [lgShow, setLgShow] = useState(false);
+  const [personName, setPersonName] = React.useState([]);
+
+  const handleChange1 = (event) => {
+    const {
+      target: { value },
+    } = event;
+    setPersonName(
+      // On autofill we get a stringified value.
+      typeof value === 'string' ? value.split(',') : value,
+    );
+  };
   const handleChange = async (event, id) => {
     await axios({
       method: 'POST',
@@ -184,6 +225,9 @@ function DashboardHosting() {
               <TableCell align="center">
                 <b style={{ color: 'gray' }}>Status </b>
               </TableCell>
+              <TableCell align="center">
+                <b style={{ color: 'gray' }}>Voucher </b>
+              </TableCell>
               <TableCell align="center"></TableCell>
             </TableRow>
           </TableHead>
@@ -213,12 +257,6 @@ function DashboardHosting() {
                       </NavLink>
                     </TableCell>
                     <TableCell align="left">{data.address}</TableCell>
-                    {/* <TableCell align="left">
-                                        {data.idCategory.categoryName}
-                                    </TableCell>
-                                    <TableCell align="center">{data.bathrooms}</TableCell>
-                                    <TableCell align="center">{data.bedrooms}</TableCell> */}
-                    {/*<TableCell align="left">{ReactHtmlParser(data.description)}</TableCell>*/}
                     <TableCell align="right">
                       {data.price.toLocaleString('en-EN')}
                     </TableCell>
@@ -226,10 +264,38 @@ function DashboardHosting() {
                     <TableCell align="center">
                       <Switch
                         checked={data.status}
-                        onChange={(e) => handleChange(e, data.idHome)}
+                        onChange={(e) => handleChange1(e, data.idHome)}
                         inputProps={{ true: 'false' }}
                         color="warning"
                       />
+                    </TableCell>
+                    <TableCell align="center">
+                      <div>
+                        <FormControl sx={{ m: 1, width: 300 }}>
+                          <InputLabel id="demo-multiple-checkbox-label">
+                          <p style={{ color: 'red' }}>Apply Voucher</p>
+                          </InputLabel>
+                          <Select
+                            labelId="demo-multiple-checkbox-label"
+                            id="demo-multiple-checkbox"
+                            multiple
+                            value={personName}
+                            onChange={handleChange1}
+                            input={<OutlinedInput label="Tag" />}
+                            renderValue={(selected) => selected.join(', ')}
+                            MenuProps={MenuProps}
+                          >
+                            {names.map((name) => (
+                              <MenuItem key={name} value={name}>
+                                <Checkbox
+                                  checked={personName.indexOf(name) > -1}
+                                />
+                                <ListItemText primary={name} />
+                              </MenuItem>
+                            ))}
+                          </Select>
+                        </FormControl>
+                      </div>
                     </TableCell>
                   </TableRow>
                 ))

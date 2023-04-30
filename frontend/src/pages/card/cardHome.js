@@ -55,7 +55,7 @@ export default function CardHome(props) {
         <br />
         {searchHomeList.length === 0 && <TopFive />}
         <div style={{ marginTop: '70px' }}>
-          {home.length > 0 ? (
+          {home.length > 0 && searchHomeList.length == 0 ? (
             <InfiniteScroll
               className="d-flex flex-wrap justify-content-center"
               dataLength={1000} //This is important field to render the next data

@@ -23,6 +23,7 @@ import HomeRenting from './pages/hosting/homeRenting';
 import HistoryRent from './components/user/HistoryRent';
 import * as React from 'react';
 import RevenueChart from './components/user/revenue';
+import Payment from './components/payment/Payment';
 
 import DetailDashboard from './pages/hosting/detailDashboard';
 function App() {
@@ -74,6 +75,7 @@ function App() {
                 path="/detail-dashboard/:id"
                 element={<DetailDashboard />}
               />
+              <Route path="/test" element={<Payment />} />
               <Route path="/user/profile" element={<UpdateUser />} />
               <Route path="/user/home" element={<HomeRenting />}></Route>
               <Route path="/user/order" element={<HistoryRent />}></Route>

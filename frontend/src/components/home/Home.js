@@ -6,12 +6,10 @@ function Home() {
   return (
     <>
       <Navbar />
-
       <Outlet />
-
       <Footer />
     </>
-  );
+  ); 
 }
 
 export default Home;

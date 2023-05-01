@@ -66,7 +66,6 @@ export default function Navbar() {
           setEndNoti(true);
         } else {
           setEndNoti(false);
-          console.log(notifications);
           setNotifications([...notifications, ...response.data.result]);
           setUnseenCount(response.data.total);
         }
@@ -77,12 +76,22 @@ export default function Navbar() {
   const handleMoreNoti = () => {
     setPageNoti(pageNoti + 1);
   };
-
   useEffect(() => {
     socket.on('getNotification', (res) => {
       if (id && res.idReciever == id) {
-        console.log(id, res.idReciever);
-        setIsFetchNoti(!isFetchNoti);
+        const method = 'get';
+        const url = `${process.env.REACT_APP_BASE_URL}/notifications?idUser=${currentState.userLogin.sub}&page=1`;
+        const token = localStorage.getItem('token');
+        axios({
+          method,
+          url,
+          headers: {
+            Authorization: JSON.parse(token),
+          },
+        }).then((response) => {
+          setNotifications([response.data.result[0],...notifications]);
+          setUnseenCount(response.data.total);
+        });
       }
     });
   }, [socket]);
@@ -109,6 +118,9 @@ export default function Navbar() {
   };
   const handleCloseNotifications = (url, index) => {
     if (typeof index == 'number') {
+      let notificationData = [...notifications];
+      notificationData[index].status = 'seen';
+      setNotifications(notificationData);
       handleUpdateNotificationStatus(notifications[index]?.idNotification);
     }
     setAnchorElNotifications(null);

@@ -11,6 +11,7 @@
     "@mobiscroll/react": "https://npm.mobiscroll.com/@mobiscroll/react-trial/-/react-trial-5.23.2.tgz",
     "@mui/icons-material": "^5.11.16",
     "@mui/material": "^5.12.2",
+    "@paypal/react-paypal-js": "^7.8.3",
     "@react-google-maps/api": "^2.18.1",
     "@reduxjs/toolkit": "^1.9.5",
     "abab": "^2.0.6",

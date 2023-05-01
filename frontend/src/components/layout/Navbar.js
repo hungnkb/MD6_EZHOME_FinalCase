@@ -81,7 +81,6 @@ export default function Navbar() {
   useEffect(() => {
     socket.on('getNotification', (res) => {
       if (id && res.idReciever == id) {
-        console.log(id, res.idReciever);
         setIsFetchNoti(!isFetchNoti);
       }
     });
@@ -109,6 +108,9 @@ export default function Navbar() {
   };
   const handleCloseNotifications = (url, index) => {
     if (typeof index == 'number') {
+      let notificationData = [...notifications];
+      notificationData[index].status = 'seen';
+      setNotifications(notificationData);
       handleUpdateNotificationStatus(notifications[index]?.idNotification);
     }
     setAnchorElNotifications(null);

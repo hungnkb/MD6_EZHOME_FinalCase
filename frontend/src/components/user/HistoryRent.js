@@ -127,6 +127,12 @@ export default function HistoryRent() {
                 title: 'Success Cancel',
                 showConfirmButton: false,
                 timer: 2000,
+              }).then((res) => {
+                socket.emit('send', {
+                  dataUrl: '/user/home',
+                  idReciever: idOwner,
+                  message: 'You have a new cancel order',
+                });
               });
               axios
                 .get(

@@ -69,7 +69,7 @@ export default function ModalCoupon() {
             })
         handleClose();
     }
-    console.log(newDataCoupon, 44)
+
     return (
         <div>
             <Button

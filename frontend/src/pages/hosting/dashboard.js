@@ -260,7 +260,6 @@ function DashboardHosting() {
                     <TableCell align="right">
                       {data.price.toLocaleString('en-EN')}
                     </TableCell>
-                    {/*<TableCell align="center">{data.rate_stars}</TableCell>*/}
                     <TableCell align="center">
                       <Switch
                         checked={data.status}

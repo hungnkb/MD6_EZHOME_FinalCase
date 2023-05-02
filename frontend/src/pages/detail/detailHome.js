@@ -1,5 +1,5 @@
 import Card from 'react-bootstrap/Card';
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import Box from '@mui/material/Box';
@@ -17,18 +17,7 @@ import ReactHtmlParser, {
   htmlparser2,
 } from 'react-html-parser';
 import Review from './review/review';
-import { Modal } from '@mui/material';
 import ModalDescription from './modalDescription';
-// Thông tin nhà bao gồm:
-//     - Tên của căn nhà
-// - Loại phòng
-// - Địa chỉ
-// - Số lượng phòng ngủ
-// - Số lượng phòng tắm
-// - Mô tả chung
-// - Giá tiền theo ngày(VNĐ)
-// - Ảnh: dạng Slide
-// Lưu ý: Thuê là thuê cả căn nhà chứ không thuê từng phòng
 const bull = (
   <Box
     component="span"

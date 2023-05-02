@@ -4,7 +4,8 @@ import axios from 'axios';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { Button } from '@mui/material';
-import Chart from 'chart.js/auto';
+import { Chart as ChartJS } from 'chart.js/auto'
+import { Chart }            from 'react-chartjs-2'
 const RevenueChart = () => {
   const [monthYearFillter, setMonthYearFillter] = useState({
     month: '',

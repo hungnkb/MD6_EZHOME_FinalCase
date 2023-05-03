@@ -95,7 +95,6 @@ export default function CardHome(props) {
                               height="250%"
                               image={value?.images[0]?.urlHomeImage}
                               alt="green iguana"
-                              //{value?.images[0].urlHomeImage}
                             />
                             <CardContent>
                               <Typography
@@ -154,7 +153,7 @@ export default function CardHome(props) {
           {searchHomeList.length > 0 ? (
             <div
               className="d-flex flex-wrap justify-content-center"
-              dataLength={1000} //This is important field to render the next data
+              dataLength={1000} 
               next={() => setIsFetchData(true)}
               hasMore={true}
             >
@@ -190,7 +189,6 @@ export default function CardHome(props) {
                               height="250%"
                               image={value?.images[0]?.urlHomeImage}
                               alt="green iguana"
-                              //{value?.images[0].urlHomeImage}
                             />
                             <CardContent>
                               <Typography
@@ -198,12 +196,7 @@ export default function CardHome(props) {
                                 variant="p"
                                 component="div"
                               >
-                                <b
-                                // style={{
-                                //   whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis'
-
-                                // }}
-                                >
+                                <b>
                                   {value.title}
                                 </b>
                               </Typography>

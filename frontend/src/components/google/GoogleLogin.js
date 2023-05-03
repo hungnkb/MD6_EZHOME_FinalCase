@@ -56,7 +56,7 @@ const GoogleButton = (props) => {
     /* global google */
     google.accounts.id.initialize({
       client_id:
-        '1079258411381-d7dle0hglsh47e6icqdetrtqh3jj6e47.apps.googleusercontent.com',
+        '413828427853-b7a09ae2nuca9sl5u2f9metsu2bertvm.apps.googleusercontent.com',
       callback: handleTokenResponse,
     });
     google.accounts.id.renderButton(document.getElementById('signInDiv'), {

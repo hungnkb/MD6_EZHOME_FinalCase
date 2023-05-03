@@ -7,6 +7,7 @@ import { Button } from '@mui/material';
 import Swal from 'sweetalert2';
 import { useSelector } from 'react-redux';
 import io from 'socket.io-client';
+import Payment from '../../components/payment/Payment';
 
 const style = {
   position: 'absolute',
@@ -134,7 +135,16 @@ export default function ModalFormPay(props) {
               >
                 Cancel
               </Button>
-              <Button
+              <Payment 
+              charged={props.dataForm.charged}
+              handleBook={handleBook}
+              style={{
+                marginLeft: '45%',
+                background: '#f7a800',
+                marginTop: '25px',
+              }}
+              />
+              {/* <Button
                 variant="contained"
                 style={{
                   marginLeft: '45%',
@@ -144,7 +154,7 @@ export default function ModalFormPay(props) {
                 onClick={handleBook}
               >
                 Submit
-              </Button>
+              </Button> */}
             </Box>
           </Modal>
         </div>

@@ -81,12 +81,6 @@ export default function Coupon() {
                             {data.couponname}
                           </MDBCardTitle>
                             </div>
-                            {/* <div className='col-4'>
-                              <Tooltip title="Apply Voucher for house rent">
-                                <Button variant='contained' color="error">Apply Voucher</Button>
-                              </Tooltip>
-                              
-                            </div> */}
                             <div className="col-4">
                                 <div className='row'>
                                   <div className='col-6'>
@@ -118,9 +112,9 @@ export default function Coupon() {
                                 </small>
                               </div> 
                               <div className='col-4'>
-                              <Tooltip title="Apply Voucher for house rent">
+                              {/* <Tooltip title="Apply Voucher for house rent">
                                 <Button variant='contained' color="error">Apply Voucher</Button>
-                              </Tooltip>
+                              </Tooltip> */}
                               
                             </div>
                             </div>

@@ -28,41 +28,51 @@ const MenuProps = {
   },
 };
 
-const names = [
-  'Oliver Hansen',
-  'Van Henry',
-  'April Tucker',
-  'Ralph Hubbard',
-  'Omar Alexander',
-  'Carlos Abbott',
-  'Miriam Wagner',
-  'Bradley Wilkerson',
-  'Virginia Andrews',
-  'Kelly Snyder',
-];
-
 function DashboardHosting() {
   const [homeList, setHomeList] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false);
   const currentAuth = useSelector((state) => state.auth);
   const [checked, setChecked] = useState(null);
   const [flag, setFlag] = useState(false);
-
   const label = { inputProps: { true: 'false' } };
   const navigate = useNavigate();
   const [item, setItem] = useState();
   const [lgShow, setLgShow] = useState(false);
-  const [personName, setPersonName] = React.useState([]);
+  const [listCoupon, setListCoupon] = useState([]);
+  const [addCoupon, setAddCoupon] = useState(0)
 
-  const handleChange1 = (event) => {
-    const {
-      target: { value },
-    } = event;
-    setPersonName(
-      // On autofill we get a stringified value.
-      typeof value === 'string' ? value.split(',') : value,
-    );
+  useEffect(() => {
+    const coupon = () => {
+      let dateNow = new Date();
+      dateNow = dateNow.getTime();
+      axios
+        .get(
+          `http://localhost:3002/api/v1/coupons?idUser=${currentAuth.userLogin.sub}`,
+        )
+        .then((res) => {
+          let newListCoupon = [];
+          for (let i = 0; i < res.data.length; i++) {
+            let startDate = new Date(res.data[i].startDate);
+            startDate = startDate.getTime();
+            let endDate = new Date(res.data[i].endDate);
+            endDate = endDate.getTime();
+            if (startDate <= dateNow && endDate >= dateNow) {
+              newListCoupon.push(res.data[i]);
+            }
+          }
+          setListCoupon(newListCoupon);
+        });
+    };
+    coupon();
+  }, []);
+  const handleChangeCoupon = (e, index) => {
+    setAddCoupon(e.target.value);
+    //id nha, id coupon
+    setFlag(!flag);
+    setChecked(e.target.value);
+
   };
+ 
   const handleChange = async (event, id) => {
     await axios({
       method: 'POST',
@@ -102,8 +112,7 @@ function DashboardHosting() {
     };
     getDataHome();
   }, [currentAuth.isLogined, flag]);
-  // console.log(homeList,22);
-  // console.log(currentAuth.userLogin.sub,1);
+  console.log(homeList, 22);
   return (
     <>
       <br />
@@ -265,7 +274,7 @@ function DashboardHosting() {
                     <TableCell align="center">
                       <Switch
                         checked={data.status}
-                        onChange={(e) => handleChange1(e, data.idHome)}
+                        onChange={(e) => handleChange(e, data.idHome)}
                         inputProps={{ true: 'false' }}
                         color="warning"
                       />
@@ -274,24 +283,20 @@ function DashboardHosting() {
                       <div>
                         <FormControl sx={{ m: 1, width: 300 }}>
                           <InputLabel id="demo-multiple-checkbox-label">
-                          <p style={{ color: 'red' }}>Apply Voucher</p>
+                            <p style={{ color: 'red' }}>Apply Voucher</p>
                           </InputLabel>
                           <Select
                             labelId="demo-multiple-checkbox-label"
                             id="demo-multiple-checkbox"
-                            multiple
-                            value={personName}
-                            onChange={handleChange1}
+                            // multiple
+                            value={addCoupon}
+                            onChange={(e) => handleChangeCoupon(e, index)}
                             input={<OutlinedInput label="Tag" />}
-                            renderValue={(selected) => selected.join(', ')}
                             MenuProps={MenuProps}
                           >
-                            {names.map((name) => (
-                              <MenuItem key={name} value={name}>
-                                <Checkbox
-                                  checked={personName.indexOf(name) > -1}
-                                />
-                                <ListItemText primary={name} />
+                            {listCoupon.map((name) => (
+                              <MenuItem key={name.couponname} value={name.idCoupon}>
+                                <ListItemText primary={name.couponname} />
                               </MenuItem>
                             ))}
                           </Select>

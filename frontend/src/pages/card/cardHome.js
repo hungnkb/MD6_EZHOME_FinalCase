@@ -42,7 +42,6 @@ export default function CardHome(props) {
       setPageHome(page);
       let option = { params: { page } };
       axios.get('http://localhost:3002/api/v1/homes', option).then((res) => {
-        console.log(res.data)
         setHome([...home, ...res.data]);
         setIsFetchData(false);
       });
@@ -127,9 +126,15 @@ export default function CardHome(props) {
                                 variant="p"
                                 component="div"
                               >
-                                <del>
-                                  {value.price.toLocaleString('en-EN')}đ
-                                </del>
+                                {
+                                  (flagCouponCheck) ?
+                                      <del>
+                                        {value.price.toLocaleString('en-EN')}đ
+                                      </del>
+                                      : <b>
+                                        {value.price.toLocaleString('en-EN')}đ
+                                      </b>
+                                }
                               </Typography>
                               <Typography
                                 gutterBottom

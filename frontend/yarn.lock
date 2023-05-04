@@ -1942,7 +1942,11 @@
 
 "@mobiscroll/react@https://npm.mobiscroll.com/@mobiscroll/react-trial/-/react-trial-5.23.2.tgz":
   version "5.23.2"
+<<<<<<< HEAD
   resolved "https://npm.mobiscroll.com/@mobiscroll/react-trial/-/react-trial-5.23.2.tgz#92928a398e335355df61a5f51d6272c2e3a8ecb9"
+=======
+  resolved "https://npm.mobiscroll.com/@mobiscroll/react-trial/-/react-trial-5.23.2.tgz#4caf3194183db93b24edff2a4146c5f05dbc0a2f"
+>>>>>>> b1afbcbda1decd15f855c125f85c49375f8f5dd8
 
 "@mui/base@5.0.0-alpha.127":
   version "5.0.0-alpha.127"

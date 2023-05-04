@@ -21,7 +21,7 @@ import {
 import {useState} from "react";
 import axios from "axios";
 
-export default function ModalCoupon() {
+export default function ModalCoupon({setIsFetchCouponList}) {
     const [open, setOpen] = React.useState(false);
     const [newDataCoupon, setNewDataCoupon] = useState({
         couponame: '',
@@ -65,7 +65,8 @@ export default function ModalCoupon() {
                 createDate: formattedToday
             })
             .then((response) => {
-                console.log(response, 55)
+                console.log(response, 55);
+                setIsFetchCouponList[1](!setIsFetchCouponList[0]);
             })
         handleClose();
     }

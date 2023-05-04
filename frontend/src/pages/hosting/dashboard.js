@@ -102,6 +102,8 @@ function DashboardHosting() {
     };
     getDataHome();
   }, [currentAuth.isLogined, flag]);
+  // console.log(homeList,22);
+  // console.log(currentAuth.userLogin.sub,1);
   return (
     <>
       <br />

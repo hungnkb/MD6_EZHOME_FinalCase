@@ -15,15 +15,18 @@ import { useEffect, useState } from 'react';
 import Swal from 'sweetalert2';
 import Tooltip from '@mui/material/Tooltip';
 import IconButton from '@mui/material/IconButton';
+import { useSelector } from 'react-redux';
 
 export default function Coupon() {
   const [coupon, setCoupon] = useState([]);
+  const [isFetchCouponList, setIsFetchCouponList] = useState(false);
+  const currentAuth = useSelector((state) => state.auth);
+
   useEffect(() => {
-    axios.get('http://localhost:3002/api/v1/coupons').then((res) => {
-      console.log(res.data, 2);
+    axios.get(`http://localhost:3002/api/v1/coupons?idUser=${currentAuth.userLogin.sub}`).then((res) => {
       setCoupon(res.data);
     });
-  }, []);
+  }, [isFetchCouponList]);
   const remove =()=>{
     Swal.fire({
       title: 'Are you sure?',
@@ -51,7 +54,7 @@ export default function Coupon() {
         <h5 style={{ color: 'gray' }}>Total {coupon.length} discount codes</h5>
         <div className="row">
           <div className="col-12">
-            <ModalCoupon />
+            <ModalCoupon setIsFetchCouponList={[isFetchCouponList, setIsFetchCouponList]}/>
           </div>
         </div>
         <br />
@@ -78,12 +81,6 @@ export default function Coupon() {
                             {data.couponname}
                           </MDBCardTitle>
                             </div>
-                            {/* <div className='col-4'>
-                              <Tooltip title="Apply Voucher for house rent">
-                                <Button variant='contained' color="error">Apply Voucher</Button>
-                              </Tooltip>
-                              
-                            </div> */}
                             <div className="col-4">
                                 <div className='row'>
                                   <div className='col-6'>
@@ -115,9 +112,9 @@ export default function Coupon() {
                                 </small>
                               </div> 
                               <div className='col-4'>
-                              <Tooltip title="Apply Voucher for house rent">
+                              {/* <Tooltip title="Apply Voucher for house rent">
                                 <Button variant='contained' color="error">Apply Voucher</Button>
-                              </Tooltip>
+                              </Tooltip> */}
                               
                             </div>
                             </div>

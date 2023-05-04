@@ -8,6 +8,15 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import { Button } from 'react-bootstrap';
 import './style.css';
+import {
+  MDBCard,
+  MDBCardTitle,
+  MDBCardText,
+  MDBCardBody,
+  MDBCardImage,
+  MDBRow,
+  MDBCol,
+} from 'mdb-react-ui-kit';
 export default function DetailDashboard() {
   const idHome = useParams();
   const [dashboard, setDashboard] = useState([]);
@@ -34,9 +43,71 @@ export default function DetailDashboard() {
             <h5>
               <Button variant="light" className="no-hover">
                 <b> Details of the house for rent</b>{' '}
-              </Button>{' '}
+              </Button>
             </h5>
             <br />
+          <div> 
+            {/* {(dashboard.idCoupon)?( */}
+              {/* <> */}
+              <MDBCard style={{background:"#e9ecef"}}>
+                    <MDBRow className="g-0">
+                      <MDBCol md="2">
+                        <MDBCardImage
+                          style={{ width: '300%', marginTop:"30px" }}
+                          src="https://cdn-icons-png.flaticon.com/128/612/612803.png"
+                          alt="..."
+                          fluid
+                        />
+                      </MDBCol>
+                      <MDBCol md="10">
+                        <MDBCardBody>
+                          <div className='row'>
+                            <div className='col-8'>
+                            <MDBCardTitle style={{ color: 'red' }}>
+                            {/* {data.couponname} */}
+                            holiday
+                          </MDBCardTitle>
+                            </div>
+                            {/* <div className="col-4">
+                                <div className='row'>
+                                  <div className='col-6'>
+                                  <Tooltip title="delete" arrow>
+                                      <IconButton variant="outlined" type="submit" style={{marginLeft:"70%"}}>
+                                      <i class="fa-solid fa-delete-left"></i>
+                                     </IconButton>
+                                  </Tooltip>
+                                    
+                                  </div>
+                                  <div className='col-6'>
+
+                                <EditCoupon/>
+                                  </div>
+                                </div>
+                              
+                          
+                              </div> */}
+                          </div>
+                          <MDBCardText>
+                            <div className="row">
+                              <div className="col-8">
+                                <p>
+                                  <b>According to : </b>
+                                  <b style={{ color: 'red' }}>-3%</b>
+                                </p>
+                                <small className="text-muted">
+                                  Expiry: 30-12-2003/ 20-1-2004
+                                </small>
+                              </div> 
+                            </div>
+                          </MDBCardText>
+                        </MDBCardBody>
+                      </MDBCol>
+                    </MDBRow>
+                  </MDBCard>
+              {/* </> */}
+
+            {/* ):''} */} 
+          </div>
           </div>
           <div className="col-8">
             <div>

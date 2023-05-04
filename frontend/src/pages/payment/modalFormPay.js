@@ -105,20 +105,30 @@ export default function ModalFormPay(props) {
                     <td>{props.dataForm.checkout}</td>
                   </tr>
                   <tr>
-                    <td width="245px">
-                      <b>Distcount code:</b>
-                    </td>
-                    <td>
-                      <b style={{ color: 'red' }}>- 30% </b>
-                    </td>
+                    {
+                      props.valueCoupon ?
+                          <>
+                            <td width="245px">
+                              <b>Old price:</b>
+                            </td>
+                            <td>
+                              <del>đ{props.oldPrice.toLocaleString('en-EN')}</del>
+                            </td>
+                          </> : null
+                    }
                   </tr>
                   <tr>
-                    <td width="245px">
-                      <b>Old price:</b>
-                    </td>
-                    <td>
-                      <del>7,302,405đ</del>
-                    </td>
+                    {
+                      props.valueCoupon ?
+                          <>
+                            <td width="245px">
+                              <b>Distcount code:</b>
+                            </td>
+                            <td>
+                              <b style={{ color: 'red' }}>- {props.valueCoupon}%</b>
+                            </td>
+                          </> : null
+                    }
                   </tr>
                   <tr>
                     <td width="245px">
@@ -144,7 +154,7 @@ export default function ModalFormPay(props) {
                 marginTop: '25px',
               }}
               />
-              {/* <Button
+               <Button
                 variant="contained"
                 style={{
                   marginLeft: '45%',
@@ -154,7 +164,7 @@ export default function ModalFormPay(props) {
                 onClick={handleBook}
               >
                 Submit
-              </Button> */}
+              </Button>
             </Box>
           </Modal>
         </div>

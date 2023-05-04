@@ -38,6 +38,7 @@ export default function DetailHome() {
   const [message, setMessage] = useState('');
   const [descriptionPart, setDescriptionPart] = useState('');
   const [openDescription, setOpenDescription] = useState(false);
+  const [valueCoupon, setVaueCoupon] = useState(null)
   const callbackFunction = (childData) => {
     setMessage(childData);
   };
@@ -46,6 +47,14 @@ export default function DetailHome() {
       axios
         .get(`http://localhost:3002/api/v1/homes?idHome=${idHome.id}`)
         .then((response) => {
+          if(response.data[0].idCoupon){
+            const currentDate = new Date();
+            const startDate = new Date(Date.parse(response.data[0].idCoupon.startDate));
+            const endDate = new Date(Date.parse(response.data[0].idCoupon.endDate));
+            if ((currentDate >= startDate  && currentDate <= endDate)){
+              setVaueCoupon(response.data[0].idCoupon.value)
+            }
+          }
           setImage(response.data[0].images);
           setDetail(response.data[0]);
           setPrice(response.data[0].price);
@@ -231,6 +240,7 @@ export default function DetailHome() {
                 idHome={idHome.id}
                 address={detail.address}
                 idOwner={idOwner}
+                valueCoupon={valueCoupon}
               />
             </div>
           </div>

@@ -67,12 +67,10 @@ function DashboardHosting() {
     };
     coupon();
   }, []);
-  // console.log(listCoupon,2121)
-  const handleChangeCoupon = (e, index) => {
+  const handleChangeCoupon = (e,index) => {
+
     setAddCoupon(e.target.value);
     //id nha, id coupon
-    setFlag(!flag);
-    setChecked(e.target.value);
 
   };
  

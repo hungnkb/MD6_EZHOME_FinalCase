@@ -19,6 +19,7 @@ export default function FormPay(props) {
   const [multipleInvalid, setMultipleInvalid] = useState([]);
   const [orders, setOrders] = useState([]);
   const [total, setTotal] = useState(null);
+  const [oldPrice, setOldPrice] = useState(null)
   const [orderTime, setOrderTime] = useState({});
   const [openLogin, setOpenLogin] = useState(false);
   const [isFormPayOpen, setIsFormPayOpen] = useState(false);
@@ -51,10 +52,15 @@ export default function FormPay(props) {
           Math.abs(ev.value[0] - ev.value[1]) / (1000 * 60 * 60 * 24),
         );
 
-        let charged = parseInt(dayDiff * Number(props.price));
+        let charged = () => {
+          if (props.valueCoupon){
+            setOldPrice(parseInt(dayDiff * Number(props.price)))
+            return parseInt((dayDiff * Number(props.price) - (dayDiff * Number(props.price) * props.valueCoupon / 100)));
+          } else {
+            return parseInt(dayDiff * Number(props.price));
+          }
+        }
         setTotal(charged);
-        // setTotal({ ...total, totalDay: dayDiff });
-        // setOpenDate(false);
       } else if (ev.value[0] || ev.value[1]) {
         setTotal(0);
       } else {
@@ -104,6 +110,8 @@ export default function FormPay(props) {
           setOpenBill={setOpenBill}
           idOwner={props.idOwner}
           setIsFormPayOpen={setIsFormPayOpen}
+          valueCoupon={props.valueCoupon}
+          oldPrice={oldPrice}
         />
       )}
       <MDBContainer>
@@ -125,9 +133,12 @@ export default function FormPay(props) {
                     /night
                   </span>
                 </div>
-                <div className="col-2">
-                  <b style={{ color: 'red' }}>-30%</b>
-                </div>
+                {props.valueCoupon ?
+                    <div className="col-2">
+                      <b style={{ color: 'red' }}>-{props.valueCoupon}%</b>
+                    </div>
+                    : null
+                }
               </div>
 
               <hr />

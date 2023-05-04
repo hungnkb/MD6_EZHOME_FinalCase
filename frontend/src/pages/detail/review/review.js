@@ -105,7 +105,7 @@ export default function Review(props) {
                             </MDBTypography>
                             <div className="d-flex align-items-center mb-3">
                               <p className="small">
-                                {data?.createdAt.split('T')[0]}
+                                { data?.createdAt.split('T')[0]}
                                 <span>
                                   {' '}
                                   <Rating

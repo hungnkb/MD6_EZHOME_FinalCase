@@ -3,13 +3,14 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
-import { CardActionArea } from '@mui/material';
+import { CardActionArea, Stack } from '@mui/material';
 import { NavLink, useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import CarouselMulti from '../../components/layout/carousel-multi';
 import TopFive from './topFive';
 import InfiniteScroll from 'react-infinite-scroll-component';
+import Skeleton from '@mui/material/Skeleton';
 
 export default function CardHome(props) {
   const [home, setHome] = useState([]);
@@ -18,6 +19,7 @@ export default function CardHome(props) {
   const [pageHome, setPageHome] = useState(0);
   const { loading = false } = props;
   const [openDescription, setOpenDescription] = useState(false);
+  const [skeleton, setSkeleton] = useState([1, 2, 3, 4, 5, 6]);
 
   let location = useLocation();
 
@@ -49,9 +51,7 @@ export default function CardHome(props) {
     <>
       <div style={{ marginLeft: '20px' }}>
         <br />
-
         <CarouselMulti />
-
         <br />
         {searchHomeList.length === 0 && <TopFive />}
         <div style={{ marginTop: '70px' }}>
@@ -147,13 +147,35 @@ export default function CardHome(props) {
                 }
               })}
             </InfiniteScroll>
-          ) : (
-            <div></div>
-          )}
+          ) : home.length == 0 && searchHomeList.length == 0 ? (
+            <Stack spacing={1} direction='row' style={{display: 'flex', justifyContent: 'center'}}>
+              {skeleton.map(() => (
+                <div>
+                  <Skeleton
+                    variant="rectangular"
+                    width="256px"
+                    height="250px"
+                    style={{ borderRadius: '7%' }}
+                  >
+                    <div style={{ paddingTop: '57%' }} />
+                  </Skeleton>
+                  <Skeleton width="256px">
+                    <Typography>.</Typography>
+                  </Skeleton>
+                  <Skeleton width="256px">
+                    <Typography>.</Typography>
+                  </Skeleton>
+                  <Skeleton width="256px">
+                    <Typography>.</Typography>
+                  </Skeleton>
+                </div>
+              ))}
+            </Stack>
+          ) : null}
           {searchHomeList.length > 0 ? (
             <div
               className="d-flex flex-wrap justify-content-center"
-              dataLength={1000} 
+              dataLength={1000}
               next={() => setIsFetchData(true)}
               hasMore={true}
             >
@@ -196,9 +218,7 @@ export default function CardHome(props) {
                                 variant="p"
                                 component="div"
                               >
-                                <b>
-                                  {value.title}
-                                </b>
+                                <b>{value.title}</b>
                               </Typography>
                               <Typography
                                 variant="body2"

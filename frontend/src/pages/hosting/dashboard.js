@@ -45,11 +45,13 @@ function DashboardHosting() {
     const coupon = () => {
       let dateNow = new Date();
       dateNow = dateNow.getTime();
+      console.log(currentAuth.userLogin.sub,1313)
       axios
         .get(
           `http://localhost:3002/api/v1/coupons?idUser=${currentAuth.userLogin.sub}`,
         )
         .then((res) => {
+          console.log(res,2121)
           let newListCoupon = [];
           for (let i = 0; i < res.data.length; i++) {
             let startDate = new Date(res.data[i].startDate);
@@ -66,6 +68,7 @@ function DashboardHosting() {
     coupon();
   }, []);
   const handleChangeCoupon = (e,index) => {
+
     setAddCoupon(e.target.value);
     //id nha, id coupon
 
@@ -110,7 +113,7 @@ function DashboardHosting() {
     };
     getDataHome();
   }, [currentAuth.isLogined, flag]);
-  console.log(homeList, 22);
+
   return (
     <>
       <br />

@@ -23,11 +23,22 @@ export default function Coupon() {
   const currentAuth = useSelector((state) => state.auth);
 
   useEffect(() => {
-    axios.get(`http://localhost:3002/api/v1/coupons?idUser=${currentAuth.userLogin.sub}`).then((res) => {
-      setCoupon(res.data);
-    });
+    axios
+      .get(
+        `http://localhost:3002/api/v1/coupons?idUser=${currentAuth.userLogin.sub}`,
+      )
+      .then((res) => {
+        let newListCoupons = [];
+        for (let i of res.data) {
+          if (!i.isDeleted) {
+            newListCoupons.push(i);
+          }
+        }
+        setCoupon(newListCoupons);
+      });
   }, [isFetchCouponList]);
-  const remove =()=>{
+
+  const remove = () => {
     Swal.fire({
       title: 'Are you sure?',
       text: "You won't be able to revert this!",
@@ -35,18 +46,14 @@ export default function Coupon() {
       showCancelButton: true,
       confirmButtonColor: '#f7a800',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, delete it!'
+      confirmButtonText: 'Yes, delete it!',
     }).then((result) => {
       if (result.isConfirmed) {
-        Swal.fire(
-          'Deleted!',
-          'Your file has been deleted.',
-          'success'
-        )
+        Swal.fire('Deleted!', 'Your file has been deleted.', 'success');
       }
-    })
-  }
- 
+    });
+  };
+
   return (
     <>
       <div style={{ marginTop: '3%', marginLeft: '3%', marginBottom: '300px' }}>
@@ -54,7 +61,9 @@ export default function Coupon() {
         <h5 style={{ color: 'gray' }}>Total {coupon.length} discount codes</h5>
         <div className="row">
           <div className="col-12">
-            <ModalCoupon setIsFetchCouponList={[isFetchCouponList, setIsFetchCouponList]}/>
+            <ModalCoupon
+              setIsFetchCouponList={[isFetchCouponList, setIsFetchCouponList]}
+            />
           </div>
         </div>
         <br />
@@ -75,30 +84,31 @@ export default function Coupon() {
                       </MDBCol>
                       <MDBCol md="10">
                         <MDBCardBody>
-                          <div className='row'>
-                            <div className='col-8'>
-                            <MDBCardTitle style={{ color: 'red' }}>
-                            {data.couponname}
-                          </MDBCardTitle>
+                          <div className="row">
+                            <div className="col-8">
+                              <MDBCardTitle style={{ color: 'red' }}>
+                                {data.couponname}
+                              </MDBCardTitle>
                             </div>
                             <div className="col-4">
-                                <div className='row'>
-                                  <div className='col-6'>
+                              <div className="row">
+                                <div className="col-6">
                                   <Tooltip title="delete" arrow>
-                                      <IconButton variant="outlined" type="submit" style={{marginLeft:"70%"}} onClick={remove}>
+                                    <IconButton
+                                      variant="outlined"
+                                      type="submit"
+                                      style={{ marginLeft: '70%' }}
+                                      onClick={remove}
+                                    >
                                       <i class="fa-solid fa-delete-left"></i>
-                                     </IconButton>
+                                    </IconButton>
                                   </Tooltip>
-                                    
-                                  </div>
-                                  <div className='col-6'>
-
-                                <EditCoupon/>
-                                  </div>
                                 </div>
-                              
-                          
+                                <div className="col-6">
+                                  <EditCoupon data={data}/>
+                                </div>
                               </div>
+                            </div>
                           </div>
                           <MDBCardText>
                             <div className="row">
@@ -110,13 +120,12 @@ export default function Coupon() {
                                 <small className="text-muted">
                                   Expiry: {data.startDate} / {data.endDate}
                                 </small>
-                              </div> 
-                              <div className='col-4'>
-                              {/* <Tooltip title="Apply Voucher for house rent">
+                              </div>
+                              <div className="col-4">
+                                {/* <Tooltip title="Apply Voucher for house rent">
                                 <Button variant='contained' color="error">Apply Voucher</Button>
                               </Tooltip> */}
-                              
-                            </div>
+                              </div>
                             </div>
                           </MDBCardText>
                         </MDBCardBody>

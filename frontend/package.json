@@ -512,6 +512,7 @@
         "minimatch": "^3.1.2",
         "minimist": "^1.2.8",
         "mkdirp": "^0.5.6",
+        "mobiscroll": "^3.0.0-beta6",
         "ms": "^2.1.2",
         "multicast-dns": "^7.2.5",
         "mz": "^2.7.0",

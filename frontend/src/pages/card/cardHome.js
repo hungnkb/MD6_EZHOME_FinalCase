@@ -63,7 +63,18 @@ export default function CardHome(props) {
               hasMore={true}
             >
               {home.map((value, index) => {
+                let flagCouponCheck = false;
+                let priceWithCoupon = 0
                 if (value.status) {
+                  if (value.idCoupon){
+                    const currentDate = new Date();
+                    const startDate = new Date(Date.parse(value.idCoupon.startDate));
+                    const endDate = new Date(Date.parse(value.idCoupon.endDate));
+                    if ((currentDate >= startDate  && currentDate <= endDate)){
+                       priceWithCoupon = (value.price - (value.price * value.idCoupon.value /100));
+                       flagCouponCheck = true
+                    }
+                  }
                   return (
                     <div>
                       <NavLink
@@ -115,9 +126,15 @@ export default function CardHome(props) {
                                 variant="p"
                                 component="div"
                               >
-                                <del>
-                                  {value.price.toLocaleString('en-EN')}đ
-                                </del>
+                                {
+                                  (flagCouponCheck) ?
+                                      <del>
+                                        {value.price.toLocaleString('en-EN')}đ
+                                      </del>
+                                      : <b>
+                                        {value.price.toLocaleString('en-EN')}đ
+                                      </b>
+                                }
                               </Typography>
                               <Typography
                                 gutterBottom
@@ -125,15 +142,23 @@ export default function CardHome(props) {
                                 component="div"
                               >
                                 <div className="row">
-                                  <div className="col-8">
-                                    <b>
-                                      {value.price.toLocaleString('en-EN')}đ
-                                    </b>
-                                    night
-                                  </div>
-                                  <div className="col-4">
-                                    <b style={{ color: 'red' }}>-30%</b>
-                                  </div>
+                                  {
+                                    (flagCouponCheck) ?
+                                        <div className="col-8">
+                                          <b>
+                                            {priceWithCoupon.toLocaleString('en-EN')}đ
+                                          </b>
+                                          night
+                                        </div>
+                                        : null
+                                  }
+                                  {
+                                    (flagCouponCheck) ?
+                                        <div className="col-4">
+                                          <b style={{ color: 'red' }}>-{value.idCoupon.value}%</b>
+                                        </div>
+                                        : null
+                                  }
                                 </div>
                               </Typography>
                             </CardContent>

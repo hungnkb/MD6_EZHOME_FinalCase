@@ -13,8 +13,9 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import { useNavigate } from 'react-router-dom';
-import { Chip } from '@mui/material';
+import Bean from '../../media/bean.gif'
 import PaginationHomeRenting from './PaginationHomeRenting';
+import CircularProgress from "@mui/material/CircularProgress";
 
 export default function HomeRenting() {
   const [homeRent, setHomeRent] = useState([]);
@@ -145,8 +146,8 @@ export default function HomeRenting() {
               </TableRow>
             </TableHead>
             <TableBody>
-              {currentPosts
-                ? currentPosts.map((data, index) => (
+              {currentPosts && currentPosts.length > 0
+                ? (currentPosts.map((data, index) => (
                     <TableRow
                       key={index}
                       sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
@@ -179,8 +180,12 @@ export default function HomeRenting() {
                         </TableCell>
                       )}
                     </TableRow>
-                  ))
-                : null}
+                  )))
+                :
+                  <Box sx={{ display: 'flex' }}>
+                    <img src={Bean} alt="loading..." style={{width: "400px", height: "200px"}} />
+                  </Box>
+                  }
             </TableBody>
           </Table>
         </TableContainer>

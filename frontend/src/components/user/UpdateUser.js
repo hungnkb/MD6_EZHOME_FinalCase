@@ -411,7 +411,7 @@ export default function UpdateUser() {
                                 className="rounded-circle"
                                 alt="Avatar"
                               />
-                            )}
+                            )}loading
                           </div>
                           {loading && (
                             <CircularProgress style={{ marginTop: '5px' }} />

@@ -321,7 +321,11 @@ function DashboardHosting() {
                     </TableCell>
                   </TableRow>
                 ))
-              : null}
+              : (
+                <Stack sx={{ color: 'grey.500', marginLeft:"700px" }} spacing={2} direction="row">
+                <CircularProgress color="inherit" />
+              </Stack>
+              )}
           </TableBody>
         </Table>
       </TableContainer>

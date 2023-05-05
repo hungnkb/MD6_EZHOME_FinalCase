@@ -24,6 +24,7 @@ export default function HomeRenting() {
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage] = useState(10);
   const result = [];
+  const [countTab, setCountTabs] = useState([]);
   const navigate = useNavigate();
   useEffect(() => {
     const getDataRent = async () => {
@@ -72,22 +73,60 @@ export default function HomeRenting() {
       }),
     );
   }
-  const handleChange = (event) => {
-    setStatus(event.target.value);
+  const handleChange = (value) => {
+    setStatus(value);
   };
 
   // Get current posts
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
   const currentPosts = result.slice(indexOfFirstPost, indexOfLastPost);
+  const currentPosts1 = result.slice(indexOfFirstPost, indexOfLastPost);
+  
 
   // Change page
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
+  console.log(countTab,4444);
+  const sumGoing = () => {
+    let sum = 0;
+    for (let i = 0; i < currentPosts1.length; i++) {
+      if (currentPosts1[i].status === 'ongoing') {
+        sum++;
+      }
+    }
+    return sum;
+  };
+  const sumDone = () => {
+    let sum1 = 0;
+    for (let i = 0; i < currentPosts1.length; i++) {
+      if (currentPosts1[i].status === 'done') {
+        sum1++;
+      }
+    }
+    return sum1;
+  };
+  const sumCancel = () => {
+    let sum2 = 0;
+    for (let i = 0; i < currentPosts1.length; i++) {
+      if (currentPosts1[i].status === 'cancelled') {
+        sum2++;
+      }
+    }
+    return sum2;
+  };
   return (
     <>
       <div style={{ marginBottom: '400px' }}>
         <br />
         <h2 style={{ marginLeft: '8%' }}>Customer Order List</h2>
+        <Tabs
+          handleChange={handleChange}
+          status={status}
+          sumGoing={sumGoing()}
+          all={currentPosts1.length}
+          done={sumDone()}
+          cancel={sumCancel()}
+        />
         <FormControl
           variant="standard"
           sx={{ m: 1, minWidth: 120, marginLeft: '8%' }}
@@ -123,10 +162,6 @@ export default function HomeRenting() {
                 <TableCell align="center">
                   <b> Email </b>
                 </TableCell>
-                {/*<TableCell align="center">*/}
-                {/*   */}
-                {/*    <b> Total Price</b>*/}
-                {/*</TableCell>*/}
                 <TableCell align="center">
                   <b> Phone</b>
                 </TableCell>
@@ -193,6 +228,55 @@ export default function HomeRenting() {
           />
         </div>
       </div>
+    </>
+  );
+}
+
+import {
+  MDBTabs,
+  MDBTabsItem,
+  MDBTabsLink,
+  MDBTabsContent,
+  MDBTabsPane
+} from 'mdb-react-ui-kit';
+
+export function Tabs(props) {
+  return (
+    <>
+      <MDBTabs justify className="mb-3">
+        <MDBTabsItem>
+          <MDBTabsLink
+            onClick={() => props.handleChange('all')}
+            active={props.status === 'all'}
+          >
+            <b> All order ({props.all})</b>
+          </MDBTabsLink>
+        </MDBTabsItem>
+        <MDBTabsItem>
+          <MDBTabsLink
+            onClick={() => props.handleChange('ongoing')}
+            active={props.status === 'ongoing'}
+          >
+            <b> On going ({props.sumGoing}) </b>
+          </MDBTabsLink>
+        </MDBTabsItem>
+        <MDBTabsItem>
+          <MDBTabsLink
+            onClick={() => props.handleChange('done')}
+            active={props.status === 'done'}
+          >
+            <b> Done ({props.done})</b>
+          </MDBTabsLink>
+        </MDBTabsItem>
+        <MDBTabsItem>
+          <MDBTabsLink
+            onClick={() => props.handleChange('cancelled')}
+            active={props.status === 'cancelled'}
+          >
+            <b> Cancel({props.cancel})</b>
+          </MDBTabsLink>
+        </MDBTabsItem>
+      </MDBTabs>
     </>
   );
 }

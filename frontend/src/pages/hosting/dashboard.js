@@ -57,7 +57,7 @@ function DashboardHosting() {
             startDate = startDate.getTime();
             let endDate = new Date(res.data[i].endDate);
             endDate = endDate.getTime();
-            if (startDate <= dateNow && endDate >= dateNow) {
+            if (endDate >= dateNow) {
               newListCoupon.push(res.data[i]);
             }
           }
@@ -106,23 +106,27 @@ function DashboardHosting() {
           headers: { Authorization: JSON.parse(localStorage.getItem('token')) },
         },
       );
-      console.log(dataList.data);
       setHomeList(dataList.data);
     };
     getDataHome();
   }, [currentAuth.isLogined, flag]);
 
-  const handeApplyCoupon = (index) => {
-    const idCoupon = listCoupon[index].idCoupon;
+  const handeApplyCoupon = (indexHome, couponIndex) => {
+    const idHome = homeList[indexHome].idHome;
+    const idCoupon = listCoupon[couponIndex].idCoupon;
     axios({
       method: 'PATCH',
       url: `${process.env.REACT_APP_BASE_URL}/homes`,
-      data: { idCoupon: idCoupon },
-    }).then(() => {
-      setFlag(!flag);
-    });
+      data: { idCoupon: idCoupon, idHome: idHome },
+    })
+      .then(() => {
+        setFlag(!flag);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
-
+  
   return (
     <>
       <br />
@@ -302,19 +306,20 @@ function DashboardHosting() {
                             onChange={(e) => handleChangeCoupon(e, index)}
                             input={<OutlinedInput label="Tag" />}
                             MenuProps={MenuProps}
-                            selected={data?.idCoupon?.couponname}
+                            defaultValue={data.idCoupon && data.idCoupon.isDeleted == false ? data.idCoupon.idCoupon: null}
                           >
-                            {listCoupon.map((name) => (
-                              <MenuItem
-                                key={name.couponname}
-                                value={name.idCoupon}
-                              >
-                                <ListItemText
-                                  primary={name.couponname}
-                                  onClick={() => handeApplyCoupon(index)}
-                                />
-                              </MenuItem>
-                            ))}
+                            {listCoupon.map((name, couponIndex) => {
+                              return (
+                                <MenuItem
+                                  value={name.idCoupon}
+                                  onClick={() =>
+                                    handeApplyCoupon(index, couponIndex)
+                                  }
+                                >
+                                  {name.couponname}
+                                </MenuItem>
+                              );
+                            })}
                           </Select>
                         </FormControl>
                       </div>

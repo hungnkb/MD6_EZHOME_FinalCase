@@ -39,19 +39,17 @@ function DashboardHosting() {
   const [item, setItem] = useState();
   const [lgShow, setLgShow] = useState(false);
   const [listCoupon, setListCoupon] = useState([]);
-  const [addCoupon, setAddCoupon] = useState(0)
+  const [addCoupon, setAddCoupon] = useState(0);
 
   useEffect(() => {
     const coupon = () => {
       let dateNow = new Date();
       dateNow = dateNow.getTime();
-      console.log(currentAuth.userLogin.sub,1313)
       axios
         .get(
           `http://localhost:3002/api/v1/coupons?idUser=${currentAuth.userLogin.sub}`,
         )
         .then((res) => {
-          console.log(res,2121)
           let newListCoupon = [];
           for (let i = 0; i < res.data.length; i++) {
             let startDate = new Date(res.data[i].startDate);
@@ -67,13 +65,11 @@ function DashboardHosting() {
     };
     coupon();
   }, []);
-  const handleChangeCoupon = (e,index) => {
-
+  const handleChangeCoupon = (e, index) => {
     setAddCoupon(e.target.value);
     //id nha, id coupon
-
   };
- 
+
   const handleChange = async (event, id) => {
     await axios({
       method: 'POST',
@@ -109,10 +105,22 @@ function DashboardHosting() {
           headers: { Authorization: JSON.parse(localStorage.getItem('token')) },
         },
       );
+      console.log(dataList.data);
       setHomeList(dataList.data);
     };
     getDataHome();
   }, [currentAuth.isLogined, flag]);
+
+  const handeApplyCoupon = (index) => {
+    const idCoupon = listCoupon[index].idCoupon;
+    axios({
+      method: 'PATCH',
+      url: `${process.env.REACT_APP_BASE_URL}/homes`,
+      data: { idCoupon: idCoupon },
+    }).then(() => {
+      setFlag(!flag);
+    });
+  };
 
   return (
     <>
@@ -193,7 +201,7 @@ function DashboardHosting() {
                   }}
                   variant="light"
                 >
-                  <i class="fa-solid fa-badge-percent"></i> Voucher
+                  <i className="fa-solid fa-badge-percent"></i> Voucher
                 </Button>
               </NavLink>
             </div>
@@ -211,7 +219,7 @@ function DashboardHosting() {
                 }}
                 variant="light"
               >
-                <i class="fa-solid fa-circle-plus"></i> Create a rental item
+                <i className="fa-solid fa-circle-plus"></i> Create a rental item
               </Button>
             </div>
           </div>
@@ -244,7 +252,7 @@ function DashboardHosting() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {homeList
+            {homeList.length > 0
               ? homeList.map((data, index) => (
                   <TableRow
                     key={index}
@@ -294,10 +302,17 @@ function DashboardHosting() {
                             onChange={(e) => handleChangeCoupon(e, index)}
                             input={<OutlinedInput label="Tag" />}
                             MenuProps={MenuProps}
+                            selected={data?.idCoupon?.couponname}
                           >
                             {listCoupon.map((name) => (
-                              <MenuItem key={name.couponname} value={name.idCoupon}>
-                                <ListItemText primary={name.couponname} />
+                              <MenuItem
+                                key={name.couponname}
+                                value={name.idCoupon}
+                              >
+                                <ListItemText
+                                  primary={name.couponname}
+                                  onClick={() => handeApplyCoupon(index)}
+                                />
                               </MenuItem>
                             ))}
                           </Select>

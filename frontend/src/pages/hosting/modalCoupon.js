@@ -93,7 +93,7 @@ export default function ModalCoupon({ setIsFetchCouponList }) {
         }}
         variant="light"
       >
-        <i class="fa-solid fa-circle-plus"></i> Generate discount code
+        <i className="fa-solid fa-circle-plus"></i> Generate discount code
       </Button>
 
       <Dialog

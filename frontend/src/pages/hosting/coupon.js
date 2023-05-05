@@ -38,20 +38,31 @@ export default function Coupon() {
       });
   }, [isFetchCouponList]);
 
-  const remove = () => {
-    Swal.fire({
-      title: 'Are you sure?',
-      text: "You won't be able to revert this!",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#f7a800',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, delete it!',
-    }).then((result) => {
-      if (result.isConfirmed) {
-        Swal.fire('Deleted!', 'Your file has been deleted.', 'success');
-      }
-    });
+  const remove = (index) => {
+    const idCoupon = coupon[0].idCoupon;
+    axios
+      .delete(`${process.env.REACT_APP_BASE_URL}/coupons?idCoupon=${idCoupon}`)
+      .then(() => {
+        Swal.fire({
+          title: 'Are you sure?',
+          text: "You won't be able to revert this!",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#f7a800',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Yes, delete it!',
+        }).then((result) => {
+          if (result.isConfirmed) {
+            Swal.fire(
+              'Deleted!',
+              'Your file has been deleted.',
+              'success',
+            ).then(() => {
+              setIsFetchCouponList(!isFetchCouponList);
+            });
+          }
+        });
+      });
   };
 
   return (
@@ -69,7 +80,7 @@ export default function Coupon() {
         <br />
         <div className="row">
           {coupon &&
-            coupon.reverse().map((data, index) => (
+            coupon.map((data, index) => (
               <>
                 <div className="col-6">
                   <MDBCard>
@@ -98,14 +109,20 @@ export default function Coupon() {
                                       variant="outlined"
                                       type="submit"
                                       style={{ marginLeft: '70%' }}
-                                      onClick={remove}
+                                      onClick={() => remove(index)}
                                     >
-                                      <i class="fa-solid fa-delete-left"></i>
+                                      <i className="fa-solid fa-delete-left"></i>
                                     </IconButton>
                                   </Tooltip>
                                 </div>
                                 <div className="col-6">
-                                  <EditCoupon data={data}/>
+                                  <EditCoupon
+                                    data={data}
+                                    isFetchData={[
+                                      isFetchCouponList,
+                                      setIsFetchCouponList,
+                                    ]}
+                                  />
                                 </div>
                               </div>
                             </div>

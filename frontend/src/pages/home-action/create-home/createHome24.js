@@ -80,7 +80,7 @@ export default function CreateHome24() {
     const files = currentState.files;
 
     document.querySelector('.finish-create-home').innerHTML = `
-    <div class="dot-flasing">
+    <div className="dot-flasing">
     <div></div>
     <div></div>
     <div></div>

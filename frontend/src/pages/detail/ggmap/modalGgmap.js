@@ -81,7 +81,7 @@ function ModalGgmap(props) {
               <h2 style={{ marginTop: '10%' }}>Where you will go</h2>
               <a style={{ color: 'black' }}>
                 <u>Show the guidebook to the host</u>{' '}
-                <i class="fa-regular fa-chevron-right"></i>
+                <i className="fa-regular fa-chevron-right"></i>
               </a>
             </div>
             <div className="col-9">
@@ -94,14 +94,19 @@ function ModalGgmap(props) {
                 >
                   <Marker onLoad={onLoad} position={location} />
                 </GoogleMap>
-              ):(
+              ) : (
                 <>
-                <Stack sx={{ color: 'grey.500',marginLeft:'550px', marginTop:"300px"}} spacing={2} direction="row">
-                  
-                  <CircularProgress color="inherit" />
-                     
-                </Stack>
-
+                  <Stack
+                    sx={{
+                      color: 'grey.500',
+                      marginLeft: '550px',
+                      marginTop: '300px',
+                    }}
+                    spacing={2}
+                    direction="row"
+                  >
+                    <CircularProgress color="inherit" />
+                  </Stack>
                 </>
               )}
             </div>

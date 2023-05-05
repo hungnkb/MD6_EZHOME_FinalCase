@@ -73,7 +73,7 @@ export default function DetailDashboard() {
                                   <div className='col-6'>
                                   <Tooltip title="delete" arrow>
                                       <IconButton variant="outlined" type="submit" style={{marginLeft:"70%"}}>
-                                      <i class="fa-solid fa-delete-left"></i>
+                                      <i className="fa-solid fa-delete-left"></i>
                                      </IconButton>
                                   </Tooltip>
                                     

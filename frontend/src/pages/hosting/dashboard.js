@@ -46,13 +46,11 @@ function DashboardHosting() {
     const coupon = () => {
       let dateNow = new Date();
       dateNow = dateNow.getTime();
-      console.log(currentAuth.userLogin.sub, 1313);
       axios
         .get(
           `http://localhost:3002/api/v1/coupons?idUser=${currentAuth.userLogin.sub}`,
         )
         .then((res) => {
-          console.log(res, 2121);
           let newListCoupon = [];
           for (let i = 0; i < res.data.length; i++) {
             let startDate = new Date(res.data[i].startDate);
@@ -108,10 +106,22 @@ function DashboardHosting() {
           headers: { Authorization: JSON.parse(localStorage.getItem('token')) },
         },
       );
+      console.log(dataList.data);
       setHomeList(dataList.data);
     };
     getDataHome();
   }, [currentAuth.isLogined, flag]);
+
+  const handeApplyCoupon = (index) => {
+    const idCoupon = listCoupon[index].idCoupon;
+    axios({
+      method: 'PATCH',
+      url: `${process.env.REACT_APP_BASE_URL}/homes`,
+      data: { idCoupon: idCoupon },
+    }).then(() => {
+      setFlag(!flag);
+    });
+  };
 
   return (
     <>
@@ -192,7 +202,7 @@ function DashboardHosting() {
                   }}
                   variant="light"
                 >
-                  <i class="fa-solid fa-badge-percent"></i> Voucher
+                  <i className="fa-solid fa-badge-percent"></i> Voucher
                 </Button>
               </NavLink>
             </div>
@@ -210,7 +220,7 @@ function DashboardHosting() {
                 }}
                 variant="light"
               >
-                <i class="fa-solid fa-circle-plus"></i> Create a rental item
+                <i className="fa-solid fa-circle-plus"></i> Create a rental item
               </Button>
             </div>
           </div>
@@ -243,81 +253,75 @@ function DashboardHosting() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {homeList.length > 0 ? (
-              homeList.map((data, index) => (
-                <TableRow
-                  key={index}
-                  sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                >
-                  <TableCell
-                    align="center"
-                    sx={{ width: '10%', padding: '0px 0px' }}
+            {homeList.length > 0
+              ? homeList.map((data, index) => (
+                  <TableRow
+                    key={index}
+                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                   >
-                    <img
-                      style={{ width: '50%', borderRadius: '5px' }}
-                      src={data?.images[0]?.urlHomeImage}
-                      alt="house"
-                    />
-                  </TableCell>
-                  <TableCell align="left" sx={{ width: '30%' }}>
-                    <NavLink
-                      style={{ color: 'black' }}
-                      to={`/detail-dashboard/${data.idHome}`}
+                    <TableCell
+                      align="center"
+                      sx={{ width: '10%', padding: '0px 0px' }}
                     >
-                      <b style={{ color: 'black' }}> {data.title} </b>
-                    </NavLink>
-                  </TableCell>
-                  <TableCell align="left">{data.address}</TableCell>
-                  <TableCell align="right">
-                    {data.price.toLocaleString('en-EN')}
-                  </TableCell>
-                  <TableCell align="center">
-                    <Switch
-                      checked={data.status}
-                      onChange={(e) => handleChange(e, data.idHome)}
-                      inputProps={{ true: 'false' }}
-                      color="warning"
-                    />
-                  </TableCell>
-                  <TableCell align="center">
-                    <div>
-                      <FormControl sx={{ m: 1, width: 300 }}>
-                        <InputLabel id="demo-multiple-checkbox-label">
-                          <p style={{ color: 'red' }}>Apply Voucher</p>
-                        </InputLabel>
-                        <Select
-                          labelId="demo-multiple-checkbox-label"
-                          id="demo-multiple-checkbox"
-                          // multiple
-                          value={addCoupon}
-                          onChange={(e) => handleChangeCoupon(e, index)}
-                          input={<OutlinedInput label="Tag" />}
-                          MenuProps={MenuProps}
-                        >
-                          {listCoupon.map((name) => (
-                            <MenuItem
-                              key={name.couponname}
-                              value={name.idCoupon}
-                            >
-                              <ListItemText primary={name.couponname} />
-                            </MenuItem>
-                          ))}
-                        </Select>
-                      </FormControl>
-                    </div>
-                  </TableCell>
-                </TableRow>
-              ))
-            ) : (
-              
-                <Stack sx={{ color: 'grey.500',marginLeft:'750px', marginTop:"100px"}} spacing={2} direction="row">
-                  
-                <CircularProgress color="inherit" />
-                   
-              </Stack>
-             
-              
-            )}
+                      <img
+                        style={{ width: '50%', borderRadius: '5px' }}
+                        src={data?.images[0]?.urlHomeImage}
+                        alt="house"
+                      />
+                    </TableCell>
+                    <TableCell align="left" sx={{ width: '30%' }}>
+                      <NavLink
+                        style={{ color: 'black' }}
+                        to={`/detail-dashboard/${data.idHome}`}
+                      >
+                        <b style={{ color: 'black' }}> {data.title} </b>
+                      </NavLink>
+                    </TableCell>
+
+                    <TableCell align="left">{data.address}</TableCell>
+                    <TableCell align="right">
+                      {data.price.toLocaleString('en-EN')}
+                    </TableCell>
+                    <TableCell align="center">
+                      <Switch
+                        checked={data.status}
+                        onChange={(e) => handleChange(e, data.idHome)}
+                        inputProps={{ true: 'false' }}
+                        color="warning"
+                      />
+                    </TableCell>
+                    <TableCell align="center">
+                      <div>
+                        <FormControl sx={{ m: 1, width: 300 }}>
+                          <InputLabel id="demo-multiple-checkbox-label">
+                            <p style={{ color: 'red' }}>Apply Voucher</p>
+                          </InputLabel>
+                          <Select
+                            labelId="demo-multiple-checkbox-label"
+                            id="demo-multiple-checkbox"
+                            onChange={(e) => handleChangeCoupon(e, index)}
+                            input={<OutlinedInput label="Tag" />}
+                            MenuProps={MenuProps}
+                            selected={data?.idCoupon?.couponname}
+                          >
+                            {listCoupon.map((name) => (
+                              <MenuItem
+                                key={name.couponname}
+                                value={name.idCoupon}
+                              >
+                                <ListItemText
+                                  primary={name.couponname}
+                                  onClick={() => handeApplyCoupon(index)}
+                                />
+                              </MenuItem>
+                            ))}
+                          </Select>
+                        </FormControl>
+                      </div>
+                    </TableCell>
+                  </TableRow>
+                ))
+              : null}
           </TableBody>
         </Table>
       </TableContainer>

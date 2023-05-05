@@ -231,6 +231,8 @@ export default function HistoryRent() {
           showConfirmButton: false,
           timer: 1500,
         }).then((res) => {
+          handleClose();
+          handleCloseReview();
           setFetchData(!fetchData);
         });
       });

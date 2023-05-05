@@ -59,6 +59,18 @@ export default function HistoryRent() {
   const socket = io.connect(
     `${process.env.REACT_APP_BASE_URL_SERVER}/notifications`,
   );
+  const [countTab,setCountTabs] = useState([])
+  useEffect(() => {
+    axios
+      .get(
+        `http://localhost:3002/api/v1/orders?idUser=${localStorage.getItem(
+          'idUser',
+        )}`,
+      )
+      .then((res) => {
+        setCountTabs(res.data);
+      });
+  });
 
   useEffect(() => {
     axios
@@ -224,8 +236,8 @@ export default function HistoryRent() {
   };
   const sumGoing = () => {
     let sum = 0;
-    for (let i = 0; i < list.length; i++) {
-      if (list[i].status === 'ongoing') {
+    for (let i = 0; i < countTab.length; i++) {
+      if (countTab[i].status === 'ongoing') {
         sum++;
       }
     }
@@ -233,8 +245,8 @@ export default function HistoryRent() {
   };
   const sumDone = () => {
     let sum = 0;
-    for (let i = 0; i < list.length; i++) {
-      if (list[i].status === 'done') {
+    for (let i = 0; i < countTab.length; i++) {
+      if (countTab[i].status === 'done') {
         sum++;
       }
     }
@@ -242,8 +254,8 @@ export default function HistoryRent() {
   };
   const sumCancel = () => {
     let sum1 = 0;
-    for (let i = 0; i < list.length; i++) {
-      if (list[i].status === 'cancelled') {
+    for (let i = 0; i < countTab.length; i++) {
+      if (countTab[i].status === 'cancelled') {
         sum1++;
       }
     }
@@ -259,7 +271,7 @@ export default function HistoryRent() {
           handleChange={handleChange}
           status={status}
           sumGoing={sumGoing()}
-          all={list.length}
+          all={countTab.length}
           done={sumDone()}
           cancel={sumCancel()}
         />
@@ -390,34 +402,6 @@ export default function HistoryRent() {
                               </SpeedDial>
                             </Box>
                           </TableCell>
-                          {/* <TableCell>
-                            <p
-                              onClick={(event) =>
-                                handleButtonClick(event, data.idHome.idUser)
-                              }
-                              data-id={data.idOrder}
-                              style={{ cursor: 'pointer', color: 'red' }}
-                            >
-                              <i className="fa-solid fa-circle-xmark"></i>{' '}
-                              Cancel
-                            </p>
-                          </TableCell> */}
-                          {/* <TableCell>
-                            <p
-                              style={{ cursor: 'pointer' }}
-                              onClick={() =>
-                                handleCheckout(
-                                  data.checkout,
-                                  data.checkin,
-                                  index,
-                                )
-                              }
-                              data-id={data.idOrder}
-                            >
-                              <i className="fa-solid fa-money-check-dollar-pen"></i>{' '}
-                              Checkout
-                            </p>
-                          </TableCell> */}
                         </>
                       ) : data.status === 'done' ? (
                         <TableCell align="left">

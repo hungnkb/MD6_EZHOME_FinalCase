@@ -176,7 +176,7 @@ function DashboardHosting() {
             }}
             variant="light"
           >
-            Views order
+            Customer order
           </Button>
         </div>
         <div className="col-4">

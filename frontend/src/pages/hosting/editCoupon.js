@@ -225,14 +225,14 @@ export default function EditCoupon({ data }) {
           <DialogActions>
             <Button
               variant=""
-              style={{ background: 'gray', color: 'white', marginRight: '70%' }}
+              style={{ background: 'gray', color: 'white', marginRight: '25%' }}
               onClick={handleClose}
             >
               Cancel
             </Button>
             <Button
               variant="warning"
-              style={{ background: '#f7a800', color: 'white' }}
+              style={{ background: '#f7a800', marginRight:"20%",color: 'white' }}
               type="submit"
             >
               Submit

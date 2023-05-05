@@ -49,6 +49,7 @@ function ModalGgmap(props) {
           const newLocation = { ...location };
           newLocation.lat = res.data.results[0].geometry.location.lat;
           newLocation.lng = res.data.results[0].geometry.location.lng;
+          console.log(newLocation);
           setLocation(newLocation);
         });
     };
@@ -85,7 +86,7 @@ function ModalGgmap(props) {
               </a>
             </div>
             <div className="col-9">
-              {isLoaded && location.lat > 0 ? (
+              {isLoaded && location.lat ? (
                 <GoogleMap
                   id="marker-example"
                   mapContainerStyle={mapContainerStyle}

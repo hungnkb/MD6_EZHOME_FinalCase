@@ -8,7 +8,7 @@
         "@ckeditor/ckeditor5-react": "^6.0.0",
         "@emotion/react": "^11.10.8",
         "@emotion/styled": "^11.10.8",
-        "@mobiscroll/react": "https://npm.mobiscroll.com/@mobiscroll/react-trial/-/react-trial-5.23.2.tgz",
+        "@mobiscroll/react": "https://npm.mobiscroll.com/@mobiscroll/react-trial/-/react-trial-5.24.0.tgz",
         "@mui/icons-material": "^5.11.16",
         "@mui/material": "^5.12.2",
         "@paypal/react-paypal-js": "^7.8.3",

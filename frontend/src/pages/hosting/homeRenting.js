@@ -81,6 +81,7 @@ export default function HomeRenting() {
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
   const currentPosts = result.slice(indexOfFirstPost, indexOfLastPost);
+  const currentPosts1 = result.slice(indexOfFirstPost, indexOfLastPost);
   
 
   // Change page
@@ -88,8 +89,8 @@ export default function HomeRenting() {
   console.log(countTab,4444);
   const sumGoing = () => {
     let sum = 0;
-    for (let i = 0; i < currentPosts.length; i++) {
-      if (currentPosts[i].status === 'ongoing') {
+    for (let i = 0; i < currentPosts1.length; i++) {
+      if (currentPosts1[i].status === 'ongoing') {
         sum++;
       }
     }
@@ -97,8 +98,8 @@ export default function HomeRenting() {
   };
   const sumDone = () => {
     let sum1 = 0;
-    for (let i = 0; i < currentPosts.length; i++) {
-      if (currentPosts[i].status === 'done') {
+    for (let i = 0; i < currentPosts1.length; i++) {
+      if (currentPosts1[i].status === 'done') {
         sum1++;
       }
     }
@@ -106,8 +107,8 @@ export default function HomeRenting() {
   };
   const sumCancel = () => {
     let sum2 = 0;
-    for (let i = 0; i < currentPosts.length; i++) {
-      if (currentPosts[i].status === 'cancelled') {
+    for (let i = 0; i < currentPosts1.length; i++) {
+      if (currentPosts1[i].status === 'cancelled') {
         sum2++;
       }
     }
@@ -122,7 +123,7 @@ export default function HomeRenting() {
           handleChange={handleChange}
           status={status}
           sumGoing={sumGoing()}
-          all={currentPosts.length}
+          all={currentPosts1.length}
           done={sumDone()}
           cancel={sumCancel()}
         />

@@ -274,21 +274,10 @@ function DashboardHosting() {
                         style={{ color: 'black' }}
                         to={`/detail-dashboard/${data.idHome}`}
                       >
-                        <img
-                          style={{ width: '50%', borderRadius: '5px' }}
-                          src={data?.images[0]?.urlHomeImage}
-                          alt="house"
-                        />
-                      </NavLink>
-                    </TableCell>
-                    <TableCell align="left" sx={{ width: '30%' }}>
-                      <NavLink
-                        style={{ color: 'black' }}
-                        to={`/detail-dashboard/${data.idHome}`}
-                      >
                         <b style={{ color: 'black' }}> {data.title} </b>
                       </NavLink>
                     </TableCell>
+
                     <TableCell align="left">{data.address}</TableCell>
                     <TableCell align="right">
                       {data.price.toLocaleString('en-EN')}
@@ -310,8 +299,6 @@ function DashboardHosting() {
                           <Select
                             labelId="demo-multiple-checkbox-label"
                             id="demo-multiple-checkbox"
-                            // multiple
-                            value={addCoupon}
                             onChange={(e) => handleChangeCoupon(e, index)}
                             input={<OutlinedInput label="Tag" />}
                             MenuProps={MenuProps}

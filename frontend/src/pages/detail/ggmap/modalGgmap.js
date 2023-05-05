@@ -94,14 +94,19 @@ function ModalGgmap(props) {
                 >
                   <Marker onLoad={onLoad} position={location} />
                 </GoogleMap>
-              ):(
+              ) : (
                 <>
-                <Stack sx={{ color: 'grey.500',marginLeft:'550px', marginTop:"300px"}} spacing={2} direction="row">
-                  
-                  <CircularProgress color="inherit" />
-                     
-                </Stack>
-
+                  <Stack
+                    sx={{
+                      color: 'grey.500',
+                      marginLeft: '550px',
+                      marginTop: '300px',
+                    }}
+                    spacing={2}
+                    direction="row"
+                  >
+                    <CircularProgress color="inherit" />
+                  </Stack>
                 </>
               )}
             </div>

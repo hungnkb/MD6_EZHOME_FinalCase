@@ -22,6 +22,7 @@ import SpeedDialAction from '@mui/material/SpeedDialAction';
 import EditIcon from '@mui/icons-material/Edit';
 import Stack from '@mui/material/Stack';
 import CircularProgress from '@mui/material/CircularProgress';
+import Payment from '../payment/Payment';
 export default function HistoryRent() {
   const style = {
     position: 'absolute',
@@ -62,6 +63,9 @@ export default function HistoryRent() {
     `${process.env.REACT_APP_BASE_URL_SERVER}/notifications`,
   );
   const [countTab, setCountTabs] = useState([]);
+
+  const paymentType = 'checkout';
+
   useEffect(() => {
     axios
       .get(
@@ -72,7 +76,7 @@ export default function HistoryRent() {
       .then((res) => {
         setCountTabs(res.data);
       });
-  });
+  },[]);
 
   useEffect(() => {
     axios
@@ -165,7 +169,7 @@ export default function HistoryRent() {
   };
 
   const handleCheckout = (checkout, checkin, index) => {
-    const timeStampToDate = 3600 * 24 * 7 * 4 * 30;
+    const timeStampToDate = 86400000;
     const now = Date.now();
     const checkoutDate = new Date(checkout).getTime();
     const diff = (now - checkoutDate) / timeStampToDate;
@@ -267,7 +271,7 @@ export default function HistoryRent() {
 
   return (
     <>
-      <div style={{ marginBottom: '400px' }}>
+      <span style={{ marginBottom: '400px' }}>
         <br />
         <h2 style={{ marginLeft: '8%' }}>My Orders</h2>
 
@@ -454,13 +458,21 @@ export default function HistoryRent() {
                   marginTop: '25px',
                 }}
               >
-                <Button
-                  variant="contained"
-                  style={{ backgroundColor: '#f7a800' }}
-                  onClick={handleSubmitCheckout}
-                >
-                  Checkout
-                </Button>
+                {addCharge > 0 ? (
+                  <Payment
+                    charged={addCharge}
+                    handleSubmitCheckout={handleSubmitCheckout}
+                    paymentType={paymentType}
+                  />
+                ) : (
+                  <Button
+                    variant="contained"
+                    style={{ backgroundColor: '#f7a800' }}
+                    onClick={handleSubmitCheckout}
+                  >
+                    Checkout
+                  </Button>
+                )}
               </div>
             </Box>
           </Modal>
@@ -518,7 +530,7 @@ export default function HistoryRent() {
             </Box>
           </Modal>
         </div>
-      </div>
+      </span>
     </>
   );
 }

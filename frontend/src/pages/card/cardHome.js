@@ -64,15 +64,21 @@ export default function CardHome(props) {
             >
               {home.map((value, index) => {
                 let flagCouponCheck = false;
-                let priceWithCoupon = 0
+                let priceWithCoupon = 0;
                 if (value.status) {
-                  if (value.idCoupon){
+                  if (value.idCoupon) {
                     const currentDate = new Date();
-                    const startDate = new Date(Date.parse(value.idCoupon.startDate));
-                    const endDate = new Date(Date.parse(value.idCoupon.endDate));
-                    if ((currentDate >= startDate  && currentDate <= endDate)){
-                       priceWithCoupon = (value.price - (value.price * value.idCoupon.value /100));
-                       flagCouponCheck = true
+                    const startDate = new Date(
+                      Date.parse(value.idCoupon.startDate),
+                    );
+                    const endDate = new Date(
+                      Date.parse(value.idCoupon.endDate),
+                    );
+                    if (currentDate >= startDate && currentDate <= endDate) {
+                      priceWithCoupon =
+                        value.price -
+                        (value.price * value.idCoupon.value) / 100;
+                      flagCouponCheck = true;
                     }
                   }
                   return (
@@ -126,15 +132,13 @@ export default function CardHome(props) {
                                 variant="p"
                                 component="div"
                               >
-                                {
-                                  (flagCouponCheck) ?
-                                      <del>
-                                        {value.price.toLocaleString('en-EN')}đ
-                                      </del>
-                                      : <b>
-                                        {value.price.toLocaleString('en-EN')}đ
-                                      </b>
-                                }
+                                {flagCouponCheck ? (
+                                  <del>
+                                    {value.price.toLocaleString('en-EN')}đ
+                                  </del>
+                                ) : (
+                                  <b>{value.price.toLocaleString('en-EN')}đ</b>
+                                )}
                               </Typography>
                               <Typography
                                 gutterBottom
@@ -142,23 +146,24 @@ export default function CardHome(props) {
                                 component="div"
                               >
                                 <div className="row">
-                                  {
-                                    (flagCouponCheck) ?
-                                        <div className="col-8">
-                                          <b>
-                                            {priceWithCoupon.toLocaleString('en-EN')}đ
-                                          </b>
-                                          night
-                                        </div>
-                                        : null
-                                  }
-                                  {
-                                    (flagCouponCheck) ?
-                                        <div className="col-4">
-                                          <b style={{ color: 'red' }}>-{value.idCoupon.value}%</b>
-                                        </div>
-                                        : null
-                                  }
+                                  {flagCouponCheck ? (
+                                    <div className="col-8">
+                                      <b>
+                                        {priceWithCoupon.toLocaleString(
+                                          'en-EN',
+                                        )}
+                                        đ
+                                      </b>
+                                      night
+                                    </div>
+                                  ) : null}
+                                  {flagCouponCheck ? (
+                                    <div className="col-4">
+                                      <b style={{ color: 'red' }}>
+                                        -{value.idCoupon.value}%
+                                      </b>
+                                    </div>
+                                  ) : null}
                                 </div>
                               </Typography>
                             </CardContent>
@@ -173,10 +178,15 @@ export default function CardHome(props) {
               })}
             </InfiniteScroll>
           ) : home.length == 0 && searchHomeList.length == 0 ? (
-            <Stack spacing={1} direction='row' style={{display: 'flex', justifyContent: 'center'}}>
-              {skeleton.map(() => (
+            <Stack
+              spacing={1}
+              direction="row"
+              style={{ display: 'flex', justifyContent: 'center' }}
+            >
+              {skeleton.map((index) => (
                 <div>
                   <Skeleton
+                    key={`ske${index}`}
                     variant="rectangular"
                     width="256px"
                     height="250px"
@@ -207,7 +217,7 @@ export default function CardHome(props) {
               {searchHomeList.map((value, index) => {
                 if (value.status) {
                   return (
-                    <div>
+                    <div key={`${value-index}`}>
                       <NavLink
                         key={index}
                         to={`/detail-home/${value.idHome}`}

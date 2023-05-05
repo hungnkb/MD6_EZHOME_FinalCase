@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { PayPalScriptProvider, PayPalButtons } from '@paypal/react-paypal-js';
-import Swal from 'sweetalert2';
+import { usePayPalScriptReducer } from '@paypal/react-paypal-js';
 
 function Payment(props) {
   const [totalValue, setTotalValue] = useState(0);
@@ -31,17 +31,21 @@ function Payment(props) {
 
   const onApprove = (data, actions) => {
     return actions.order.capture().then((details) => {
-      props.handleBook();
+      if (props.paymentType == 'checkout') {
+        return props.handleSubmitCheckout();
+      } else if (props.paymentType == 'book') {
+        return props.handleBook();
+      }
     });
   };
 
   return (
     <PayPalScriptProvider options={initialOptions}>
-      <PayPalButtons
-        style={{ layout: 'horizontal' }}
-        createOrder={createOrder}
-        onApprove={onApprove}
-      />
+        <PayPalButtons
+          style={{ layout: 'horizontal' }}
+          createOrder={createOrder}
+          onApprove={onApprove}
+        />
     </PayPalScriptProvider>
   );
 }

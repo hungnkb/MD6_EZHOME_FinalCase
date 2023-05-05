@@ -8,6 +8,8 @@ import {
   Marker,
   useJsApiLoader,
 } from '@react-google-maps/api';
+import Stack from '@mui/material/Stack';
+import CircularProgress from '@mui/material/CircularProgress';
 function ModalGgmap(props) {
   const values = [true];
   const [fullscreen, setFullscreen] = useState(true);
@@ -83,7 +85,7 @@ function ModalGgmap(props) {
               </a>
             </div>
             <div className="col-9">
-              {isLoaded && location.lat > 0 && (
+              {isLoaded && location.lat > 0 ? (
                 <GoogleMap
                   id="marker-example"
                   mapContainerStyle={mapContainerStyle}
@@ -92,6 +94,15 @@ function ModalGgmap(props) {
                 >
                   <Marker onLoad={onLoad} position={location} />
                 </GoogleMap>
+              ):(
+                <>
+                <Stack sx={{ color: 'grey.500',marginLeft:'550px', marginTop:"300px"}} spacing={2} direction="row">
+                  
+                  <CircularProgress color="inherit" />
+                     
+                </Stack>
+
+                </>
               )}
             </div>
           </div>

@@ -83,7 +83,7 @@ export default function DetailHome() {
           <div className="row">
             <div className="col-12">
               <h3> {detail.title} </h3>
-              <ModalComments2 /> {address && <ModalGgmap address={address} />}
+              <ModalComments2 /> {address && <ModalGgmap address={address}  />}
             </div>
           </div>
           <br />

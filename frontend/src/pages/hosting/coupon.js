@@ -69,7 +69,7 @@ export default function Coupon() {
     <>
       <div style={{ marginTop: '3%', marginLeft: '3%', marginBottom: '300px' }}>
         <h3>Store Voucher for the houses</h3>
-        <h5 style={{ color: 'gray' }}>Total {coupon.length} discount codes</h5>
+        <h5 style={{ color: 'gray' }}>Total {coupon.length} Voucher</h5>
         <div className="row">
           <div className="col-12">
             <ModalCoupon

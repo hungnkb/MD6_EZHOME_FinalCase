@@ -20,6 +20,8 @@ import SpeedDial from '@mui/material/SpeedDial';
 import SpeedDialIcon from '@mui/material/SpeedDialIcon';
 import SpeedDialAction from '@mui/material/SpeedDialAction';
 import EditIcon from '@mui/icons-material/Edit';
+import Stack from '@mui/material/Stack';
+import CircularProgress from '@mui/material/CircularProgress';
 export default function HistoryRent() {
   const style = {
     position: 'absolute',
@@ -59,6 +61,18 @@ export default function HistoryRent() {
   const socket = io.connect(
     `${process.env.REACT_APP_BASE_URL_SERVER}/notifications`,
   );
+  const [countTab, setCountTabs] = useState([]);
+  useEffect(() => {
+    axios
+      .get(
+        `http://localhost:3002/api/v1/orders?idUser=${localStorage.getItem(
+          'idUser',
+        )}`,
+      )
+      .then((res) => {
+        setCountTabs(res.data);
+      });
+  });
 
   useEffect(() => {
     axios
@@ -111,44 +125,43 @@ export default function HistoryRent() {
       confirmButtonColor: '#f7a800',
       cancelButtonColor: '#d33',
       confirmButtonText: 'Yes!',
-    })
-      .then((result) => {
-        if (result.isConfirmed) {
-          axios.patch(`http://localhost:3002/api/v1/orders/${idOrder}`).then(
-            (response) => {
-              Swal.fire({
-                position: 'center',
-                icon: 'success',
-                title: 'Success Cancel',
-                showConfirmButton: false,
-                timer: 2000,
-              }).then((res) => {
-                socket.emit('send', {
-                  dataUrl: '/user/home',
-                  idReciever: idOwner.idUser,
-                  message: `Order ${idOrder} has been cancelled`,
-                });
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios.patch(`http://localhost:3002/api/v1/orders/${idOrder}`).then(
+          (response) => {
+            Swal.fire({
+              position: 'center',
+              icon: 'success',
+              title: 'Success Cancel',
+              showConfirmButton: false,
+              timer: 2000,
+            }).then((res) => {
+              socket.emit('send', {
+                dataUrl: '/user/home',
+                idReciever: idOwner.idUser,
+                message: `Order ${idOrder} has been cancelled`,
               });
-              axios
-                .get(
-                  `http://localhost:3002/api/v1/orders?idUser=${localStorage.getItem(
-                    'idUser',
-                  )}`,
-                )
-                .then((res) => {
-                  setList(res.data);
-                });
-            },
-            (error) => {
-              Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: 'Cannot Cancel!',
+            });
+            axios
+              .get(
+                `http://localhost:3002/api/v1/orders?idUser=${localStorage.getItem(
+                  'idUser',
+                )}`,
+              )
+              .then((res) => {
+                setList(res.data);
               });
-            },
-          );
-        }
-      })
+          },
+          (error) => {
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: 'Cannot Cancel!',
+            });
+          },
+        );
+      }
+    });
   };
 
   const handleCheckout = (checkout, checkin, index) => {
@@ -224,8 +237,8 @@ export default function HistoryRent() {
   };
   const sumGoing = () => {
     let sum = 0;
-    for (let i = 0; i < list.length; i++) {
-      if (list[i].status === 'ongoing') {
+    for (let i = 0; i < countTab.length; i++) {
+      if (countTab[i].status === 'ongoing') {
         sum++;
       }
     }
@@ -233,8 +246,8 @@ export default function HistoryRent() {
   };
   const sumDone = () => {
     let sum = 0;
-    for (let i = 0; i < list.length; i++) {
-      if (list[i].status === 'done') {
+    for (let i = 0; i < countTab.length; i++) {
+      if (countTab[i].status === 'done') {
         sum++;
       }
     }
@@ -242,8 +255,8 @@ export default function HistoryRent() {
   };
   const sumCancel = () => {
     let sum1 = 0;
-    for (let i = 0; i < list.length; i++) {
-      if (list[i].status === 'cancelled') {
+    for (let i = 0; i < countTab.length; i++) {
+      if (countTab[i].status === 'cancelled') {
         sum1++;
       }
     }
@@ -255,11 +268,12 @@ export default function HistoryRent() {
       <div style={{ marginBottom: '400px' }}>
         <br />
         <h2 style={{ marginLeft: '8%' }}>My Orders</h2>
+
         <Tabs
           handleChange={handleChange}
           status={status}
           sumGoing={sumGoing()}
-          all={list.length}
+          all={countTab.length}
           done={sumDone()}
           cancel={sumCancel()}
         />
@@ -299,143 +313,121 @@ export default function HistoryRent() {
               </TableRow>
             </TableHead>
             <TableBody>
-              {list
-                ? list.map((data, index) => (
-                    <TableRow
-                      key={index}
-                      sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                    >
-                      <TableCell align="left">
-                        <NavLink
-                          to={`/detail-home/${data.idHome.idHome}`}
-                          style={{ color: 'black' }}
-                        >
-                          {' '}
-                          {data.idHome.title}
-                        </NavLink>{' '}
-                      </TableCell>
-                      <TableCell align="center">{data.checkin}</TableCell>
-                      <TableCell align="center">{data.checkout}</TableCell>
-                      <TableCell align="center">
-                        {data.charged.toLocaleString('en-EN')}VNĐ
-                      </TableCell>
-                      {data.status === 'ongoing' ? (
-                        <>
-                          <TableCell align="left">
-                            <p style={{ color: '#f7a800' }}>
-                              <i className="fa-solid fa-circle"></i> On going
-                            </p>
-                          </TableCell>
-                          <TableCell>
-                            <Box
+              {list ? (
+                list.map((data, index) => (
+                  <TableRow
+                    key={index}
+                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                  >
+                    <TableCell align="left">
+                      <NavLink
+                        to={`/detail-home/${data.idHome.idHome}`}
+                        style={{ color: 'black' }}
+                      >
+                        {' '}
+                        {data.idHome.title}
+                      </NavLink>{' '}
+                    </TableCell>
+                    <TableCell align="center">{data.checkin}</TableCell>
+                    <TableCell align="center">{data.checkout}</TableCell>
+                    <TableCell align="center">
+                      {data.charged.toLocaleString('en-EN')}VNĐ
+                    </TableCell>
+                    {data.status === 'ongoing' ? (
+                      <>
+                        <TableCell align="left">
+                          <p style={{ color: '#f7a800' }}>
+                            <i className="fa-solid fa-circle"></i> On going
+                          </p>
+                        </TableCell>
+                        <TableCell>
+                          <Box
+                            sx={{
+                              height: 100,
+                              transform: 'translateZ(0px)',
+                              flexGrow: 1,
+                            }}
+                          >
+                            <SpeedDial
+                              ariaLabel="SpeedDial openIcon example"
                               sx={{
-                                height: 100,
-                                transform: 'translateZ(0px)',
-                                flexGrow: 1,
-                              }}
-                            >
-                              <SpeedDial
-                                ariaLabel="SpeedDial openIcon example"
-                                sx={{
-                                  position: 'absolute',
-                                  bottom: 16,
-                                  right: 16,
-                                  '& .MuiFab-primary': {
-                                    backgroundColor: 'gray',
-                                    color: 'white',
-                                    width: 35,
-                                    height: 35,
-                                    '& .MuiSpeedDialIcon-icon': {
-                                      fontSize: 20,
-                                    },
-                                    '&:hover': { backgroundColor: 'black' },
+                                position: 'absolute',
+                                bottom: 16,
+                                right: 16,
+                                '& .MuiFab-primary': {
+                                  backgroundColor: 'gray',
+                                  color: 'white',
+                                  width: 35,
+                                  height: 35,
+                                  '& .MuiSpeedDialIcon-icon': {
+                                    fontSize: 20,
                                   },
-                                }}
-                                icon={<SpeedDialIcon openIcon={<EditIcon />} />}
-                              >
-                                <SpeedDialAction
-                                  onClick={(event) =>
-                                    handleButtonClick(
-                                      data.idOrder,
-                                      data.idHome.idUser,
-                                    )
-                                  }
-                                  sx={{ color: 'red' }}
-                                  data-id={`${data.idOrder}`}
-                                  icon={
-                                    <>
-                                      <i className="fa-solid fa-circle-xmark"></i>
-                                    </>
-                                  }
-                                  tooltipTitle="Cancel"
-                                />
-                                <SpeedDialAction
-                                  style={{ cursor: 'pointer' }}
-                                  onClick={() =>
-                                    handleCheckout(
-                                      data.checkout,
-                                      data.checkin,
-                                      index,
-                                    )
-                                  }
-                                  data-id={`${data.idOrder}`}
-                                  sx={{ color: 'green' }}
-                                  icon={
-                                    <>
-                                      <i className="fa-solid fa-money-check-dollar-pen"></i>
-                                    </>
-                                  }
-                                  tooltipTitle="Checkout"
-                                />
-                              </SpeedDial>
-                            </Box>
-                          </TableCell>
-                          {/* <TableCell>
-                            <p
-                              onClick={(event) =>
-                                handleButtonClick(event, data.idHome.idUser)
-                              }
-                              data-id={data.idOrder}
-                              style={{ cursor: 'pointer', color: 'red' }}
+                                  '&:hover': { backgroundColor: 'black' },
+                                },
+                              }}
+                              icon={<SpeedDialIcon openIcon={<EditIcon />} />}
                             >
-                              <i className="fa-solid fa-circle-xmark"></i>{' '}
-                              Cancel
-                            </p>
-                          </TableCell> */}
-                          {/* <TableCell>
-                            <p
-                              style={{ cursor: 'pointer' }}
-                              onClick={() =>
-                                handleCheckout(
-                                  data.checkout,
-                                  data.checkin,
-                                  index,
-                                )
-                              }
-                              data-id={data.idOrder}
-                            >
-                              <i className="fa-solid fa-money-check-dollar-pen"></i>{' '}
-                              Checkout
-                            </p>
-                          </TableCell> */}
-                        </>
-                      ) : data.status === 'done' ? (
-                        <TableCell align="left">
-                          <p style={{ color: 'green' }}>
-                            <i className="fa-solid fa-circle"></i> Done
-                          </p>
+                              <SpeedDialAction
+                                onClick={(event) =>
+                                  handleButtonClick(
+                                    data.idOrder,
+                                    data.idHome.idUser,
+                                  )
+                                }
+                                sx={{ color: 'red' }}
+                                data-id={`${data.idOrder}`}
+                                icon={
+                                  <>
+                                    <i className="fa-solid fa-circle-xmark"></i>
+                                  </>
+                                }
+                                tooltipTitle="Cancel"
+                              />
+                              <SpeedDialAction
+                                style={{ cursor: 'pointer' }}
+                                onClick={() =>
+                                  handleCheckout(
+                                    data.checkout,
+                                    data.checkin,
+                                    index,
+                                  )
+                                }
+                                data-id={`${data.idOrder}`}
+                                sx={{ color: 'green' }}
+                                icon={
+                                  <>
+                                    <i className="fa-solid fa-money-check-dollar-pen"></i>
+                                  </>
+                                }
+                                tooltipTitle="Checkout"
+                              />
+                            </SpeedDial>
+                          </Box>
                         </TableCell>
-                      ) : (
-                        <TableCell align="left">
-                          <p style={{ color: 'red' }}>
-                            <i className="fa-solid fa-circle"></i> Cancelled
-                          </p>
-                        </TableCell>
-                      )}
-                      <TableCell align="center"></TableCell>
-                    </TableRow>
-                  ))
-                : null}
+                      </>
+                    ) : data.status === 'done' ? (
+                      <TableCell align="left">
+                        <p style={{ color: 'green' }}>
+                          <i className="fa-solid fa-circle"></i> Done
+                        </p>
+                      </TableCell>
+                    ) : (
+                      <TableCell align="left">
+                        <p style={{ color: 'red' }}>
+                          <i className="fa-solid fa-circle"></i> Cancelled
+                        </p>
+                      </TableCell>
+                    )}
+                    <TableCell align="center"></TableCell>
+                  </TableRow>
+                ))
+              ) : (
+                <>
+                  <Stack sx={{ color: 'grey.500' }} spacing={2} direction="row">
+                    <CircularProgress color="inherit" />
+                  </Stack>
+                </>
+              )}
             </TableBody>
           </Table>
         </TableContainer>

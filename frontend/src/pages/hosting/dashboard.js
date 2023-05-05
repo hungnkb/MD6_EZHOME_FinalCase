@@ -16,7 +16,8 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import ListItemText from '@mui/material/ListItemText';
 import Select from '@mui/material/Select';
-import Checkbox from '@mui/material/Checkbox';
+import Stack from '@mui/material/Stack';
+import CircularProgress from '@mui/material/CircularProgress';
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
 const MenuProps = {
@@ -184,7 +185,7 @@ function DashboardHosting() {
             }}
             variant="light"
           >
-            Views order
+            Customer order
           </Button>
         </div>
         <div className="col-4">
@@ -267,6 +268,18 @@ function DashboardHosting() {
                         src={data?.images[0]?.urlHomeImage}
                         alt="house"
                       />
+                    </TableCell>
+                    <TableCell align="left" sx={{ width: '30%' }}>
+                      <NavLink
+                        style={{ color: 'black' }}
+                        to={`/detail-dashboard/${data.idHome}`}
+                      >
+                        <img
+                          style={{ width: '50%', borderRadius: '5px' }}
+                          src={data?.images[0]?.urlHomeImage}
+                          alt="house"
+                        />
+                      </NavLink>
                     </TableCell>
                     <TableCell align="left" sx={{ width: '30%' }}>
                       <NavLink

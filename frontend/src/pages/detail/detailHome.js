@@ -51,7 +51,7 @@ export default function DetailHome() {
             const currentDate = new Date();
             const startDate = new Date(Date.parse(response.data[0].idCoupon.startDate));
             const endDate = new Date(Date.parse(response.data[0].idCoupon.endDate));
-            if ((currentDate >= startDate  && currentDate <= endDate)){
+            if ((currentDate >= startDate  && currentDate <= endDate && response.data[0].idCoupon.isDeleted === false)){
               setVaueCoupon(response.data[0].idCoupon.value)
             }
           }

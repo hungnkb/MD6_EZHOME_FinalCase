@@ -423,7 +423,7 @@ export default function UpdateUser() {
                             >
                               <u>
                                 {' '}
-                                <i class="fa-solid fa-arrow-up-from-bracket"></i>{' '}
+                                <i className="fa-solid fa-arrow-up-from-bracket"></i>{' '}
                                 Upload photos
                               </u>
                             </label>

@@ -17,32 +17,31 @@ import {
   MDBCard,
   MDBCardBody,
   MDBInput,
-  MDBTextArea,
-  MDBFile,
 } from 'mdb-react-ui-kit';
 import { useState } from 'react';
 import axios from 'axios';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 
-export default function EditCoupon({ data }) {
-  const [open, setOpen] = React.useState(false);
+export default function EditCoupon({ data, isFetchData }) {
+  const [open, setOpen] = useState(false);
 
   const handleClickOpen = () => {
     setOpen(true);
   };
 
   const handleClose = () => {
+    formik.resetForm();
     setOpen(false);
   };
 
-  const handleChange = (event) => {
-    if (event.target.name === 'value' && event.target.value < 0) {
-      return (event.target.value = 0);
-    } else if (event.target.name === 'value' && event.target.value > 100) {
-      return (event.target.value = 100);
-    }
-  };
+  const today = new Date();
+  const yyyy = today.getFullYear();
+  let mm = today.getMonth() + 1; // Months start at 0!
+  let dd = today.getDate();
+
+  if (dd < 10) dd = '0' + dd;
+  if (mm < 10) mm = '0' + mm;
 
   const formik = useFormik({
     initialValues: {
@@ -64,19 +63,22 @@ export default function EditCoupon({ data }) {
     }),
     onSubmit: (values) => {
       axios
-        .post('http://localhost:3002/api/v1/coupons', {
+        .put('http://localhost:3002/api/v1/coupons', {
+          idCoupon: data.idCoupon,
           couponname: values.couponame,
           startDate: values.startDate,
           endDate: values.endDate,
           value: values.value,
-          user: localStorage.getItem('idUser'),
-          createDate: formattedToday,
+          user: parseInt(localStorage.getItem('idUser')),
         })
         .then(() => {
-          setIsFetchCouponList[1](!setIsFetchCouponList[0]);
+          isFetchData[1](!isFetchData[0]);
         });
       formik.resetForm();
-      handleClose();
+      setTimeout(() => {
+        handleClose();
+        isFetchData[1](!isFetchData[0]);
+      }, 1500);
     },
   });
 
@@ -84,7 +86,7 @@ export default function EditCoupon({ data }) {
     <div>
       <Tooltip title="edit" arrow>
         <IconButton onClick={handleClickOpen} style={{ marginLeft: '6px' }}>
-          <i class="fa-solid fa-pen-to-square"></i>
+          <i className="fa-solid fa-pen-to-square"></i>
         </IconButton>
       </Tooltip>
 
@@ -232,7 +234,11 @@ export default function EditCoupon({ data }) {
             </Button>
             <Button
               variant="warning"
-              style={{ background: '#f7a800', marginRight:"20%",color: 'white' }}
+              style={{
+                background: '#f7a800',
+                marginRight: '20%',
+                color: 'white',
+              }}
               type="submit"
             >
               Submit

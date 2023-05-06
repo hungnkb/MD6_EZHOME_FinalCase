@@ -19,12 +19,13 @@ import CircularProgress from "@mui/material/CircularProgress";
 
 export default function HomeRenting() {
   const [homeRent, setHomeRent] = useState([]);
-  const [homeRentted, setHomeRentted] = useState([]);
+  const [homeRentCount, setHomeRentCount] = useState([]);
   const [status, setStatus] = React.useState('All Status');
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage] = useState(10);
   const result = [];
+  const counStatus = [];
   const [countTab, setCountTabs] = useState([]);
   const navigate = useNavigate();
   useEffect(() => {
@@ -38,6 +39,18 @@ export default function HomeRenting() {
     };
     getDataRent();
   }, []);
+  useEffect(() => {
+    const getDataRent = async () => {
+      const dataList = await axios.get(
+          `http://localhost:3002/api/v1/homes?idUser=${localStorage.getItem(
+              'idUser',
+          )}`,
+      );
+      setHomeRentCount(dataList.data.filter((home) => home.orders.length > 0));
+    };
+    getDataRent();
+  }, []);
+
 
   useEffect(() => {
     if (status == 'all') {
@@ -71,9 +84,18 @@ export default function HomeRenting() {
         checkin: order.checkin,
         checkout: order.checkout,
         status: order.status,
-      }),
+      })
     );
   }
+  for (let i = 0; i < homeRentCount.length; i++) {
+    homeRentCount[i].orders.map((order) =>
+        counStatus.push({
+          status: order.status,
+        })
+    );
+  }
+  console.log(counStatus,555)
+
   const handleChange = (value) => {
     setStatus(value);
   };
@@ -82,15 +104,16 @@ export default function HomeRenting() {
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
   const currentPosts = result.slice(indexOfFirstPost, indexOfLastPost);
-  
+  const currentPosts1 = result.slice(indexOfFirstPost, indexOfLastPost);
+
 
   // Change page
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
-  console.log(countTab,4444);
+
   const sumGoing = () => {
     let sum = 0;
-    for (let i = 0; i < currentPosts.length; i++) {
-      if (currentPosts[i].status === 'ongoing') {
+    for (let i = 0; i < counStatus.length; i++) {
+      if (counStatus[i].status === 'ongoing') {
         sum++;
       }
     }
@@ -98,8 +121,8 @@ export default function HomeRenting() {
   };
   const sumDone = () => {
     let sum1 = 0;
-    for (let i = 0; i < currentPosts.length; i++) {
-      if (currentPosts[i].status === 'done') {
+    for (let i = 0; i < counStatus.length; i++) {
+      if (counStatus[i].status === 'done') {
         sum1++;
       }
     }
@@ -107,8 +130,8 @@ export default function HomeRenting() {
   };
   const sumCancel = () => {
     let sum2 = 0;
-    for (let i = 0; i < currentPosts.length; i++) {
-      if (currentPosts[i].status === 'cancelled') {
+    for (let i = 0; i < counStatus.length; i++) {
+      if (counStatus[i].status === 'cancelled') {
         sum2++;
       }
     }
@@ -123,28 +146,10 @@ export default function HomeRenting() {
           handleChange={handleChange}
           status={status}
           sumGoing={sumGoing()}
-          all={currentPosts.length}
+          all={counStatus.length}
           done={sumDone()}
           cancel={sumCancel()}
         />
-        <FormControl
-          variant="standard"
-          sx={{ m: 1, minWidth: 120, marginLeft: '8%' }}
-        >
-          <InputLabel id="demo-simple-select-standard-label">Status</InputLabel>
-          <Select
-            labelId="demo-simple-select-standard-label"
-            id="demo-simple-select-standard"
-            value={status}
-            onChange={handleChange}
-            label="Age"
-          >
-            <MenuItem value="all">All Order</MenuItem>
-            <MenuItem value="ongoing">On Going</MenuItem>
-            <MenuItem value="done">Done</MenuItem>
-            <MenuItem value="cancelled">Cancel</MenuItem>
-          </Select>
-        </FormControl>
         <TableContainer
           component={Paper}
           sx={{

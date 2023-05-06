@@ -32,7 +32,7 @@ export default function DetailDashboard() {
     };
     getData();
   }, []);
-
+  console.log(dashboard,44)
   return (
     <>
       <div className="container" style={{ marginTop: '3%' }}>
@@ -47,8 +47,8 @@ export default function DetailDashboard() {
             </h5>
             <br />
           <div> 
-            {/* {(dashboard.idCoupon)?( */}
-              {/* <> */}
+            {(dashboard.idCoupon)?(
+              <>
               <MDBCard style={{background:"#e9ecef"}}>
                     <MDBRow className="g-0">
                       <MDBCol md="2">
@@ -64,8 +64,7 @@ export default function DetailDashboard() {
                           <div className='row'>
                             <div className='col-8'>
                             <MDBCardTitle style={{ color: 'red' }}>
-                            {/* {data.couponname} */}
-                            holiday
+                             {dashboard.idCoupon.couponname}
                           </MDBCardTitle>
                             </div>
                             {/* <div className="col-4">
@@ -92,10 +91,10 @@ export default function DetailDashboard() {
                               <div className="col-8">
                                 <p>
                                   <b>According to : </b>
-                                  <b style={{ color: 'red' }}>-3%</b>
+                                  <b style={{ color: 'red' }}>-{dashboard.idCoupon.value}%</b>
                                 </p>
                                 <small className="text-muted">
-                                  Expiry: 30-12-2003/ 20-1-2004
+                                  Expiry: {dashboard.idCoupon.startDate} / {dashboard.idCoupon.endDate}
                                 </small>
                               </div> 
                             </div>
@@ -104,9 +103,8 @@ export default function DetailDashboard() {
                       </MDBCol>
                     </MDBRow>
                   </MDBCard>
-              {/* </> */}
-
-            {/* ):''} */} 
+              </>
+           ): null}
           </div>
           </div>
           <div className="col-8">

@@ -23,27 +23,6 @@ import create from '../../../media/create.gif';
 import { Dialog, DialogContent, makeStyles } from '@mui/material';
 
 
-// const useStyles = makeStyles({
-//   dialog: {
-//     '& .MuiDialogContent-root': {
-//       // thiết lập kích thước cho phần nội dung
-//       width: '11px',
-//       height: '340px',
-//       // căn giữa phần nội dung trên màn hình
-//       display: 'flex',
-//       alignItems: 'center',
-//       justifyContent: 'center',
-//       padding: '24px',
-//     },
-//     '& .MuiPaper-root': {
-//       // loại bỏ đường viền xung quanh
-//       boxShadow: 'none',
-//       outline: 'none',
-//       border: '1px solid #ddd',
-//       borderRadius: '8px',
-//     },
-//   },
-// });
 export default function CreateHome24() {
   const [descriptions, setDescriptions] = useState(null);
   const [bathrooms, setBathrooms] = useState(1);
@@ -185,13 +164,13 @@ export default function CreateHome24() {
       <center>
         <h2>Some more information about your home</h2>
       </center>
-      {/*{loading && (*/}
-      {/*    <Dialog open={loading}  className={classes.dialog}>*/}
-      {/*      <DialogContent>*/}
-      {/*        <img src={create} alt="loading..." style={{width: "511px", height: "340px"}} ></img>*/}
-      {/*      </DialogContent>*/}
-      {/*    </Dialog>*/}
-      {/*)}*/}
+      {loading && (
+          <Dialog open={loading}  >
+            <DialogContent>
+              <img src={create} alt="loading..." style={{width: "511px", height: "340px"}} ></img>
+            </DialogContent>
+          </Dialog>
+      )}
       <div className="row" style={{ marginBottom: '20%' }}>
         <div className="col-5">
           <br />

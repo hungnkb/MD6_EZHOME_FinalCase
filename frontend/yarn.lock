@@ -1940,9 +1940,9 @@
   resolved "https://registry.yarnpkg.com/@leichtgewicht/ip-codec/-/ip-codec-2.0.4.tgz#b2ac626d6cb9c8718ab459166d4bb405b8ffa78b"
   integrity sha512-Hcv+nVC0kZnQ3tD9GVu5xSMR4VVYOteQIr/hwFPVEvPdlXqgGEuRjiheChHgdM+JyqdgNcmzZOX/tnl0JOiI7A==
 
-"@mobiscroll/react@https://npm.mobiscroll.com/@mobiscroll/react-trial/-/react-trial-5.23.2.tgz":
-  version "5.23.2"
-  resolved "https://npm.mobiscroll.com/@mobiscroll/react-trial/-/react-trial-5.23.2.tgz#4caf3194183db93b24edff2a4146c5f05dbc0a2f"
+"@mobiscroll/react@https://npm.mobiscroll.com/@mobiscroll/react-trial/-/react-trial-5.24.0.tgz":
+  version "5.24.0"
+  resolved "https://npm.mobiscroll.com/@mobiscroll/react-trial/-/react-trial-5.24.0.tgz#5ea144fd6c18a10a66fc6fd9b4fa9f469efbede0"
 
 "@mui/base@5.0.0-alpha.128":
   version "5.0.0-alpha.128"

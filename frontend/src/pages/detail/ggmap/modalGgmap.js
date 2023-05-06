@@ -49,7 +49,6 @@ function ModalGgmap(props) {
           const newLocation = { ...location };
           newLocation.lat = res.data.results[0].geometry.location.lat;
           newLocation.lng = res.data.results[0].geometry.location.lng;
-          console.log(newLocation);
           setLocation(newLocation);
         });
     };

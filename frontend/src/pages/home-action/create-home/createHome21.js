@@ -30,11 +30,11 @@ export default function CreateHome21() {
   const currentAuth = useSelector((state) => state.auth);
 
   const categoryList = [
-    { idCategory: 1, categoryName: 'Presidential', icon: `fa-regular fa-bed` },
+    { idCategory: 1, categoryName: 'Presidential', icon: `fa-regular fa-hotel` },
     { idCategory: 2, categoryName: 'Single', icon: 'fa-regular fa-bed' },
-    { idCategory: 3, categoryName: 'Pair', icon: 'fa-regular fa-bed' },
-    { idCategory: 4, categoryName: 'Vip', icon: 'fa-regular fa-bed' },
-    { idCategory: 5, categoryName: 'Luxury', icon: 'fa-regular fa-bed' },
+    { idCategory: 3, categoryName: 'Pair', icon: 'fa-regular fa-bed-bunk' },
+    { idCategory: 4, categoryName: 'Vip', icon: 'fa-regular fa-crown' },
+    { idCategory: 5, categoryName: 'Luxury', icon: 'fa-regular fa-house-building' },
   ];
 
   useEffect(() => {

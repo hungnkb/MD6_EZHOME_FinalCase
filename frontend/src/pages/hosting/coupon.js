@@ -64,7 +64,7 @@ export default function Coupon() {
         });
       });
   };
-
+console.log(coupon,9999);
   return (
     <>
       <div style={{ marginTop: '3%', marginLeft: '3%', marginBottom: '420px' }}>

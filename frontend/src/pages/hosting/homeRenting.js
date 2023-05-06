@@ -24,6 +24,8 @@ import {
 } from 'mdb-react-ui-kit';
 import Bean from '../../media/bean.gif';
 import CircularProgress from '@mui/material/CircularProgress';
+import { io } from 'socket.io-client';
+import { useSelector } from 'react-redux';
 
 export default function HomeRenting() {
   const [homeRent, setHomeRent] = useState([]);
@@ -31,11 +33,30 @@ export default function HomeRenting() {
   const [status, setStatus] = React.useState('All Status');
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
+  const [id, setId] = useState(null);
   const [postsPerPage] = useState(10);
   const result = [];
   const counStatus = [];
   const [countTab, setCountTabs] = useState([]);
+  const [flag, setFlag] = useState(false);
   const navigate = useNavigate();
+  const currentState = useSelector(state => state.auth);
+  const socket = io.connect(
+    `${process.env.REACT_APP_BASE_URL_SERVER}/notifications`,
+  );
+
+  useEffect(() => {
+    setId(currentState.userLogin.sub);
+  }, [currentState]);
+
+  useEffect(() => {
+    socket.on('getNotification', (res) => {
+      if (id && res.idReciever == id) {
+        setFlag(!flag);
+      }
+    })
+  })
+
   useEffect(() => {
     const getDataRent = async () => {
       const dataList = await axios.get(
@@ -46,7 +67,7 @@ export default function HomeRenting() {
       setHomeRent(dataList.data.filter((home) => home.orders.length > 0));
     };
     getDataRent();
-  }, []);
+  }, [flag]);
   useEffect(() => {
     const getDataRent = async () => {
       const dataList = await axios.get(
@@ -57,7 +78,7 @@ export default function HomeRenting() {
       setHomeRentCount(dataList.data.filter((home) => home.orders.length > 0));
     };
     getDataRent();
-  }, []);
+  }, [flag]);
 
   useEffect(() => {
     if (status == 'all') {
@@ -80,9 +101,9 @@ export default function HomeRenting() {
       setHomeRent(dataList.data.filter((home) => home.orders.length > 0));
     };
     getDataRent();
-  }, [status]);
+  }, [status, flag]);
   for (let i = 0; i < homeRent.length; i++) {
-    homeRent[i].orders.map((order) =>
+    homeRent[i].orders.map((order) => {
       result.push({
         title: homeRent[i].title,
         address: homeRent[i].address,
@@ -91,9 +112,12 @@ export default function HomeRenting() {
         checkin: order.checkin,
         checkout: order.checkout,
         status: order.status,
-      }),
-    );
+        idOrder: order.idOrder,
+      });
+      result.sort((b, a) => a.idOrder - b.idOrder);
+    });
   }
+  console.log(homeRentCount);
   for (let i = 0; i < homeRentCount.length; i++) {
     homeRentCount[i].orders.map((order) =>
       counStatus.push({
@@ -101,7 +125,6 @@ export default function HomeRenting() {
       }),
     );
   }
-  console.log(counStatus, 555);
 
   const handleChange = (value) => {
     setStatus(value);
@@ -168,7 +191,7 @@ export default function HomeRenting() {
             <TableHead>
               <TableRow>
                 <TableCell>
-                  <b> Number</b>
+                  <b> ID</b>
                 </TableCell>
                 <TableCell align="center">
                   <b> Email </b>
@@ -198,7 +221,7 @@ export default function HomeRenting() {
                     sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                   >
                     <TableCell component="th" scope="row">
-                      <b> {index + 1} </b>
+                      <b> {data.idOrder} </b>
                     </TableCell>
                     <TableCell align="center">{data.email}</TableCell>
                     <TableCell align="center">{data.phone}</TableCell>

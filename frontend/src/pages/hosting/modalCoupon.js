@@ -36,6 +36,8 @@ export default function ModalCoupon({ setIsFetchCouponList }) {
 
   const formattedToday = dd + '/' + mm + '/' + yyyy;
 
+
+
   const handleClickOpen = () => {
     setOpen(true);
   };

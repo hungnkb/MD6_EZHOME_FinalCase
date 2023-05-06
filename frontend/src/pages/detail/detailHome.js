@@ -47,11 +47,12 @@ export default function DetailHome() {
       axios
         .get(`http://localhost:3002/api/v1/homes?idHome=${idHome.id}`)
         .then((response) => {
+          console.log(response.data[0],33)
           if(response.data[0].idCoupon){
             const currentDate = new Date();
             const startDate = new Date(Date.parse(response.data[0].idCoupon.startDate));
             const endDate = new Date(Date.parse(response.data[0].idCoupon.endDate));
-            if ((currentDate >= startDate  && currentDate <= endDate)){
+            if ((currentDate >= startDate  && currentDate <= endDate && response.data[0].idCoupon.isDeleted === false)){
               setVaueCoupon(response.data[0].idCoupon.value)
             }
           }

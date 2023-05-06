@@ -18,6 +18,11 @@ import InputGroup from 'react-bootstrap/InputGroup';
 import Form from 'react-bootstrap/Form';
 import Swal from 'sweetalert2';
 import ProgressBar from 'react-bootstrap/ProgressBar';
+import CircularProgress from "@mui/material/CircularProgress";
+import create from '../../../media/create.gif';
+import { Dialog, DialogContent, makeStyles } from '@mui/material';
+
+
 export default function CreateHome24() {
   const [descriptions, setDescriptions] = useState(null);
   const [bathrooms, setBathrooms] = useState(1);
@@ -28,8 +33,10 @@ export default function CreateHome24() {
   const [value, setValue] = useState('');
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  // const classes = useStyles();
   const currentState = useSelector((state) => state.createHome);
   const currentAuth = useSelector((state) => state.auth);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (!currentAuth.isLogined) {
@@ -71,6 +78,7 @@ export default function CreateHome24() {
   }, [bedrooms, bathrooms]);
 
   const handleFinish = async () => {
+    setLoading(true);
     const title = titles;
     const price = prices;
     const address = currentState.address;
@@ -122,6 +130,7 @@ export default function CreateHome24() {
         },
       })
         .then((response) => {
+          setLoading(false);
           Swal.fire({
             position: 'center',
             icon: 'success',
@@ -134,6 +143,7 @@ export default function CreateHome24() {
           });
         })
         .catch((err) => {
+          setLoading(false)
           Swal.fire({
             icon: 'error',
             title: 'Oops...',
@@ -154,6 +164,13 @@ export default function CreateHome24() {
       <center>
         <h2>Some more information about your home</h2>
       </center>
+      {loading && (
+          <Dialog open={loading}  >
+            <DialogContent>
+              <img src={create} alt="loading..." style={{width: "511px", height: "340px"}} ></img>
+            </DialogContent>
+          </Dialog>
+      )}
       <div className="row" style={{ marginBottom: '20%' }}>
         <div className="col-5">
           <br />

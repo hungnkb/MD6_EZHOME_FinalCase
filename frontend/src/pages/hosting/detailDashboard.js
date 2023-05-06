@@ -114,13 +114,6 @@ export default function DetailDashboard() {
                   <h5>Photos</h5>
                 </div>
                 <div className="col-2">
-                  {' '}
-                  {/* <Button variant="light">
-                    {' '}
-                    <b>
-                      <u> Edit </u>
-                    </b>{' '}
-                  </Button> */}
                 </div>
               </div>
               <div className="row">

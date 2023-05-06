@@ -13,9 +13,17 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import { useNavigate } from 'react-router-dom';
-import Bean from '../../media/bean.gif'
+import Stack from '@mui/material/Stack';
 import PaginationHomeRenting from './PaginationHomeRenting';
-import CircularProgress from "@mui/material/CircularProgress";
+import {
+  MDBTabs,
+  MDBTabsItem,
+  MDBTabsLink,
+  MDBTabsContent,
+  MDBTabsPane,
+} from 'mdb-react-ui-kit';
+import Bean from '../../media/bean.gif';
+import CircularProgress from '@mui/material/CircularProgress';
 
 export default function HomeRenting() {
   const [homeRent, setHomeRent] = useState([]);
@@ -42,15 +50,14 @@ export default function HomeRenting() {
   useEffect(() => {
     const getDataRent = async () => {
       const dataList = await axios.get(
-          `http://localhost:3002/api/v1/homes?idUser=${localStorage.getItem(
-              'idUser',
-          )}`,
+        `http://localhost:3002/api/v1/homes?idUser=${localStorage.getItem(
+          'idUser',
+        )}`,
       );
       setHomeRentCount(dataList.data.filter((home) => home.orders.length > 0));
     };
     getDataRent();
   }, []);
-
 
   useEffect(() => {
     if (status == 'all') {
@@ -84,17 +91,17 @@ export default function HomeRenting() {
         checkin: order.checkin,
         checkout: order.checkout,
         status: order.status,
-      })
+      }),
     );
   }
   for (let i = 0; i < homeRentCount.length; i++) {
     homeRentCount[i].orders.map((order) =>
-        counStatus.push({
-          status: order.status,
-        })
+      counStatus.push({
+        status: order.status,
+      }),
     );
   }
-  console.log(counStatus,555)
+  console.log(counStatus, 555);
 
   const handleChange = (value) => {
     setStatus(value);
@@ -105,7 +112,6 @@ export default function HomeRenting() {
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
   const currentPosts = result.slice(indexOfFirstPost, indexOfLastPost);
   const currentPosts1 = result.slice(indexOfFirstPost, indexOfLastPost);
-
 
   // Change page
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
@@ -185,46 +191,50 @@ export default function HomeRenting() {
               </TableRow>
             </TableHead>
             <TableBody>
-              {currentPosts && currentPosts.length > 0
-                ? (currentPosts.map((data, index) => (
-                    <TableRow
-                      key={index}
-                      sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                    >
-                      <TableCell component="th" scope="row">
-                        <b> {index + 1} </b>
+              {currentPosts && currentPosts.length > 0 ? (
+                currentPosts.map((data, index) => (
+                  <TableRow
+                    key={index}
+                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                  >
+                    <TableCell component="th" scope="row">
+                      <b> {index + 1} </b>
+                    </TableCell>
+                    <TableCell align="center">{data.email}</TableCell>
+                    <TableCell align="center">{data.phone}</TableCell>
+                    <TableCell align="center">{data.title}</TableCell>
+                    <TableCell align="center">{data.checkin}</TableCell>
+                    <TableCell align="center">{data.checkout}</TableCell>
+                    {data.status === 'ongoing' ? (
+                      <TableCell align="center">
+                        <p style={{ color: '#f7a800' }}>
+                          <i className="fa-solid fa-circle"></i> On going
+                        </p>
                       </TableCell>
-                      <TableCell align="center">{data.email}</TableCell>
-                      <TableCell align="center">{data.phone}</TableCell>
-                      <TableCell align="center">{data.title}</TableCell>
-                      <TableCell align="center">{data.checkin}</TableCell>
-                      <TableCell align="center">{data.checkout}</TableCell>
-                      {data.status === 'ongoing' ? (
-                        <TableCell align="center">
-                          <p style={{ color: '#f7a800' }}>
-                            <i className="fa-solid fa-circle"></i> On going
-                          </p>
-                        </TableCell>
-                      ) : data.status === 'done' ? (
-                        <TableCell align="center">
-                          <p style={{ color: 'green' }}>
-                            <i className="fa-solid fa-circle"></i> Done
-                          </p>
-                        </TableCell>
-                      ) : (
-                        <TableCell align="center">
-                          <p style={{ color: 'red' }}>
-                            <i className="fa-solid fa-circle"></i> Cancel
-                          </p>
-                        </TableCell>
-                      )}
-                    </TableRow>
-                  )))
-                :
-                  <Box sx={{ display: 'flex' }}>
-                    <img src={Bean} alt="loading..." style={{width: "400px", height: "200px"}} />
-                  </Box>
-                  }
+                    ) : data.status === 'done' ? (
+                      <TableCell align="center">
+                        <p style={{ color: 'green' }}>
+                          <i className="fa-solid fa-circle"></i> Done
+                        </p>
+                      </TableCell>
+                    ) : (
+                      <TableCell align="center">
+                        <p style={{ color: 'red' }}>
+                          <i className="fa-solid fa-circle"></i> Cancel
+                        </p>
+                      </TableCell>
+                    )}
+                  </TableRow>
+                ))
+              ) : (
+                <Stack
+                  sx={{ color: 'grey.500', marginLeft: '700px' }}
+                  spacing={2}
+                  direction="row"
+                >
+                  <CircularProgress color="inherit" />
+                </Stack>
+              )}
             </TableBody>
           </Table>
         </TableContainer>
@@ -240,14 +250,6 @@ export default function HomeRenting() {
     </>
   );
 }
-
-import {
-  MDBTabs,
-  MDBTabsItem,
-  MDBTabsLink,
-  MDBTabsContent,
-  MDBTabsPane
-} from 'mdb-react-ui-kit';
 
 export function Tabs(props) {
   return (

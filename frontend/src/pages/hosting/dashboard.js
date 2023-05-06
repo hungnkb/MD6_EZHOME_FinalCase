@@ -135,8 +135,8 @@ function DashboardHosting() {
 
       <br />
       <div className="row">
-        <div className="col-4">
-          <input
+        <div className="col-8">
+          {/* <input
             style={{
               border: '1px solid black',
               marginLeft: '10%',
@@ -158,11 +158,55 @@ function DashboardHosting() {
                 </InputAdornment>
               ),
             }}
-          />
-        </div>
-        <div className="col-4">
-          {' '}
+          /> */}
+           <Button
+            onClick={() => {
+              navigate('/user/revenue');
+            }}
+            sx={{
+              color: 'black',
+              background: 'white',
+              border: '1px solid black',
+              borderRadius: '30px',
+              marginLeft: '3%'
+            }}
+            variant="light"
+          >
+            Revenue
+          </Button>
           <Button
+            onClick={() => {
+              navigate('/user/home');
+            }}
+            sx={{
+              color: 'black',
+              background: 'white',
+              border: '1px solid black',
+              marginLeft: '20px',
+              borderRadius: '30px',
+            }}
+            variant="light"
+          >
+            Customer order
+          </Button>
+          <NavLink to="/user/coupon">
+                <Button
+                  sx={{
+                    color: 'black',
+                    background: 'white',
+                    border: '1px solid black',
+                    borderRadius: '30px',
+                    marginLeft: '2%',
+                  }}
+                  variant="light"
+                >
+                  <i className="fa-solid fa-badge-percent"></i> Voucher
+                </Button>
+              </NavLink>
+        </div>
+        {/* <div className="col-2"> */}
+          {' '}
+          {/* <Button
             onClick={() => {
               navigate('/user/revenue');
             }}
@@ -190,12 +234,12 @@ function DashboardHosting() {
             variant="light"
           >
             Customer order
-          </Button>
-        </div>
+          </Button> */}
+        {/* </div> */}
         <div className="col-4">
           <div className="row">
             <div className="col-6">
-              <NavLink to="/user/coupon">
+              {/* <NavLink to="/user/coupon">
                 <Button
                   sx={{
                     color: 'black',
@@ -208,7 +252,7 @@ function DashboardHosting() {
                 >
                   <i className="fa-solid fa-badge-percent"></i> Voucher
                 </Button>
-              </NavLink>
+              </NavLink> */}
             </div>
             <div className="col-6">
               <Button

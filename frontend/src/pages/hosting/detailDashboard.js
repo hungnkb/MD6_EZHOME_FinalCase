@@ -32,7 +32,7 @@ export default function DetailDashboard() {
     };
     getData();
   }, []);
-  console.log(dashboard,44)
+
   return (
     <>
       <div className="container" style={{ marginTop: '3%' }}>

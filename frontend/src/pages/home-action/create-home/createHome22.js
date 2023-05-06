@@ -131,14 +131,12 @@ export default function CreateHome22() {
         }
       }
     }
-    console.log(newAddress);
     setData({ address: newAddress });
     setDataAddressStr(newAddress);
   };
 
   useEffect(() => {
     const getData = async () => {
-      console.log(process.env.REACT_APP_GG_API_LIB_KEY);
       axios
         .get(
           `https://maps.googleapis.com/maps/api/geocode/json?address=${dataAddressStr}&key=${process.env.REACT_APP_GG_API_LIB_KEY}`,
@@ -147,7 +145,6 @@ export default function CreateHome22() {
           const newLocation = { ...location };
           newLocation.lat = res.data.results[0].geometry.location.lat;
           newLocation.lng = res.data.results[0].geometry.location.lng;
-          console.log(newLocation, 111);
           setCurrentPosition(newLocation);
         });
     };

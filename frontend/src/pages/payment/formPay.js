@@ -48,7 +48,6 @@ export default function FormPay(props) {
     (ev) => {
       if (ev.value[0] && ev.value[1]) {
         setOrderTime({ checkin: ev.value[0], checkout: ev.value[1] });
-        console.log(Math.abs(ev.value[0] - ev.value[1]) / (1000 * 60 * 60 * 24));
         let dayDiff = Math.round(
           Math.abs(ev.value[0] - ev.value[1]) / (1000 * 60 * 60 * 24),
         );

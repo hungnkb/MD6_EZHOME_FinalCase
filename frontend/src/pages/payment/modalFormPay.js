@@ -151,6 +151,8 @@ export default function ModalFormPay(props) {
                 charged={props.dataForm.charged}
                 handleBook={handleBook}
                 paymentType={paymentType}
+                idOwner={props.idOwner}
+                setOpenBill={props.setOpenBill}
                 style={{
                   marginLeft: '45%',
                   background: '#f7a800',

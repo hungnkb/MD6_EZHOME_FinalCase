@@ -23,6 +23,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import Stack from '@mui/material/Stack';
 import CircularProgress from '@mui/material/CircularProgress';
 import Payment from '../payment/Payment';
+import { PayPalScriptProvider } from '@paypal/react-paypal-js';
 export default function HistoryRent() {
   const style = {
     position: 'absolute',
@@ -76,7 +77,7 @@ export default function HistoryRent() {
       .then((res) => {
         setCountTabs(res.data);
       });
-  },[]);
+  }, []);
 
   useEffect(() => {
     axios
@@ -459,11 +460,13 @@ export default function HistoryRent() {
                 }}
               >
                 {addCharge > 0 ? (
-                  <Payment
-                    charged={addCharge}
-                    handleSubmitCheckout={handleSubmitCheckout}
-                    paymentType={paymentType}
-                  />
+                    <Payment
+                      charged={addCharge}
+                      handleSubmitCheckout={handleSubmitCheckout}
+                      paymentType={paymentType}
+                      currency='USD'
+                      showSpinner={true}
+                    />
                 ) : (
                   <Button
                     variant="contained"

@@ -13,23 +13,27 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import { useNavigate } from 'react-router-dom';
+import Stack from '@mui/material/Stack';
 import PaginationHomeRenting from './PaginationHomeRenting';
 import {
   MDBTabs,
   MDBTabsItem,
   MDBTabsLink,
   MDBTabsContent,
-  MDBTabsPane
+  MDBTabsPane,
 } from 'mdb-react-ui-kit';
+import Bean from '../../media/bean.gif';
+import CircularProgress from '@mui/material/CircularProgress';
 
 export default function HomeRenting() {
   const [homeRent, setHomeRent] = useState([]);
-  const [homeRentted, setHomeRentted] = useState([]);
+  const [homeRentCount, setHomeRentCount] = useState([]);
   const [status, setStatus] = React.useState('All Status');
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage] = useState(10);
   const result = [];
+  const counStatus = [];
   const [countTab, setCountTabs] = useState([]);
   const navigate = useNavigate();
   useEffect(() => {
@@ -40,6 +44,17 @@ export default function HomeRenting() {
         )}`,
       );
       setHomeRent(dataList.data.filter((home) => home.orders.length > 0));
+    };
+    getDataRent();
+  }, []);
+  useEffect(() => {
+    const getDataRent = async () => {
+      const dataList = await axios.get(
+        `http://localhost:3002/api/v1/homes?idUser=${localStorage.getItem(
+          'idUser',
+        )}`,
+      );
+      setHomeRentCount(dataList.data.filter((home) => home.orders.length > 0));
     };
     getDataRent();
   }, []);
@@ -79,6 +94,15 @@ export default function HomeRenting() {
       }),
     );
   }
+  for (let i = 0; i < homeRentCount.length; i++) {
+    homeRentCount[i].orders.map((order) =>
+      counStatus.push({
+        status: order.status,
+      }),
+    );
+  }
+  console.log(counStatus, 555);
+
   const handleChange = (value) => {
     setStatus(value);
   };
@@ -88,16 +112,14 @@ export default function HomeRenting() {
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
   const currentPosts = result.slice(indexOfFirstPost, indexOfLastPost);
   const currentPosts1 = result.slice(indexOfFirstPost, indexOfLastPost);
-  console.log(currentPosts1,22);
-  
 
   // Change page
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
-  console.log(countTab,4444);
+
   const sumGoing = () => {
     let sum = 0;
-    for (let i = 0; i < currentPosts1.length; i++) {
-      if (currentPosts1[i].status === 'ongoing') {
+    for (let i = 0; i < counStatus.length; i++) {
+      if (counStatus[i].status === 'ongoing') {
         sum++;
       }
     }
@@ -105,8 +127,8 @@ export default function HomeRenting() {
   };
   const sumDone = () => {
     let sum1 = 0;
-    for (let i = 0; i < currentPosts1.length; i++) {
-      if (currentPosts1[i].status === 'done') {
+    for (let i = 0; i < counStatus.length; i++) {
+      if (counStatus[i].status === 'done') {
         sum1++;
       }
     }
@@ -114,8 +136,8 @@ export default function HomeRenting() {
   };
   const sumCancel = () => {
     let sum2 = 0;
-    for (let i = 0; i < currentPosts1.length; i++) {
-      if (currentPosts1[i].status === 'cancelled') {
+    for (let i = 0; i < counStatus.length; i++) {
+      if (counStatus[i].status === 'cancelled') {
         sum2++;
       }
     }
@@ -130,28 +152,10 @@ export default function HomeRenting() {
           handleChange={handleChange}
           status={status}
           sumGoing={sumGoing()}
-          all={currentPosts1.length}
+          all={counStatus.length}
           done={sumDone()}
           cancel={sumCancel()}
         />
-        {/* <FormControl
-          variant="standard"
-          sx={{ m: 1, minWidth: 120, marginLeft: '8%' }}
-        >
-          <InputLabel id="demo-simple-select-standard-label">Status</InputLabel>
-          <Select
-            labelId="demo-simple-select-standard-label"
-            id="demo-simple-select-standard"
-            value={status}
-            onChange={handleChange}
-            label="Age"
-          >
-            <MenuItem value="all">All Order</MenuItem>
-            <MenuItem value="ongoing">On Going</MenuItem>
-            <MenuItem value="done">Done</MenuItem>
-            <MenuItem value="cancelled">Cancel</MenuItem>
-          </Select>
-        </FormControl> */}
         <TableContainer
           component={Paper}
           sx={{
@@ -187,42 +191,50 @@ export default function HomeRenting() {
               </TableRow>
             </TableHead>
             <TableBody>
-              {currentPosts
-                ? currentPosts.map((data, index) => (
-                    <TableRow
-                      key={index}
-                      sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                    >
-                      <TableCell component="th" scope="row">
-                        <b> {index + 1} </b>
+              {currentPosts && currentPosts.length > 0 ? (
+                currentPosts.map((data, index) => (
+                  <TableRow
+                    key={index}
+                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                  >
+                    <TableCell component="th" scope="row">
+                      <b> {index + 1} </b>
+                    </TableCell>
+                    <TableCell align="center">{data.email}</TableCell>
+                    <TableCell align="center">{data.phone}</TableCell>
+                    <TableCell align="center">{data.title}</TableCell>
+                    <TableCell align="center">{data.checkin}</TableCell>
+                    <TableCell align="center">{data.checkout}</TableCell>
+                    {data.status === 'ongoing' ? (
+                      <TableCell align="center">
+                        <p style={{ color: '#f7a800' }}>
+                          <i className="fa-solid fa-circle"></i> On going
+                        </p>
                       </TableCell>
-                      <TableCell align="center">{data.email}</TableCell>
-                      <TableCell align="center">{data.phone}</TableCell>
-                      <TableCell align="center">{data.title}</TableCell>
-                      <TableCell align="center">{data.checkin}</TableCell>
-                      <TableCell align="center">{data.checkout}</TableCell>
-                      {data.status === 'ongoing' ? (
-                        <TableCell align="center">
-                          <p style={{ color: '#f7a800' }}>
-                            <i className="fa-solid fa-circle"></i> On going
-                          </p>
-                        </TableCell>
-                      ) : data.status === 'done' ? (
-                        <TableCell align="center">
-                          <p style={{ color: 'green' }}>
-                            <i className="fa-solid fa-circle"></i> Done
-                          </p>
-                        </TableCell>
-                      ) : (
-                        <TableCell align="center">
-                          <p style={{ color: 'red' }}>
-                            <i className="fa-solid fa-circle"></i> Cancel
-                          </p>
-                        </TableCell>
-                      )}
-                    </TableRow>
-                  ))
-                : null}
+                    ) : data.status === 'done' ? (
+                      <TableCell align="center">
+                        <p style={{ color: 'green' }}>
+                          <i className="fa-solid fa-circle"></i> Done
+                        </p>
+                      </TableCell>
+                    ) : (
+                      <TableCell align="center">
+                        <p style={{ color: 'red' }}>
+                          <i className="fa-solid fa-circle"></i> Cancel
+                        </p>
+                      </TableCell>
+                    )}
+                  </TableRow>
+                ))
+              ) : (
+                <Stack
+                  sx={{ color: 'grey.500', marginLeft: '700px' }}
+                  spacing={2}
+                  direction="row"
+                >
+                  <CircularProgress color="inherit" />
+                </Stack>
+              )}
             </TableBody>
           </Table>
         </TableContainer>

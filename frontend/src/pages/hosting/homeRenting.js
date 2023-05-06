@@ -117,7 +117,7 @@ export default function HomeRenting() {
       result.sort((b, a) => a.idOrder - b.idOrder);
     });
   }
-  console.log(homeRentCount);
+
   for (let i = 0; i < homeRentCount.length; i++) {
     homeRentCount[i].orders.map((order) =>
       counStatus.push({

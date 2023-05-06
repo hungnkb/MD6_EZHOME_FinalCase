@@ -51,7 +51,6 @@ export default function FormPay(props) {
         let dayDiff = Math.round(
           Math.abs(ev.value[0] - ev.value[1]) / (1000 * 60 * 60 * 24),
         );
-        console.log(dayDiff)
 
         let charged = () => {
           if (props.valueCoupon){

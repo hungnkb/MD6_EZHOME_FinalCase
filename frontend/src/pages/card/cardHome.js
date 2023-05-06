@@ -16,10 +16,11 @@ export default function CardHome(props) {
   const [home, setHome] = useState([]);
   const [searchHomeList, setSearchHomeList] = useState([]);
   const [isFetchData, setIsFetchData] = useState(false);
-  const [pageHome, setPageHome] = useState(0);
+  const [pageHome, setPageHome] = useState(1);
   const { loading = false } = props;
   const [openDescription, setOpenDescription] = useState(false);
   const [skeleton, setSkeleton] = useState([1, 2, 3, 4, 5, 6]);
+  const [hasmore, sethasmore] = useState(true);
 
   let location = useLocation();
 
@@ -38,15 +39,37 @@ export default function CardHome(props) {
   useEffect(() => {
     if (isFetchData) {
       setSearchHomeList([]);
-      let page = pageHome + 1;
+      let page =  1;
       setPageHome(page);
       let option = { params: { page } };
       axios.get('http://localhost:3002/api/v1/homes', option).then((res) => {
-        setHome([...home, ...res.data]);
+        if (res.data.length == 12) {
+          sethasmore(true);
+        } else if (res.data.length < 12) {
+          sethasmore(false);
+        }
+        setHome(res.data);
         setIsFetchData(false);
       });
     }
   }, [isFetchData]);
+
+  const handleNextPage = () => {
+    let page = pageHome + 1;
+    setPageHome(page);
+    let option = { params: { page } };
+    axios.get('http://localhost:3002/api/v1/homes', option).then((res) => {
+      if (res.data.length == 12) {
+        sethasmore(true);
+      } else if (res.data.length < 12) {
+        sethasmore(false);
+      }
+      console.log('zooo');
+      setHome([...home, ...res.data]);
+      setIsFetchData(false);
+    });
+  }
+
   return (
     <>
       <div style={{ marginLeft: '20px' }}>
@@ -54,13 +77,13 @@ export default function CardHome(props) {
         <CarouselMulti />
         <br />
         {searchHomeList.length === 0 && <TopFive />}
-        <div style={{ marginTop: '70px' }}>
+        <div style={{ marginTop: '70px'}}>
           {home.length > 0 && searchHomeList.length == 0 ? (
             <InfiniteScroll
               className="d-flex flex-wrap justify-content-center"
-              dataLength={1000} //This is important field to render the next data
-              next={() => setIsFetchData(true)}
-              hasMore={true}
+              dataLength={home.length} //This is important field to render the next data
+              next={handleNextPage}
+              hasMore={hasmore}
             >
               {home.map((value, index) => {
                 let flagCouponCheck = false;
@@ -210,9 +233,9 @@ export default function CardHome(props) {
           {searchHomeList.length > 0 ? (
             <div
               className="d-flex flex-wrap justify-content-center"
-              dataLength={1000}
-              next={() => setIsFetchData(true)}
-              hasMore={true}
+              dataLength={searchHomeList.length}
+              next={handleNextPage}
+              hasMore={hasmore}
             >
               {searchHomeList.map((value, index) => {
                 if (value.status) {

@@ -33,7 +33,6 @@ export default function Review(props) {
       .get(`http://localhost:3002/api/v1/reviews?idHome=${props.idHome}`)
       .then((res) => {
         setReview(res.data);
-        console.log(res);
       });
   }, [socket]);
   const handleChange = (event) => {

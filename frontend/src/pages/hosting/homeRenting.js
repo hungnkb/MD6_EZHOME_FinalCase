@@ -13,8 +13,14 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import { useNavigate } from 'react-router-dom';
-import { Chip } from '@mui/material';
 import PaginationHomeRenting from './PaginationHomeRenting';
+import {
+  MDBTabs,
+  MDBTabsItem,
+  MDBTabsLink,
+  MDBTabsContent,
+  MDBTabsPane
+} from 'mdb-react-ui-kit';
 
 export default function HomeRenting() {
   const [homeRent, setHomeRent] = useState([]);
@@ -82,6 +88,7 @@ export default function HomeRenting() {
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
   const currentPosts = result.slice(indexOfFirstPost, indexOfLastPost);
   const currentPosts1 = result.slice(indexOfFirstPost, indexOfLastPost);
+  console.log(currentPosts1,22);
   
 
   // Change page
@@ -127,7 +134,7 @@ export default function HomeRenting() {
           done={sumDone()}
           cancel={sumCancel()}
         />
-        <FormControl
+        {/* <FormControl
           variant="standard"
           sx={{ m: 1, minWidth: 120, marginLeft: '8%' }}
         >
@@ -144,7 +151,7 @@ export default function HomeRenting() {
             <MenuItem value="done">Done</MenuItem>
             <MenuItem value="cancelled">Cancel</MenuItem>
           </Select>
-        </FormControl>
+        </FormControl> */}
         <TableContainer
           component={Paper}
           sx={{
@@ -231,14 +238,6 @@ export default function HomeRenting() {
     </>
   );
 }
-
-import {
-  MDBTabs,
-  MDBTabsItem,
-  MDBTabsLink,
-  MDBTabsContent,
-  MDBTabsPane
-} from 'mdb-react-ui-kit';
 
 export function Tabs(props) {
   return (

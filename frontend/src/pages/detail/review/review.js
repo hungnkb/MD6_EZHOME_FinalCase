@@ -92,7 +92,7 @@ export default function Review(props) {
                           ) : (
                             <MDBCardImage
                               className="rounded-circle shadow-1-strong me-3"
-                              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTvw1lmPDOJqryVsX3imw1Bj4lnajMh7j-oQQ&usqp=CAU"
+                              src="https://tieuhocdongphuongyen.edu.vn/wp-content/uploads/2023/02/1676245765_401_Hinh-anh-Avatar-Trang-Dep-Cho-FB-Zalo-BI-AN.jpg"
                               alt="avatar"
                               width="60"
                               height="60"

@@ -21,6 +21,7 @@ import {
   MDBTypography,
   MDBIcon,
 } from 'mdb-react-ui-kit';
+import Stack from '@mui/material/Stack';
 import CircularProgress from '@mui/material/CircularProgress';
 
 export default function UpdateUser() {
@@ -405,12 +406,19 @@ export default function UpdateUser() {
                                 alt="Avatar"
                               />
                             ) : (
-                              <img
-                                style={{ width: '30%', height: '110px' }}
-                                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTvw1lmPDOJqryVsX3imw1Bj4lnajMh7j-oQQ&usqp=CAU"
-                                className="rounded-circle"
-                                alt="Avatar"
-                              />
+                              // <img
+                              //   style={{ width: '30%', height: '110px' }}
+                              //   src="https://tieuhocdongphuongyen.edu.vn/wp-content/uploads/2023/02/1676245765_401_Hinh-anh-Avatar-Trang-Dep-Cho-FB-Zalo-BI-AN.jpg"
+                              //   className="rounded-circle"
+                              //   alt="Avatar"
+                              // />
+                              <Stack
+                                sx={{ color: 'grey.500',marginLeft:"150px"}}
+                                spacing={2}
+                                direction="row"
+                              >
+                                <CircularProgress color="inherit" />
+                              </Stack>
                             )}
                           </div>
                           {loading && (

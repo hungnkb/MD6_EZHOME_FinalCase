@@ -138,13 +138,6 @@ export default function ModalFormPay(props) {
                   </tr>
                 </table>
               </Typography>
-              <Button
-                variant="contained"
-                style={{ background: 'gray', marginTop: '25px' }}
-                onClick={handleClose}
-              >
-                Cancel
-              </Button>
               <Payment 
               charged={props.dataForm.charged}
               handleBook={handleBook}
@@ -154,17 +147,24 @@ export default function ModalFormPay(props) {
                 marginTop: '25px',
               }}
               />
-               <Button
-                variant="contained"
-                style={{
-                  marginLeft: '45%',
-                  background: '#f7a800',
-                  marginTop: '25px',
-                }}
-                onClick={handleBook}
+              <Button
+                  variant="contained"
+                  style={{ background: 'gray', marginTop: '25px' }}
+                  onClick={handleClose}
               >
-                Submit
+                Cancel
               </Button>
+              {/* <Button*/}
+              {/*  variant="contained"*/}
+              {/*  style={{*/}
+              {/*    marginLeft: '45%',*/}
+              {/*    background: '#f7a800',*/}
+              {/*    marginTop: '25px',*/}
+              {/*  }}*/}
+              {/*  onClick={handleBook}*/}
+              {/*>*/}
+              {/*  Submit*/}
+              {/*</Button>*/}
             </Box>
           </Modal>
         </div>

@@ -26,6 +26,7 @@ export default function CardHome(props) {
 
   useEffect(() => {
     if (location.state?.data.length > 0) {
+      setHome([]);
       setSearchHomeList(location.state.data);
       window.history.replaceState({}, document.title);
       setIsFetchData(false);

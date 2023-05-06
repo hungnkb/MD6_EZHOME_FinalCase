@@ -294,28 +294,29 @@ export default function HistoryRent() {
             height: '80%',
             width: '90%',
             marginLeft: '4%',
+            marginBottom:"420px"
           }}
         >
           <Table aria-label="simple table">
             <TableHead>
-              <TableRow>
+              <TableRow style={{color:"gray"}}>
                 <TableCell align="center">
-                  <b> Home </b>{' '}
+                  <b style={{color:"gray"}}> Home </b>{' '}
                 </TableCell>
                 <TableCell align="center">
-                  <b> Checkin</b>{' '}
+                  <b style={{color:"gray"}}> Checkin</b>{' '}
                 </TableCell>
                 <TableCell align="center">
-                  <b> Checkout </b>{' '}
+                  <b style={{color:"gray"}}> Checkout </b>{' '}
                 </TableCell>
                 <TableCell align="center">
-                  <b>Charge </b>{' '}
+                  <b style={{color:"gray"}}>Charge </b>{' '}
                 </TableCell>
                 <TableCell align="center">
-                  <b>Status </b>{' '}
+                  <b  style={{color:"gray"}}>Status </b>{' '}
                 </TableCell>
                 <TableCell align="center">
-                  <b> Action</b>{' '}
+                  <b style={{color:"gray"}}> Action</b>{' '}
                 </TableCell>
               </TableRow>
             </TableHead>

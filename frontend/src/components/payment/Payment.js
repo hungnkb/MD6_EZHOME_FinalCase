@@ -1,8 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { PayPalScriptProvider, PayPalButtons } from '@paypal/react-paypal-js';
+import { useSelector } from 'react-redux';
+import Swal from 'sweetalert2';
 
 function Payment(props) {
   const [totalValue, setTotalValue] = useState(0);
+  const [isOpen, setIsOpen] = useState(true);
+  const currentAuth = useSelector((state) => state.auth);
   const currency = 'USD';
   const rateVND = 23812;
   const initialOptions = {
@@ -11,11 +15,19 @@ function Payment(props) {
 
   useEffect(() => {
     const newValue = (parseInt(props.charged) / rateVND).toFixed(2);
-    console.log(newValue);
     setTotalValue(newValue);
   }, [props.charged]);
 
   const createOrder = (data, actions) => {
+    if (currentAuth.userLogin.sub === props.idOwner) {
+      props.setOpenBill(false);
+      setIsOpen(false);
+      return Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'You can not order your own home!',
+      });
+    }
     return actions.order
       .create({
         purchase_units: [
@@ -44,7 +56,7 @@ function Payment(props) {
 
   return (
     <>
-      {totalValue && (
+      {totalValue && isOpen && (
         <PayPalScriptProvider options={initialOptions}>
           <PayPalButtons
             style={{ layout: 'horizontal' }}

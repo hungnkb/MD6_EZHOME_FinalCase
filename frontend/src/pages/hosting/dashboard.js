@@ -302,7 +302,7 @@ function DashboardHosting() {
           </TableHead>
           <TableBody>
             {homeList.length > 0
-              ? homeList.map((data, index) => (
+              ? homeList.reverse().map((data, index) => (
                   <TableRow
                     key={index}
                     sx={{ '&:last-child td, &:last-child th': { border: 0 } }}

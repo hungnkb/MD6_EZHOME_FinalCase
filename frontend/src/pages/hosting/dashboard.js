@@ -41,6 +41,7 @@ function DashboardHosting() {
   const [lgShow, setLgShow] = useState(false);
   const [listCoupon, setListCoupon] = useState([]);
   const [addCoupon, setAddCoupon] = useState(0);
+  const [isSpin, setIsSpin] = useState(true);
 
   useEffect(() => {
     const coupon = () => {
@@ -107,6 +108,7 @@ function DashboardHosting() {
         },
       );
       setHomeList(dataList.data);
+      setIsSpin(false);
     };
     getDataHome();
   }, [currentAuth.isLogined, flag]);
@@ -126,6 +128,8 @@ function DashboardHosting() {
         console.log(err);
       });
   };
+
+  console.log(homeList.length, isSpin);
   
   return (
     <>
@@ -301,7 +305,7 @@ function DashboardHosting() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {homeList.length > 0
+            {homeList.length > 0 && isSpin == false
               ? homeList.map((data, index) => (
                   <TableRow
                     key={index}
@@ -370,11 +374,11 @@ function DashboardHosting() {
                     </TableCell>
                   </TableRow>
                 ))
-              : (
+              : homeList.length == 0 && isSpin == true ? (
                 <Stack sx={{ color: 'grey.500', marginLeft:"700px" }} spacing={2} direction="row">
                 <CircularProgress color="inherit" />
               </Stack>
-              )}
+              ): null}
           </TableBody>
         </Table>
       </TableContainer>

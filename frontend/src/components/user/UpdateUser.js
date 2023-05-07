@@ -406,9 +406,15 @@ export default function UpdateUser() {
                                 alt="Avatar"
                               />
                             ) : (
-                              <Stack sx={{ color: 'grey.500', marginLeft:"150px" }} spacing={2} direction="row">
-                              <CircularProgress color="inherit" />
-                            </Stack>
+                              <img
+                              style={{ width: '30%', height: '110px' }}
+                              src="https://tieuhocdongphuongyen.edu.vn/wp-content/uploads/2023/02/1676245765_401_Hinh-anh-Avatar-Trang-Dep-Cho-FB-Zalo-BI-AN.jpg"
+                              className="rounded-circle"
+                              alt="Avatar"
+                            />
+                            //   <Stack sx={{ color: 'grey.500', marginLeft:"150px" }} spacing={2} direction="row">
+                            //   <CircularProgress color="inherit" />
+                            // </Stack>
                             )}
                           </div>
                           {loading && (

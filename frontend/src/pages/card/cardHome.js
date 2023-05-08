@@ -157,7 +157,7 @@ export default function CardHome(props) {
                                 variant="body2"
                                 color="text.secondary"
                               >
-                                {value.address}
+                                {value.address.length > 25 ? (value.address.split(' ').splice(0, 25).join(' ') + '...'): (value.address)}
                               </Typography>
                               <Typography
                                 gutterBottom
@@ -166,10 +166,15 @@ export default function CardHome(props) {
                               >
                                 {flagCouponCheck ? (
                                   <del>
-                                    {value.price.toLocaleString('en-EN')}đ
+                                    {value.price.toLocaleString('en-EN')}đ/night
                                   </del>
                                 ) : (
-                                  <b>{value.price.toLocaleString('en-EN')}đ</b>
+                                  <div style={{display: 'flex', direction: 'row'}}>
+                                    <b>
+                                      {value.price.toLocaleString('en-EN')}đ
+                                    </b>
+                                    <p>/night</p>
+                                  </div>
                                 )}
                               </Typography>
                               <Typography
@@ -186,7 +191,7 @@ export default function CardHome(props) {
                                         )}
                                         đ
                                       </b>
-                                      night
+                                      /night
                                     </div>
                                   ) : null}
                                   {flagCouponCheck ? (
@@ -299,7 +304,6 @@ export default function CardHome(props) {
                                 component="div"
                               >
                                 <b>{value.price.toLocaleString('en-EN')}đ</b>{' '}
-                                night
                               </Typography>
                             </CardContent>
                           </CardActionArea>

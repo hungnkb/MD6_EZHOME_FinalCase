@@ -72,6 +72,8 @@ export default function DetailHome() {
         setDescriptionPart(
           detail.description.split(' ').slice(0, 100).join(' '),
         );
+      } else {
+        setDescriptionPart(detail.description)
       }
     }
   }, [detail]);
@@ -180,14 +182,14 @@ export default function DetailHome() {
                         <p>
                           <b> Description :</b>
                           <div> {ReactHtmlParser(descriptionPart)}</div>
-                          {descriptionPart && (
+                          {descriptionPart && (detail.description.split(' ').length > 100) ? (
                             <div
                               style={{ cursor: 'pointer' }}
                               onClick={() => setOpenDescription(true)}
                             >
                               <b> See more . . . </b>
                             </div>
-                          )}
+                          ): null}
                         </p>
                       </div>
                     </div>

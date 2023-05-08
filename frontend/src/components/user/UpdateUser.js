@@ -23,6 +23,7 @@ import {
 } from 'mdb-react-ui-kit';
 import Stack from '@mui/material/Stack';
 import CircularProgress from '@mui/material/CircularProgress';
+import { Avatar } from '@mui/material';
 
 export default function UpdateUser() {
   const [loading, setLoading] = useState(false);
@@ -399,22 +400,13 @@ export default function UpdateUser() {
                         <MDBCardBody className="text-center">
                           <div className="mt-3 mb-4">
                             {dataUser.image ? (
-                              <img
-                                style={{ width: '30%', height: '110px' }}
-                                src={dataUser.image}
-                                className="rounded-circle"
-                                alt="Avatar"
-                              />
+                              <Stack direction="row" spacing={2}>
+                              <Avatar alt="img" src={dataUser.image} sx={{ width: 150, height: 150, marginLeft:"28%" }}/>
+                            </Stack>
                             ) : (
-                              <img
-                              style={{ width: '30%', height: '110px' }}
-                              src="https://tieuhocdongphuongyen.edu.vn/wp-content/uploads/2023/02/1676245765_401_Hinh-anh-Avatar-Trang-Dep-Cho-FB-Zalo-BI-AN.jpg"
-                              className="rounded-circle"
-                              alt="Avatar"
-                            />
-                            //   <Stack sx={{ color: 'grey.500', marginLeft:"150px" }} spacing={2} direction="row">
-                            //   <CircularProgress color="inherit" />
-                            // </Stack>
+                            <Stack direction="row" spacing={2}>
+                            <Avatar alt="img" src="https://tieuhocdongphuongyen.edu.vn/wp-content/uploads/2023/02/1676245765_401_Hinh-anh-Avatar-Trang-Dep-Cho-FB-Zalo-BI-AN.jpg" sx={{ width: 150, height: 150, marginLeft:"28%" }}/>
+                          </Stack>
                             )}
                           </div>
                           {loading && (

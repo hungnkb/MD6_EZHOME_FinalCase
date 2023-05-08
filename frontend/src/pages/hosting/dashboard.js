@@ -139,7 +139,7 @@ function DashboardHosting() {
     <>
       <br />
       <br />
-      <h3 style={{ marginLeft: '3%' }}>Total: {homeList.length}</h3>
+      <h3 style={{ marginLeft: '3%' }}>Total:<b style={{color:"#f7a800"}}> {homeList.length} house</b>  for rent</h3>
 
       <br />
       <div className="row">
@@ -208,7 +208,7 @@ function DashboardHosting() {
               }}
               variant="light"
             >
-              <i className="fa-solid fa-badge-percent"></i> Voucher
+              <i class="fa-regular fa-badge-percent" style={{fontSize:"20px", color:"red"}}></i> Voucher
             </Button>
           </NavLink>
         </div>
@@ -275,7 +275,7 @@ function DashboardHosting() {
                 }}
                 variant="light"
               >
-                <i className="fa-solid fa-circle-plus"></i> Create a rental item
+                <i class="fa-regular fa-house-medical" style={{fontSize:"20px"}}></i> Create a rental item
               </Button>
             </div>
           </div>

@@ -126,7 +126,7 @@ export default function FormPay(props) {
             <div
               className="p-3"
               style={{
-                border: '1px solid gray',
+                border: '1px solid rgb(222,222,222)',
                 display: 'flex',
                 justifyContent: 'center',
                 flexDirection: 'column',

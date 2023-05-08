@@ -40,7 +40,7 @@ export default function CardHome(props) {
   useEffect(() => {
     if (isFetchData) {
       setSearchHomeList([]);
-      let page =  1;
+      let page = 1;
       setPageHome(page);
       let option = { params: { page } };
       axios.get('http://localhost:3002/api/v1/homes', option).then((res) => {
@@ -69,7 +69,7 @@ export default function CardHome(props) {
       setHome([...home, ...res.data]);
       setIsFetchData(false);
     });
-  }
+  };
 
   return (
     <>
@@ -78,7 +78,7 @@ export default function CardHome(props) {
         <CarouselMulti />
         <br />
         {searchHomeList.length === 0 && <TopFive />}
-        <div style={{ marginTop: '70px'}}>
+        <div style={{ marginTop: '70px' }}>
           {home.length > 0 && searchHomeList.length == 0 ? (
             <InfiniteScroll
               className="d-flex flex-wrap justify-content-center"
@@ -143,7 +143,15 @@ export default function CardHome(props) {
                                 variant="p"
                                 component="div"
                               >
-                                <b> {value.title}</b>
+                                {value.title.length <= 25 ? (
+                                  <>
+                                    <b> {value.title}</b>
+                                  </>
+                                ) : (
+                                  <>
+                                    <b> {value.title.slice(0, 25)}...</b>
+                                  </>
+                                )}
                               </Typography>
                               <Typography
                                 variant="body2"
@@ -241,7 +249,7 @@ export default function CardHome(props) {
               {searchHomeList.map((value, index) => {
                 if (value.status) {
                   return (
-                    <div key={`${value-index}`}>
+                    <div key={`${value - index}`}>
                       <NavLink
                         key={index}
                         to={`/detail-home/${value.idHome}`}

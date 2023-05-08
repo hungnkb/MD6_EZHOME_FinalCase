@@ -20,6 +20,8 @@ import axios from 'axios';
 import { io } from 'socket.io-client';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
+import Avatar from '@mui/material/Avatar';
+import Stack from '@mui/material/Stack';
 
 export default function Navbar() {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -89,7 +91,7 @@ export default function Navbar() {
             Authorization: JSON.parse(token),
           },
         }).then((response) => {
-          setNotifications([response.data.result[0],...notifications]);
+          setNotifications([response.data.result[0], ...notifications]);
           setUnseenCount(response.data.total);
         });
       }
@@ -442,18 +444,20 @@ export default function Navbar() {
               {' '}
               <MenuIcon fontSize="small" />
               {currentState.newAvatarImage ? (
-                <>
-                  <img
-                    style={{ width: '50%', borderRadius: '50%' }}
-                    src={currentState.newAvatarImage}
-                  />
+                 <>
+                   <Stack direction="row" spacing={2}>
+                    <Avatar alt="img" src={currentState.newAvatarImage} sx={{ width: 34, height: 34 }}/>
+                  </Stack>
                 </>
               ) : imageUser ? (
                 <>
-                  <img
-                    style={{ width: '50%', borderRadius: '50%' }}
+                  {/* <img
+                    style={{ width: '30px', borderRadius: '50%' }}
                     src={imageUser}
-                  />
+                  /> */}
+                  <Stack direction="row" spacing={2}>
+                    <Avatar alt="img" src={imageUser} sx={{ width: 34, height: 34 }}/>
+                  </Stack>
                 </>
               ) : (
                 <>

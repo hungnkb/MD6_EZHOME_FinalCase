@@ -1,4 +1,4 @@
-import { Rating, TextField } from '@mui/material';
+import { Avatar, Rating, Stack, TextField } from '@mui/material';
 import * as React from 'react';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
@@ -81,24 +81,16 @@ export default function Review(props) {
                       <MDBCardBody className="p-4">
                         <div className="d-flex flex-start">
                           {data.idUser.image ? (
-                            <MDBCardImage
-                              className="rounded-circle shadow-1-strong me-3"
-                              src={data.idUser.image}
-                              alt="avatar"
-                              width="60"
-                              height="60"
-                            />
+                            <Stack direction="row" spacing={2}>
+                              <Avatar alt="img" src={data.idUser.image} sx={{ width: 60, height: 60 }}/>
+                            </Stack>
                           ) : (
-                            <MDBCardImage
-                              className="rounded-circle shadow-1-strong me-3"
-                              src="https://tieuhocdongphuongyen.edu.vn/wp-content/uploads/2023/02/1676245765_401_Hinh-anh-Avatar-Trang-Dep-Cho-FB-Zalo-BI-AN.jpg"
-                              alt="avatar"
-                              width="60"
-                              height="60"
-                            />
+                            <Stack direction="row" spacing={2}>
+                              <Avatar alt="img" src="https://tieuhocdongphuongyen.edu.vn/wp-content/uploads/2023/02/1676245765_401_Hinh-anh-Avatar-Trang-Dep-Cho-FB-Zalo-BI-AN.jpg" sx={{ width: 60, height: 60 }}/>
+                            </Stack>
                           )}
 
-                          <div>
+                          <div style={{marginLeft:"1%"}}>
                             <MDBTypography tag="h6" className="fw-bold mb-1">
                               {data?.idUser.email}
                             </MDBTypography>
@@ -119,6 +111,7 @@ export default function Review(props) {
                             <p className="mb-0">{data?.contents}</p>
                           </div>
                         </div>
+                        <hr/>
                       </MDBCardBody>
                     );
                   } else {

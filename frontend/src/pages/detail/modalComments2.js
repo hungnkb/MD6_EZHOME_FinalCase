@@ -13,7 +13,7 @@ import {
   MDBCardImage,
 } from 'mdb-react-ui-kit';
 
-import { Rating } from '@mui/material';
+import { Avatar, Rating, Stack } from '@mui/material';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import io from 'socket.io-client';
 
@@ -72,13 +72,9 @@ function ModalComments2(props) {
                       <div className="row">
                         <div className="col-1">
                           {data.idUser.image ? (
-                            <MDBCardImage
-                              className="rounded-circle shadow-1-strong me-3"
-                              src={data.idUser.image}
-                              alt="avatar"
-                              width="50"
-                              height="50"
-                            />
+                        <Stack direction="row" spacing={2}>
+                        <Avatar alt="img" src={data.idUser.image} sx={{ width: 50, height: 50 }}/>
+                      </Stack>
                           ) : (
                             <MDBCardImage
                               className="rounded-circle shadow-1-strong me-3"

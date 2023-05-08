@@ -139,7 +139,7 @@ function DashboardHosting() {
     <>
       <br />
       <br />
-      <h3 style={{ marginLeft: '3%' }}>Total: {homeList.length}</h3>
+      <h3 style={{ marginLeft: '3%' }}>Total:<b style={{color:"#f7a800"}}> {homeList.length} house</b>  for rent</h3>
 
       <br />
       <div className="row">

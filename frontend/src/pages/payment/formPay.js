@@ -19,7 +19,7 @@ export default function FormPay(props) {
   const [multipleInvalid, setMultipleInvalid] = useState([]);
   const [orders, setOrders] = useState([]);
   const [total, setTotal] = useState(null);
-  const [oldPrice, setOldPrice] = useState(null)
+  const [oldPrice, setOldPrice] = useState(null);
   const [orderTime, setOrderTime] = useState({});
   const [openLogin, setOpenLogin] = useState(false);
   const [isFormPayOpen, setIsFormPayOpen] = useState(false);
@@ -29,6 +29,7 @@ export default function FormPay(props) {
   });
   const [openBill, setOpenBill] = useState(false);
   const [data, setData] = useState({});
+  const milToDay = 1000 * 60 * 60 * 24;
 
   const currentAuth = useSelector((state) => state.auth);
   useEffect(() => {
@@ -48,18 +49,23 @@ export default function FormPay(props) {
     (ev) => {
       if (ev.value[0] && ev.value[1]) {
         setOrderTime({ checkin: ev.value[0], checkout: ev.value[1] });
-        let dayDiff = Math.round(
-          Math.abs(ev.value[0] - ev.value[1]) / (1000 * 60 * 60 * 24),
+        const ev0 = new Date(ev.value[0].toDateString());
+        console.log(ev0);
+        const dayDiff = Math.round(
+          Math.abs(ev0 - ev.value[1]) / milToDay,
         );
-
+        console.log(dayDiff);
         let charged = () => {
-          if (props.valueCoupon){
-            setOldPrice(parseInt(dayDiff * Number(props.price)))
-            return parseInt((dayDiff * Number(props.price) - (dayDiff * Number(props.price) * props.valueCoupon / 100)));
+          if (props.valueCoupon) {
+            setOldPrice(parseInt(dayDiff * Number(props.price)));
+            return parseInt(
+              dayDiff * Number(props.price) -
+                (dayDiff * Number(props.price) * props.valueCoupon) / 100,
+            );
           } else {
             return parseInt(dayDiff * Number(props.price));
           }
-        }
+        };
         setTotal(charged);
       } else if (ev.value[0] || ev.value[1]) {
         setTotal(0);
@@ -133,12 +139,11 @@ export default function FormPay(props) {
                     /night
                   </span>
                 </div>
-                {props.valueCoupon ?
-                    <div className="col-2">
-                      <b style={{ color: 'red' }}>-{props.valueCoupon}%</b>
-                    </div>
-                    : null
-                }
+                {props.valueCoupon ? (
+                  <div className="col-2">
+                    <b style={{ color: 'red' }}>-{props.valueCoupon}%</b>
+                  </div>
+                ) : null}
               </div>
 
               <hr />

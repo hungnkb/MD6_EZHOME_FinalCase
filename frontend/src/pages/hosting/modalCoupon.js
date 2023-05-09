@@ -36,8 +36,6 @@ export default function ModalCoupon({ setIsFetchCouponList }) {
 
   const formattedToday = dd + '/' + mm + '/' + yyyy;
 
-
-
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -66,7 +64,7 @@ export default function ModalCoupon({ setIsFetchCouponList }) {
     }),
     onSubmit: (values) => {
       axios
-        .post('http://localhost:3002/api/v1/coupons', {
+        .post('${process.env.REACT_APP_BASE_URL}api/v1/coupons', {
           couponname: values.couponame,
           startDate: values.startDate,
           endDate: values.endDate,

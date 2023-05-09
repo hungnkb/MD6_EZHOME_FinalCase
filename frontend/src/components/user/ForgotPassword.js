@@ -7,11 +7,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import * as Yup from 'yup';
 import { clearErrors, registerUser } from '../../service/userAction';
 import axios from '../../api/axios';
-import {
-  Button,
-  Modal,
-  Box
-} from '@mui/material';
+import { Button, Modal, Box } from '@mui/material';
 import Swal from 'sweetalert2';
 
 export default function ForgotPassword(props) {
@@ -56,7 +52,7 @@ export default function ForgotPassword(props) {
   const handleSubmit = (event) => {
     event.preventDefault();
     axios
-      .post('http://localhost:3002/api/v1/users/forgot-password', {
+      .post('${process.env.REACT_APP_BASE_URL}api/v1/users/forgot-password', {
         email: userForgotPassword.email,
       })
       .then(

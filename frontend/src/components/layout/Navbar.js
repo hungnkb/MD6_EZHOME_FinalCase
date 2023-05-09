@@ -101,7 +101,7 @@ export default function Navbar() {
   useEffect(() => {
     if (email) {
       axios
-        .get(`http://localhost:3002/api/v1/users?email=${email}`)
+        .get(`${process.env.REACT_APP_BASE_URL}/users?email=${email}`)
         .then((response) => {
           const { fullName, phone, address, image } = response.data;
           setImageUser(image);
@@ -175,7 +175,7 @@ export default function Navbar() {
     ) {
       axios({
         method: 'PUT',
-        url: 'http://localhost:3002/api/v1/users/',
+        url: '${process.env.REACT_APP_BASE_URL}api/v1/users/',
         data: {
           email: email,
           role: 'host',
@@ -192,7 +192,7 @@ export default function Navbar() {
     ) {
       axios({
         method: 'PUT',
-        url: 'http://localhost:3002/api/v1/users/',
+        url: '${process.env.REACT_APP_BASE_URL}api/v1/users/',
         data: {
           email: email,
           role: 'host',
@@ -444,9 +444,13 @@ export default function Navbar() {
               {' '}
               <MenuIcon fontSize="small" />
               {currentState.newAvatarImage ? (
-                 <>
-                   <Stack direction="row" spacing={2}>
-                    <Avatar alt="img" src={currentState.newAvatarImage} sx={{ width: 34, height: 34 }}/>
+                <>
+                  <Stack direction="row" spacing={2}>
+                    <Avatar
+                      alt="img"
+                      src={currentState.newAvatarImage}
+                      sx={{ width: 34, height: 34 }}
+                    />
                   </Stack>
                 </>
               ) : imageUser ? (
@@ -456,7 +460,11 @@ export default function Navbar() {
                     src={imageUser}
                   /> */}
                   <Stack direction="row" spacing={2}>
-                    <Avatar alt="img" src={imageUser} sx={{ width: 34, height: 34 }}/>
+                    <Avatar
+                      alt="img"
+                      src={imageUser}
+                      sx={{ width: 34, height: 34 }}
+                    />
                   </Stack>
                 </>
               ) : (

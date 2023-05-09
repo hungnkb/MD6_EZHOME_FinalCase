@@ -31,7 +31,9 @@ export default function DetailDashboard() {
   useEffect(() => {
     const getData = async () => {
       axios
-        .get(`http://localhost:3002/api/v1/homes?idHome=${idHome.id}`)
+        .get(
+          `${process.env.REACT_APP_BASE_URL}api/v1/homes?idHome=${idHome.id}`,
+        )
         .then((res) => {
           setDashboard(res.data[0]);
           setImage(res.data[0].images);
@@ -62,7 +64,7 @@ export default function DetailDashboard() {
       },
     }).then(() => {
       setOpenEdit({ ...openEdit, [keyword]: false });
-      setIsFetchData(!isFetchData)
+      setIsFetchData(!isFetchData);
     });
   };
 

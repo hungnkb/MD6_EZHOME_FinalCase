@@ -49,7 +49,7 @@ function DashboardHosting() {
       dateNow = dateNow.getTime();
       axios
         .get(
-          `http://localhost:3002/api/v1/coupons?idUser=${currentAuth.userLogin.sub}`,
+          `${process.env.REACT_APP_BASE_URL}api/v1/coupons?idUser=${currentAuth.userLogin.sub}`,
         )
         .then((res) => {
           let newListCoupon = [];
@@ -75,7 +75,7 @@ function DashboardHosting() {
   const handleChange = async (event, id) => {
     await axios({
       method: 'POST',
-      url: 'http://localhost:3002/api/v1/homes/status',
+      url: '${process.env.REACT_APP_BASE_URL}api/v1/homes/status',
       data: {
         idHome: id,
         status: event.target.checked,
@@ -102,7 +102,7 @@ function DashboardHosting() {
   useEffect(() => {
     const getDataHome = async () => {
       const dataList = await axios.get(
-        `http://localhost:3002/api/v1/homes?idUser=${currentAuth.userLogin.sub}`,
+        `${process.env.REACT_APP_BASE_URL}api/v1/homes?idUser=${currentAuth.userLogin.sub}`,
         {
           headers: { Authorization: JSON.parse(localStorage.getItem('token')) },
         },
@@ -139,7 +139,10 @@ function DashboardHosting() {
     <>
       <br />
       <br />
-      <h3 style={{ marginLeft: '3%' }}>Total:<b style={{color:"#f7a800"}}> {homeList.length} house</b>  for rent</h3>
+      <h3 style={{ marginLeft: '3%' }}>
+        Total:<b style={{ color: '#f7a800' }}> {homeList.length} house</b> for
+        rent
+      </h3>
 
       <br />
       <div className="row">
@@ -208,7 +211,11 @@ function DashboardHosting() {
               }}
               variant="light"
             >
-              <i class="fa-regular fa-badge-percent" style={{fontSize:"20px", color:"red"}}></i> Voucher
+              <i
+                class="fa-regular fa-badge-percent"
+                style={{ fontSize: '20px', color: 'red' }}
+              ></i>{' '}
+              Voucher
             </Button>
           </NavLink>
         </div>
@@ -275,7 +282,11 @@ function DashboardHosting() {
                 }}
                 variant="light"
               >
-                <i class="fa-regular fa-house-medical" style={{fontSize:"20px"}}></i> Create a rental item
+                <i
+                  class="fa-regular fa-house-medical"
+                  style={{ fontSize: '20px' }}
+                ></i>{' '}
+                Create a rental item
               </Button>
             </div>
           </div>
@@ -286,7 +297,7 @@ function DashboardHosting() {
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
             <TableRow>
-            <TableCell align="center">
+              <TableCell align="center">
                 <b style={{ color: 'gray' }}> ID </b>
               </TableCell>
               <TableCell align="center">
@@ -375,7 +386,9 @@ function DashboardHosting() {
                           <MenuItem
                             value=""
                             onClick={() => handleApplyCoupon(index, -1)}
-                          >--! remove !--</MenuItem>
+                          >
+                            --! remove !--
+                          </MenuItem>
                           {listCoupon.map((name, couponIndex) => {
                             return (
                               <MenuItem

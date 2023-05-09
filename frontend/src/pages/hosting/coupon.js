@@ -25,7 +25,7 @@ export default function Coupon() {
   useEffect(() => {
     axios
       .get(
-        `http://localhost:3002/api/v1/coupons?idUser=${currentAuth.userLogin.sub}`,
+        `${process.env.REACT_APP_BASE_URL}api/v1/coupons?idUser=${currentAuth.userLogin.sub}`,
       )
       .then((res) => {
         let newListCoupons = [];
@@ -64,7 +64,7 @@ export default function Coupon() {
         });
       });
   };
-console.log(coupon,9999);
+  console.log(coupon, 9999);
   return (
     <>
       <div style={{ marginTop: '3%', marginLeft: '3%', marginBottom: '420px' }}>

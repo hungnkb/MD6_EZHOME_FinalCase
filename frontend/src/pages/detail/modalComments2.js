@@ -35,7 +35,9 @@ function ModalComments2(props) {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:3002/api/v1/reviews?idHome=${idHome.id}`)
+      .get(
+        `${process.env.REACT_APP_BASE_URL}api/v1/reviews?idHome=${idHome.id}`,
+      )
       .then((res) => {
         setReview(res.data);
       });
@@ -72,9 +74,13 @@ function ModalComments2(props) {
                       <div className="row">
                         <div className="col-1">
                           {data.idUser.image ? (
-                        <Stack direction="row" spacing={2}>
-                        <Avatar alt="img" src={data.idUser.image} sx={{ width: 50, height: 50 }}/>
-                      </Stack>
+                            <Stack direction="row" spacing={2}>
+                              <Avatar
+                                alt="img"
+                                src={data.idUser.image}
+                                sx={{ width: 50, height: 50 }}
+                              />
+                            </Stack>
                           ) : (
                             <MDBCardImage
                               className="rounded-circle shadow-1-strong me-3"

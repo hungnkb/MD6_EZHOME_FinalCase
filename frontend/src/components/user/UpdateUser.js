@@ -44,7 +44,7 @@ export default function UpdateUser() {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:3002/api/v1/users?email=${email}`)
+      .get(`${process.env.REACT_APP_BASE_URL}api/v1/users?email=${email}`)
       .then((response) => {
         const { fullName, phone, address, image } = response.data;
         setDataUser({ fullName, phone, address, image });
@@ -61,7 +61,7 @@ export default function UpdateUser() {
   const handleSubmit = (event) => {
     event.preventDefault();
     axios
-      .put('http://localhost:3002/api/v1/users', {
+      .put('${process.env.REACT_APP_BASE_URL}api/v1/users', {
         email: email,
         fullName: dataUser.fullName,
         phone: dataUser.phone,
@@ -160,7 +160,7 @@ export default function UpdateUser() {
             }),
           );
           axios
-            .put('http://localhost:3002/api/v1/users', {
+            .put('${process.env.REACT_APP_BASE_URL}api/v1/users', {
               email: email,
               image: res.data.secure_url,
             })
@@ -174,7 +174,9 @@ export default function UpdateUser() {
                   timer: 2000,
                 });
                 axios
-                  .get(`http://localhost:3002/api/v1/users?email=${email}`)
+                  .get(
+                    `${process.env.REACT_APP_BASE_URL}api/v1/users?email=${email}`,
+                  )
                   .then((response) => {
                     const { fullName, phone, address, image } = response.data;
                     setDataUser({ fullName, phone, address, image });
@@ -401,17 +403,36 @@ export default function UpdateUser() {
                           <div className="mt-3 mb-4">
                             {dataUser.image ? (
                               <Stack direction="row" spacing={2}>
-                              <Avatar alt="img" src={dataUser.image} sx={{ width: 150, height: 150, marginLeft:"28%" }}/>
-                            </Stack>
+                                <Avatar
+                                  alt="img"
+                                  src={dataUser.image}
+                                  sx={{
+                                    width: 150,
+                                    height: 150,
+                                    marginLeft: '28%',
+                                  }}
+                                />
+                              </Stack>
                             ) : (
-                            <Stack direction="row" spacing={2}>
-                            <Avatar alt="img" src="https://tieuhocdongphuongyen.edu.vn/wp-content/uploads/2023/02/1676245765_401_Hinh-anh-Avatar-Trang-Dep-Cho-FB-Zalo-BI-AN.jpg" sx={{ width: 150, height: 150, marginLeft:"28%" }}/>
-                          </Stack>
+                              <Stack direction="row" spacing={2}>
+                                <Avatar
+                                  alt="img"
+                                  src="https://tieuhocdongphuongyen.edu.vn/wp-content/uploads/2023/02/1676245765_401_Hinh-anh-Avatar-Trang-Dep-Cho-FB-Zalo-BI-AN.jpg"
+                                  sx={{
+                                    width: 150,
+                                    height: 150,
+                                    marginLeft: '28%',
+                                  }}
+                                />
+                              </Stack>
                             )}
                           </div>
                           {loading && (
-                            <CircularProgress style={{ marginTop: '5px'  }}  color="inherit"/>
-                          )} 
+                            <CircularProgress
+                              style={{ marginTop: '5px' }}
+                              color="inherit"
+                            />
+                          )}
                           <div>
                             <label
                               htmlFor="upload"

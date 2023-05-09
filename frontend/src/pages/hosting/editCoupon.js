@@ -63,7 +63,7 @@ export default function EditCoupon({ data, isFetchData }) {
     }),
     onSubmit: (values) => {
       axios
-        .put('http://localhost:3002/api/v1/coupons', {
+        .put('${process.env.REACT_APP_BASE_URL}api/v1/coupons', {
           idCoupon: data.idCoupon,
           couponname: values.couponame,
           startDate: values.startDate,

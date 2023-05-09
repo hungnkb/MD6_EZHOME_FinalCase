@@ -40,7 +40,7 @@ export default function HomeRenting() {
   const [countTab, setCountTabs] = useState([]);
   const [flag, setFlag] = useState(false);
   const navigate = useNavigate();
-  const currentState = useSelector(state => state.auth);
+  const currentState = useSelector((state) => state.auth);
   const socket = io.connect(
     `${process.env.REACT_APP_BASE_URL_SERVER}/notifications`,
   );
@@ -54,15 +54,15 @@ export default function HomeRenting() {
       if (id && res.idReciever == id) {
         setFlag(!flag);
       }
-    })
-  })
+    });
+  });
 
   useEffect(() => {
     const getDataRent = async () => {
       const dataList = await axios.get(
-        `http://localhost:3002/api/v1/homes?idUser=${localStorage.getItem(
-          'idUser',
-        )}`,
+        `${
+          process.env.REACT_APP_BASE_URL
+        }api/v1/homes?idUser=${localStorage.getItem('idUser')}`,
       );
       setHomeRent(dataList.data.filter((home) => home.orders.length > 0));
     };
@@ -71,9 +71,9 @@ export default function HomeRenting() {
   useEffect(() => {
     const getDataRent = async () => {
       const dataList = await axios.get(
-        `http://localhost:3002/api/v1/homes?idUser=${localStorage.getItem(
-          'idUser',
-        )}`,
+        `${
+          process.env.REACT_APP_BASE_URL
+        }api/v1/homes?idUser=${localStorage.getItem('idUser')}`,
       );
       setHomeRentCount(dataList.data.filter((home) => home.orders.length > 0));
     };
@@ -84,9 +84,9 @@ export default function HomeRenting() {
     if (status == 'all') {
       const getDataRent = async () => {
         const dataList = await axios.get(
-          `http://localhost:3002/api/v1/homes?idUser=${localStorage.getItem(
-            'idUser',
-          )}`,
+          `${
+            process.env.REACT_APP_BASE_URL
+          }api/v1/homes?idUser=${localStorage.getItem('idUser')}`,
         );
         setHomeRent(dataList.data.filter((home) => home.orders.length > 0));
       };
@@ -94,7 +94,9 @@ export default function HomeRenting() {
     }
     const getDataRent = async () => {
       const dataList = await axios.get(
-        `http://localhost:3002/api/v1/homes?idUser=${localStorage.getItem(
+        `${
+          process.env.REACT_APP_BASE_URL
+        }api/v1/homes?idUser=${localStorage.getItem(
           'idUser',
         )}&&status=${status}`,
       );
@@ -214,51 +216,50 @@ export default function HomeRenting() {
               </TableRow>
             </TableHead>
             <TableBody>
-              {currentPosts && currentPosts.length > 0 ? (
-                currentPosts.map((data, index) => (
-                  <TableRow
-                    key={index}
-                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                  >
-                    <TableCell component="th" scope="row">
-                      <b> {data.idOrder} </b>
-                    </TableCell>
-                    <TableCell align="center">{data.email}</TableCell>
-                    <TableCell align="center">{data.phone}</TableCell>
-                    <TableCell align="center">{data.title}</TableCell>
-                    <TableCell align="center">{data.checkin}</TableCell>
-                    <TableCell align="center">{data.checkout}</TableCell>
-                    {data.status === 'ongoing' ? (
-                      <TableCell align="center">
-                        <p style={{ color: '#f7a800' }}>
-                          <i className="fa-solid fa-circle"></i> On going
-                        </p>
+              {currentPosts && currentPosts.length > 0
+                ? currentPosts.map((data, index) => (
+                    <TableRow
+                      key={index}
+                      sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                    >
+                      <TableCell component="th" scope="row">
+                        <b> {data.idOrder} </b>
                       </TableCell>
-                    ) : data.status === 'done' ? (
-                      <TableCell align="center">
-                        <p style={{ color: 'green' }}>
-                          <i className="fa-solid fa-circle"></i> Done
-                        </p>
-                      </TableCell>
-                    ) : (
-                      <TableCell align="center">
-                        <p style={{ color: 'red' }}>
-                          <i className="fa-solid fa-circle"></i> Cancel
-                        </p>
-                      </TableCell>
-                    )}
-                  </TableRow>
-                ))
-              ) : (
-                ''
-                // <Stack
-                //   sx={{ color: 'grey.500', marginLeft: '700px' }}
-                //   spacing={2}
-                //   direction="row"
-                // >
-                //   <CircularProgress color="inherit" />
-                // </Stack>
-              )}
+                      <TableCell align="center">{data.email}</TableCell>
+                      <TableCell align="center">{data.phone}</TableCell>
+                      <TableCell align="center">{data.title}</TableCell>
+                      <TableCell align="center">{data.checkin}</TableCell>
+                      <TableCell align="center">{data.checkout}</TableCell>
+                      {data.status === 'ongoing' ? (
+                        <TableCell align="center">
+                          <p style={{ color: '#f7a800' }}>
+                            <i className="fa-solid fa-circle"></i> On going
+                          </p>
+                        </TableCell>
+                      ) : data.status === 'done' ? (
+                        <TableCell align="center">
+                          <p style={{ color: 'green' }}>
+                            <i className="fa-solid fa-circle"></i> Done
+                          </p>
+                        </TableCell>
+                      ) : (
+                        <TableCell align="center">
+                          <p style={{ color: 'red' }}>
+                            <i className="fa-solid fa-circle"></i> Cancel
+                          </p>
+                        </TableCell>
+                      )}
+                    </TableRow>
+                  ))
+                : ''
+                  // <Stack
+                  //   sx={{ color: 'grey.500', marginLeft: '700px' }}
+                  //   spacing={2}
+                  //   direction="row"
+                  // >
+                  //   <CircularProgress color="inherit" />
+                  // </Stack>
+              }
             </TableBody>
           </Table>
         </TableContainer>

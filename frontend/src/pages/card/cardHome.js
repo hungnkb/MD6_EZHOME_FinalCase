@@ -43,7 +43,7 @@ export default function CardHome(props) {
       let page = 1;
       setPageHome(page);
       let option = { params: { page } };
-      axios.get('http://localhost:3002/api/v1/homes', option).then((res) => {
+      axios.get(`${process.env.REACT_APP_BASE_URL}/homes`, option).then((res) => {
         if (res.data.length == 12) {
           sethasmore(true);
         } else if (res.data.length < 12) {
@@ -59,7 +59,7 @@ export default function CardHome(props) {
     let page = pageHome + 1;
     setPageHome(page);
     let option = { params: { page } };
-    axios.get('http://localhost:3002/api/v1/homes', option).then((res) => {
+    axios.get(`${process.env.REACT_APP_BASE_URL}/v1/homes`, option).then((res) => {
       if (res.data.length == 12) {
         sethasmore(true);
       } else if (res.data.length < 12) {

@@ -70,9 +70,9 @@ export default function HistoryRent() {
   useEffect(() => {
     axios
       .get(
-        `http://localhost:3002/api/v1/orders?idUser=${localStorage.getItem(
-          'idUser',
-        )}`,
+        `${
+          process.env.REACT_APP_BASE_URL
+        }api/v1/orders?idUser=${localStorage.getItem('idUser')}`,
       )
       .then((res) => {
         setCountTabs(res.data);
@@ -82,9 +82,9 @@ export default function HistoryRent() {
   useEffect(() => {
     axios
       .get(
-        `http://localhost:3002/api/v1/orders?idUser=${localStorage.getItem(
-          'idUser',
-        )}`,
+        `${
+          process.env.REACT_APP_BASE_URL
+        }api/v1/orders?idUser=${localStorage.getItem('idUser')}`,
       )
       .then((res) => {
         setHistoryRent(res.data);
@@ -95,9 +95,9 @@ export default function HistoryRent() {
     if (status === 'all') {
       const getDataRent = async () => {
         const dataList = await axios.get(
-          `http://localhost:3002/api/v1/orders?idUser=${localStorage.getItem(
-            'idUser',
-          )}`,
+          `${
+            process.env.REACT_APP_BASE_URL
+          }api/v1/orders?idUser=${localStorage.getItem('idUser')}`,
         );
         setList(dataList.data);
       };
@@ -105,7 +105,9 @@ export default function HistoryRent() {
     } else {
       const getDataRent = async () => {
         const dataList = await axios.get(
-          `http://localhost:3002/api/v1/orders?idUser=${localStorage.getItem(
+          `${
+            process.env.REACT_APP_BASE_URL
+          }api/v1/orders?idUser=${localStorage.getItem(
             'idUser',
           )}&&status=${status}`,
         );
@@ -132,39 +134,41 @@ export default function HistoryRent() {
       confirmButtonText: 'Yes!',
     }).then((result) => {
       if (result.isConfirmed) {
-        axios.patch(`http://localhost:3002/api/v1/orders/${idOrder}`).then(
-          (response) => {
-            Swal.fire({
-              position: 'center',
-              icon: 'success',
-              title: 'Success Cancel',
-              showConfirmButton: false,
-              timer: 2000,
-            }).then((res) => {
-              socket.emit('send', {
-                dataUrl: '/user/home',
-                idReciever: idOwner.idUser,
-                message: `Order ${idOrder} has been cancelled`,
+        axios
+          .patch(`${process.env.REACT_APP_BASE_URL}api/v1/orders/${idOrder}`)
+          .then(
+            (response) => {
+              Swal.fire({
+                position: 'center',
+                icon: 'success',
+                title: 'Success Cancel',
+                showConfirmButton: false,
+                timer: 2000,
+              }).then((res) => {
+                socket.emit('send', {
+                  dataUrl: '/user/home',
+                  idReciever: idOwner.idUser,
+                  message: `Order ${idOrder} has been cancelled`,
+                });
               });
-            });
-            axios
-              .get(
-                `http://localhost:3002/api/v1/orders?idUser=${localStorage.getItem(
-                  'idUser',
-                )}`,
-              )
-              .then((res) => {
-                setList(res.data);
+              axios
+                .get(
+                  `${
+                    process.env.REACT_APP_BASE_URL
+                  }api/v1/orders?idUser=${localStorage.getItem('idUser')}`,
+                )
+                .then((res) => {
+                  setList(res.data);
+                });
+            },
+            (error) => {
+              Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Cannot Cancel!',
               });
-          },
-          (error) => {
-            Swal.fire({
-              icon: 'error',
-              title: 'Oops...',
-              text: 'Cannot Cancel!',
-            });
-          },
-        );
+            },
+          );
       }
     });
   };
@@ -294,29 +298,29 @@ export default function HistoryRent() {
             height: '80%',
             width: '90%',
             marginLeft: '4%',
-            marginBottom:"420px"
+            marginBottom: '420px',
           }}
         >
           <Table aria-label="simple table">
             <TableHead>
-              <TableRow style={{color:"gray"}}>
+              <TableRow style={{ color: 'gray' }}>
                 <TableCell align="center">
-                  <b style={{color:"gray"}}> Home </b>{' '}
+                  <b style={{ color: 'gray' }}> Home </b>{' '}
                 </TableCell>
                 <TableCell align="center">
-                  <b style={{color:"gray"}}> Checkin</b>{' '}
+                  <b style={{ color: 'gray' }}> Checkin</b>{' '}
                 </TableCell>
                 <TableCell align="center">
-                  <b style={{color:"gray"}}> Checkout </b>{' '}
+                  <b style={{ color: 'gray' }}> Checkout </b>{' '}
                 </TableCell>
                 <TableCell align="center">
-                  <b style={{color:"gray"}}>Charge </b>{' '}
+                  <b style={{ color: 'gray' }}>Charge </b>{' '}
                 </TableCell>
                 <TableCell align="center">
-                  <b  style={{color:"gray"}}>Status </b>{' '}
+                  <b style={{ color: 'gray' }}>Status </b>{' '}
                 </TableCell>
                 <TableCell align="center">
-                  <b style={{color:"gray"}}> Action</b>{' '}
+                  <b style={{ color: 'gray' }}> Action</b>{' '}
                 </TableCell>
               </TableRow>
             </TableHead>
@@ -461,13 +465,13 @@ export default function HistoryRent() {
                 }}
               >
                 {addCharge > 0 ? (
-                    <Payment
-                      charged={addCharge}
-                      handleSubmitCheckout={handleSubmitCheckout}
-                      paymentType={paymentType}
-                      currency='USD'
-                      showSpinner={true}
-                    />
+                  <Payment
+                    charged={addCharge}
+                    handleSubmitCheckout={handleSubmitCheckout}
+                    paymentType={paymentType}
+                    currency="USD"
+                    showSpinner={true}
+                  />
                 ) : (
                   <Button
                     variant="contained"

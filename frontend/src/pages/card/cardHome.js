@@ -3,26 +3,30 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
-import { CardActionArea } from '@mui/material';
+import { CardActionArea, Stack } from '@mui/material';
 import { NavLink, useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import CarouselMulti from '../../components/layout/carousel-multi';
 import TopFive from './topFive';
 import InfiniteScroll from 'react-infinite-scroll-component';
+import Skeleton from '@mui/material/Skeleton';
 
 export default function CardHome(props) {
   const [home, setHome] = useState([]);
   const [searchHomeList, setSearchHomeList] = useState([]);
   const [isFetchData, setIsFetchData] = useState(false);
-  const [pageHome, setPageHome] = useState(0);
+  const [pageHome, setPageHome] = useState(1);
   const { loading = false } = props;
   const [openDescription, setOpenDescription] = useState(false);
+  const [skeleton, setSkeleton] = useState([1, 2, 3, 4, 5, 6]);
+  const [hasmore, sethasmore] = useState(true);
 
   let location = useLocation();
 
   useEffect(() => {
     if (location.state?.data.length > 0) {
+      setHome([]);
       setSearchHomeList(location.state.data);
       window.history.replaceState({}, document.title);
       setIsFetchData(false);
@@ -36,34 +40,71 @@ export default function CardHome(props) {
   useEffect(() => {
     if (isFetchData) {
       setSearchHomeList([]);
-      let page = pageHome + 1;
+      let page = 1;
       setPageHome(page);
       let option = { params: { page } };
       axios.get('http://localhost:3002/api/v1/homes', option).then((res) => {
-        setHome([...home, ...res.data]);
+        if (res.data.length == 12) {
+          sethasmore(true);
+        } else if (res.data.length < 12) {
+          sethasmore(false);
+        }
+        setHome(res.data);
         setIsFetchData(false);
       });
     }
   }, [isFetchData]);
+
+  const handleNextPage = () => {
+    let page = pageHome + 1;
+    setPageHome(page);
+    let option = { params: { page } };
+    axios.get('http://localhost:3002/api/v1/homes', option).then((res) => {
+      if (res.data.length == 12) {
+        sethasmore(true);
+      } else if (res.data.length < 12) {
+        sethasmore(false);
+      }
+      console.log('zooo');
+      setHome([...home, ...res.data]);
+      setIsFetchData(false);
+    });
+  };
+
   return (
     <>
       <div style={{ marginLeft: '20px' }}>
         <br />
-
         <CarouselMulti />
-
         <br />
         {searchHomeList.length === 0 && <TopFive />}
         <div style={{ marginTop: '70px' }}>
           {home.length > 0 && searchHomeList.length == 0 ? (
             <InfiniteScroll
               className="d-flex flex-wrap justify-content-center"
-              dataLength={1000} //This is important field to render the next data
-              next={() => setIsFetchData(true)}
-              hasMore={true}
+              dataLength={home.length} //This is important field to render the next data
+              next={handleNextPage}
+              hasMore={hasmore}
             >
               {home.map((value, index) => {
+                let flagCouponCheck = false;
+                let priceWithCoupon = 0;
                 if (value.status) {
+                  if (value.idCoupon) {
+                    const currentDate = new Date();
+                    const startDate = new Date(
+                      Date.parse(value.idCoupon.startDate),
+                    );
+                    const endDate = new Date(
+                      Date.parse(value.idCoupon.endDate),
+                    );
+                    if (currentDate >= startDate && currentDate <= endDate) {
+                      priceWithCoupon =
+                        value.price -
+                        (value.price * value.idCoupon.value) / 100;
+                      flagCouponCheck = true;
+                    }
+                  }
                   return (
                     <div>
                       <NavLink
@@ -102,22 +143,39 @@ export default function CardHome(props) {
                                 variant="p"
                                 component="div"
                               >
-                                <b> {value.title}</b>
+                                {value.title.length <= 25 ? (
+                                  <>
+                                    <b> {value.title}</b>
+                                  </>
+                                ) : (
+                                  <>
+                                    <b> {value.title.slice(0, 25)}...</b>
+                                  </>
+                                )}
                               </Typography>
                               <Typography
                                 variant="body2"
                                 color="text.secondary"
                               >
-                                {value.address}
+                                {value.address.length > 25 ? (value.address.split(' ').splice(0, 25).join(' ') + '...'): (value.address)}
                               </Typography>
                               <Typography
                                 gutterBottom
                                 variant="p"
                                 component="div"
                               >
-                                <del>
-                                  {value.price.toLocaleString('en-EN')}đ
-                                </del>
+                                {flagCouponCheck ? (
+                                  <del>
+                                    {value.price.toLocaleString('en-EN')}đ/night
+                                  </del>
+                                ) : (
+                                  <div style={{display: 'flex', direction: 'row'}}>
+                                    <b>
+                                      {value.price.toLocaleString('en-EN')}đ
+                                    </b>
+                                    <p>/night</p>
+                                  </div>
+                                )}
                               </Typography>
                               <Typography
                                 gutterBottom
@@ -125,15 +183,24 @@ export default function CardHome(props) {
                                 component="div"
                               >
                                 <div className="row">
-                                  <div className="col-8">
-                                    <b>
-                                      {value.price.toLocaleString('en-EN')}đ
-                                    </b>
-                                    night
-                                  </div>
-                                  <div className="col-4">
-                                    <b style={{ color: 'red' }}>-30%</b>
-                                  </div>
+                                  {flagCouponCheck ? (
+                                    <div className="col-8">
+                                      <b>
+                                        {priceWithCoupon.toLocaleString(
+                                          'en-EN',
+                                        )}
+                                        đ
+                                      </b>
+                                      /night
+                                    </div>
+                                  ) : null}
+                                  {flagCouponCheck ? (
+                                    <div className="col-4">
+                                      <b style={{ color: 'red' }}>
+                                        -{value.idCoupon.value}%
+                                      </b>
+                                    </div>
+                                  ) : null}
                                 </div>
                               </Typography>
                             </CardContent>
@@ -147,20 +214,47 @@ export default function CardHome(props) {
                 }
               })}
             </InfiniteScroll>
-          ) : (
-            <div></div>
-          )}
+          ) : home.length == 0 && searchHomeList.length == 0 ? (
+            <Stack
+              spacing={1}
+              direction="row"
+              style={{ display: 'flex', justifyContent: 'center' }}
+            >
+              {skeleton.map((index) => (
+                <div>
+                  <Skeleton
+                    key={`ske${index}`}
+                    variant="rectangular"
+                    width="256px"
+                    height="250px"
+                    style={{ borderRadius: '7%' }}
+                  >
+                    <div style={{ paddingTop: '57%' }} />
+                  </Skeleton>
+                  <Skeleton width="256px">
+                    <Typography>.</Typography>
+                  </Skeleton>
+                  <Skeleton width="256px">
+                    <Typography>.</Typography>
+                  </Skeleton>
+                  <Skeleton width="256px">
+                    <Typography>.</Typography>
+                  </Skeleton>
+                </div>
+              ))}
+            </Stack>
+          ) : null}
           {searchHomeList.length > 0 ? (
             <div
               className="d-flex flex-wrap justify-content-center"
-              dataLength={1000} 
-              next={() => setIsFetchData(true)}
-              hasMore={true}
+              dataLength={searchHomeList.length}
+              next={handleNextPage}
+              hasMore={hasmore}
             >
               {searchHomeList.map((value, index) => {
                 if (value.status) {
                   return (
-                    <div>
+                    <div key={`${value - index}`}>
                       <NavLink
                         key={index}
                         to={`/detail-home/${value.idHome}`}
@@ -196,9 +290,7 @@ export default function CardHome(props) {
                                 variant="p"
                                 component="div"
                               >
-                                <b>
-                                  {value.title}
-                                </b>
+                                <b>{value.title}</b>
                               </Typography>
                               <Typography
                                 variant="body2"
@@ -212,7 +304,6 @@ export default function CardHome(props) {
                                 component="div"
                               >
                                 <b>{value.price.toLocaleString('en-EN')}đ</b>{' '}
-                                night
                               </Typography>
                             </CardContent>
                           </CardActionArea>

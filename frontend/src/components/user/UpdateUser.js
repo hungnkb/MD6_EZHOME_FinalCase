@@ -21,7 +21,9 @@ import {
   MDBTypography,
   MDBIcon,
 } from 'mdb-react-ui-kit';
+import Stack from '@mui/material/Stack';
 import CircularProgress from '@mui/material/CircularProgress';
+import { Avatar } from '@mui/material';
 
 export default function UpdateUser() {
   const [loading, setLoading] = useState(false);
@@ -39,7 +41,7 @@ export default function UpdateUser() {
     phone: false,
     address: false,
   });
-  console.log(image, 9);
+
   useEffect(() => {
     axios
       .get(`http://localhost:3002/api/v1/users?email=${email}`)
@@ -398,24 +400,18 @@ export default function UpdateUser() {
                         <MDBCardBody className="text-center">
                           <div className="mt-3 mb-4">
                             {dataUser.image ? (
-                              <img
-                                style={{ width: '30%', height: '110px' }}
-                                src={dataUser.image}
-                                className="rounded-circle"
-                                alt="Avatar"
-                              />
+                              <Stack direction="row" spacing={2}>
+                              <Avatar alt="img" src={dataUser.image} sx={{ width: 150, height: 150, marginLeft:"28%" }}/>
+                            </Stack>
                             ) : (
-                              <img
-                                style={{ width: '30%', height: '110px' }}
-                                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTvw1lmPDOJqryVsX3imw1Bj4lnajMh7j-oQQ&usqp=CAU"
-                                className="rounded-circle"
-                                alt="Avatar"
-                              />
+                            <Stack direction="row" spacing={2}>
+                            <Avatar alt="img" src="https://tieuhocdongphuongyen.edu.vn/wp-content/uploads/2023/02/1676245765_401_Hinh-anh-Avatar-Trang-Dep-Cho-FB-Zalo-BI-AN.jpg" sx={{ width: 150, height: 150, marginLeft:"28%" }}/>
+                          </Stack>
                             )}
                           </div>
                           {loading && (
-                            <CircularProgress style={{ marginTop: '5px' }} />
-                          )}
+                            <CircularProgress style={{ marginTop: '5px'  }}  color="inherit"/>
+                          )} 
                           <div>
                             <label
                               htmlFor="upload"
@@ -423,7 +419,7 @@ export default function UpdateUser() {
                             >
                               <u>
                                 {' '}
-                                <i class="fa-solid fa-arrow-up-from-bracket"></i>{' '}
+                                <i className="fa-solid fa-arrow-up-from-bracket"></i>{' '}
                                 Upload photos
                               </u>
                             </label>

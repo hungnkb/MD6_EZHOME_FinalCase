@@ -4,6 +4,7 @@ import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import axios from 'axios';
 import { Button } from '@mui/material';
+import Stack from '@mui/material/Stack';
 import Swal from 'sweetalert2';
 import { useSelector } from 'react-redux';
 import io from 'socket.io-client';
@@ -28,9 +29,12 @@ export default function ModalFormPay(props) {
     props.setOpenBill(false);
   };
   const currentAuth = useSelector((state) => state.auth);
+
   const socket = io.connect(
     `${process.env.REACT_APP_BASE_URL_SERVER}/notifications`,
   );
+
+  const paymentType = 'book';
 
   useEffect(() => {
     setOpen(true);
@@ -79,7 +83,7 @@ export default function ModalFormPay(props) {
   return (
     <>
       {props.openBill && (
-        <div>
+        <span>
           <Modal
             open={open}
             onClose={handleClose}
@@ -90,7 +94,7 @@ export default function ModalFormPay(props) {
               <Typography id="modal-modal-title" variant="h6" component="h2">
                 <h2>Confirm booking</h2>
               </Typography>
-              <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+              <div id="modal-modal-description" sx={{ mt: 2 }} style={{marginBottom: '25px'}}>
                 <table>
                   <tr>
                     <td width="245px">
@@ -105,20 +109,28 @@ export default function ModalFormPay(props) {
                     <td>{props.dataForm.checkout}</td>
                   </tr>
                   <tr>
-                    <td width="245px">
-                      <b>Distcount code:</b>
-                    </td>
-                    <td>
-                      <b style={{ color: 'red' }}>- 30% </b>
-                    </td>
+                    {props.valueCoupon ? (
+                      <>
+                        <td width="245px">
+                          <b>Old price:</b>
+                        </td>
+                        <td>
+                          <del>đ{props.oldPrice.toLocaleString('en-EN')}</del>
+                        </td>
+                      </>
+                    ) : null}
                   </tr>
                   <tr>
-                    <td width="245px">
-                      <b>Old price:</b>
-                    </td>
-                    <td>
-                      <del>7,302,405đ</del>
-                    </td>
+                    {props.valueCoupon ? (
+                      <>
+                        <td width="245px">
+                          <b>Distcount code:</b>
+                        </td>
+                        <td>
+                          <b style={{ color: 'red' }}>- {props.valueCoupon}%</b>
+                        </td>
+                      </>
+                    ) : null}
                   </tr>
                   <tr>
                     <td width="245px">
@@ -127,37 +139,29 @@ export default function ModalFormPay(props) {
                     <td>đ{props.dataForm.charged.toLocaleString('en-EN')}</td>
                   </tr>
                 </table>
-              </Typography>
-              <Button
-                variant="contained"
-                style={{ background: 'gray', marginTop: '25px' }}
-                onClick={handleClose}
-              >
-                Cancel
-              </Button>
-              <Payment 
-              charged={props.dataForm.charged}
-              handleBook={handleBook}
-              style={{
-                marginLeft: '45%',
-                background: '#f7a800',
-                marginTop: '25px',
-              }}
-              />
+              </div>
               {/* <Button
-                variant="contained"
+                  variant="contained"
+                  style={{ background: 'gray', marginTop: '25px' }}
+                  onClick={handleClose}
+                >
+                  Cancel
+                </Button> */}
+              <Payment
+                charged={props.dataForm.charged}
+                handleBook={handleBook}
+                paymentType={paymentType}
+                idOwner={props.idOwner}
+                setOpenBill={props.setOpenBill}
                 style={{
                   marginLeft: '45%',
                   background: '#f7a800',
-                  marginTop: '25px',
+                  marginTop: '50px',
                 }}
-                onClick={handleBook}
-              >
-                Submit
-              </Button> */}
+              />
             </Box>
           </Modal>
-        </div>
+        </span>
       )}
     </>
   );

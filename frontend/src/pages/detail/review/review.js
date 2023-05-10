@@ -30,9 +30,7 @@ export default function Review(props) {
   });
   useEffect(() => {
     axios
-      .get(
-        `${process.env.REACT_APP_BASE_URL}api/v1/reviews?idHome=${props.idHome}`,
-      )
+      .get(`http://localhost:3002/api/v1/reviews?idHome=${props.idHome}`)
       .then((res) => {
         setReview(res.data);
       });
@@ -84,29 +82,21 @@ export default function Review(props) {
                         <div className="d-flex flex-start">
                           {data.idUser.image ? (
                             <Stack direction="row" spacing={2}>
-                              <Avatar
-                                alt="img"
-                                src={data.idUser.image}
-                                sx={{ width: 60, height: 60 }}
-                              />
+                              <Avatar alt="img" src={data.idUser.image} sx={{ width: 60, height: 60 }}/>
                             </Stack>
                           ) : (
                             <Stack direction="row" spacing={2}>
-                              <Avatar
-                                alt="img"
-                                src="https://tieuhocdongphuongyen.edu.vn/wp-content/uploads/2023/02/1676245765_401_Hinh-anh-Avatar-Trang-Dep-Cho-FB-Zalo-BI-AN.jpg"
-                                sx={{ width: 60, height: 60 }}
-                              />
+                              <Avatar alt="img" src="https://tieuhocdongphuongyen.edu.vn/wp-content/uploads/2023/02/1676245765_401_Hinh-anh-Avatar-Trang-Dep-Cho-FB-Zalo-BI-AN.jpg" sx={{ width: 60, height: 60 }}/>
                             </Stack>
                           )}
 
-                          <div style={{ marginLeft: '1%' }}>
+                          <div style={{marginLeft:"1%"}}>
                             <MDBTypography tag="h6" className="fw-bold mb-1">
                               {data?.idUser.email}
                             </MDBTypography>
                             <div className="d-flex align-items-center mb-3">
                               <p className="small">
-                                {data?.createdAt.split('T')[0]}
+                                { data?.createdAt.split('T')[0]}
                                 <span>
                                   {' '}
                                   <Rating
@@ -121,7 +111,7 @@ export default function Review(props) {
                             <p className="mb-0">{data?.contents}</p>
                           </div>
                         </div>
-                        <hr />
+                        <hr/>
                       </MDBCardBody>
                     );
                   } else {

@@ -104,7 +104,7 @@ export default function DetailHome() {
               <ModalImg image={image} />
               {detail?.images?.length > 0 ? (
                 <img
-                  style={{ width: '100%' }}
+                  style={{ minWidth: 620, maxWidth: 620, minHeight: 400, maxHeight: 400 }}
                   src={detail?.images[0]?.urlHomeImage}
                 />
               ) : (
@@ -117,7 +117,7 @@ export default function DetailHome() {
             <div style={{ marginLeft: '1%' }}>
               {detail?.images?.length > 0 ? (
                 <img
-                  style={{ width: '100%'}}
+                  style={{ minWidth: 620, maxWidth: 620, minHeight: 400, maxHeight: 400}}
                   src={detail?.images[1]?.urlHomeImage}
                 />
               ) : (

@@ -14,6 +14,7 @@ const GoogleButton = (props) => {
     props.parentCallback(`${user}`);
   };
   function handleTokenResponse(response) {
+    console.log(response);
     const userObject = jwt_decode(response.credential);
     setUser(userObject);
     axios
@@ -56,11 +57,11 @@ const GoogleButton = (props) => {
     /* global google */
     google.accounts.id.initialize({
       client_id:
-        '413828427853-b7a09ae2nuca9sl5u2f9metsu2bertvm.apps.googleusercontent.com',
+        '1079258411381-d7dle0hglsh47e6icqdetrtqh3jj6e47.apps.googleusercontent.com',
       callback: handleTokenResponse,
     });
     google.accounts.id.renderButton(document.getElementById('signInDiv'), {
-      theme: 'outline',
+    theme: 'outline',
       size: 'large',
     });
   }, []);

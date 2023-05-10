@@ -18,9 +18,10 @@ import InputGroup from 'react-bootstrap/InputGroup';
 import Form from 'react-bootstrap/Form';
 import Swal from 'sweetalert2';
 import ProgressBar from 'react-bootstrap/ProgressBar';
-import CircularProgress from '@mui/material/CircularProgress';
+import CircularProgress from "@mui/material/CircularProgress";
 import create from '../../../media/create.gif';
 import { Dialog, DialogContent, makeStyles } from '@mui/material';
+
 
 export default function CreateHome24() {
   const [descriptions, setDescriptions] = useState(null);
@@ -99,7 +100,7 @@ export default function CreateHome24() {
 
     let uploadImageHome = await axios({
       method: 'post',
-      url: '${process.env.REACT_APP_BASE_URL}api/v1/homes/image',
+      url: 'http://localhost:3002/api/v1/homes/image',
       data: { files: files },
       headers: { 'Content-Type': 'multipart/form-data' },
     });
@@ -111,7 +112,7 @@ export default function CreateHome24() {
     if (uploadImageHome) {
       let newHome = await axios({
         method: 'post',
-        url: '${process.env.REACT_APP_BASE_URL}api/v1/homes',
+        url: 'http://localhost:3002/api/v1/homes',
         data: {
           title,
           price,
@@ -142,7 +143,7 @@ export default function CreateHome24() {
           });
         })
         .catch((err) => {
-          setLoading(false);
+          setLoading(false)
           Swal.fire({
             icon: 'error',
             title: 'Oops...',
@@ -164,15 +165,11 @@ export default function CreateHome24() {
         <h2>Some more information about your home</h2>
       </center>
       {loading && (
-        <Dialog open={loading}>
-          <DialogContent>
-            <img
-              src={create}
-              alt="loading..."
-              style={{ width: '511px', height: '340px' }}
-            ></img>
-          </DialogContent>
-        </Dialog>
+          <Dialog open={loading}  >
+            <DialogContent>
+              <img src={create} alt="loading..." style={{width: "511px", height: "340px"}} ></img>
+            </DialogContent>
+          </Dialog>
       )}
       <div className="row" style={{ marginBottom: '20%' }}>
         <div className="col-5">

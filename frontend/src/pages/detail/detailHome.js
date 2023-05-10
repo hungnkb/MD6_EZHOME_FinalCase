@@ -99,12 +99,12 @@ export default function DetailHome() {
             </div>
           </div>
           <br />
-          <div className="d-flex flex-wrap justify-content-center">
+          <div className="d-flex justify-content-center">
             <div>
               <ModalImg image={image} />
               {detail?.images?.length > 0 ? (
                 <img
-                  style={{ width: 620, height: 400 }}
+                  style={{ width: '100%' }}
                   src={detail?.images[0]?.urlHomeImage}
                 />
               ) : (
@@ -117,7 +117,7 @@ export default function DetailHome() {
             <div style={{ marginLeft: '1%' }}>
               {detail?.images?.length > 0 ? (
                 <img
-                  style={{ width: 620, height: 400 }}
+                  style={{ width: '100%'}}
                   src={detail?.images[1]?.urlHomeImage}
                 />
               ) : (

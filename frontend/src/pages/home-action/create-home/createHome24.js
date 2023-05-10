@@ -100,7 +100,7 @@ export default function CreateHome24() {
 
     let uploadImageHome = await axios({
       method: 'post',
-      url: 'http://localhost:3002/api/v1/homes/image',
+      url: `${process.env.REACT_APP_BASE_URL}/homes/image`,
       data: { files: files },
       headers: { 'Content-Type': 'multipart/form-data' },
     });
@@ -112,7 +112,7 @@ export default function CreateHome24() {
     if (uploadImageHome) {
       let newHome = await axios({
         method: 'post',
-        url: 'http://localhost:3002/api/v1/homes',
+        url: `${process.env.REACT_APP_BASE_URL}/homes`,
         data: {
           title,
           price,

@@ -30,7 +30,7 @@ export default function Review(props) {
   });
   useEffect(() => {
     axios
-      .get(`http://localhost:3002/api/v1/reviews?idHome=${props.idHome}`)
+      .get(`${process.env.REACT_APP_BASE_URL}/reviews?idHome=${props.idHome}`)
       .then((res) => {
         setReview(res.data);
       });

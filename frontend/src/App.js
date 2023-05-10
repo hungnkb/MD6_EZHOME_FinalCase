@@ -45,7 +45,6 @@ function App() {
             Authorization: JSON.parse(token),
           },
         });
-        console.log(response);
         if (response) {
           dispatch(
             setUserLogin({

@@ -36,7 +36,7 @@ function ModalComments2(props) {
   useEffect(() => {
     axios
       .get(
-        `${process.env.REACT_APP_BASE_URL}api/v1/reviews?idHome=${idHome.id}`,
+        `${process.env.REACT_APP_BASE_URL}/reviews?idHome=${idHome.id}`,
       )
       .then((res) => {
         setReview(res.data);

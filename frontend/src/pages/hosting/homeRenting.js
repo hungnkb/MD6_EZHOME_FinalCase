@@ -62,7 +62,7 @@ export default function HomeRenting() {
       const dataList = await axios.get(
         `${
           process.env.REACT_APP_BASE_URL
-        }api/v1/homes?idUser=${localStorage.getItem('idUser')}`,
+        }/homes?idUser=${localStorage.getItem('idUser')}`,
       );
       setHomeRent(dataList.data.filter((home) => home.orders.length > 0));
     };
@@ -73,7 +73,7 @@ export default function HomeRenting() {
       const dataList = await axios.get(
         `${
           process.env.REACT_APP_BASE_URL
-        }api/v1/homes?idUser=${localStorage.getItem('idUser')}`,
+        }/homes?idUser=${localStorage.getItem('idUser')}`,
       );
       setHomeRentCount(dataList.data.filter((home) => home.orders.length > 0));
     };
@@ -86,7 +86,7 @@ export default function HomeRenting() {
         const dataList = await axios.get(
           `${
             process.env.REACT_APP_BASE_URL
-          }api/v1/homes?idUser=${localStorage.getItem('idUser')}`,
+          }/homes?idUser=${localStorage.getItem('idUser')}`,
         );
         setHomeRent(dataList.data.filter((home) => home.orders.length > 0));
       };
@@ -96,7 +96,7 @@ export default function HomeRenting() {
       const dataList = await axios.get(
         `${
           process.env.REACT_APP_BASE_URL
-        }api/v1/homes?idUser=${localStorage.getItem(
+        }/homes?idUser=${localStorage.getItem(
           'idUser',
         )}&&status=${status}`,
       );

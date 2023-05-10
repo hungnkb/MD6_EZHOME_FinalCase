@@ -52,7 +52,7 @@ export default function UpdatePassword(props) {
     event.preventDefault();
     if (emailOldandNewPassword.newPassword.length >= 6) {
       axios
-        .post('${process.env.REACT_APP_BASE_URL}api/v1/users/change-password', {
+        .post(`${process.env.REACT_APP_BASE_URL}/users/change-password`, {
           email: userLogin.userLogin.email,
           oldPassword: emailOldandNewPassword.oldPassword,
           newPassword: emailOldandNewPassword.newPassword,

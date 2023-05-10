@@ -54,7 +54,7 @@ export default function Register(props) {
     event.preventDefault();
     try {
       const response = await axios.post(
-        '${process.env.REACT_APP_BASE_URL}api/v1/users',
+        `${process.env.REACT_APP_BASE_URL}/users`,
         {
           email: emailTokenPassword.email,
           password: emailTokenPassword.password,

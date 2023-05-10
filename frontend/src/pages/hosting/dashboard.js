@@ -49,7 +49,7 @@ function DashboardHosting() {
       dateNow = dateNow.getTime();
       axios
         .get(
-          `${process.env.REACT_APP_BASE_URL}api/v1/coupons?idUser=${currentAuth.userLogin.sub}`,
+          `${process.env.REACT_APP_BASE_URL}/coupons?idUser=${currentAuth.userLogin.sub}`,
         )
         .then((res) => {
           let newListCoupon = [];
@@ -75,7 +75,7 @@ function DashboardHosting() {
   const handleChange = async (event, id) => {
     await axios({
       method: 'POST',
-      url: '${process.env.REACT_APP_BASE_URL}api/v1/homes/status',
+      url: `${process.env.REACT_APP_BASE_URL}/homes/status`,
       data: {
         idHome: id,
         status: event.target.checked,
@@ -102,7 +102,7 @@ function DashboardHosting() {
   useEffect(() => {
     const getDataHome = async () => {
       const dataList = await axios.get(
-        `${process.env.REACT_APP_BASE_URL}api/v1/homes?idUser=${currentAuth.userLogin.sub}`,
+        `${process.env.REACT_APP_BASE_URL}/homes?idUser=${currentAuth.userLogin.sub}`,
         {
           headers: { Authorization: JSON.parse(localStorage.getItem('token')) },
         },

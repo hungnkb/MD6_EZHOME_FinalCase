@@ -25,7 +25,7 @@ export default function Coupon() {
   useEffect(() => {
     axios
       .get(
-        `${process.env.REACT_APP_BASE_URL}api/v1/coupons?idUser=${currentAuth.userLogin.sub}`,
+        `${process.env.REACT_APP_BASE_URL}/coupons?idUser=${currentAuth.userLogin.sub}`,
       )
       .then((res) => {
         let newListCoupons = [];

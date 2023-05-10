@@ -64,7 +64,7 @@ export default function ModalCoupon({ setIsFetchCouponList }) {
     }),
     onSubmit: (values) => {
       axios
-        .post('${process.env.REACT_APP_BASE_URL}api/v1/coupons', {
+        .post(`${process.env.REACT_APP_BASE_URL}/coupons`, {
           couponname: values.couponame,
           startDate: values.startDate,
           endDate: values.endDate,

@@ -40,7 +40,7 @@ function App() {
       if (token) {
         let response = await axios({
           method: 'get',
-          url: `${process.evn.REACT_APP_BASE_URL}/api/v1/auth/profile`,
+          url: `${process.evn.REACT_APP_BASE_URL}/auth/profile`,
           headers: {
             Authorization: JSON.parse(token),
           },

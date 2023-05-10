@@ -31,7 +31,7 @@ const RevenueChart = () => {
       .get(
         `${
           process.env.REACT_APP_BASE_URL
-        }api/v1/homes/revenue?idUser=${localStorage.getItem('idUser')}`,
+        }/homes/revenue?idUser=${localStorage.getItem('idUser')}`,
       )
       .then((response) => {
         const labels = response.data.map((item) => `${item.homes_title}`);
@@ -54,7 +54,7 @@ const RevenueChart = () => {
       .get(
         `${
           process.env.REACT_APP_BASE_URL
-        }api/v1/orders/total-revenue-of-month?idUser=${localStorage.getItem(
+        }/orders/total-revenue-of-month?idUser=${localStorage.getItem(
           'idUser',
         )}`,
       )
@@ -65,7 +65,7 @@ const RevenueChart = () => {
       .get(
         `${
           process.env.REACT_APP_BASE_URL
-        }api/v1/orders/total-revenue-of-year?idUser=${localStorage.getItem(
+        }/orders/total-revenue-of-year?idUser=${localStorage.getItem(
           'idUser',
         )}`,
       )
@@ -84,7 +84,7 @@ const RevenueChart = () => {
       .get(
         `${
           process.env.REACT_APP_BASE_URL
-        }api/v1/homes/revenue?idUser=${localStorage.getItem('idUser')}&&month=${
+        }/homes/revenue?idUser=${localStorage.getItem('idUser')}&&month=${
           monthYearFillter.month
         }&&year=${monthYearFillter.year}`,
       )
@@ -113,7 +113,7 @@ const RevenueChart = () => {
       .get(
         `${
           process.env.REACT_APP_BASE_URL
-        }api/v1/orders/total-revenue-of-month?idUser=${localStorage.getItem(
+        }/orders/total-revenue-of-month?idUser=${localStorage.getItem(
           'idUser',
         )}&&month=${monthYearFillter.month}&&year=${monthYearFillter.year}`,
       )
@@ -124,7 +124,7 @@ const RevenueChart = () => {
       .get(
         `${
           process.env.REACT_APP_BASE_URL
-        }api/v1/orders/total-revenue-of-year?idUser=${localStorage.getItem(
+        }/orders/total-revenue-of-year?idUser=${localStorage.getItem(
           'idUser',
         )}&&year=${monthYearFillter.year}`,
       )

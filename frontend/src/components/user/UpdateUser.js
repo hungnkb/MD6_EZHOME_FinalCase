@@ -44,7 +44,7 @@ export default function UpdateUser() {
 
   useEffect(() => {
     axios
-      .get(`${process.env.REACT_APP_BASE_URL}api/v1/users?email=${email}`)
+      .get(`${process.env.REACT_APP_BASE_URL}/users?email=${email}`)
       .then((response) => {
         const { fullName, phone, address, image } = response.data;
         setDataUser({ fullName, phone, address, image });
@@ -61,7 +61,7 @@ export default function UpdateUser() {
   const handleSubmit = (event) => {
     event.preventDefault();
     axios
-      .put('${process.env.REACT_APP_BASE_URL}api/v1/users', {
+      .put(`${process.env.REACT_APP_BASE_URL}/users`, {
         email: email,
         fullName: dataUser.fullName,
         phone: dataUser.phone,
@@ -160,7 +160,7 @@ export default function UpdateUser() {
             }),
           );
           axios
-            .put('${process.env.REACT_APP_BASE_URL}api/v1/users', {
+            .put(`${process.env.REACT_APP_BASE_URL}/users`, {
               email: email,
               image: res.data.secure_url,
             })
@@ -175,7 +175,7 @@ export default function UpdateUser() {
                 });
                 axios
                   .get(
-                    `${process.env.REACT_APP_BASE_URL}api/v1/users?email=${email}`,
+                    `${process.env.REACT_APP_BASE_URL}/users?email=${email}`,
                   )
                   .then((response) => {
                     const { fullName, phone, address, image } = response.data;

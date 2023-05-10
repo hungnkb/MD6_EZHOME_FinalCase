@@ -175,7 +175,7 @@ export default function Navbar() {
     ) {
       axios({
         method: 'PUT',
-        url: '${process.env.REACT_APP_BASE_URL}api/v1/users/',
+        url: `${process.env.REACT_APP_BASE_URL}/users/`,
         data: {
           email: email,
           role: 'host',
@@ -192,7 +192,7 @@ export default function Navbar() {
     ) {
       axios({
         method: 'PUT',
-        url: '${process.env.REACT_APP_BASE_URL}api/v1/users/',
+        url: `${process.env.REACT_APP_BASE_URL}/users/`,
         data: {
           email: email,
           role: 'host',

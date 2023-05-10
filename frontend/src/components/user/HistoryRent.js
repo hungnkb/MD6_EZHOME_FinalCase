@@ -70,9 +70,9 @@ export default function HistoryRent() {
   useEffect(() => {
     axios
       .get(
-        `${
-          process.env.REACT_APP_BASE_URL
-        }api/v1/orders?idUser=${localStorage.getItem('idUser')}`,
+        `${process.env.REACT_APP_BASE_URL}/orders?idUser=${localStorage.getItem(
+          'idUser',
+        )}`,
       )
       .then((res) => {
         setCountTabs(res.data);
@@ -82,9 +82,9 @@ export default function HistoryRent() {
   useEffect(() => {
     axios
       .get(
-        `${
-          process.env.REACT_APP_BASE_URL
-        }api/v1/orders?idUser=${localStorage.getItem('idUser')}`,
+        `${process.env.REACT_APP_BASE_URL}/orders?idUser=${localStorage.getItem(
+          'idUser',
+        )}`,
       )
       .then((res) => {
         setHistoryRent(res.data);
@@ -97,7 +97,7 @@ export default function HistoryRent() {
         const dataList = await axios.get(
           `${
             process.env.REACT_APP_BASE_URL
-          }api/v1/orders?idUser=${localStorage.getItem('idUser')}`,
+          }/orders?idUser=${localStorage.getItem('idUser')}`,
         );
         setList(dataList.data);
       };
@@ -107,9 +107,7 @@ export default function HistoryRent() {
         const dataList = await axios.get(
           `${
             process.env.REACT_APP_BASE_URL
-          }api/v1/orders?idUser=${localStorage.getItem(
-            'idUser',
-          )}&&status=${status}`,
+          }/orders?idUser=${localStorage.getItem('idUser')}&&status=${status}`,
         );
         setList(dataList.data);
       };
@@ -134,41 +132,39 @@ export default function HistoryRent() {
       confirmButtonText: 'Yes!',
     }).then((result) => {
       if (result.isConfirmed) {
-        axios
-          .patch(`${process.env.REACT_APP_BASE_URL}api/v1/orders/${idOrder}`)
-          .then(
-            (response) => {
-              Swal.fire({
-                position: 'center',
-                icon: 'success',
-                title: 'Success Cancel',
-                showConfirmButton: false,
-                timer: 2000,
-              }).then((res) => {
-                socket.emit('send', {
-                  dataUrl: '/user/home',
-                  idReciever: idOwner.idUser,
-                  message: `Order ${idOrder} has been cancelled`,
-                });
+        axios.patch(`${process.env.REACT_APP_BASE_URL}/orders/${idOrder}`).then(
+          (response) => {
+            Swal.fire({
+              position: 'center',
+              icon: 'success',
+              title: 'Success Cancel',
+              showConfirmButton: false,
+              timer: 2000,
+            }).then((res) => {
+              socket.emit('send', {
+                dataUrl: '/user/home',
+                idReciever: idOwner.idUser,
+                message: `Order ${idOrder} has been cancelled`,
               });
-              axios
-                .get(
-                  `${
-                    process.env.REACT_APP_BASE_URL
-                  }api/v1/orders?idUser=${localStorage.getItem('idUser')}`,
-                )
-                .then((res) => {
-                  setList(res.data);
-                });
-            },
-            (error) => {
-              Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: 'Cannot Cancel!',
+            });
+            axios
+              .get(
+                `${
+                  process.env.REACT_APP_BASE_URL
+                }/orders?idUser=${localStorage.getItem('idUser')}`,
+              )
+              .then((res) => {
+                setList(res.data);
               });
-            },
-          );
+          },
+          (error) => {
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: 'Cannot Cancel!',
+            });
+          },
+        );
       }
     });
   };

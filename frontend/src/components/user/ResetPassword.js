@@ -75,7 +75,7 @@ export default function ResetPassword() {
     event.preventDefault();
     setFlag(true);
     axios
-      .post('${process.env.REACT_APP_BASE_URL}api/v1/users/password-reset', {
+      .post(`${process.env.REACT_APP_BASE_URL}/users/password-reset`, {
         email: emailTokenPassword.email,
         password: emailTokenPassword.password,
         token: emailTokenPassword.token,

@@ -46,7 +46,7 @@ export default function DetailHome() {
     const getData = async () => {
       axios
         .get(
-          `${process.env.REACT_APP_BASE_URL}api/v1/homes?idHome=${idHome.id}`,
+          `${process.env.REACT_APP_BASE_URL}/homes?idHome=${idHome.id}`,
         )
         .then((response) => {
           if (response.data[0].idCoupon) {

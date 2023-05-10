@@ -52,7 +52,7 @@ export default function ForgotPassword(props) {
   const handleSubmit = (event) => {
     event.preventDefault();
     axios
-      .post('${process.env.REACT_APP_BASE_URL}api/v1/users/forgot-password', {
+      .post(`${process.env.REACT_APP_BASE_URL}/users/forgot-password`, {
         email: userForgotPassword.email,
       })
       .then(

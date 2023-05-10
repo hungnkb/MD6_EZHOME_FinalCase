@@ -32,7 +32,7 @@ export default function DetailDashboard() {
     const getData = async () => {
       axios
         .get(
-          `${process.env.REACT_APP_BASE_URL}api/v1/homes?idHome=${idHome.id}`,
+          `${process.env.REACT_APP_BASE_URL}/homes?idHome=${idHome.id}`,
         )
         .then((res) => {
           setDashboard(res.data[0]);

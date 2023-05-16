@@ -1,4 +1,4 @@
-import { Rating, TextField } from '@mui/material';
+import { Avatar, Rating, Stack, TextField } from '@mui/material';
 import * as React from 'react';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
@@ -30,10 +30,9 @@ export default function Review(props) {
   });
   useEffect(() => {
     axios
-      .get(`http://localhost:3002/api/v1/reviews?idHome=${props.idHome}`)
+      .get(`${process.env.REACT_APP_BASE_URL}/reviews?idHome=${props.idHome}`)
       .then((res) => {
         setReview(res.data);
-        console.log(res);
       });
   }, [socket]);
   const handleChange = (event) => {
@@ -82,30 +81,22 @@ export default function Review(props) {
                       <MDBCardBody className="p-4">
                         <div className="d-flex flex-start">
                           {data.idUser.image ? (
-                            <MDBCardImage
-                              className="rounded-circle shadow-1-strong me-3"
-                              src={data.idUser.image}
-                              alt="avatar"
-                              width="60"
-                              height="60"
-                            />
+                            <Stack direction="row" spacing={2}>
+                              <Avatar alt="img" src={data.idUser.image} sx={{ width: 60, height: 60 }}/>
+                            </Stack>
                           ) : (
-                            <MDBCardImage
-                              className="rounded-circle shadow-1-strong me-3"
-                              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTvw1lmPDOJqryVsX3imw1Bj4lnajMh7j-oQQ&usqp=CAU"
-                              alt="avatar"
-                              width="60"
-                              height="60"
-                            />
+                            <Stack direction="row" spacing={2}>
+                              <Avatar alt="img" src="https://tieuhocdongphuongyen.edu.vn/wp-content/uploads/2023/02/1676245765_401_Hinh-anh-Avatar-Trang-Dep-Cho-FB-Zalo-BI-AN.jpg" sx={{ width: 60, height: 60 }}/>
+                            </Stack>
                           )}
 
-                          <div>
+                          <div style={{marginLeft:"1%"}}>
                             <MDBTypography tag="h6" className="fw-bold mb-1">
                               {data?.idUser.email}
                             </MDBTypography>
                             <div className="d-flex align-items-center mb-3">
                               <p className="small">
-                                {data?.createdAt.split('T')[0]}
+                                { data?.createdAt.split('T')[0]}
                                 <span>
                                   {' '}
                                   <Rating
@@ -120,6 +111,7 @@ export default function Review(props) {
                             <p className="mb-0">{data?.contents}</p>
                           </div>
                         </div>
+                        <hr/>
                       </MDBCardBody>
                     );
                   } else {

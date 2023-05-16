@@ -57,7 +57,7 @@ function AddPhone(props) {
       handleClose();
       axios({
         method: 'PUT',
-        url: 'http://localhost:3002/api/v1/users/',
+        url: `${process.env.REACT_APP_BASE_URL}/users/`,
         data: {
           email: email,
           phone: values.phone,
@@ -70,7 +70,7 @@ function AddPhone(props) {
         .then(() => {
           axios({
             method: 'GET',
-            url: `http://localhost:3002/api/v1/users/active-host/${currentAuth.userLogin.sub}`,
+            url: `${process.env.REACT_APP_BASE_URL}/users/active-host/${currentAuth.userLogin.sub}`,
           }).then(() => {
             dispatch(setRole({ role: 'host' }));
             dispatch(setIsFetDataUser());

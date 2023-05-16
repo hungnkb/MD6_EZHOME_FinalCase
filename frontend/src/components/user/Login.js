@@ -57,10 +57,13 @@ function Login() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      let response = await axios.post('http://localhost:3002/api/v1/auth', {
-        email: userLogins.email,
-        password: userLogins.password,
-      });
+      let response = await axios.post(
+        `${process.env.REACT_APP_BASE_URL}/auth`,
+        {
+          email: userLogins.email,
+          password: userLogins.password,
+        },
+      );
       localStorage.setItem('token', JSON.stringify(response.data.accessToken));
       dispatch(
         setUserLogin({

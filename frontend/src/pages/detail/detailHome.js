@@ -38,14 +38,33 @@ export default function DetailHome() {
   const [message, setMessage] = useState('');
   const [descriptionPart, setDescriptionPart] = useState('');
   const [openDescription, setOpenDescription] = useState(false);
+  const [valueCoupon, setVaueCoupon] = useState(null);
   const callbackFunction = (childData) => {
     setMessage(childData);
   };
   useEffect(() => {
     const getData = async () => {
       axios
-        .get(`http://localhost:3002/api/v1/homes?idHome=${idHome.id}`)
+        .get(
+          `${process.env.REACT_APP_BASE_URL}/homes?idHome=${idHome.id}`,
+        )
         .then((response) => {
+          if (response.data[0].idCoupon) {
+            const currentDate = new Date();
+            const startDate = new Date(
+              Date.parse(response.data[0].idCoupon.startDate),
+            );
+            const endDate = new Date(
+              Date.parse(response.data[0].idCoupon.endDate),
+            );
+            if (
+              currentDate >= startDate &&
+              currentDate <= endDate &&
+              response.data[0].idCoupon.isDeleted === false
+            ) {
+              setVaueCoupon(response.data[0].idCoupon.value);
+            }
+          }
           setImage(response.data[0].images);
           setDetail(response.data[0]);
           setPrice(response.data[0].price);
@@ -63,6 +82,8 @@ export default function DetailHome() {
         setDescriptionPart(
           detail.description.split(' ').slice(0, 100).join(' '),
         );
+      } else {
+        setDescriptionPart(detail.description);
       }
     }
   }, [detail]);
@@ -78,12 +99,12 @@ export default function DetailHome() {
             </div>
           </div>
           <br />
-          <div className="d-flex flex-wrap justify-content-center">
+          <div className="d-flex justify-content-center">
             <div>
               <ModalImg image={image} />
               {detail?.images?.length > 0 ? (
                 <img
-                  style={{ width: 620, height: 400 }}
+                  style={{ minWidth: 620, maxWidth: 620, minHeight: 400, maxHeight: 400 }}
                   src={detail?.images[0]?.urlHomeImage}
                 />
               ) : (
@@ -96,7 +117,7 @@ export default function DetailHome() {
             <div style={{ marginLeft: '1%' }}>
               {detail?.images?.length > 0 ? (
                 <img
-                  style={{ width: 620, height: 400 }}
+                  style={{ minWidth: 620, maxWidth: 620, minHeight: 400, maxHeight: 400}}
                   src={detail?.images[1]?.urlHomeImage}
                 />
               ) : (
@@ -171,14 +192,15 @@ export default function DetailHome() {
                         <p>
                           <b> Description :</b>
                           <div> {ReactHtmlParser(descriptionPart)}</div>
-                          {descriptionPart && (
+                          {descriptionPart &&
+                          detail.description.split(' ').length > 100 ? (
                             <div
                               style={{ cursor: 'pointer' }}
                               onClick={() => setOpenDescription(true)}
                             >
                               <b> See more . . . </b>
                             </div>
-                          )}
+                          ) : null}
                         </p>
                       </div>
                     </div>
@@ -231,6 +253,7 @@ export default function DetailHome() {
                 idHome={idHome.id}
                 address={detail.address}
                 idOwner={idOwner}
+                valueCoupon={valueCoupon}
               />
             </div>
           </div>

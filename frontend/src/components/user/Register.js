@@ -53,10 +53,13 @@ export default function Register(props) {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await axios.post('http://localhost:3002/api/v1/users', {
-        email: emailTokenPassword.email,
-        password: emailTokenPassword.password,
-      });
+      const response = await axios.post(
+        `${process.env.REACT_APP_BASE_URL}/users`,
+        {
+          email: emailTokenPassword.email,
+          password: emailTokenPassword.password,
+        },
+      );
       setOpen(false);
       setTimeout(() => {
         Swal.fire({

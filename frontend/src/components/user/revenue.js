@@ -4,8 +4,8 @@ import axios from 'axios';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { Button } from '@mui/material';
-import { Chart as ChartJS } from 'chart.js/auto'
-import { Chart }            from 'react-chartjs-2'
+import { Chart as ChartJS } from 'chart.js/auto';
+import { Chart } from 'react-chartjs-2';
 const RevenueChart = () => {
   const [monthYearFillter, setMonthYearFillter] = useState({
     month: '',
@@ -29,9 +29,9 @@ const RevenueChart = () => {
   useEffect(() => {
     axios
       .get(
-        `http://localhost:3002/api/v1/homes/revenue?idUser=${localStorage.getItem(
-          'idUser',
-        )}`,
+        `${
+          process.env.REACT_APP_BASE_URL
+        }/homes/revenue?idUser=${localStorage.getItem('idUser')}`,
       )
       .then((response) => {
         const labels = response.data.map((item) => `${item.homes_title}`);
@@ -52,7 +52,9 @@ const RevenueChart = () => {
       });
     axios
       .get(
-        `http://localhost:3002/api/v1/orders/total-revenue-of-month?idUser=${localStorage.getItem(
+        `${
+          process.env.REACT_APP_BASE_URL
+        }/orders/total-revenue-of-month?idUser=${localStorage.getItem(
           'idUser',
         )}`,
       )
@@ -61,7 +63,9 @@ const RevenueChart = () => {
       });
     axios
       .get(
-        `http://localhost:3002/api/v1/orders/total-revenue-of-year?idUser=${localStorage.getItem(
+        `${
+          process.env.REACT_APP_BASE_URL
+        }/orders/total-revenue-of-year?idUser=${localStorage.getItem(
           'idUser',
         )}`,
       )
@@ -78,9 +82,11 @@ const RevenueChart = () => {
   const handleSubmitFillter = () => {
     axios
       .get(
-        `http://localhost:3002/api/v1/homes/revenue?idUser=${localStorage.getItem(
-          'idUser',
-        )}&&month=${monthYearFillter.month}&&year=${monthYearFillter.year}`,
+        `${
+          process.env.REACT_APP_BASE_URL
+        }/homes/revenue?idUser=${localStorage.getItem('idUser')}&&month=${
+          monthYearFillter.month
+        }&&year=${monthYearFillter.year}`,
       )
       .then((response) => {
         const labels = response.data.map((item) => `${item.homes_title}`);
@@ -105,7 +111,9 @@ const RevenueChart = () => {
   const handleSubmitFillterTotal = () => {
     axios
       .get(
-        `http://localhost:3002/api/v1/orders/total-revenue-of-month?idUser=${localStorage.getItem(
+        `${
+          process.env.REACT_APP_BASE_URL
+        }/orders/total-revenue-of-month?idUser=${localStorage.getItem(
           'idUser',
         )}&&month=${monthYearFillter.month}&&year=${monthYearFillter.year}`,
       )
@@ -114,7 +122,9 @@ const RevenueChart = () => {
       });
     axios
       .get(
-        `http://localhost:3002/api/v1/orders/total-revenue-of-year?idUser=${localStorage.getItem(
+        `${
+          process.env.REACT_APP_BASE_URL
+        }/orders/total-revenue-of-year?idUser=${localStorage.getItem(
           'idUser',
         )}&&year=${monthYearFillter.year}`,
       )

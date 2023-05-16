@@ -40,7 +40,7 @@ function App() {
       if (token) {
         let response = await axios({
           method: 'get',
-          url: 'http://localhost:3002/api/v1/auth/profile',
+          url: `${process.env.REACT_APP_BASE_URL}/auth/profile`,
           headers: {
             Authorization: JSON.parse(token),
           },

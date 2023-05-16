@@ -43,15 +43,17 @@ export default function CardHome(props) {
       let page = 1;
       setPageHome(page);
       let option = { params: { page } };
-      axios.get(`${process.env.REACT_APP_BASE_URL}/homes`, option).then((res) => {
-        if (res.data.length == 12) {
-          sethasmore(true);
-        } else if (res.data.length < 12) {
-          sethasmore(false);
-        }
-        setHome(res.data);
-        setIsFetchData(false);
-      });
+      axios
+        .get(`${process.env.REACT_APP_BASE_URL}/homes`, option)
+        .then((res) => {
+          if (res.data.length == 12) {
+            sethasmore(true);
+          } else if (res.data.length < 12) {
+            sethasmore(false);
+          }
+          setHome(res.data);
+          setIsFetchData(false);
+        });
     }
   }, [isFetchData]);
 
@@ -65,7 +67,6 @@ export default function CardHome(props) {
       } else if (res.data.length < 12) {
         sethasmore(false);
       }
-      console.log('zooo');
       setHome([...home, ...res.data]);
       setIsFetchData(false);
     });
@@ -149,7 +150,14 @@ export default function CardHome(props) {
                                   </>
                                 ) : (
                                   <>
-                                    <b> {value.title.slice(0, 25)}...</b>
+                                    <b>
+                                      {' '}
+                                      {value.title
+                                        .split(' ')
+                                        .splice(0, 5)
+                                        .join(' ')}
+                                      ...
+                                    </b>
                                   </>
                                 )}
                               </Typography>
@@ -157,7 +165,12 @@ export default function CardHome(props) {
                                 variant="body2"
                                 color="text.secondary"
                               >
-                                {value.address.length > 25 ? (value.address.split(' ').splice(0, 25).join(' ') + '...'): (value.address)}
+                                {value.address.length > 25
+                                  ? value.address
+                                      .split(' ')
+                                      .splice(0, 5)
+                                      .join(' ') + '...'
+                                  : value.address}
                               </Typography>
                               <Typography
                                 gutterBottom
@@ -169,7 +182,12 @@ export default function CardHome(props) {
                                     {value.price.toLocaleString('en-EN')}đ/night
                                   </del>
                                 ) : (
-                                  <div style={{display: 'flex', direction: 'row'}}>
+                                  <div
+                                    style={{
+                                      display: 'flex',
+                                      direction: 'row',
+                                    }}
+                                  >
                                     <b>
                                       {value.price.toLocaleString('en-EN')}đ
                                     </b>
